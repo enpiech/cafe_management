@@ -1,4 +1,4 @@
-package com.example.cafemanagement
+package fit.tdc.edu.vn.cafemanagement
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
