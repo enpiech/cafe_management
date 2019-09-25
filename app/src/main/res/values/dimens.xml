@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_32dp">32dp</dimen>
+    <dimen name="line_height_16dp">16dp</dimen>
+    <dimen name="form_horizontal_guideline">108dp</dimen>
+    <dimen name="layout_height_0dp">0dp</dimen>
+</resources>

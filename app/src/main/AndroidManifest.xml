@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="fit.tdc.edu.vn.cafemanagement">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.cafemanagement">
 
     <application
         android:allowBackup="true"
@@ -8,14 +9,30 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".view.TableListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".view.CreateTable" />
+        <activity android:name=".view.TaoMenuActivity">
+
+        </activity>
+        <activity android:name=".view.DanhSachMenuActivity" />
+        <activity android:name=".view.StoreListActivity" />
+        <activity android:name=".view.DoanhThuCuaCuaHangActivity" />
+        <activity android:name=".view.DanhSachQuanLyQuanActivity" />
+        <activity android:name=".view.DanhSachMonDaDatActivity" />
+        <activity android:name=".view.ProductCategoryActivity" />
+        <activity android:name=".view.TaoDanhMucSanPhamActivity" />
+        <activity android:name=".view.ProductCategoryListActivity" />
+        <activity android:name=".view.TableActivity" />
+        <activity android:name=".view.XemThongTinBanActivity" />
+        <activity android:name=".view.LoginActivity" />
     </application>
 
 </manifest>

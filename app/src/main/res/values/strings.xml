@@ -1,3 +1,46 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">CafeManagement</string>
+    <string name="txtTenDangNhap">Tên đăng nhập</string>
+    <string name="txtMatKhau">Mật khẩu</string>
+    <string name="txtTableName">Tên bàn</string>
+    <string name="txtZone">Khu</string>
+    <string name="txtTableType">Loại bàn</string>
+    <string name="label_name">Tên</string>
+    <string name="txt_material_category_name">Tên danh mục sản phẩm</string>
+
+    <string name="txtNgayBatDau">Ngày bắt đầu</string>
+    <string name="txtNgayKetThuc">Ngày kết thúc</string>
+
+
+    <string name="btnDLOgin">Đăng nhập</string>
+    <string name="btnChinhSua">Chỉnh sửa</string>
+    <string name="btnTao">Tạo</string>
+    <string name="btnXoa">Xóa</string>
+    <string name="btnUpdate">Cập nhật</string>
+    <string name="btnDauCong">+</string>
+    <string name="btnNgay">Ngày</string>
+    <string name="btnTuan">Tuần</string>
+    <string name="btnThang">Tháng</string>
+
+
+    <string name="titleChinhSuaThonTinBan">Chỉnh sửa thông tin bàn</string>
+    <string name="titleChinhSuaDanhMucSP">Chỉnh sửa danh mục sản phẩm</string>
+    <string name="titleDanhSachDanhMucSP">Danh sách danh mục sản phẩm</string>
+    <string name="titleDanhMucSP">Danh mục sản phẩm</string>
+    <string name="titleXemThongTinBan">Xem thông tin bàn</string>
+    <string name="btn_create">Tạo</string>
+    <string name="btn_modify">Chỉnh sửa</string>
+    <string name="btn_update">Cập nhật</string>
+    <string name="img_store">Store Image</string>
+    <string name="btn_delete">Delete</string>
+    <string name="img_product_category">Product Category Image</string>
+    <string name="lbl_app_logo">App logo</string>
+    <string name="lbl_user_id">Mã đăng nhập</string>
+    <string name="lbl_user_password">Mật khẩu</string>
+    <string name="lbl_menu_name">Tên menu</string>
+    <string name="lbl_menu_description">Mô tả</string>
+    <string name="lbl_menu_item">Các món trong menu</string>
+    <string name="lbl_total_price">Tổng tiền: 15,000 đ</string>
+    <string name="lbl_menu_image">Menu Image</string>
+
 </resources>
