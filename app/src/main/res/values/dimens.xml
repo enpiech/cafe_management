@@ -4,4 +4,5 @@
     <dimen name="line_height_16dp">16dp</dimen>
     <dimen name="form_horizontal_guideline">108dp</dimen>
     <dimen name="layout_height_0dp">0dp</dimen>
+    <dimen name="image_size">64dp</dimen>
 </resources>

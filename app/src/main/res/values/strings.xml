@@ -42,5 +42,7 @@
     <string name="lbl_menu_item">Các món trong menu</string>
     <string name="lbl_total_price">Tổng tiền: 15,000 đ</string>
     <string name="lbl_menu_image">Menu Image</string>
+    <string name="lbl_item_image">Item name</string>
+    <string name="btn_complete">Hoàn thành</string>
 
 </resources>

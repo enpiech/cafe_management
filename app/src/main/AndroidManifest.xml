@@ -19,19 +19,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.CreateTable" />
-        <activity android:name=".view.TaoMenuActivity">
+        <activity android:name=".view.MenuActivity">
 
         </activity>
-        <activity android:name=".view.DanhSachMenuActivity" />
+        <activity android:name=".view.MenuListActivity" />
         <activity android:name=".view.StoreListActivity" />
-        <activity android:name=".view.DoanhThuCuaCuaHangActivity" />
-        <activity android:name=".view.DanhSachQuanLyQuanActivity" />
-        <activity android:name=".view.DanhSachMonDaDatActivity" />
+        <activity android:name=".view.OrderListActivity" />
         <activity android:name=".view.ProductCategoryActivity" />
-        <activity android:name=".view.TaoDanhMucSanPhamActivity" />
         <activity android:name=".view.ProductCategoryListActivity" />
         <activity android:name=".view.TableActivity" />
-        <activity android:name=".view.XemThongTinBanActivity" />
         <activity android:name=".view.LoginActivity" />
     </application>
 
