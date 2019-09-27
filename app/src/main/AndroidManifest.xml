@@ -11,24 +11,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.TableListActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".view.CreateTable" />
-        <activity android:name=".view.MenuActivity">
-
-        </activity>
-        <activity android:name=".view.MenuListActivity" />
-        <activity android:name=".view.StoreListActivity" />
-        <activity android:name=".view.OrderListActivity" />
-        <activity android:name=".view.ProductCategoryActivity" />
-        <activity android:name=".view.ProductCategoryListActivity" />
-        <activity android:name=".view.TableActivity" />
-        <activity android:name=".view.LoginActivity" />
     </application>
 
 </manifest>
