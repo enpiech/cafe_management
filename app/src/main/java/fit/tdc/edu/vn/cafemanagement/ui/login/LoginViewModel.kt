@@ -7,7 +7,7 @@ import android.util.Patterns
 import fit.tdc.edu.vn.cafemanagement.data.LoginRepository
 import fit.tdc.edu.vn.cafemanagement.data.Result
 
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

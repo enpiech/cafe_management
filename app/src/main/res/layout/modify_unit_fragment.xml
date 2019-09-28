@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.cafemanagement.ui.unit_modify.UnitModifyFragment">
+    tools:context=".ui.unit_modify.UnitModifyFragment">
 
     <TextView
         android:id="@+id/textView2"

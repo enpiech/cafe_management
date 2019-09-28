@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class PaymentCheckFragment : Fragment() {
 
@@ -21,7 +21,7 @@ class PaymentCheckFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.payment_confirm_fragment, container, false)
+        return inflater.inflate(R.layout.payment_check_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

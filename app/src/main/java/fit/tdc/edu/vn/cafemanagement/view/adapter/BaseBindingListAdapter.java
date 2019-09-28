@@ -78,7 +78,7 @@ public class BaseBindingListAdapter<T> extends ListAdapter<T, BaseBindingListAda
          * @param <T> type of item
          */
         <T> void bind(T item) {
-//            this.mBinding.setVariable(com.example.cafemanagement.BR.item, item);
+//            this.mBinding.setVariable(tdc.edu.vn.cafemanagement.BR.item, item);
 //            this.mBinding.getRoot().setOnClickListener(view -> mOnClickListener.onWeatherItemClick(getAdapterPosition()));
             this.mBinding.executePendingBindings();
         }

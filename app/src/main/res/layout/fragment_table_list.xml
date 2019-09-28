@@ -4,8 +4,7 @@
     android:id="@+id/tablelist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.ui.tablelist.TableListFragment">
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listTable"

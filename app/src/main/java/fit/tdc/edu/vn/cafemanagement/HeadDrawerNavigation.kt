@@ -13,7 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import android.view.Menu
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class HeadDrawerNavigation : AppCompatActivity() {
 
