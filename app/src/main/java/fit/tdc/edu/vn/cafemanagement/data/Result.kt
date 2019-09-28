@@ -1,4 +1,4 @@
-package com.example.cafemanagement.data
+package fit.tdc.edu.vn.cafemanagement.data
 
 /**
  * A generic class that holds a value with its loading status.

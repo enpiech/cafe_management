@@ -1,4 +1,4 @@
-package com.example.cafemanagement.data.model
+package fit.tdc.edu.vn.cafemanagement.data.model
 
 import androidx.annotation.NonNull
 

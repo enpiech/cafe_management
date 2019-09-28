@@ -1,4 +1,4 @@
-package com.example.cafemanagement.data.model
+package fit.tdc.edu.vn.cafemanagement.data.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository
