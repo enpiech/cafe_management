@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Cafe Management.iml" filepath="$PROJECT_DIR$/Cafe Management.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cafe_management-Cafe Management.iml" filepath="$PROJECT_DIR$/cafe_management-Cafe Management.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/cafe_management-app.iml" filepath="$PROJECT_DIR$/app/cafe_management-app.iml" />
     </modules>
   </component>
 </project>

@@ -21,7 +21,7 @@ class UnitListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.list_unit_fragment, container, false)
+        return inflater.inflate(R.layout.activity_list_unit, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
