@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.menu_modify
+package fit.tdc.edu.vn.cafemanagement.ui.menu_modify
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

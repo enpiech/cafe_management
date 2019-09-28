@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.category_create
+package fit.tdc.edu.vn.cafemanagement.ui.category_create
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

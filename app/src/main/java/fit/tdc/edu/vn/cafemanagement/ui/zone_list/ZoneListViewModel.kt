@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.zone_list
+package fit.tdc.edu.vn.cafemanagement.ui.zone_list
 
 import androidx.lifecycle.ViewModel
 

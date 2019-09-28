@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.home
+package fit.tdc.edu.vn.cafemanagement.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

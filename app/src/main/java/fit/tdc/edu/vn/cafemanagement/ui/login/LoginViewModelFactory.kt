@@ -1,9 +1,9 @@
-package com.example.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.ui.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.cafemanagement.data.LoginDataSource
-import com.example.cafemanagement.data.LoginRepository
+import fit.tdc.edu.vn.cafemanagement.data.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.

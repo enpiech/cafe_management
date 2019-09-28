@@ -1,13 +1,13 @@
-package com.example.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import com.example.cafemanagement.data.LoginRepository
-import com.example.cafemanagement.data.Result
+import fit.tdc.edu.vn.cafemanagement.data.LoginRepository
+import fit.tdc.edu.vn.cafemanagement.data.Result
 
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

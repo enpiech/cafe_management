@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.ui.login
 
 /**
  * Authentication result : success (user details) or error message.

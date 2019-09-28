@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.ui.login
 
 import android.app.Activity
 import androidx.lifecycle.Observer
@@ -15,7 +15,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class LoginActivity : AppCompatActivity() {
 

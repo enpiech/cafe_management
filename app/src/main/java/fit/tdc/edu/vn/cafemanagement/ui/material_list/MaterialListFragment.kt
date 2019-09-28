@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.material_list
+package fit.tdc.edu.vn.cafemanagement.ui.material_list
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

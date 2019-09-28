@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.category_list
+package fit.tdc.edu.vn.cafemanagement.ui.category_list
 
 import androidx.lifecycle.ViewModel
 

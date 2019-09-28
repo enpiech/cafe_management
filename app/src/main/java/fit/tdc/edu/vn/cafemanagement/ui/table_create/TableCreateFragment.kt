@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.table_create
+package fit.tdc.edu.vn.cafemanagement.ui.table_create
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

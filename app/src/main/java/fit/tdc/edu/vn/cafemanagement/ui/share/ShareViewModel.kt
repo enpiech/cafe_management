@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.share
+package fit.tdc.edu.vn.cafemanagement.ui.share
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

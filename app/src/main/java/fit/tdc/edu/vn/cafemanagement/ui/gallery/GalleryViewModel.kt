@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.gallery
+package fit.tdc.edu.vn.cafemanagement.ui.gallery
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

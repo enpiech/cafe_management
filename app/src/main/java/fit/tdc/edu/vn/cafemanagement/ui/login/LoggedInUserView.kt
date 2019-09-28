@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.ui.login
 
 /**
  * User details post authentication that is exposed to the UI

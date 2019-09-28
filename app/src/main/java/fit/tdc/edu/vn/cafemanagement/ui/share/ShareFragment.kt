@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.share
+package fit.tdc.edu.vn.cafemanagement.ui.share
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class ShareFragment : Fragment() {
 

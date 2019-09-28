@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.store_revenue
+package fit.tdc.edu.vn.cafemanagement.ui.store_revenue
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.cafemanagement
+package fit.tdc.edu.vn.cafemanagement
 
 import android.os.Bundle
 import com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.unit_create
+package fit.tdc.edu.vn.cafemanagement.ui.unit_create
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.R
 
 class UnitCreateFragment : Fragment() {
 

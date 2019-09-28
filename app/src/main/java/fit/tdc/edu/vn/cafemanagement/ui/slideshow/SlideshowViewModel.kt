@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.slideshow
+package fit.tdc.edu.vn.cafemanagement.ui.slideshow
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.example.cafemanagement.ui.send
+package fit.tdc.edu.vn.cafemanagement.ui.send
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
