@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import fit.tdc.edu.vn.cafemanagement.R
+import com.example.cafemanagement.R
 
 class EmployeeModifyFragment : Fragment() {
 

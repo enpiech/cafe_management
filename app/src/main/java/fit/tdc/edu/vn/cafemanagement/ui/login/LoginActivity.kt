@@ -15,7 +15,7 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 
-import fit.tdc.edu.vn.cafemanagement.R
+import com.example.cafemanagement.R
 
 class LoginActivity : AppCompatActivity() {
 
