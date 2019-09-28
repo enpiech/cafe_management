@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.cafemanagement">
+    package="fit.tdc.edu.vn.cafemanagement">
 
     <application
         android:allowBackup="true"
@@ -14,7 +14,8 @@
         <activity
             android:name=".BartenderDrawerNavigation"
             android:label="@string/title_activity_bartender_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".WaiterDrawerNavigation"
             android:label="@string/title_activity_waiter_drawer_navigation"
@@ -29,7 +30,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
