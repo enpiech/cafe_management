@@ -11,6 +11,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity
+            android:name=".BartenderDrawerNavigation"
+            android:label="@string/title_activity_bartender_drawer_navigation"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".WaiterDrawerNavigation"
+            android:label="@string/title_activity_waiter_drawer_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HeadDrawerNavigation"
+            android:label="@string/title_activity_head_drawer_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ManagerDrawerNavigation"
+            android:label="@string/title_activity_manager_drawer_navigation"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
     </application>
 
 </manifest>
