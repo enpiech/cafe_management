@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.data.model.login
 
 /**
  * Data validation state of the login form.

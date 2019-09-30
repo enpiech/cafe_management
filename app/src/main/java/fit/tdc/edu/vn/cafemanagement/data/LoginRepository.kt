@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data
 
-import fit.tdc.edu.vn.cafemanagement.data.model.LoggedInUser
+import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and

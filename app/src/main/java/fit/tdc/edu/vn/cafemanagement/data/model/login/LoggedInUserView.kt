@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.login
+package fit.tdc.edu.vn.cafemanagement.data.model.login
 
 /**
  * User details post authentication that is exposed to the UI
