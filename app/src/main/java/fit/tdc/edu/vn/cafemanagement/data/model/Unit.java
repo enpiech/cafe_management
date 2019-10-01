@@ -1,16 +1,16 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
-public class TableState {
+public class Unit {
     private String id;
     private String name;
 
-    TableState(String id, String name) {
+    Unit(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public static TableStateBuilder builder() {
-        return new TableStateBuilder();
+    public static UnitBuilder builder() {
+        return new UnitBuilder();
     }
 
     public String getId() {
@@ -31,8 +31,8 @@ public class TableState {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof TableState)) return false;
-        final TableState other = (TableState) o;
+        if (!(o instanceof Unit)) return false;
+        final Unit other = (Unit) o;
         if (!other.canEqual((Object) this)) return false;
         final Object this$id = this.getId();
         final Object other$id = other.getId();
@@ -44,7 +44,7 @@ public class TableState {
     }
 
     protected boolean canEqual(final Object other) {
-        return other instanceof TableState;
+        return other instanceof Unit;
     }
 
     public int hashCode() {
@@ -58,32 +58,32 @@ public class TableState {
     }
 
     public String toString() {
-        return "TableState(id=" + this.getId() + ", name=" + this.getName() + ")";
+        return "Unit(id=" + this.getId() + ", name=" + this.getName() + ")";
     }
 
-    public static class TableStateBuilder {
+    public static class UnitBuilder {
         private String id;
         private String name;
 
-        TableStateBuilder() {
+        UnitBuilder() {
         }
 
-        public TableStateBuilder id(String id) {
+        public UnitBuilder id(String id) {
             this.id = id;
             return this;
         }
 
-        public TableStateBuilder name(String name) {
+        public UnitBuilder name(String name) {
             this.name = name;
             return this;
         }
 
-        public TableState build() {
-            return new TableState(id, name);
+        public Unit build() {
+            return new Unit(id, name);
         }
 
         public String toString() {
-            return "TableState.TableStateBuilder(id=" + this.id + ", name=" + this.name + ")";
+            return "Unit.UnitBuilder(id=" + this.id + ", name=" + this.name + ")";
         }
     }
 }
