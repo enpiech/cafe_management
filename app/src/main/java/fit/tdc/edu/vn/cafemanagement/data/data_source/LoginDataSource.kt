@@ -1,5 +1,6 @@
-package fit.tdc.edu.vn.cafemanagement.data
+package fit.tdc.edu.vn.cafemanagement.data.data_source
 
+import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 import java.io.IOException
 import java.util.*
@@ -18,7 +19,12 @@ class LoginDataSource {
             )
             return Result.Success(fakeUser)
         } catch (e: Throwable) {
-            return Result.Error(IOException("Error logging in", e))
+            return Result.Error(
+                IOException(
+                    "Error logging in",
+                    e
+                )
+            )
         }
     }
 
