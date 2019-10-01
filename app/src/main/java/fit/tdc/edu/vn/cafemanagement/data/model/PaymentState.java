@@ -1,9 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-class PaymentState {
+@AllArgsConstructor
+public class PaymentState {
     private String id;
     private String name;
 }

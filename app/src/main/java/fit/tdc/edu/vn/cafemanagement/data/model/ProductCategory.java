@@ -1,6 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class ProductCategory {
-    private Category category;
-    private Material material;
+    private String categoryID;
+    private String materialID;
 }

@@ -1,10 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
-class Zone {
+public class Zone {
     private String id;
-    private ZoneType type;
-    private Store store;
+    private String zoneTypeID;
+    private String storeID;
 }
