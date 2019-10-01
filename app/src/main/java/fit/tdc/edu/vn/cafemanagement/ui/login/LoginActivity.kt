@@ -32,26 +32,6 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login2)
 
-        val dataSource = FireBaseDataSource(storeID = "EfzspceETNgWk56YDOOt", db = FirebaseFirestore.getInstance())
-        dataSource.getCategoryMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-        dataSource.getMaterialMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-        dataSource.getTableMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-        dataSource.getUnitMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-        dataSource.getTableMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-        dataSource.getTableMap().observe(this, Observer { data ->
-            data.forEach { Log.d("test", it.value.toString()) }
-        })
-
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)

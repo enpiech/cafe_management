@@ -8,7 +8,10 @@ interface FireBaseAPI {
     fun getCategoryMap(): LiveData<HashMap<String, Category>>
     fun getMaterialMap(): LiveData<HashMap<String, Material>>
     fun getTableMap(): LiveData<HashMap<String, Table>>
+    fun getRevenueMap(): LiveData<HashMap<String, Revenue>>
     fun getUnitMap(): LiveData<HashMap<String, Unit>>
     fun getZoneTypeMap(): LiveData<HashMap<String, ZoneType>>
     fun getZoneMap(): LiveData<HashMap<String, Zone>>
+    fun getEmployeeMap(): LiveData<HashMap<String, Employee>>
+    fun getStoreMap(): LiveData<HashMap<String, Store>>
 }
