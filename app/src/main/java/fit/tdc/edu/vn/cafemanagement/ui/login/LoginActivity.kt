@@ -8,15 +8,18 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.google.firebase.firestore.FirebaseFirestore
 
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
+import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 
 class LoginActivity : AppCompatActivity() {
 
@@ -26,6 +29,17 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login2)
+
+        val dataSource = FireBaseDataSource(storeID = "EfzspceETNgWk56YDOOt", db = FirebaseFirestore.getInstance())
+        dataSource.getTableList().observe(this, Observer { data ->
+            data.forEach { Log.d("test", it.toString()) }
+        })
+        dataSource.getZoneList().observe(this, Observer { data ->
+            data.forEach { Log.d("test", it.toString()) }
+        })
+        dataSource.getZoneTypeList().observe(this, Observer { data ->
+            data.forEach { Log.d("test", it.toString()) }
+        })
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
