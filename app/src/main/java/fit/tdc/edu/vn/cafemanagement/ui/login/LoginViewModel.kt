@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import fit.tdc.edu.vn.cafemanagement.data.LoginRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 import fit.tdc.edu.vn.cafemanagement.data.Result
 
 import fit.tdc.edu.vn.cafemanagement.R
