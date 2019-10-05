@@ -4,9 +4,9 @@ public class Category {
     private String id;
     private String name;
 
-    Category(String id, String name) {
-        this.id = id;
-        this.name = name;
+    private Category(CategoryBuilder builder) {
+        this.id = builder.id;
+        this.name = builder.name;
     }
 
     public static CategoryBuilder builder() {
@@ -65,9 +65,6 @@ public class Category {
         private String id;
         private String name;
 
-        CategoryBuilder() {
-        }
-
         public CategoryBuilder id(String id) {
             this.id = id;
             return this;
@@ -79,7 +76,7 @@ public class Category {
         }
 
         public Category build() {
-            return new Category(id, name);
+            return new Category(this);
         }
 
         public String toString() {
