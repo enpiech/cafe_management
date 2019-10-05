@@ -8,20 +8,15 @@ import fit.tdc.edu.vn.cafemanagement.data.model.Table
 class TableRepository(val dataSource: FireBaseDataSource) {
 
     fun getAllTables() : LiveData<ArrayList<Table>> {
-        return dataSource.getTableMap().map { map: HashMap<String, Table> ->
-            ArrayList<Table>(map.values)
-        }
+        return dataSource.getTableList("EfzspceETNgWk56YDOOt")
     }
 
     fun getTable(id: String) : LiveData<Table?> {
-        return dataSource.getTableMap().map { map: HashMap<String, Table> ->
-            map[id] = Table.builder().build()
-            map[id]
-        }
+        return dataSource.getTable("EfzspceETNgWk56YDOOt", id)
     }
 
     fun insert(table: Table) {
-        //TODO: get insert function
+        dataSource.createTable("EfzspceETNgWk56YDOOt", table)
     }
 
     fun update(table: Table) {
@@ -29,7 +24,7 @@ class TableRepository(val dataSource: FireBaseDataSource) {
     }
 
     fun delete(table: Table) {
-        //TODO: get delete function
+        dataSource.deleteTable("EfzspceETNgWk56YDOOt", table.id)
     }
 
     fun deleteAllTables() {

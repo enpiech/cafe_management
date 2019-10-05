@@ -5,18 +5,34 @@ import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.Unit
 
 interface FireBaseAPI {
-    fun getCategoryMap(): LiveData<HashMap<String, Category>>
-    fun getMaterialMap(): LiveData<HashMap<String, Material>>
-    fun getTableMap(): LiveData<HashMap<String, Table>>
-    fun getRevenueMap(): LiveData<HashMap<String, Revenue>>
-    fun getUnitMap(): LiveData<HashMap<String, Unit>>
-    fun getZoneTypeMap(): LiveData<HashMap<String, ZoneType>>
-    fun getZoneMap(): LiveData<HashMap<String, Zone>>
-    fun getEmployeeMap(): LiveData<HashMap<String, Employee>>
-    fun getStoreMap(): LiveData<HashMap<String, Store>>
+    fun getCategoryList(storeId: String): LiveData<ArrayList<Category>>
+    fun getMaterialList(storeId: String): LiveData<ArrayList<Material>>
+    fun getTableList(storeId: String): LiveData<ArrayList<Table>>
+    fun getRevenueList(storeId: String): LiveData<ArrayList<Revenue>>
+    fun getUnitList(storeId: String): LiveData<ArrayList<Unit>>
+    fun getZoneTypeList(storeId: String): LiveData<ArrayList<ZoneType>>
+    fun getZoneList(storeId: String): LiveData<ArrayList<Zone>>
+    fun getEmployeeList(): LiveData<ArrayList<Employee>>
+    fun getStoreList(): LiveData<ArrayList<Store>>
 
-    fun getUnit(id: String): LiveData<Unit>
-    fun getZone(id: String): LiveData<Zone>
-    fun getCategory(id: String): LiveData<Category>
+    fun getUnit(storeId: String, id: String): LiveData<Unit?>
+    fun getZone(storeId: String, id: String): LiveData<Zone?>
+    fun getCategory(storeId: String, id: String): LiveData<Category?>
+    fun getMaterial(storeId: String, id: String): LiveData<Material?>
+    fun getRevenue(storeId: String, id: String): LiveData<Revenue?>
+    fun getTable(storeId: String, id: String): LiveData<Table?>
 
+    fun createUnit(storeId: String, unit: Unit)
+    fun createZone(storeId: String, zone: Zone)
+    fun createCategory(storeId: String, category: Category)
+    fun createMaterial(storeId: String, material: Material)
+    fun createRevenue(storeId: String, revenue: Revenue)
+    fun createTable(storeId: String, table: Table)
+
+    fun deleteUnit(storeId: String, unitId: String)
+    fun deleteZone(storeId: String, zoneId: String)
+    fun deleteCategory(storeId: String, categoryId: String)
+    fun deleteMaterial(storeId: String, materialID: String)
+    fun deleteRevenue(storeId: String, revenueID: String)
+    fun deleteTable(storeId: String, tableID: String)
 }

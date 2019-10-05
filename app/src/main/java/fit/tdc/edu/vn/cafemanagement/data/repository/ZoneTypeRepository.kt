@@ -7,18 +7,18 @@ import fit.tdc.edu.vn.cafemanagement.data.model.ZoneType
 
 class ZoneTypeRepository ( val dataSource: FireBaseDataSource) {
 
-    fun getAllZoneTypes() : LiveData<ArrayList<ZoneType>> {
-        return dataSource.getZoneTypeMap().map { map: HashMap<String, ZoneType> ->
-            ArrayList<ZoneType>(map.values)
-        }
-    }
-
-    fun getUnitById(id: String) : LiveData<ZoneType?> {
-        return dataSource.getZoneTypeMap().map { map: HashMap<String, ZoneType> ->
-            map[id] = ZoneType.builder().build()
-            map[id]
-        }
-    }
+//    fun getAllZoneTypes() : LiveData<ArrayList<ZoneType>> {
+////        return dataSource.getZoneTypeMap().map { map: HashMap<String, ZoneType> ->
+////            ArrayList<ZoneType>(map.values)
+////        }
+//    }
+//
+//    fun getUnitById(id: String) : LiveData<ZoneType?> {
+////        return dataSource.getZoneTypeMap().map { map: HashMap<String, ZoneType> ->
+////            map[id] = ZoneType.builder().build()
+////            map[id]
+////        }
+//    }
 
 
     fun insert(zoneType: ZoneType) {

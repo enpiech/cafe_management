@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel;
+package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider
@@ -16,10 +16,7 @@ public class UnitViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(UnitViewModel::class.java)) {
             return UnitViewModel(
                 unitRepository = UnitRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

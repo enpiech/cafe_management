@@ -8,21 +8,16 @@ import fit.tdc.edu.vn.cafemanagement.data.model.Zone
 class ZoneRepository ( val dataSource: FireBaseDataSource) {
 
     fun getAllZones() : LiveData<ArrayList<Zone>> {
-        return dataSource.getZoneMap().map { map: HashMap<String, Zone> ->
-            ArrayList<Zone>(map.values)
-        }
+        return dataSource.getZoneList("EfzspceETNgWk56YDOOt")
     }
 
     fun getUnitById(id: String) : LiveData<Zone?> {
-        return dataSource.getZoneMap().map { map: HashMap<String, Zone> ->
-            map[id] = Zone.builder().build()
-            map[id]
-        }
+        return dataSource.getZone("EfzspceETNgWk56YDOOt", id)
     }
 
 
     fun insert(zone: Zone) {
-        //TODO: get insert function
+        dataSource.createZone("EfzspceETNgWk56YDOOt", zone)
     }
 
     fun update(zone: Zone) {
@@ -30,7 +25,7 @@ class ZoneRepository ( val dataSource: FireBaseDataSource) {
     }
 
     fun delete(zone: Zone) {
-        //TODO: get delete function
+        dataSource.deleteZone("EfzspceETNgWk56YDOOt", zone.id)
     }
 
     fun deleteAllUnits() {

@@ -10,6 +10,10 @@ class RevenueViewModel (private val revenueRepository: RevenueRepository) {
 
     private var allRevenues: LiveData<ArrayList<Revenue>> = revenueRepository.getAllRevenues()
 
+    fun getRevenue(id: String) : LiveData<Revenue?> {
+        return revenueRepository.getRevenue(id)
+    }
+
     fun insert(revenue: Revenue) {
         revenueRepository.insert(revenue)
     }

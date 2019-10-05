@@ -8,20 +8,15 @@ import fit.tdc.edu.vn.cafemanagement.data.model.Material
 class MaterialRepository ( val dataSource: FireBaseDataSource) {
 
     fun getAllMarerials() : LiveData<ArrayList<Material>> {
-        return dataSource.getMaterialMap().map { map: HashMap<String, Material> ->
-            ArrayList<Material>(map.values)
-        }
+        return dataSource.getMaterialList("EfzspceETNgWk56YDOOt")
     }
 
     fun getMaterial(id: String) : LiveData<Material?> {
-        return dataSource.getMaterialMap().map { map: HashMap<String, Material> ->
-            map[id] = Material.builder().build()
-            map[id]
-        }
+        return dataSource.getMaterial("EfzspceETNgWk56YDOOt",id)
     }
 
     fun insert(material: Material) {
-        //TODO: get insert function
+        dataSource.createMaterial("EfzspceETNgWk56YDOOt", material)
     }
 
     fun update(material: Material) {
@@ -29,7 +24,7 @@ class MaterialRepository ( val dataSource: FireBaseDataSource) {
     }
 
     fun delete(material: Material) {
-        //TODO: get delete function
+        dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)
     }
 
     fun deleteAllMaterialss() {

@@ -8,20 +8,15 @@ import fit.tdc.edu.vn.cafemanagement.data.model.Revenue
 class RevenueRepository ( val dataSource: FireBaseDataSource){
 
     fun getAllRevenues() : LiveData<ArrayList<Revenue>> {
-        return dataSource.getRevenueMap().map { map: HashMap<String, Revenue> ->
-            ArrayList<Revenue>(map.values)
-        }
+        return dataSource.getRevenueList("EfzspceETNgWk56YDOOt")
     }
 
     fun getRevenue(id: String) : LiveData<Revenue?> {
-        return dataSource.getRevenueMap().map { map: HashMap<String, Revenue> ->
-            map[id] = Revenue.builder().build()
-            map[id]
-        }
+        return dataSource.getRevenue("EfzspceETNgWk56YDOOt", id)
     }
 
     fun insert(revenue: Revenue) {
-        //TODO: get insert function
+        dataSource.createRevenue("EfzspceETNgWk56YDOOt", revenue)
     }
 
     fun update(revenue: Revenue) {
@@ -29,7 +24,7 @@ class RevenueRepository ( val dataSource: FireBaseDataSource){
     }
 
     fun delete(revenue: Revenue) {
-        //TODO: get delete function
+        dataSource.deleteRevenue("EfzspceETNgWk56YDOOt", revenue.id)
     }
 
     fun deleteAllRevenues() {

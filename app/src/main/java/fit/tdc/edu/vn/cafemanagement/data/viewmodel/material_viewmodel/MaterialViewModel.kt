@@ -9,6 +9,10 @@ class MaterialViewModel (private val materialRepository: MaterialRepository) {
 
     private var allMaterials: LiveData<ArrayList<Material>> = materialRepository.getAllMarerials()
 
+    fun getMaterial(id: String) : LiveData<Material?>{
+        return materialRepository.getMaterial(id)
+    }
+
     fun insert(material: Material) {
         materialRepository.insert(material)
     }

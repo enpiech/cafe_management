@@ -1,6 +1,9 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
+import com.google.firebase.firestore.Exclude;
+
 public class Category {
+    @Exclude
     private String id;
     private String name;
 
