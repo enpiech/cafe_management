@@ -17,8 +17,13 @@ class CategoryRepository(val dataSource: FireBaseDataSource) {
 
     fun getCategory(id: String) : LiveData<Category?> {
         return dataSource.getCategoryMap().map { map: HashMap<String, Category> ->
-            map[id] = Category.builder().build()
             map[id]
+        }
+    }
+
+    fun getCategoryList() : LiveData<ArrayList<Category?>?> {
+        return dataSource.getCategoryMap().map { map: HashMap<String, Category> ->
+            ArrayList(map.values)
         }
     }
 }

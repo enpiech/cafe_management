@@ -3,6 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.repository
 import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.data_source.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
+import java.lang.Exception
 
 /**
  * Class that requests authentication and user information from the remote data source and
@@ -31,6 +32,10 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun login(username: String, password: String, callback: (Result<LoggedInUser>) -> (Unit)) {
         // handle login
+        if (user != null) {
+            callback(Result.Error(Exception("Already login")))
+            return
+        }
         dataSource.login(username, password, callback = {
             if (it is Result.Success) {
                 setLoggedInUser(it.data)
