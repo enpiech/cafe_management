@@ -22,6 +22,8 @@ import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.Table
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login2)
+
+//        val src = FireBaseDataSource("EfzspceETNgWk56YDOOt", FirebaseFirestore.getInstance())
+//        src.getUnit("f1zdpA0s3kPIsrXyG6uj").observe(this, Observer { unit -> Log.d("fbds", unit.toString()) })
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
@@ -67,7 +72,8 @@ class LoginActivity : AppCompatActivity() {
             setResult(Activity.RESULT_OK)
 
             //Complete and destroy login activity once successful
-            finish()
+            //TODO Navigate
+//            finish()
         })
 
         username.afterTextChanged {
