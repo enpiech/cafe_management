@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -28,9 +29,10 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login2)
 
-//        val src = FireBaseDataSource()
-//        val zone = Zone.builder().name("Vỉa hè").build()
-//        src.createZone("EfzspceETNgWk56YDOOt", zone)
+        val src = FireBaseDataSource()
+        src.getCategory("asdfas","asdfa").observe(this, Observer {
+            Log.d("test", "$it")
+        })
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
@@ -43,7 +45,7 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
+            // disable managerLogin button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
@@ -66,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
             }
             setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
+            //Complete and destroy managerLogin activity once successful
             //TODO Navigate
 //            finish()
         })

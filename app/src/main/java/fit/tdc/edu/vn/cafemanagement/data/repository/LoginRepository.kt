@@ -36,7 +36,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
             callback(Result.Error(Exception("Already login")))
             return
         }
-        dataSource.login(username, password, callback = {
+        dataSource.managerLogin(username, password, callback = {
             if (it is Result.Success) {
                 setLoggedInUser(it.data)
             }

@@ -37,7 +37,7 @@ class FireBaseDataSource: FireBaseAPI {
         private const val INCOME_KEY        = "income"
         private const val OUTCOME_KEY       = "outcome"
         private const val DATE_KEY          = "date"
-        private const val BIRTH_KEY    = "birth"
+        private const val BIRTH_KEY         = "birth"
         private const val GENDER_ID_KEY     = "genderId"
         private const val IDENTITY_ID_KEY   = "identityId"
         private const val PHONE_NUMBER_KEY  = "phoneNumber"
@@ -94,7 +94,7 @@ class FireBaseDataSource: FireBaseAPI {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id)
             .get()
             .addOnSuccessListener { categoryDoc ->
-                if (categoryDoc != null) {
+                if (categoryDoc.exists()) {
                     category.value = Category.builder()
                         .id(categoryDoc.id)
                         .name(categoryDoc[NAME_KEY] as String)
