@@ -57,10 +57,6 @@ public class Unit {
         return result;
     }
 
-    public String toString() {
-        return "Unit(id=" + this.getId() + ", name=" + this.getName() + ")";
-    }
-
     public static class UnitBuilder {
         private String id;
         private String name;
@@ -83,7 +79,7 @@ public class Unit {
         }
 
         public String toString() {
-            return "Unit.UnitBuilder(id=" + this.id + ", name=" + this.name + ")";
+            return this.name;
         }
     }
 }
