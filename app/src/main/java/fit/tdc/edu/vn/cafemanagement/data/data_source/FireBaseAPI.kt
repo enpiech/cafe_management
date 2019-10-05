@@ -1,27 +1,30 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source
 
-import androidx.lifecycle.LiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.*
-import fit.tdc.edu.vn.cafemanagement.data.model.Unit
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
 interface FireBaseAPI {
-    fun getCategoryList(storeId: String): CollectionLiveData<Category>
-    fun getMaterialList(storeId: String): LiveData<ArrayList<Material>>
-    fun getTableList(storeId: String): LiveData<ArrayList<Table>>
-    fun getRevenueList(storeId: String): LiveData<ArrayList<Revenue>>
-    fun getUnitList(storeId: String): LiveData<ArrayList<Unit>>
-    fun getZoneTypeList(storeId: String): LiveData<ArrayList<ZoneType>>
-    fun getZoneList(storeId: String): LiveData<ArrayList<Zone>>
-    fun getEmployeeList(): LiveData<ArrayList<Employee>>
-    fun getStoreList(): LiveData<ArrayList<Store>>
+    // GET COLLECTION
+    fun getCategoryList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Category>
+    fun getMaterialList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Material>
+    fun getTableList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Table>
+    fun getRevenueList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Revenue>
+    fun getUnitList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Unit>
+    fun getZoneTypeList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<ZoneType>
+    fun getZoneList(storeId: String, documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Zone>
+    fun getEmployeeList(documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Employee>
+    fun getStoreList(documentType: DocumentType = DocumentType.ALL): CollectionLiveData<Store>
 
-    fun getUnit(storeId: String, id: String): LiveData<Unit?>
-    fun getZone(storeId: String, id: String): LiveData<Zone?>
-    fun getCategory(storeId: String, id: String): LiveData<Category?>
-    fun getMaterial(storeId: String, id: String): LiveData<Material?>
-    fun getRevenue(storeId: String, id: String): LiveData<Revenue?>
-    fun getTable(storeId: String, id: String): LiveData<Table?>
+    // GET SPECIFIC DOCUMENT
+    fun getUnit(storeId: String, id: String): DocumentLiveData<Unit>
+    fun getZone(storeId: String, id: String): DocumentLiveData<Zone>
+    fun getCategory(storeId: String, id: String): DocumentLiveData<Category>
+    fun getMaterial(storeId: String, id: String): DocumentLiveData<Material>
+    fun getRevenue(storeId: String, id: String): DocumentLiveData<Revenue>
+    fun getTable(storeId: String, id: String): DocumentLiveData<Table>
 
     fun createUnit(storeId: String, unit: Unit)
     fun createZone(storeId: String, zone: Zone)

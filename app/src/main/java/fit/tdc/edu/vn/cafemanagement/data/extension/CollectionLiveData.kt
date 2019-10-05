@@ -3,7 +3,10 @@ package fit.tdc.edu.vn.cafemanagement.data.extension
 import androidx.lifecycle.LiveData
 import android.util.Log
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.QuerySnapshot
+import java.lang.Exception
 
 /**
  * An observable [LiveData] representing the current state of the data at a [CollectionReference].
@@ -18,7 +21,8 @@ import com.google.firebase.firestore.DocumentReference
  */
 class CollectionLiveData<T : FirestoreModel>(
     private val modelClass: Class<T>,
-    private val collectionReference: CollectionReference
+    private val collectionReference: CollectionReference,
+    private val documentType: DocumentType
 ) : LiveData<FirestoreResource<List<T>>>() {
 
     /**
@@ -29,22 +33,72 @@ class CollectionLiveData<T : FirestoreModel>(
     override fun onActive() {
         super.onActive()
         postValue(FirestoreResource.loading())
-        collectionReference
-            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                if (firebaseFirestoreException != null) {
-                    postValue(FirestoreResource.error(firebaseFirestoreException))
-                    Log.w("CollectionLiveData", firebaseFirestoreException.localizedMessage)
-                    firebaseFirestoreException.printStackTrace()
-                } else {
-                    val documents = querySnapshot?.documents.orEmpty()
-                    val models = documents.mapNotNull { doc ->
-                        doc.toObject(modelClass)?.apply {
-                            id = doc.id
+
+        if (documentType == DocumentType.SINGLE) {
+            collectionReference
+                .get()
+                .addOnSuccessListener {querySnapshot ->
+                    listenAllDocument(querySnapshot)
+                }
+                .addOnFailureListener { exception ->
+                    handleException(exception)
+                }
+        } else {
+            collectionReference
+                .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    if (firebaseFirestoreException != null) {
+                        handleException(firebaseFirestoreException)
+                    } else {
+                        when (documentType) {
+                            DocumentType.ALL -> listenAllDocument(querySnapshot)
+                            else -> listenChangedDocument(querySnapshot)
                         }
+
                     }
-                    postValue(FirestoreResource.success(models))
                 }
         }
+    }
+
+    private fun listenAllDocument(querySnapshot: QuerySnapshot?) {
+        val documents = querySnapshot?.documents.orEmpty()
+        val models = documents.mapNotNull { doc ->
+            doc.toObject(modelClass)?.apply {
+                id = doc.id
+            }
+        }
+        postValue(FirestoreResource.success(models))
+    }
+
+    private fun listenChangedDocument(querySnapshot: QuerySnapshot?) {
+        val documents = querySnapshot?.documentChanges.orEmpty()
+        val models = when (documentType) {
+            DocumentType.MODIFIED -> documents
+                .filter { documentChange ->
+                    documentChange.type == DocumentChange.Type.MODIFIED
+                }
+            DocumentType.ADDED -> documents
+                .filter { documentChange ->
+                    documentChange.type == DocumentChange.Type.ADDED
+                }
+            DocumentType.REMOVED -> documents
+                .filter { documentChange ->
+                    documentChange.type == DocumentChange.Type.REMOVED
+                }
+            else -> documents
+        }.mapNotNull {documentsChanged ->
+            val doc = documentsChanged.document
+            doc.toObject(modelClass).apply {
+                id = doc.id
+            }
+
+        }
+        postValue(FirestoreResource.success(models))
+    }
+
+    private fun handleException(exception: Exception) {
+        postValue(FirestoreResource.error(exception))
+        Log.w("CollectionLiveData", exception.localizedMessage)
+        exception.printStackTrace()
     }
 
     /**

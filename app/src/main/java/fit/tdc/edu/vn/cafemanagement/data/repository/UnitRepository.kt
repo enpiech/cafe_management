@@ -1,23 +1,18 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
-import android.app.Application
-import android.os.AsyncTask
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.map
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.model.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.Unit
-import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitDAO
-import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitDatabase
+import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
 
-class UnitRepository ( val dataSource: FireBaseDataSource) {
+class UnitRepository ( val dataSource: FireBaseAPI) {
 
-    fun getAllUnits() : LiveData<ArrayList<Unit>> {
+    fun getAllUnits() : CollectionLiveData<Unit> {
         return dataSource.getUnitList("EfzspceETNgWk56YDOOt")
     }
 
-    fun getUnitById(id: String) : LiveData<Unit?> {
+    fun getUnitById(id: String) : DocumentLiveData<Unit> {
         return dataSource.getUnit("EfzspceETNgWk56YDOOt", id)
     }
 
@@ -31,7 +26,7 @@ class UnitRepository ( val dataSource: FireBaseDataSource) {
     }
 
     fun delete(unit: Unit) {
-        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
+        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id!!)
     }
 
     fun deleteAllUnits() {

@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 
 class LoginActivity : AppCompatActivity() {
@@ -32,6 +33,9 @@ class LoginActivity : AppCompatActivity() {
         val src = FireBaseDataSource()
 
         src.getCategoryList(storeId).observe(this, Observer {
+            it.data?.forEach { category -> Log.d("test", category.toString()) }
+        })
+        src.getCategoryList(storeId, DocumentType.CHANGED).observe(this, Observer {
             it.data?.forEach { category -> Log.d("test1", category.toString()) }
         })
 

@@ -2,8 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepository
 
 class UnitViewModel (application: Application) : AndroidViewModel(application) {
 //    private var repository: UnitRepository = UnitRepository(application)

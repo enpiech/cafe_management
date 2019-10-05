@@ -15,7 +15,11 @@ import com.google.firebase.firestore.DocumentReference
  * @see [FirestoreResource]
  * @see [FirestoreModel]
  */
-class DocumentLiveData<T: FirestoreModel>(private val modelClass: Class<T>, private val reference: DocumentReference): LiveData<FirestoreResource<T>>() {
+class DocumentLiveData<T: FirestoreModel>(
+    private val modelClass: Class<T>,
+    private val reference: DocumentReference,
+    private val documentType: DocumentType
+): LiveData<FirestoreResource<T>>() {
 
     /**
      * When the instance becomes active, initially post a [Status.LOADING] value.

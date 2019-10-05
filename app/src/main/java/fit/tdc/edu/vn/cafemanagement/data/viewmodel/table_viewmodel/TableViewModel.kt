@@ -1,13 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
-import androidx.lifecycle.LiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.Table
-import fit.tdc.edu.vn.cafemanagement.data.model.Zone
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepository
 
 class TableViewModel (private val tableRepository: TableRepository) {
 
-    private var allTables: LiveData<ArrayList<Table>> = tableRepository.getAllTables()
+    private var allTables = tableRepository.getAllTables()
 
     fun insert(table: Table) {
         tableRepository.insert(table)
@@ -25,8 +23,6 @@ class TableViewModel (private val tableRepository: TableRepository) {
         tableRepository.deleteAllTables()
     }
 
-    fun getAlltables(): LiveData<ArrayList<Table>> {
-        return allTables
-    }
+    fun getAlltables() = allTables
 
 }

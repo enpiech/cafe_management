@@ -1,14 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepository
 
 class UnitViewModel (private val unitRepository: UnitRepository) {
 
-    private var allUnits: LiveData<ArrayList<Unit>> = unitRepository.getAllUnits()
+    private var allUnits = unitRepository.getAllUnits()
 
     fun insert(unit: Unit) {
         unitRepository.insert(unit)
@@ -26,8 +23,6 @@ class UnitViewModel (private val unitRepository: UnitRepository) {
         unitRepository.deleteAllUnits()
     }
 
-    fun getAllUnits(): LiveData<ArrayList<Unit>> {
-        return allUnits
-    }
+    fun getAllUnits() = allUnits
 
 }

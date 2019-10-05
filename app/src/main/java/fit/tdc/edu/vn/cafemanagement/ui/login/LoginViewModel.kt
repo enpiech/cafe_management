@@ -1,17 +1,15 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import android.util.Patterns
-import com.google.firebase.auth.FirebaseAuth
-import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
-import fit.tdc.edu.vn.cafemanagement.data.Result
-
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginResult
+import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
 

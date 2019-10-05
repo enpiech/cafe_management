@@ -1,16 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.auth.User
 import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 import java.io.IOException
-import java.lang.Exception
 import javax.inject.Singleton
 
 /**

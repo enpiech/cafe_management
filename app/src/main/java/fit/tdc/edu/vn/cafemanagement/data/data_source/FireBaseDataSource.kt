@@ -1,20 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QueryDocumentSnapshot
-import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.asLiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.*
-import fit.tdc.edu.vn.cafemanagement.data.model.Unit
-import java.util.*
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import javax.inject.Singleton
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 @Singleton
 class FireBaseDataSource: FireBaseAPI {
@@ -31,38 +24,7 @@ class FireBaseDataSource: FireBaseAPI {
         private const val ZONE_TYPES_KEY    = "zoneTypes"
         private const val ZONES_KEY         = "zones"
         private const val EMPLOYEES_KEY     = "employees"
-
-        private const val NAME_KEY          = "name"
-        private const val PRICE_KEY         = "price"
-        private const val SELLABLE_KEY      = "sellable"
-        private const val STATE_ID_KEY      = "stateId"
-        private const val ZONE_ID_KEY       = "zoneId"
-        private const val UNIT_ID_KEY       = "unitId"
-        private const val TYPE_ID_KEY       = "typeId"
-        private const val INCOME_KEY        = "income"
-        private const val OUTCOME_KEY       = "outcome"
-        private const val DATE_KEY          = "date"
-        private const val BIRTH_KEY         = "birth"
-        private const val GENDER_ID_KEY     = "genderId"
-        private const val IDENTITY_ID_KEY   = "identityId"
-        private const val PHONE_NUMBER_KEY  = "phoneNumber"
-        private const val ADDRESS_KEY       = "address"
-        private const val ROLE_ID_KEY       = "roleId"
-        private const val STORE_ID_KEY      = "storeId"
-        private const val USERNAME_KEY      = "username"
-        private const val MANAGER_ID_KEY    = "managerId"
-
-        private const val TAG = "FireBase"
     }
-    private var categoryList     = MutableLiveData<ArrayList<Category>>(null)
-    private var materialList     = MutableLiveData<ArrayList<Material>>(null)
-    private var tableList        = MutableLiveData<ArrayList<Table>>(null)
-    private var revenueList      = MutableLiveData<ArrayList<Revenue>>(null)
-    private var unitList         = MutableLiveData<ArrayList<Unit>>(null)
-    private var zoneTypeList     = MutableLiveData<ArrayList<ZoneType>>(null)
-    private var zoneList         = MutableLiveData<ArrayList<Zone>>(null)
-    private var employeeList     = MutableLiveData<ArrayList<Employee>>(null)
-    private var storeList        = MutableLiveData<ArrayList<Store>>(null)
 
     // CATEGORY
 
@@ -85,58 +47,14 @@ class FireBaseDataSource: FireBaseAPI {
 //            }
 //    }
 
-    override fun getCategoryList(storeId: String): CollectionLiveData<Category> =
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).asLiveData()
+    override fun getCategoryList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Category> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).asLiveData(documentType)
 
-    private fun loadCategoryList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
-            .get()
-            .addOnSuccessListener { categoryCollection ->
-                if (categoryCollection.isEmpty) {
-                    return@addOnSuccessListener
-                }
-
-                val list = ArrayList<Category>()
-                for (categoryDoc in categoryCollection.documentChanges) {
-                    val doc = categoryDoc.document
-                    when (categoryDoc.type) {
-                        DocumentChange.Type.ADDED -> {
-
-                        }
-                        DocumentChange.Type.MODIFIED -> {
-
-                        }
-                        else -> {
-
-                        }
-                    }
-                    val category = Category.builder()
-                        .id(doc.id)
-                        .name(doc[NAME_KEY] as String)
-                        .build()
-                    list += category
-                }
-                categoryList.value = list
-            }
-            .addOnFailureListener {
-                TODO("handle $it")
-            }
-    }
-
-    override fun getCategory(storeId: String, id: String): LiveData<Category?> {
-        val category = MutableLiveData<Category>()
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id)
-            .get()
-            .addOnSuccessListener { categoryDoc ->
-                if (categoryDoc.exists()) {
-                    category.value = Category.builder()
-                        .id(categoryDoc.id)
-                        .name(categoryDoc[NAME_KEY] as String)
-                        .build()
-                }
-            }
-        return category
-    }
+    override fun getCategory(storeId: String, id: String): DocumentLiveData<Category> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id).asLiveData()
 
     override fun createCategory(storeId: String, category: Category) {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
@@ -149,50 +67,14 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // MATERIAL
-    override fun getMaterialList(storeId: String): LiveData<ArrayList<Material>> {
-        loadMaterialList(storeId)
-        return materialList
-    }
+    override fun getMaterialList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Material> =
+        db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY).asLiveData(documentType)
 
-    private fun loadMaterialList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY)
-            .addSnapshotListener { materialCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (materialCollection != null) {
-                    val list = ArrayList<Material>()
-                    for (materialDoc in materialCollection) {
-                        val material = Material.builder()
-                            .id(materialDoc.id)
-                            .name(materialDoc[NAME_KEY] as String)
-                            .price(materialDoc[PRICE_KEY] as Long)
-                            .sellable(materialDoc[SELLABLE_KEY] as Boolean)
-                            .unitID(materialDoc[UNIT_ID_KEY] as String)
-                            .build()
-                        list += material
-                    }
-                    materialList.value = list
-                }
-            }
-    }
-
-    override fun getMaterial(storeId: String, id: String): LiveData<Material?> {
-        val material = MutableLiveData<Material>()
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id)
-            .get()
-            .addOnSuccessListener { materialDoc ->
-                if (materialDoc.exists()) {
-                    material.value = Material.builder()
-                        .id(materialDoc.id)
-                        .name(materialDoc[NAME_KEY] as String)
-                        .build()
-                }
-            }
-        return material
-    }
+    override fun getMaterial(storeId: String, id: String): DocumentLiveData<Material> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id).asLiveData()
 
     override fun createMaterial(storeId: String, material: Material) {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
@@ -205,53 +87,15 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // TABLE
-    override fun getTableList(storeId: String): LiveData<ArrayList<Table>> {
-        if (tableList.value == null) {
-            loadTableList(storeId)
-        }
-        return tableList
-    }
+    override fun getTableList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Table> =
+        db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY).asLiveData(documentType)
 
-    private fun loadTableList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY)
-            .addSnapshotListener { tableCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
 
-                if (tableCollection != null) {
-                    val list = ArrayList<Table>()
-                    for (tableDoc in tableCollection) {
-                        val table = Table.builder()
-                            .id(tableDoc.id)
-                            .name(tableDoc[NAME_KEY] as String)
-                            .stateID(tableDoc[STATE_ID_KEY] as String)
-                            .zoneID(tableDoc[ZONE_ID_KEY] as String)
-                            .build()
-                        list += table
-                    }
-                    tableList.value = list
-                }
-            }
-    }
-
-    override fun getTable(storeId: String, id: String): LiveData<Table?> {
-        val table = MutableLiveData<Table>()
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id)
-            .get()
-            .addOnSuccessListener { tableDoc ->
-                if (tableDoc.exists()) {
-                    table.value = Table.builder()
-                        .id(tableDoc.id)
-                        .zoneID(tableDoc[ZONES_KEY] as String)
-                        .stateID(tableDoc[STATE_ID_KEY] as String)
-                        .name(tableDoc[NAME_KEY] as String)
-                        .build()
-                }
-            }
-        return table
-    }
+    override fun getTable(storeId: String, id: String): DocumentLiveData<Table> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id).asLiveData()
 
     override fun createTable(storeId: String, table: Table) {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
@@ -264,57 +108,14 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // REVENUE
-    override fun getRevenueList(storeId: String): LiveData<ArrayList<Revenue>> {
-        if (revenueList.value == null) {
-            loadRevenueList(storeId)
-        }
-        return revenueList
-    }
+    override fun getRevenueList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Revenue> =
+        db.collection(STORES_KEY).document(storeId).collection(REVENUES_KEY).asLiveData(documentType)
 
-    private fun loadRevenueList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(REVENUES_KEY)
-            .addSnapshotListener { revenueCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (revenueCollection != null) {
-                    val list = ArrayList<Revenue>()
-                    for (revenueDoc in revenueCollection) {
-                        val revenue = Revenue.builder()
-                            .id(revenueDoc.id)
-                            .storeID(storeId)
-                            .income(revenueDoc[INCOME_KEY] as Long)
-                            .outcome(revenueDoc[OUTCOME_KEY] as Long)
-                            .startDate(revenueDoc[DATE_KEY] as Date)
-                            .endDate(revenueDoc[DATE_KEY] as Date)
-                            .build()
-                        list += revenue
-                    }
-                    revenueList.value = list
-                }
-            }
-    }
-
-    override fun getRevenue(storeId: String, id: String): LiveData<Revenue?> {
-        val revenue = MutableLiveData<Revenue>()
-        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id)
-            .get()
-            .addOnSuccessListener { revenueDoc ->
-                if (revenueDoc.exists()) {
-                    revenue.value = Revenue.builder()
-                        .id(revenueDoc.id)
-                        .storeID(revenueDoc[STORE_ID_KEY] as String)
-                        .income(revenueDoc[INCOME_KEY] as Long)
-                        .outcome(revenueDoc[OUTCOME_KEY] as Long)
-                        .startDate(revenueDoc[DATE_KEY] as Date)
-                        .endDate(revenueDoc[DATE_KEY] as Date)
-                        .build()
-                }
-            }
-        return revenue
-    }
+    override fun getRevenue(storeId: String, id: String): DocumentLiveData<Revenue> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).document(id).asLiveData()
 
     override fun createRevenue(storeId: String, revenue: Revenue) {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
@@ -327,49 +128,13 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // UNIT
-    override fun getUnitList(storeId: String): LiveData<ArrayList<Unit>> {
-        if (unitList.value == null) {
-            loadUnitList(storeId)
-        }
-        return unitList
-    }
+    override fun getUnitList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Unit> = db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY).asLiveData(documentType)
 
-    private fun loadUnitList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY)
-            .addSnapshotListener { unitCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (unitCollection != null) {
-                    val list = ArrayList<Unit>()
-                    for (unitDoc in unitCollection) {
-                        val unit = Unit.builder()
-                            .id(unitDoc.id)
-                            .name(unitDoc[NAME_KEY] as String)
-                            .build()
-                        list += unit
-                    }
-                    unitList.value = list
-                }
-            }
-    }
-
-    override fun getUnit(storeId: String, id: String): LiveData<Unit?> {
-        val unit = MutableLiveData<Unit>()
-        db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY).document(id)
-            .get()
-            .addOnSuccessListener { unitDoc ->
-                if (unitDoc != null) {
-                    unit.value = Unit.builder()
-                        .id(unitDoc.id)
-                        .name(unitDoc[NAME_KEY] as String)
-                        .build()
-                }
-            }
-        return unit
-    }
+    override fun getUnit(storeId: String, id: String): DocumentLiveData<Unit> =
+        db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY).document(id).asLiveData()
 
     override fun createUnit(storeId: String, unit: Unit) {
         db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY)
@@ -381,79 +146,21 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // ZONE TYPE
-    override fun getZoneTypeList(storeId: String): LiveData<ArrayList<ZoneType>> {
-        if (zoneTypeList.value == null) {
-            loadZoneTypeList(storeId)
-        }
-        return zoneTypeList
-    }
-
-    private fun loadZoneTypeList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(ZONE_TYPES_KEY)
-            .addSnapshotListener { zoneTypeCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (zoneTypeCollection != null) {
-                    val list = ArrayList<ZoneType>()
-                    for (zoneTypeDoc in zoneTypeCollection) {
-                        val zoneType = ZoneType.builder()
-                            .id(zoneTypeDoc.id)
-                            .name(zoneTypeDoc[NAME_KEY] as String)
-                            .build()
-                        list += zoneType
-                    }
-                    zoneTypeList.value = list
-                }
-            }
-    }
+    override fun getZoneTypeList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<ZoneType> =
+        db.collection(STORES_KEY).document(storeId).collection(ZONE_TYPES_KEY).asLiveData(documentType)
 
     // ZONE
-    override fun getZoneList(storeId: String): LiveData<ArrayList<Zone>> {
-        if (zoneList.value == null) {
-            loadZoneList(storeId)
-        }
-        return zoneList
-    }
+    override fun getZoneList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Zone> =
+        db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY).asLiveData(documentType)
 
-    private fun loadZoneList(storeId: String) {
-        db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY)
-            .addSnapshotListener { zoneCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (zoneCollection != null) {
-                    val list = ArrayList<ZoneType>()
-                    for (zoneTypeDoc in zoneCollection) {
-                        val zoneType = ZoneType.builder()
-                            .id(zoneTypeDoc.id)
-                            .name(zoneTypeDoc[NAME_KEY] as String)
-                            .build()
-                        list += zoneType
-                    }
-                    zoneTypeList.value = list
-                }
-            }
-    }
-
-    override fun getZone( storeId: String, id: String): LiveData<Zone?> {
-        val zone = MutableLiveData<Zone>()
-        db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY).document(id)
-            .get()
-            .addOnSuccessListener { zoneDoc ->
-                if (zoneDoc != null) {
-                    zone.value = Zone.builder()
-                        .id(zoneDoc.id)
-                        .name(zoneDoc[NAME_KEY] as String)
-                        .build()
-                }
-            }
-        return zone
-    }
+    override fun getZone( storeId: String, id: String): DocumentLiveData<Zone> =
+        db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY).document(id).asLiveData()
 
     override fun createZone(storeId: String, zone: Zone) {
         db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY)
@@ -466,74 +173,10 @@ class FireBaseDataSource: FireBaseAPI {
     }
 
     // EMPLOYEE
-    override fun getEmployeeList(): LiveData<ArrayList<Employee>> {
-        if (employeeList.value == null) {
-            loadEmployeeList()
-        }
-        return employeeList
-    }
-
-    private fun loadEmployeeList() {
-        db.collection(EMPLOYEES_KEY)
-            .addSnapshotListener { employeeCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (employeeCollection != null) {
-                    val list = ArrayList<Employee>()
-                    for (employeeDoc in employeeCollection) {
-                        val employee = Employee.builder()
-                            .id(employeeDoc.id)
-                            .name(employeeDoc[NAME_KEY] as String)
-                            .birthDay(employeeDoc[BIRTH_KEY] as Date)
-                            .gender(Gender.valueOf(employeeDoc[GENDER_ID_KEY] as String))
-                            .identityID(employeeDoc[IDENTITY_ID_KEY] as String)
-                            .phoneNumber(employeeDoc[PHONE_NUMBER_KEY] as String)
-                            .address(employeeDoc[ADDRESS_KEY] as String)
-                            .roleID(employeeDoc[ROLE_ID_KEY] as String)
-                            .storeID(employeeDoc[STORE_ID_KEY] as String)
-                            .userName(employeeDoc[USERNAME_KEY] as String)
-                            .build()
-                        list += employee
-                    }
-                    employeeList.value = list
-                }
-            }
-    }
+    override fun getEmployeeList(documentType: DocumentType): CollectionLiveData<Employee> =
+        db.collection(EMPLOYEES_KEY).asLiveData(documentType)
 
     // STORE
-    override fun getStoreList(): LiveData<ArrayList<Store>> {
-        if (storeList.value == null) {
-            loadStoreList()
-        }
-        return storeList
-    }
-
-    private fun loadStoreList() {
-        db.collection(STORES_KEY)
-            .addSnapshotListener { storeCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
-                }
-
-                if (storeCollection != null) {
-                    Log.d(TAG, "change")
-                    val list = ArrayList<Store>()
-                    for (storeDoc in storeCollection) {
-                        val store = Store.builder()
-                            .id(storeDoc.id)
-                            .name(storeDoc[NAME_KEY] as String)
-                            .address(storeDoc[ADDRESS_KEY] as String)
-                            .managerID(storeDoc[MANAGER_ID_KEY] as String)
-                            .build()
-
-                        list += store
-                    }
-                    storeList.value = list
-                }
-            }
-    }
+    override fun getStoreList(documentType: DocumentType): CollectionLiveData<Store> =
+        db.collection(STORES_KEY).asLiveData(documentType)
 }

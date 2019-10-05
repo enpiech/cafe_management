@@ -1,12 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 
-import androidx.lifecycle.LiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.Zone
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepository
 
 class ZoneViewModel (private val zoneRepository: ZoneRepository) {
 
-    private var allZones: LiveData<ArrayList<Zone>> = zoneRepository.getAllZones()
+    private var allZones = zoneRepository.getAllZones()
 
     fun insert(zone: Zone) {
         zoneRepository.insert(zone)
@@ -24,8 +23,6 @@ class ZoneViewModel (private val zoneRepository: ZoneRepository) {
         zoneRepository.deleteAllUnits()
     }
 
-    fun getAllZones(): LiveData<ArrayList<Zone>> {
-        return allZones
-    }
+    fun getAllZones() = allZones
 
 }

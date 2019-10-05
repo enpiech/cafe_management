@@ -15,7 +15,7 @@ class TaskResult<T> private constructor(val status: TaskStatus, val data: T?, va
          *
          * @param data The data returned by the task
          */
-        fun <T> success(data: T): TaskResult<T> = TaskResult<T>(TaskStatus.SUCCESS, data, null)
+        fun <T> success(data: T): TaskResult<T> = TaskResult(TaskStatus.SUCCESS, data, null)
 
         /**
          * Returns a [TaskResult] with [TaskStatus.FAILED], and accompanying exception if present

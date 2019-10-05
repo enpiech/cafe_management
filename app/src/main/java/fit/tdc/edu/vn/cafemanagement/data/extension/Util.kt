@@ -32,8 +32,11 @@ inline fun <reified T : FirestoreModel> Query.asLiveData(): QueryLiveData<T> {
  * @see [Query.asLiveData]
  * @see [CollectionReference.asLiveData]
  */
-inline fun <reified T : FirestoreModel> DocumentReference.asLiveData(): DocumentLiveData<T> {
-    return DocumentLiveData(T::class.java, this)
+inline fun <reified T : FirestoreModel> DocumentReference.asLiveData(documentType: DocumentType = DocumentType.ALL): DocumentLiveData<T> {
+    return DocumentLiveData(
+        modelClass = T::class.java,
+        reference = this,
+        documentType = documentType)
 }
 
 /**
@@ -45,8 +48,12 @@ inline fun <reified T : FirestoreModel> DocumentReference.asLiveData(): Document
  * @see [DocumentReference.asLiveData]
  * @see [Query.asLiveData]
  */
-inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(): CollectionLiveData<T> {
-    return CollectionLiveData(T::class.java, this)
+inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentType: DocumentType = DocumentType.ALL): CollectionLiveData<T> {
+    return CollectionLiveData(
+            modelClass = T::class.java,
+            collectionReference = this,
+            documentType = documentType
+        )
 }
 
 /**
