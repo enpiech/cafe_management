@@ -4,9 +4,9 @@ public class Unit {
     private String id;
     private String name;
 
-    Unit(String id, String name) {
-        this.id = id;
-        this.name = name;
+    Unit(UnitBuilder unitBuilder) {
+        this.id = unitBuilder.id;
+        this.name = unitBuilder.name;
     }
 
     public static UnitBuilder builder() {
@@ -79,7 +79,7 @@ public class Unit {
         }
 
         public Unit build() {
-            return new Unit(id, name);
+            return new Unit(this);
         }
 
         public String toString() {
