@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.model.Unit
+package fit.tdc.edu.vn.cafemanagement.data.model.unit
 
 import android.content.Context
 import android.os.AsyncTask

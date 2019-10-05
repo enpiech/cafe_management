@@ -21,4 +21,20 @@ class CategoryRepository(val dataSource: FireBaseDataSource) {
             map[id]
         }
     }
+
+    fun insert(category: Category) {
+        //TODO: get insert function
+    }
+
+    fun update(category: Category) {
+        //TODO: get update function
+    }
+
+    fun delete(category: Category) {
+        //TODO: get delete function
+    }
+
+    fun deleteAllUnits() {
+        //TODO: get delete all function
+    }
 }
