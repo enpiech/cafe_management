@@ -119,7 +119,7 @@ public class Revenue {
     }
 
     public String toString() {
-        return "Revenue(id=" + this.getId() + ", storeID=" + this.getStoreID() + ", income=" + this.getIncome() + ", outcome=" + this.getOutcome() + ", startDate=" + this.getStartDate() + ", endDate=" + this.getEndDate() + ")";
+        return "RevenueRepository(id=" + this.getId() + ", storeID=" + this.getStoreID() + ", income=" + this.getIncome() + ", outcome=" + this.getOutcome() + ", startDate=" + this.getStartDate() + ", endDate=" + this.getEndDate() + ")";
     }
 
     public static class RevenueBuilder {
@@ -168,7 +168,7 @@ public class Revenue {
         }
 
         public String toString() {
-            return "Revenue.RevenueBuilder(id=" + this.id + ", storeID=" + this.storeID + ", income=" + this.income + ", outcome=" + this.outcome + ", startDate=" + this.startDate + ", endDate=" + this.endDate + ")";
+            return "RevenueRepository.RevenueBuilder(id=" + this.id + ", storeID=" + this.storeID + ", income=" + this.income + ", outcome=" + this.outcome + ", startDate=" + this.startDate + ", endDate=" + this.endDate + ")";
         }
     }
 }

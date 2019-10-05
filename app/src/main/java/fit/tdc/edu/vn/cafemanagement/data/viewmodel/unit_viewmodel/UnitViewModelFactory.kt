@@ -13,7 +13,7 @@ public class UnitViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(UnitViewModel::class.java)) {
             return UnitViewModel(
                 unitRepository = UnitRepository(
                     dataSource = FireBaseDataSource(
