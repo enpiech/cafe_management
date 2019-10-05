@@ -1,29 +1,23 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
 import android.app.Activity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.google.firebase.firestore.FirebaseFirestore
-
+import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.model.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.Table
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import fit.tdc.edu.vn.cafemanagement.data.model.Zone
+import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,8 +28,9 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login2)
 
-//        val src = FireBaseDataSource("EfzspceETNgWk56YDOOt", FirebaseFirestore.getInstance())
-//        src.getUnit("f1zdpA0s3kPIsrXyG6uj").observe(this, Observer { unit -> Log.d("fbds", unit.toString()) })
+//        val src = FireBaseDataSource()
+//        val zone = Zone.builder().name("Vỉa hè").build()
+//        src.createZone("EfzspceETNgWk56YDOOt", zone)
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)

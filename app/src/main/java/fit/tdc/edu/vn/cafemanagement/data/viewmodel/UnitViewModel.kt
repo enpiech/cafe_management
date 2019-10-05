@@ -6,28 +6,27 @@ import androidx.lifecycle.LiveData
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepository
 
 class UnitViewModel (application: Application) : AndroidViewModel(application) {
-    private var repository: UnitRepository =
-        UnitRepository(application)
-    private var allUnits: LiveData<List<fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit>> = repository.getAllUnits()
-
-    fun insert(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
-        repository.insert(unit)
-    }
-
-    fun update(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
-        repository.update(unit)
-    }
-
-    fun delete(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
-        repository.delete(unit)
-    }
-
-    fun deleteAllUnits() {
-        repository.deleteAllUnits()
-    }
-
-    fun getAllUnits(): LiveData<List<fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit>> {
-        return allUnits
-    }
+//    private var repository: UnitRepository = UnitRepository(application)
+//    private var allUnits: LiveData<List<fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit>> = repository.getAllUnits()
+//
+//    fun insert(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
+//        repository.insert(unit)
+//    }
+//
+//    fun update(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
+//        repository.update(unit)
+//    }
+//
+//    fun delete(unit: fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit) {
+//        repository.delete(unit)
+//    }
+//
+//    fun deleteAllUnits() {
+//        repository.deleteAllUnits()
+//    }
+//
+//    fun getAllUnits(): LiveData<List<fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit>> {
+//        return allUnits
+//    }
 
 }

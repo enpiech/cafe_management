@@ -10,16 +10,11 @@ import kotlin.collections.HashMap
 class CategoryRepository(val dataSource: FireBaseDataSource) {
 
     fun getAllCategory() : LiveData<ArrayList<Category>> {
-        return dataSource.getCategoryMap().map { map: HashMap<String, Category> ->
-            ArrayList<Category>(map.values)
-        }
+        return dataSource.getCategoryList("EfzspceETNgWk56YDOOt")
     }
 
     fun getCategory(id: String) : LiveData<Category?> {
-        return dataSource.getCategoryMap().map { map: HashMap<String, Category> ->
-            map[id] = Category.builder().build()
-            map[id]
-        }
+        return dataSource.getCategory("EfzspceETNgWk56YDOOt", id)
     }
 
     fun insert(category: Category) {

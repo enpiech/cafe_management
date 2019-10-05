@@ -14,16 +14,11 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitDatabase
 class UnitRepository ( val dataSource: FireBaseDataSource) {
 
     fun getAllUnits() : LiveData<ArrayList<Unit>> {
-        return dataSource.getUnitMap().map { map: HashMap<String, Unit> ->
-            ArrayList<Unit>(map.values)
-        }
+        return dataSource.getUnitList("EfzspceETNgWk56YDOOt")
     }
 
     fun getUnitById(id: String) : LiveData<Unit?> {
-        return dataSource.getUnitMap().map { map: HashMap<String, Unit> ->
-            map[id] = Unit.builder().build()
-            map[id]
-        }
+        return dataSource.getUnit("EfzspceETNgWk56YDOOt", id)
     }
 
 
