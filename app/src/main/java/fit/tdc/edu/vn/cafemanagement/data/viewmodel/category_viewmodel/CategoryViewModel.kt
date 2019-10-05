@@ -1,12 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
 import androidx.lifecycle.LiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepository
 
 class CategoryViewModel (private val categoryRepository:CategoryRepository) {
 
-    private var allCategories: LiveData<ArrayList<Category>> = categoryRepository.getAllCategory()
+    private var allCategories: CollectionLiveData<Category> = categoryRepository.getAllCategory()
 
     fun getCategory(id: String) : LiveData<Category?> {
         return categoryRepository.getCategory(id)
@@ -28,7 +29,7 @@ class CategoryViewModel (private val categoryRepository:CategoryRepository) {
         categoryRepository.deleteAllUnits()
     }
 
-    fun getAllCategories(): LiveData<ArrayList<Category>> {
+    fun getAllCategories(): CollectionLiveData<Category> {
         return allCategories
     }
 

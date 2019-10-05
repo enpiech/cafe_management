@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement
 
+import com.google.firebase.firestore.FirebaseFirestore
 import org.junit.Test
 
 import org.junit.Assert.*

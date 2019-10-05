@@ -1,11 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source
 
 import androidx.lifecycle.LiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.Unit
 
 interface FireBaseAPI {
-    fun getCategoryList(storeId: String): LiveData<ArrayList<Category>>
+    fun getCategoryList(storeId: String): CollectionLiveData<Category>
     fun getMaterialList(storeId: String): LiveData<ArrayList<Material>>
     fun getTableList(storeId: String): LiveData<ArrayList<Table>>
     fun getRevenueList(storeId: String): LiveData<ArrayList<Revenue>>

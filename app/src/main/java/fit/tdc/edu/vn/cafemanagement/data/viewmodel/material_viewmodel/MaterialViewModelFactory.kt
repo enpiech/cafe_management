@@ -18,10 +18,7 @@ class MaterialViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(MaterialViewModel::class.java)) {
             return MaterialViewModel(
                  materialRepository = MaterialRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

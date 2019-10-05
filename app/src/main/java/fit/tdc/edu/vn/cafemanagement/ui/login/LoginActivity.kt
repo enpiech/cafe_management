@@ -17,7 +17,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.model.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 
 class LoginActivity : AppCompatActivity() {
@@ -29,9 +28,11 @@ class LoginActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_login2)
 
+        val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
-        src.getCategory("asdfas","asdfa").observe(this, Observer {
-            Log.d("test", "$it")
+
+        src.getCategoryList(storeId).observe(this, Observer {
+            it.data?.forEach { category -> Log.d("test1", category.toString()) }
         })
 
         val username = findViewById<EditText>(R.id.username)

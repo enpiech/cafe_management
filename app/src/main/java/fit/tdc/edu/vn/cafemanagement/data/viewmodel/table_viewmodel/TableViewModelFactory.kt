@@ -18,10 +18,7 @@ class TableViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(TableViewModel::class.java)) {
             return TableViewModel(
                  tableRepository = TableRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

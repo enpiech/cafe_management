@@ -1,14 +1,14 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
-import com.google.firebase.firestore.Exclude;
+import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel;
 
-public class Category {
-    @Exclude
-    private String id;
+public class Category extends FirestoreModel {
     private String name;
 
+    public Category() {}
+
     private Category(CategoryBuilder builder) {
-        this.id = builder.id;
+        super.setId(builder.id);
         this.name = builder.name;
     }
 
@@ -17,7 +17,7 @@ public class Category {
     }
 
     public String getId() {
-        return this.id;
+        return super.getId();
     }
 
     public String getName() {
@@ -25,7 +25,7 @@ public class Category {
     }
 
     public void setId(String id) {
-        this.id = id;
+        super.setId(id);
     }
 
     public void setName(String name) {

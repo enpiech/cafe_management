@@ -2,31 +2,30 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_type_viewmodel
 
 import androidx.lifecycle.LiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.Unit
-import fit.tdc.edu.vn.cafemanagement.data.model.ZoneType
-import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneTypeRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepository
 
-class UnitViewModel (private val zoneTypeRepository: ZoneTypeRepository) {
+class UnitViewModel (private val unitRepository: UnitRepository) {
 
-    private var allZoneTypes: LiveData<ArrayList<ZoneType>> = zoneTypeRepository.getAllZoneTypes()
+    private var allUnits: LiveData<ArrayList<Unit>> = unitRepository.getAllUnits()
 
-    fun insert(zoneType: ZoneType) {
-        zoneTypeRepository.insert(zoneType)
+    fun insert(unit: Unit) {
+        unitRepository.insert(unit)
     }
 
-    fun update(zoneType: ZoneType) {
-        zoneTypeRepository.update(zoneType)
+    fun update(unit: Unit) {
+        unitRepository.update(unit)
     }
 
-    fun delete(zoneType: ZoneType) {
-        zoneTypeRepository.delete(zoneType)
+    fun delete(unit: Unit) {
+        unitRepository.delete(unit)
     }
 
     fun deleteAllUnits() {
-        zoneTypeRepository.deleteAllZoneTypes()
+        unitRepository.deleteAllUnits()
     }
 
-    fun getAllZoneTypes(): LiveData<ArrayList<ZoneType>> {
-        return allZoneTypes
+    fun getAllUnits(): LiveData<ArrayList<Unit>> {
+        return allUnits
     }
 
 }

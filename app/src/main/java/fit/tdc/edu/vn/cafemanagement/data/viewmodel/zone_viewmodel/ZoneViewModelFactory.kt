@@ -17,10 +17,7 @@ class ZoneViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(ZoneViewModel::class.java)) {
             return ZoneViewModel(
                  zoneRepository = ZoneRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

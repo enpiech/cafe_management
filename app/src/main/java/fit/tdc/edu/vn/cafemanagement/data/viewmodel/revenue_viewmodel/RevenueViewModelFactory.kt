@@ -18,10 +18,7 @@ class RevenueViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(RevenueViewModel::class.java)) {
             return RevenueViewModel(
                  revenueRepository = RevenueRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

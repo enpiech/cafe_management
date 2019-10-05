@@ -3,7 +3,12 @@ package fit.tdc.edu.vn.cafemanagement.data.data_source
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.QuerySnapshot
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.asLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.Unit
 import java.util.*
@@ -48,44 +53,73 @@ class FireBaseDataSource: FireBaseAPI {
         private const val MANAGER_ID_KEY    = "managerId"
 
         private const val TAG = "FireBase"
-        private var categoryList     = MutableLiveData<ArrayList<Category>>()
-        private var materialList     = MutableLiveData<ArrayList<Material>>()
-        private var tableList        = MutableLiveData<ArrayList<Table>>()
-        private var revenueList      = MutableLiveData<ArrayList<Revenue>>()
-        private var unitList         = MutableLiveData<ArrayList<Unit>>()
-        private var zoneTypeList     = MutableLiveData<ArrayList<ZoneType>>()
-        private var zoneList         = MutableLiveData<ArrayList<Zone>>()
-        private var employeeList     = MutableLiveData<ArrayList<Employee>>()
-        private var storeList        = MutableLiveData<ArrayList<Store>>()
     }
+    private var categoryList     = MutableLiveData<ArrayList<Category>>(null)
+    private var materialList     = MutableLiveData<ArrayList<Material>>(null)
+    private var tableList        = MutableLiveData<ArrayList<Table>>(null)
+    private var revenueList      = MutableLiveData<ArrayList<Revenue>>(null)
+    private var unitList         = MutableLiveData<ArrayList<Unit>>(null)
+    private var zoneTypeList     = MutableLiveData<ArrayList<ZoneType>>(null)
+    private var zoneList         = MutableLiveData<ArrayList<Zone>>(null)
+    private var employeeList     = MutableLiveData<ArrayList<Employee>>(null)
+    private var storeList        = MutableLiveData<ArrayList<Store>>(null)
 
     // CATEGORY
-    override fun getCategoryList(storeId: String): LiveData<ArrayList<Category>> {
-        if (zoneTypeList.value == null) {
-            loadCategoryList(storeId)
-        }
-        return categoryList
-    }
+
+//    fun getEmployeeOfStore(storeId: String) {
+//        db.collection("employeeOfStore").document("7MmeTKnmhgOieVehY05S")
+//            .get()
+//            .addOnSuccessListener {
+//                if (!it.data.isNullOrEmpty()) {
+//                    val list = ArrayList<String>()
+//                    val map: Map<String, Any>? = it.data
+//                    if (!map.isNullOrEmpty()) {
+//                        for (entry in map.entries) {
+//                            list.add(entry.value.toString())
+//                        }
+//                    }
+//                    list.forEach { tag ->
+//                        Log.d("test", tag)
+//                    }
+//                }
+//            }
+//    }
+
+    override fun getCategoryList(storeId: String): CollectionLiveData<Category> =
+        db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY).asLiveData()
 
     private fun loadCategoryList(storeId: String) {
         db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
-            .addSnapshotListener { categoryCollection, exception ->
-                if (exception != null) {
-                    Log.w(TAG, "Listen failed", exception)
-                    return@addSnapshotListener
+            .get()
+            .addOnSuccessListener { categoryCollection ->
+                if (categoryCollection.isEmpty) {
+                    return@addOnSuccessListener
                 }
 
-                if (categoryCollection != null) {
-                    val list = ArrayList<Category>()
-                    for (categoryDoc in categoryCollection) {
-                        val category = Category.builder()
-                            .id(categoryDoc.id)
-                            .name(categoryDoc[NAME_KEY] as String)
-                            .build()
-                        list += category
+                val list = ArrayList<Category>()
+                for (categoryDoc in categoryCollection.documentChanges) {
+                    val doc = categoryDoc.document
+                    when (categoryDoc.type) {
+                        DocumentChange.Type.ADDED -> {
+
+                        }
+                        DocumentChange.Type.MODIFIED -> {
+
+                        }
+                        else -> {
+
+                        }
                     }
-                    categoryList.value = list
+                    val category = Category.builder()
+                        .id(doc.id)
+                        .name(doc[NAME_KEY] as String)
+                        .build()
+                    list += category
                 }
+                categoryList.value = list
+            }
+            .addOnFailureListener {
+                TODO("handle $it")
             }
     }
 
@@ -116,9 +150,7 @@ class FireBaseDataSource: FireBaseAPI {
 
     // MATERIAL
     override fun getMaterialList(storeId: String): LiveData<ArrayList<Material>> {
-        if (materialList.value == null) {
-            loadMaterialList(storeId)
-        }
+        loadMaterialList(storeId)
         return materialList
     }
 

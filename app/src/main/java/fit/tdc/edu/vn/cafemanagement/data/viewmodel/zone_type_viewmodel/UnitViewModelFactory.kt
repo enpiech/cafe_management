@@ -15,11 +15,8 @@ public class UnitViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(UnitViewModel::class.java)) {
             return UnitViewModel(
-                unitRepository = UnitRepository(
-                    dataSource = FireBaseDataSource(
-                        "EfzspceETNgWk56YDOOt",
-                        FirebaseFirestore.getInstance()
-                    )
+                 UnitRepository(
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }
