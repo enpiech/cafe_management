@@ -1,10 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.data_source.LoginDataSource
-import fit.tdc.edu.vn.cafemanagement.data.model.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 
 /**
@@ -32,15 +29,15 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun login(username: String, password: String, callback: (Result<LoggedInUser>) -> (Unit)) {
         // handle login
-        val result = dataSource.login(username, password)
+        dataSource.login(username, password, callback = {
+            if (it is Result.Success) {
+                setLoggedInUser(it.data)
+            }
 
-        if (result is Result.Success) {
-            setLoggedInUser(result.data)
-        }
-
-        return result
+            callback(it)
+        })
     }
 
     private fun setLoggedInUser(loggedInUser: LoggedInUser) {

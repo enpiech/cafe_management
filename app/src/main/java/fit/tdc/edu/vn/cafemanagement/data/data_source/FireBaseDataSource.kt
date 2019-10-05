@@ -59,6 +59,7 @@ class FireBaseDataSource @Inject constructor(
         private var storeMap        = MutableLiveData<HashMap<String, Store>>()
     }
 
+
     // CATEGORY
     override fun getCategoryMap(): LiveData<HashMap<String, Category>> {
         if (zoneTypeMap.value == null) {
@@ -87,6 +88,21 @@ class FireBaseDataSource @Inject constructor(
                     categoryMap.value = map
                 }
             }
+    }
+
+    override fun getCategory(id: String): LiveData<Category> {
+        val category = MutableLiveData<Category>()
+        db.collection(STORES_KEY).document(storeID).collection(CATEGORIES_KEY).document(id)
+            .get()
+            .addOnSuccessListener { categoryDoc ->
+                if (categoryDoc != null) {
+                    category.value = Category.builder()
+                        .id(categoryDoc.id)
+                        .name(categoryDoc[NAME_KEY] as String)
+                        .build()
+                }
+            }
+        return category
     }
 
     // MATERIAL
@@ -218,6 +234,21 @@ class FireBaseDataSource @Inject constructor(
             }
     }
 
+    override fun getUnit(id: String): LiveData<Unit> {
+        val unit = MutableLiveData<Unit>()
+        db.collection(STORES_KEY).document(storeID).collection(UNITS_KEY).document(id)
+            .get()
+            .addOnSuccessListener { unitDoc ->
+                if (unitDoc != null) {
+                    unit.value = Unit.builder()
+                        .id(unitDoc.id)
+                        .name(unitDoc[NAME_KEY] as String)
+                        .build()
+                }
+            }
+        return unit
+    }
+
     // ZONE TYPE
     override fun getZoneTypeMap(): LiveData<HashMap<String, ZoneType>> {
         if (zoneTypeMap.value == null) {
@@ -276,6 +307,21 @@ class FireBaseDataSource @Inject constructor(
                     zoneTypeMap.value = map
                 }
             }
+    }
+
+    override fun getZone(id: String): LiveData<Zone> {
+        val zone = MutableLiveData<Zone>()
+        db.collection(STORES_KEY).document(storeID).collection(ZONES_KEY).document(id)
+            .get()
+            .addOnSuccessListener { zoneDoc ->
+                if (zoneDoc != null) {
+                    zone.value = Zone.builder()
+                        .id(zoneDoc.id)
+                        .name(zoneDoc[NAME_KEY] as String)
+                        .build()
+                }
+            }
+        return zone
     }
 
     // EMPLOYEE

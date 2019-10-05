@@ -14,4 +14,9 @@ interface FireBaseAPI {
     fun getZoneMap(): LiveData<HashMap<String, Zone>>
     fun getEmployeeMap(): LiveData<HashMap<String, Employee>>
     fun getStoreMap(): LiveData<HashMap<String, Store>>
+
+    fun getUnit(id: String): LiveData<Unit>
+    fun getZone(id: String): LiveData<Zone>
+    fun getCategory(id: String): LiveData<Category>
+
 }
