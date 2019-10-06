@@ -37,6 +37,7 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
                     )
                 }
                 Status.ERROR -> {
+                    Log.d("test", it.errorMessage)
                     LoginResult(
                         error = R.string.login_failed,
                         loading = false
@@ -50,10 +51,6 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     fun login(username: String, password: String) {
         if (_loginResult.value!!.loading) {
             Log.d("test", "is loading")
-            return
-        }
-        if (_loginResult.value!!.success != null) {
-            Log.d("test", "already login")
             return
         }
 

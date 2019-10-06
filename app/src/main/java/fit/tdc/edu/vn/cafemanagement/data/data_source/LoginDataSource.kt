@@ -8,6 +8,7 @@ import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 import java.io.IOException
+import java.lang.Exception
 import javax.inject.Singleton
 
 /**
@@ -28,45 +29,57 @@ class LoginDataSource {
         _result.value = null
     }
 
-    fun managerLogin(username: String, password: String, callback: (Result<LoggedInUser>) -> (Unit)) {
+    fun managerLogin(username: String, password: String) {
         auth.signInWithEmailAndPassword(username, password)
             .addOnSuccessListener {
+                if (it.user == null) {
+                    _result.value = Result.Error(Exception("User it not exist"))
+                    return@addOnSuccessListener
+                }
                 val user = LoggedInUser(
                     it.user!!.email as String,
                     it.user!!.email as String,
                     UserType.MANAGER
                 )
                 _result.value = Result.Success(user)
-                callback(Result.Success(user))
             }
             .addOnFailureListener {
-                callback(Result.Error(it))
+                _result.value = Result.Error(it)
             }
     }
 
-    fun storeManagerLogin(username: String, password: String, callback: (Result<LoggedInUser>) -> (Unit)) {
+    fun storeManagerLogin(
+        username: String,
+        password: String,
+        userType: UserType
+    ) {
         firestore.collection("users").document(username)
             .get()
             .addOnSuccessListener { userDocument ->
                 if (userDocument.exists()) {
-                    if (userDocument["password"] != null) {
-                        if (userDocument["password"] == password) {
-                            val user = LoggedInUser(
-                                userDocument.id,
-                                userDocument["name"] as String,
-                                UserType.STORE_MANAGER
-                            )
-                            callback(Result.Success(user))
-                            return@addOnSuccessListener
-                        }
+                    if (userDocument.getString("password").equals(password)) {
+                        val user = LoggedInUser(
+                            userDocument.id,
+                            userDocument["name"] as String,
+                            userType
+                        )
+                        _result.value = Result.Success(user)
+                        return@addOnSuccessListener
+                    } else {
+                        _result.value = Result.Error(Exception("Username and Password is not match"))
                     }
-                    callback(Result.Error(IOException("Error logging in")))
+                } else {
+                    _result.value = Result.Error(Exception("User is not exist"))
                 }
+            }
+            .addOnFailureListener {
+                _result.value = Result.Error(it)
             }
     }
 
     fun logout() {
         auth.signOut()
+        _result.value = null
     }
 }
 
