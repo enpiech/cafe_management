@@ -2,6 +2,8 @@ package fit.tdc.edu.vn.cafemanagement.data.extension
 
 import androidx.lifecycle.LiveData
 import android.util.Log
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.Observer
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
@@ -61,11 +63,13 @@ class CollectionLiveData<T : FirestoreModel>(
 
     private fun listenAllDocument(querySnapshot: QuerySnapshot?) {
         val documents = querySnapshot?.documents.orEmpty()
+
         val models = documents.mapNotNull { doc ->
             doc.toObject(modelClass)?.apply {
                 id = doc.id
             }
         }
+
         postValue(FirestoreResource.success(models))
     }
 

@@ -3,9 +3,10 @@ package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
 
 data class OrderItem(
-    var name: String?,
-    var amount: Int?,
-    var unitName: String?,
-    var priceperUnit: Long?,
-    var totalPrice: Long?
+    var name: String? = null,
+    var amount: Int = 1,
+    var unitName: String? = null,
+    var pricePerUnit: Long? = null,
+    var totalPrice: Long? = null,
+    override var collectionName: String = "orderItems"
 ) : FirestoreModel()

@@ -13,5 +13,6 @@ data class Employee(
     var address: String? = null,
     var roleId: String? = null,
     var storeId: String? = null,
-    var password: String? = null
+    var password: String? = null,
+    override var collectionName: String = "employees"
 ) : FirestoreModel()

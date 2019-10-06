@@ -1,5 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.model;
 
+import org.jetbrains.annotations.NotNull;
+
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel;
 
 public class Category extends FirestoreModel {
@@ -62,6 +64,17 @@ public class Category extends FirestoreModel {
 
     public String toString() {
         return "Category(id=" + this.getId() + ", name=" + this.getName() + ")";
+    }
+
+    @NotNull
+    @Override
+    public String getCollectionName() {
+        return null;
+    }
+
+    @Override
+    public void setCollectionName(@NotNull String s) {
+
     }
 
     public static class CategoryBuilder {

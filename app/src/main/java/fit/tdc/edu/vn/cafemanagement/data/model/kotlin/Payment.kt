@@ -11,5 +11,6 @@ data class Payment(
     var confirmedEmployeeName: String? = null,
     var paidTime: Timestamp? = null,
     var isPaid: Boolean = false,
-    var orderList: ArrayList<OrderItem> = ArrayList()
+    var orderList: List<OrderItem> = listOf(),
+    override var collectionName: String = "payments"
 ) : FirestoreModel()

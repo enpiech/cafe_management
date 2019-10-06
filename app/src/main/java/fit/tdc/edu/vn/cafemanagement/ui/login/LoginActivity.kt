@@ -13,11 +13,11 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.*
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 
 class LoginActivity : AppCompatActivity() {
@@ -32,12 +32,28 @@ class LoginActivity : AppCompatActivity() {
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
 
-        src.getCategoryList(storeId).observe(this, Observer {
-            it.data?.forEach { category -> Log.d("test", category.toString()) }
-        })
-        src.getCategoryList(storeId, DocumentType.CHANGED).observe(this, Observer {
-            it.data?.forEach { category -> Log.d("test1", category.toString()) }
-        })
+//        src.getCategoryList(storeId).observe(this, Observer {
+//            it.data?.forEach { category ->
+//                Log.d("test", category.toString())
+//            }
+//        })
+
+
+//        val unit = fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit(name = "Gram")
+//        src.createUnit(storeId, unit).observe(this, Observer {
+//            Log.d("test", it.status.name)
+//            if (it.status == TaskStatus.SUCCESS) {
+//                unit.id = it.data!!.id
+//                Log.d("test", unit.id + ", " + unit.name)
+//            }
+//        })
+
+
+
+//        src.deleteUnit(storeId, createTask.data.id).observe(this, Observer { deleteTask ->
+//            Log.d("test", deleteTask.status.name)
+//        })
+
 
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)

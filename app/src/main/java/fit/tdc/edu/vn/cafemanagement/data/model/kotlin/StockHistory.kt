@@ -6,9 +6,10 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
 data class StockHistory(
     var materialId: String? = null,
     var materialName: String? = null,
-    var amount: Long? = null,
+    var amount: Int = 1,
     var actionTime: Timestamp? = null,
-    var type: StockAction
+    var type: StockAction = StockAction.ISSUE,
+    override var collectionName: String = "stockHistories"
 ) : FirestoreModel() {
     companion object {
         enum class StockAction {
