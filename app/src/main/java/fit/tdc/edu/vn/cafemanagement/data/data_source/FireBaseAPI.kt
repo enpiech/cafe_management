@@ -102,12 +102,12 @@ interface FireBaseAPI {
     ): DocumentLiveData<Zone>
 
     fun getEmployee(
-        id: String,
+        employeeId: String,
         documentType: DocumentType
     ): DocumentLiveData<Employee>
 
     fun getStore(
-        id: String,
+        storeId: String,
         documentType: DocumentType
     ): DocumentLiveData<Store>
 

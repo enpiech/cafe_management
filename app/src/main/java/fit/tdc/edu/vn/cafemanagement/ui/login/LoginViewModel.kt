@@ -1,11 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
+import android.util.Log
 import android.util.Patterns
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.Result
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginResult
@@ -16,24 +16,48 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = MutableLiveData<LoginResult>()
+    private val _loginResult = loginRepository.loginResult.map {
+        if (it == null) {
+            Log.d("test", "init")
+            LoginResult()
+        } else {
+            when (it.status) {
+                Status.SUCCESS -> {
+                    LoginResult(
+                        success = LoggedInUserView(
+                            displayName = it.data!!.displayName!!
+                        ),
+                        loading = false
+                    )
+                }
+                Status.LOADING -> {
+                    LoginResult(
+                        error = null,
+                        loading = true
+                    )
+                }
+                Status.ERROR -> {
+                    LoginResult(
+                        error = R.string.login_failed,
+                        loading = false
+                    )
+                }
+            }
+        }
+    }
     val loginResult: LiveData<LoginResult> = _loginResult
 
     fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        loginRepository.login(username, password, callback = {
-            if (it is Result.Success) {
-                _loginResult.value =
-                    LoginResult(
-                        success = LoggedInUserView(
-                            displayName = it.data.displayName
-                        )
-                    )
-            } else {
-                _loginResult.value =
-                    LoginResult(error = R.string.login_failed)
-            }
-        })
+        if (_loginResult.value!!.loading) {
+            Log.d("test", "is loading")
+            return
+        }
+        if (_loginResult.value!!.success != null) {
+            Log.d("test", "already login")
+            return
+        }
+
+        loginRepository.login(username, password)
     }
 
     fun loginDataChanged(username: String, password: String) {

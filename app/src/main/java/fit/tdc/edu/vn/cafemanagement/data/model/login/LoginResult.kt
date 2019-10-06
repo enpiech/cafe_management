@@ -5,5 +5,6 @@ package fit.tdc.edu.vn.cafemanagement.data.model.login
  */
 data class LoginResult(
     val success: LoggedInUserView? = null,
-    val error: Int? = null
+    val error: Int? = null,
+    val loading: Boolean = false
 )

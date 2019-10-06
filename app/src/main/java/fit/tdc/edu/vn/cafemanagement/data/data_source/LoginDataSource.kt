@@ -6,6 +6,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
+import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 import java.io.IOException
 import javax.inject.Singleton
 
@@ -32,7 +33,8 @@ class LoginDataSource {
             .addOnSuccessListener {
                 val user = LoggedInUser(
                     it.user!!.email as String,
-                    it.user!!.email as String
+                    it.user!!.email as String,
+                    UserType.MANAGER
                 )
                 _result.value = Result.Success(user)
                 callback(Result.Success(user))
@@ -51,7 +53,8 @@ class LoginDataSource {
                         if (userDocument["password"] == password) {
                             val user = LoggedInUser(
                                 userDocument.id,
-                                userDocument["name"] as String
+                                userDocument["name"] as String,
+                                UserType.STORE_MANAGER
                             )
                             callback(Result.Success(user))
                             return@addOnSuccessListener

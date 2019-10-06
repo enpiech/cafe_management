@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
@@ -56,7 +57,6 @@ inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentT
             documentType = documentType
         )
 }
-
 
 /**
  * Transforms a [Task] into a [TaskLiveData], which can be used to observe [Task] state changes
