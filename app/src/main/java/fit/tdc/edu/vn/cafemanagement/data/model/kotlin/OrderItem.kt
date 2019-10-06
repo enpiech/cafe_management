@@ -7,6 +7,5 @@ data class OrderItem(
     var amount: Int = 1,
     var unitName: String? = null,
     var pricePerUnit: Long? = null,
-    var totalPrice: Long? = null,
-    override var collectionName: String = "orderItems"
+    var totalPrice: Long? = null
 ) : FirestoreModel()

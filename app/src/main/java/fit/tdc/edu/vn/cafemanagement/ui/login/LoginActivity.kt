@@ -18,6 +18,8 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 
 class LoginActivity : AppCompatActivity() {
@@ -31,28 +33,44 @@ class LoginActivity : AppCompatActivity() {
 
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
+        val listZone: LiveData<List<Zone>?> = src.getZoneList(storeId, DocumentType.ALL).map {
+            when (it.status) {
+                Status.SUCCESS -> it.data
+                else -> listOf()
+            }
+        }
+        listZone.observe(this, Observer {
+            it?.forEach {zone ->
+               Log.d("test", zone.id + ": " + zone.toString())
+            }
+        })
+        val listTable: LiveData<List<Table>?> = src.getTableList(storeId, DocumentType.ALL).map {
+            when (it.status) {
+                Status.SUCCESS -> it.data
+                else -> listOf()
+            }
+        }
+        listTable.observe(this, Observer {
+            it?.forEach {table ->
+                Log.d("test", table.id + ": " + table.toString())
+            }
+        })
 
-//        src.getCategoryList(storeId).observe(this, Observer {
-//            it.data?.forEach { category ->
-//                Log.d("test", category.toString())
-//            }
-//        })
+        val filteredTableList = MediatorLiveData<List<Table>?>()
+        filteredTableList.addSource(listTable) { listTable: List<Table>? ->
+            listTable?.let {
+                filteredTableList.value = listTable.filter { table ->
+                    table.zoneId.equals("Il4QzqS8VvJIQ53ObtST")
+                }
+            }
+        }
+        filteredTableList.observe(this, Observer {
+            Log.d("test", "table in Il4QzqS8VvJIQ53ObtST")
+            it?.forEach {table ->
+                Log.d("test", table.id + ": " + table.toString())
+            }
+        })
 
-
-//        val unit = fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit(name = "Gram")
-//        src.createUnit(storeId, unit).observe(this, Observer {
-//            Log.d("test", it.status.name)
-//            if (it.status == TaskStatus.SUCCESS) {
-//                unit.id = it.data!!.id
-//                Log.d("test", unit.id + ", " + unit.name)
-//            }
-//        })
-
-
-
-//        src.deleteUnit(storeId, createTask.data.id).observe(this, Observer { deleteTask ->
-//            Log.d("test", deleteTask.status.name)
-//        })
 
 
         val username = findViewById<EditText>(R.id.username)
@@ -79,14 +97,21 @@ class LoginActivity : AppCompatActivity() {
 
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
-//            Log.d("test", it.toString())
 
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
-            }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
+            when (loginResult.status) {
+                Status.LOADING -> loading.visibility = View.VISIBLE
+                Status.ERROR -> {
+                    loading.visibility = View.GONE
+                    loginResult.errorMessage?.let { message -> showLoginFailed(message) }
+                }
+                Status.SUCCESS -> {
+                    loading.visibility = View.GONE
+                    updateUiWithUser(
+                        LoggedInUserView(
+                            displayName = loginResult.data?.name ?: "Noname"
+                        )
+                    )
+                }
             }
             setResult(Activity.RESULT_OK)
 
@@ -140,6 +165,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {
+        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showLoginFailed(errorString: String) {
         Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }

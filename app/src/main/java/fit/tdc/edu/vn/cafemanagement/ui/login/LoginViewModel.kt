@@ -5,6 +5,7 @@ import android.util.Patterns
 import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.Result
+import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
@@ -16,41 +17,16 @@ class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel()
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = loginRepository.loginResult.map {
-        if (it == null) {
-            Log.d("test", "init")
-            LoginResult()
-        } else {
-            when (it.status) {
-                Status.SUCCESS -> {
-                    LoginResult(
-                        success = LoggedInUserView(
-                            displayName = it.data!!.displayName!!
-                        ),
-                        loading = false
-                    )
-                }
-                Status.LOADING -> {
-                    LoginResult(
-                        error = null,
-                        loading = true
-                    )
-                }
-                Status.ERROR -> {
-                    Log.d("test", it.errorMessage)
-                    LoginResult(
-                        error = R.string.login_failed,
-                        loading = false
-                    )
-                }
-            }
-        }
-    }
-    val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = loginRepository.loginResult
+    val loginResult = _loginResult
 
     fun login(username: String, password: String) {
-        if (_loginResult.value!!.loading) {
+        if (_loginResult.value?.status == Status.LOADING) {
             Log.d("test", "is loading")
+            return
+        }
+        if (loginRepository.isLoggedIn) {
+            _loginResult.value = FirestoreResource.error(Exception("Already login"))
             return
         }
 

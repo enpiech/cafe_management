@@ -1,17 +1,20 @@
 package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.ServerTimestamp
+import com.google.type.Date
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 
-data class Employee(
+data class User(
     var name: String? = null,
-    var birth: Timestamp? = null,
+    @ServerTimestamp var birth: Timestamp? = null,
     var gender: Gender? = null,
     var identityId: String? = null,
     var phone: String? = null,
     var address: String? = null,
-    var roleId: String? = null,
+    var role: UserType? = null,
     var storeId: String? = null,
-    var password: String? = null,
-    override var collectionName: String = "employees"
+    var username: String? = null,
+    @ServerTimestamp var lastLogin: Timestamp? = null
 ) : FirestoreModel()

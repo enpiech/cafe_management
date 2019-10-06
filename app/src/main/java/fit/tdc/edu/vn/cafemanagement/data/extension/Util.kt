@@ -68,7 +68,7 @@ inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentT
 fun <T> Task<T>.asLiveData(): TaskLiveData<T> = TaskLiveData(this)
 
 /**
- * An observable [LiveData] representing the currently signed-in user, as a [FirebaseUser]
+ * An observable [LiveData] representing the currently signed-in loggedInUser, as a [FirebaseUser]
  */
 val FirebaseAuth.currentUserLiveData: LiveData<FirebaseUser>
     get() = FirebaseAuthLiveData(this)

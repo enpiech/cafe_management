@@ -6,6 +6,5 @@ data class Material(
     var name: String? = null,
     var price: Long? = null,
     var unitId: String? = null,
-    var sellable: Boolean = false,
-    override var collectionName: String = "materials"
+    var sellable: Boolean = false
 ) : FirestoreModel()

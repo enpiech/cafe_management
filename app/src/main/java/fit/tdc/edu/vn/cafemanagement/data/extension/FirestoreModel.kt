@@ -14,6 +14,4 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 abstract class FirestoreModel {
     @get:Exclude
     open var id: String? = null
-    @get:Exclude
-    abstract var collectionName: String
 }

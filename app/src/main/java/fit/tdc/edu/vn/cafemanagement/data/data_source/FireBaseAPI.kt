@@ -45,7 +45,7 @@ interface FireBaseAPI {
 
     fun getEmployeeList(
         documentType: DocumentType
-    ): CollectionLiveData<Employee>
+    ): CollectionLiveData<User>
 
     fun getStoreList(
         documentType: DocumentType
@@ -104,7 +104,7 @@ interface FireBaseAPI {
     fun getEmployee(
         employeeId: String,
         documentType: DocumentType
-    ): DocumentLiveData<Employee>
+    ): DocumentLiveData<User>
 
     fun getStore(
         storeId: String,
@@ -148,7 +148,7 @@ interface FireBaseAPI {
     ): TaskLiveData<DocumentReference>
 
     fun createEmployee(
-        employee: Employee
+        user: User
     ): TaskLiveData<DocumentReference>
 
     fun createStore(
