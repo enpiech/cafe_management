@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 
 import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
-import fit.tdc.edu.vn.cafemanagement.data.model.Gender
 
 data class Employee(
     var name: String? = null,

@@ -1,15 +1,14 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
 
 class ZoneTypeRepository ( val dataSource: FireBaseDataSource) {
 
-    fun getAllZoneTypes() = dataSource.getZoneTypeList("")
+    fun getAllZoneTypes() = dataSource.getZoneTypeList("",DocumentType.ALL)
 
-//    fun getUnitById(id: String) : LiveData<ZoneType?> {
-//        return dataSource.getZ("", id)
-//    }
+    fun getZoneById(id: String) = dataSource.getZone("",id, DocumentType.SINGLE)
 
 
     fun insert(zoneType: ZoneType) {
