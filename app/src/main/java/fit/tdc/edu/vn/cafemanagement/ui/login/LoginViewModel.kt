@@ -4,12 +4,9 @@ import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
-import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginResult
 import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {

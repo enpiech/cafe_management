@@ -17,7 +17,6 @@ import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
@@ -57,9 +56,9 @@ class LoginActivity : AppCompatActivity() {
         })
 
         val filteredTableList = MediatorLiveData<List<Table>?>()
-        filteredTableList.addSource(listTable) { listTable: List<Table>? ->
-            listTable?.let {
-                filteredTableList.value = listTable.filter { table ->
+        filteredTableList.addSource(listTable) { filteredList ->
+            filteredList?.let {
+                filteredTableList.value = filteredList.filter { table ->
                     table.zoneId.equals("Il4QzqS8VvJIQ53ObtST")
                 }
             }

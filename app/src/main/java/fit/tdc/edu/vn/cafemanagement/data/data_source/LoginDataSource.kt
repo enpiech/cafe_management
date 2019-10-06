@@ -5,15 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ServerValue
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.model.value.ServerTimestampValue
-import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
-import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
-import java.io.IOException
 import java.lang.Exception
 import javax.inject.Singleton
 

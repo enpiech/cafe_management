@@ -82,11 +82,11 @@ class FireBaseDataSource: FireBaseAPI {
     override fun deleteCategory(
         storeId: String,
         categoryId: String
-    ): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
+    ): TaskLiveData<Void> = db.collection(STORES_KEY).document(storeId)
             .collection(CATEGORIES_KEY).document(categoryId)
             .delete()
             .asLiveData()
+
 
     // MATERIAL
     override fun getMaterialList(

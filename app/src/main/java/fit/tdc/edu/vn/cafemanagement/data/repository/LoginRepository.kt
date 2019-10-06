@@ -1,12 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
 import androidx.lifecycle.MediatorLiveData
-import fit.tdc.edu.vn.cafemanagement.data.Result
 import fit.tdc.edu.vn.cafemanagement.data.data_source.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
-import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUser
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
