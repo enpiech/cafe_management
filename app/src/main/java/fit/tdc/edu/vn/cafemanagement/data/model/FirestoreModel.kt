@@ -1,5 +1,6 @@
-package fit.tdc.edu.vn.cafemanagement.data.extension
+package fit.tdc.edu.vn.cafemanagement.data.model
 
+import androidx.room.PrimaryKey
 import com.google.firebase.firestore.Exclude
 import com.google.firebase.firestore.IgnoreExtraProperties
 
@@ -13,5 +14,6 @@ import com.google.firebase.firestore.IgnoreExtraProperties
 @IgnoreExtraProperties
 abstract class FirestoreModel {
     @get:Exclude
-    open var id: String? = null
+    @PrimaryKey(autoGenerate = false)
+    open var id: String = ""
 }

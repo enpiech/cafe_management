@@ -4,7 +4,8 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 
-class UnitViewModel (private val unitRepository: UnitRepositoryAPI) {
+class UnitViewModel (
+    private val unitRepository: UnitRepositoryAPI) {
 
     private var allUnits = unitRepository.getAllUnits()
 

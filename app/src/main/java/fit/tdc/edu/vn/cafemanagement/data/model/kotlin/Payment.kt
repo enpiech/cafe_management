@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 
 import com.google.firebase.Timestamp
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 
 data class Payment(
     var storeId: String? = null,

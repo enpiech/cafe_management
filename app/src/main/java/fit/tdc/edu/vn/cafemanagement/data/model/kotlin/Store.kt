@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 
 data class Store(
     var name: String? = null,

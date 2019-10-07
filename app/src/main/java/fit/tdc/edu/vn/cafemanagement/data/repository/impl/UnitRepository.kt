@@ -1,6 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
@@ -8,9 +9,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository ( val dataSource: FireBaseAPI):
+class UnitRepository ():
     UnitRepositoryAPI {
-
+    val dataSource: FireBaseAPI = FireBaseDataSource()
     override fun getAllUnits() : CollectionLiveData<Unit> =
         dataSource.getUnitList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
 

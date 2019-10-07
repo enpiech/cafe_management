@@ -2,8 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ServerTimestamp
-import com.google.type.Date
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 
 data class User(
