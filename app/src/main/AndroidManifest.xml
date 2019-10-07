@@ -11,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.unit_create.UnitCreateActivity"></activity>
+        <activity android:name=".ui.unit_list.UnitListActivity">
+
+        </activity>
         <activity
             android:name=".BartenderDrawerNavigation"
             android:label="@string/title_activity_bartender_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".WaiterDrawerNavigation"
             android:label="@string/title_activity_waiter_drawer_navigation"
