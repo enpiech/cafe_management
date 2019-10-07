@@ -1,11 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source
 
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import javax.inject.Singleton
+
 
 @Singleton
 class FireBaseDataSource: FireBaseAPI {
@@ -21,13 +23,13 @@ class FireBaseDataSource: FireBaseAPI {
         private const val UNITS_KEY         = "units"
         private const val ZONE_TYPES_KEY    = "zoneTypes"
         private const val ZONES_KEY         = "zones"
-        private const val EMPLOYEES_KEY     = "employees"
+        private const val USERS_KEY     = "users"
     }
 
     // CATEGORY
 
-//    fun getEmployeeOfStore(storeId: String) {
-//        db.collection("employeeOfStore").document("7MmeTKnmhgOieVehY05S")
+//    fun getUserOfStore(storeId: String) {
+//        db.collection("userOfStore").document("7MmeTKnmhgOieVehY05S")
 //            .get()
 //            .addOnSuccessListener {
 //                if (!it.data.isNullOrEmpty()) {
@@ -306,30 +308,30 @@ class FireBaseDataSource: FireBaseAPI {
             .asLiveData()
 
     // EMPLOYEE
-    override fun getEmployeeList(
+    override fun getUserList(
         documentType: DocumentType
     ): CollectionLiveData<User> =
-        db.collection(EMPLOYEES_KEY)
+        db.collection(USERS_KEY)
             .asLiveData(documentType)
 
-    override fun getEmployee(
-        employeeId: String,
+    override fun getUser(
+        userId: String,
         documentType: DocumentType
     ): DocumentLiveData<User> =
-        db.collection(EMPLOYEES_KEY).document(employeeId)
+        db.collection(USERS_KEY).document(userId)
             .asLiveData()
 
-    override fun createEmployee(
+    override fun createUser(
         user: User
     ): TaskLiveData<DocumentReference> =
-        db.collection(EMPLOYEES_KEY)
+        db.collection(USERS_KEY)
             .add(user)
             .asLiveData()
 
-    override fun deleteEmployee(
-        employeeId: String
+    override fun deleteUser(
+        userId: String
     ): TaskLiveData<Void> =
-        db.collection(EMPLOYEES_KEY).document(employeeId)
+        db.collection(USERS_KEY).document(userId)
             .delete()
             .asLiveData()
 
@@ -360,4 +362,14 @@ class FireBaseDataSource: FireBaseAPI {
         db.collection(STORES_KEY).document(storeId)
             .delete()
             .asLiveData()
+
+    fun queryTest(storeId: String) {
+        val query = db.collection(STORES_KEY).document(storeId)
+            .collection(UNITS_KEY).limit(20)
+        val options: FirestoreRecyclerOptions<Unit> =
+            FirestoreRecyclerOptions.Builder<Unit>()
+                .setQuery(query, Unit::class.java)
+                .build()
+
+    }
 }
