@@ -8,8 +8,7 @@ data class StockHistory(
     var materialName: String? = null,
     var amount: Int = 1,
     var actionTime: Timestamp? = null,
-    var type: StockAction = StockAction.ISSUE,
-    override var collectionName: String = "stockHistories"
+    var type: StockAction = StockAction.ISSUE
 ) : FirestoreModel() {
     companion object {
         enum class StockAction {

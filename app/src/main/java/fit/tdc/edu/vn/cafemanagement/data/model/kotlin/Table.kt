@@ -5,13 +5,13 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
 data class Table(
     var name: String? = null,
     var zoneId: String? = null,
-    var stateId: TableState = TableState.FREE,
-    override var collectionName: String = "tables"
+    var state: TableState = TableState.FREE
 ) : FirestoreModel() {
     companion object {
         enum class TableState {
             ORDERING,
-            FREE
+            FREE,
+            BOOKED
         }
     }
 }

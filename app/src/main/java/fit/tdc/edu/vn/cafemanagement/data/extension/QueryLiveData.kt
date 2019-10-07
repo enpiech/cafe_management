@@ -2,7 +2,9 @@ package fit.tdc.edu.vn.cafemanagement.data.extension
 
 import androidx.lifecycle.LiveData
 import android.util.Log
+import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 
 /**
  * An observable [LiveData] representing the current state of the data from a [Query].
@@ -37,4 +39,9 @@ class QueryLiveData<T : FirestoreModel>(private val modelClass: Class<T>, privat
         }
     }
 
+    fun updateField(field: String, value: Any?): Task<QuerySnapshot> = query.get().addOnSuccessListener { querySnapshot ->
+        querySnapshot.forEach {
+            it.data[field] = value
+        }
+    }
 }

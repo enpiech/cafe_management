@@ -4,6 +4,5 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreModel
 
 data class Menu(
     var name: String? = null,
-    var listItems: List<MenuItem> = listOf(),
-    override var collectionName: String = "menus"
+    var listItems: List<MenuItem> = listOf()
 ) : FirestoreModel()

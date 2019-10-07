@@ -4,6 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.CollectionReference
@@ -57,7 +58,6 @@ inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentT
         )
 }
 
-
 /**
  * Transforms a [Task] into a [TaskLiveData], which can be used to observe [Task] state changes
  *
@@ -68,7 +68,7 @@ inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentT
 fun <T> Task<T>.asLiveData(): TaskLiveData<T> = TaskLiveData(this)
 
 /**
- * An observable [LiveData] representing the currently signed-in user, as a [FirebaseUser]
+ * An observable [LiveData] representing the currently signed-in loggedInUser, as a [FirebaseUser]
  */
 val FirebaseAuth.currentUserLiveData: LiveData<FirebaseUser>
     get() = FirebaseAuthLiveData(this)

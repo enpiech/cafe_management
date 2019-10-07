@@ -337,19 +337,19 @@ class FireBaseDataSource: FireBaseAPI {
      */
     override fun getEmployeeList(
         documentType: DocumentType
-    ): CollectionLiveData<Employee> =
+    ): CollectionLiveData<User> =
         db.collection(EMPLOYEES_KEY)
             .asLiveData(documentType)
 
     override fun getEmployee(
         employeeId: String,
         documentType: DocumentType
-    ): DocumentLiveData<Employee> =
+    ): DocumentLiveData<User> =
         db.collection(EMPLOYEES_KEY).document(employeeId)
             .asLiveData()
 
     override fun createEmployee(
-        employee: Employee
+        employee: User
     ): TaskLiveData<DocumentReference> =
         db.collection(EMPLOYEES_KEY)
             .add(employee)

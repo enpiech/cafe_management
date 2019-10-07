@@ -8,6 +8,5 @@ data class Revenue(
     var storeName: String? = null,
     var income: Long = 0,
     var outcome: Long = 0,
-    var date: Timestamp? = null,
-    override var collectionName: String = "revenues"
+    var date: Timestamp? = null
 ) : FirestoreModel()

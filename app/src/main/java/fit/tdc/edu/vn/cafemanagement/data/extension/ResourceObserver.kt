@@ -20,7 +20,7 @@ interface ResourceObserver<T> : Observer<FirestoreResource<T>> {
      * Callback triggered when the [FirestoreResource]'s [Status] is [Status.ERROR].
      *
      * @param throwable A [Throwable] representing the error
-     * @param [errorMessage] A human-readable error message to display to the user
+     * @param [errorMessage] A human-readable error message to display to the loggedInUser
      */
     fun onError(throwable: Throwable?, errorMessage: String?)
 

@@ -7,8 +7,8 @@ package fit.tdc.edu.vn.cafemanagement.data.extension
  *
  * @property status The current [Status] of the data retrieval operation
  * @property data If [status] is [Status.SUCCESS], [data] represents the result of the retrieval operation.
- * @property throwable If [status] is [Status.ERROR], [throwable] is the error returned by the Firebase SDK, which can be used to display an error message to the user
- * @property errorMessage If [status] is [Status.ERROR] and [throwable] is not null, [errorMessage] will be a human-readable error message for display to the user
+ * @property throwable If [status] is [Status.ERROR], [throwable] is the error returned by the Firebase SDK, which can be used to display an error message to the loggedInUser
+ * @property errorMessage If [status] is [Status.ERROR] and [throwable] is not null, [errorMessage] will be a human-readable error message for display to the loggedInUser
  */
 class FirestoreResource<T> private constructor(val status: Status, val data: T?, val throwable: Throwable?) {
 
