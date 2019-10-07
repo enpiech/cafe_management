@@ -19,15 +19,22 @@ import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
+    private lateinit var zoneViewModel: ZoneViewModel
+    private lateinit var tableViewModel: TableViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_login2)
+
 
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()

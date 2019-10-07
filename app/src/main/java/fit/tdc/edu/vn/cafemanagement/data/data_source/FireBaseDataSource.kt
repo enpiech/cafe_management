@@ -24,7 +24,10 @@ class FireBaseDataSource: FireBaseAPI {
         private const val EMPLOYEES_KEY     = "employees"
     }
 
-    // CATEGORY
+    /**
+    *
+    * ==========  CATEGORY  ============
+    */
 
 //    fun getEmployeeOfStore(storeId: String) {
 //        db.collection("employeeOfStore").document("7MmeTKnmhgOieVehY05S")
@@ -88,7 +91,10 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // MATERIAL
+    /**
+     *
+     * ==========  MATERIAL  ============
+     */
     override fun getMaterialList(
         storeId: String,
         documentType: DocumentType
@@ -124,7 +130,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // TABLE
+
+    /**
+     *
+     * ==========  TABLE  ============
+     */
     override fun getTableList(
         storeId: String,
         documentType: DocumentType
@@ -161,7 +171,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // REVENUE
+
+    /**
+     *
+     * ==========  REVENUE  ============
+     */
     override fun getRevenueList(
         storeId: String,
         documentType: DocumentType
@@ -197,7 +211,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // UNIT
+
+    /**
+     *
+     * ==========  UNIT  ============
+     */
     override fun getUnitList(
         storeId: String,
         documentType: DocumentType
@@ -233,7 +251,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // ZONE TYPE
+
+    /**
+     *
+     * ==========  ZONE TYPE  ============
+     */
     override fun getZoneTypeList(
         storeId: String,
         documentType: DocumentType
@@ -269,7 +291,10 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // ZONE
+    /**
+     *
+     * ==========  ZONE  ============
+     */
     override fun getZoneList(
         storeId: String,
         documentType: DocumentType
@@ -305,7 +330,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // EMPLOYEE
+
+    /**
+     *
+     * ==========  EMPLOYEE  ============
+     */
     override fun getEmployeeList(
         documentType: DocumentType
     ): CollectionLiveData<Employee> =
@@ -333,7 +362,11 @@ class FireBaseDataSource: FireBaseAPI {
             .delete()
             .asLiveData()
 
-    // STORE
+
+    /**
+     *
+     * ==========  STORE  ============
+     */
     override fun getStoreList(
         documentType: DocumentType
     ): CollectionLiveData<Store> =

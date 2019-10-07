@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.revenue_viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.RevenueRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.RevenueRepository
 
 class RevenueViewModelFactory : ViewModelProvider.Factory {
 
@@ -12,8 +12,8 @@ class RevenueViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(RevenueViewModel::class.java)) {
             return RevenueViewModel(
                  revenueRepository = RevenueRepository(
-                    dataSource = FireBaseDataSource()
-                )
+                     dataSource = FireBaseDataSource()
+                 )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

@@ -1,32 +1,34 @@
-package fit.tdc.edu.vn.cafemanagement.data.repository
+package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository ( val dataSource: FireBaseAPI) {
+class UnitRepository ( val dataSource: FireBaseAPI):
+    UnitRepositoryAPI {
 
-    fun getAllUnits() : CollectionLiveData<Unit> =
+    override fun getAllUnits() : CollectionLiveData<Unit> =
         dataSource.getUnitList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
 
-    fun getUnitById(id: String) : DocumentLiveData<Unit> =
+    override fun getUnit(id: String) : DocumentLiveData<Unit> =
         dataSource.getUnit("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
 
 
-    fun insert(unit: Unit) =
+    override fun insert(unit: Unit) =
         dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)
 
-    fun update(unit: Unit) {
+    override fun update(unit: Unit) {
         //TODO: get update function
     }
 
-    fun delete(unit: Unit) =
+    override fun delete(unit: Unit) =
         dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id!!)
 
-    fun deleteAllUnits() {
+    override fun deleteAllUnits() {
         //TODO: get delete all function
     }
 }

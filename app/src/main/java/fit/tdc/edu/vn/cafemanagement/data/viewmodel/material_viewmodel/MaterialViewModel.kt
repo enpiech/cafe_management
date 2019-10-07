@@ -1,11 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel
 
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
-import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
 
-class MaterialViewModel (private val materialRepository: MaterialRepository) {
+class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI) {
 
-    private var allMaterials = materialRepository.getAllMarerials()
+    private var allMaterials = materialRepository.getAllMaterials()
 
     fun getMaterial(id: String) = materialRepository.getMaterial(id)
 
@@ -22,7 +23,7 @@ class MaterialViewModel (private val materialRepository: MaterialRepository) {
     }
 
     fun deleteAllMaterials() {
-        materialRepository.deleteAllMaterialss()
+        materialRepository.deleteAllMaterials()
     }
 
     fun getAllMaterials() = allMaterials

@@ -7,28 +7,18 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
+/**
+ * UNIT REPOSITORY API
+ *
+ * @since 1.0
+ * @author anh.lt
+ */
+
 interface UnitRepositoryAPI {
-    fun getAllCategory(): CollectionLiveData<Category>
-    fun getAllMarerials(): CollectionLiveData<Category>
-    fun getAllRevenue(): CollectionLiveData<Category>
-    fun getAllTable(): CollectionLiveData<Category>
-    fun getAllUnit(): CollectionLiveData<Category>
-    fun getAllZone(): CollectionLiveData<Category>
-    fun getAllZoneType(): CollectionLiveData<Category>
-
-    fun getCategory(): DocumentLiveData<Category>
-    fun getMarerials(): DocumentLiveData<Material>
-    fun getRevenue(): DocumentLiveData<Revenue>
-    fun getTable(): DocumentLiveData<Table>
-    fun getUnit(): DocumentLiveData<Unit>
-    fun getZone(): DocumentLiveData<Zone>
-    fun getZoneType(): DocumentLiveData<ZoneType>
-
-    fun insert(category: Category): TaskLiveData<DocumentReference>
-    fun insert(material: Material): TaskLiveData<DocumentReference>
-    fun insert(revenue: Revenue): TaskLiveData<DocumentReference>
-    fun insert(table: Table): TaskLiveData<DocumentReference>
+    fun getAllUnits(): CollectionLiveData<Unit>
+    fun getUnit(id: String): DocumentLiveData<Unit>
     fun insert(unit: Unit): TaskLiveData<DocumentReference>
-    fun insert(zone: Zone): TaskLiveData<DocumentReference>
-    fun insert(zoneType: ZoneType): TaskLiveData<DocumentReference>
+    fun update(unit: Unit)
+    fun delete(unit: Unit): TaskLiveData<Void>
+    fun deleteAllUnits()
 }

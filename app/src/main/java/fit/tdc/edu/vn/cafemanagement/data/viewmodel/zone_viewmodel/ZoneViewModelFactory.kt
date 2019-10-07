@@ -3,7 +3,8 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 
 class ZoneViewModelFactory : ViewModelProvider.Factory {
 
@@ -12,6 +13,9 @@ class ZoneViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(ZoneViewModel::class.java)) {
             return ZoneViewModel(
                  zoneRepository = ZoneRepository(
+                     dataSource = FireBaseDataSource()
+                 ),
+                tableRepository = TableRepository(
                     dataSource = FireBaseDataSource()
                 )
             ) as T

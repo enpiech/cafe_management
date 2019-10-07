@@ -1,9 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
-import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 
-class TableViewModel (private val tableRepository: TableRepository) {
+class TableViewModel (private val tableRepository: TableRepositoryAPI) {
 
     private var allTables = tableRepository.getAllTables()
 

@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
 
 class MaterialViewModelFactory : ViewModelProvider.Factory {
 
@@ -12,8 +12,8 @@ class MaterialViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(MaterialViewModel::class.java)) {
             return MaterialViewModel(
                  materialRepository = MaterialRepository(
-                    dataSource = FireBaseDataSource()
-                )
+                     dataSource = FireBaseDataSource()
+                 )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

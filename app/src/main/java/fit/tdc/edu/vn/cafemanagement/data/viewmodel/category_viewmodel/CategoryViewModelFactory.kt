@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
 
 class CategoryViewModelFactory : ViewModelProvider.Factory {
 

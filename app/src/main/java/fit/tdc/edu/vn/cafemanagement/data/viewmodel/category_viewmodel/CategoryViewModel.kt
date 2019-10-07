@@ -2,9 +2,10 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepsitoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
 
-class CategoryViewModel (private val categoryRepository:CategoryRepository) {
+class CategoryViewModel (private val categoryRepository: CategoryRepsitoryAPI) {
 
     private var allCategories: CollectionLiveData<Category> = categoryRepository.getAllCategory()
 
@@ -23,7 +24,7 @@ class CategoryViewModel (private val categoryRepository:CategoryRepository) {
     }
 
     fun deleteAllCategories() {
-        categoryRepository.deleteAllUnits()
+        categoryRepository.deleteAllCategories()
     }
 
     fun getAllCategories(): CollectionLiveData<Category> {

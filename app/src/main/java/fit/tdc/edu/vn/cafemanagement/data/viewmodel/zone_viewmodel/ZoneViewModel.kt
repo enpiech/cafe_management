@@ -1,11 +1,22 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 
+import android.util.Log
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
-import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
+import kotlin.math.log
 
-class ZoneViewModel (private val zoneRepository: ZoneRepository) {
+class ZoneViewModel (private val zoneRepository: ZoneRepository, private var tableRepository: TableRepository) : ViewModel() {
 
+    private var tableViewModel = TableViewModel(tableRepository)
     private var allZones = zoneRepository.getAllZones()
+
+    val tables = MediatorLiveData<List<Table>>()
+
 
     fun insert(zone: Zone) {
         zoneRepository.insert(zone)
@@ -20,9 +31,15 @@ class ZoneViewModel (private val zoneRepository: ZoneRepository) {
     }
 
     fun deleteAllZones() {
-        zoneRepository.deleteAllUnits()
+        zoneRepository.deleteAllZones()
     }
 
     fun getAllZones() = allZones
 
+    fun getTablesInZone(id: String) = tableViewModel.getAlltables().value.let {
+
+        tables.value = it!!.data
+
+        tables
+    }
 }

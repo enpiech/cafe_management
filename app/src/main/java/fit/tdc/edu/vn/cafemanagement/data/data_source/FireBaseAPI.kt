@@ -7,7 +7,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
 interface FireBaseAPI {
-    // GET COLLECTION
+    /**
+     * ======== GET LISTS ========
+     */
     fun getCategoryList(
         storeId: String,
         documentType: DocumentType
@@ -52,13 +54,17 @@ interface FireBaseAPI {
     ): CollectionLiveData<Store>
 
 
-    // FETCH
+    /**
+     * ========== FETCH ============
+     */
     fun fetchCategoryList(
         storeId: String
     ): TaskLiveData<QuerySnapshot>
 
 
-    // GET SPECIFIC DOCUMENT
+    /**
+     * =========== GET SPECIFIC DOCUMENT ============
+     */
     fun getCategory(
         storeId: String,
         categoryId: String,
@@ -112,7 +118,9 @@ interface FireBaseAPI {
     ): DocumentLiveData<Store>
 
 
-    // CREATE DOCUMENT
+    /**
+     * ========== CREATE DOCUMENT ===========
+     */
     fun createCategory(
         storeId: String,
         category: Category
@@ -155,7 +163,9 @@ interface FireBaseAPI {
         store: Store
     ): TaskLiveData<DocumentReference>
 
-    // DELETE DOCUMENT
+    /**
+     * =========== DELETE DOCUMENT ==============
+     */
     fun deleteCategory(
         storeId: String,
         categoryId: String
