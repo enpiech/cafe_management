@@ -1,31 +1,27 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Employee
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepsitoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.EmployeeRepsitoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepsitoryAPI
 
-class EmployeeRepository(val dataSource: FireBaseAPI) : EmployeeRepsitoryAPI{
+class UserRepository(val dataSource: FireBaseAPI) : UserRepsitoryAPI{
 
-    override fun getAllEmployees() = dataSource.getEmployeeList(DocumentType.ALL)
+    override fun getAllUsers() = dataSource.getUserList(DocumentType.ALL)
 
-    override fun getEmployee(id: String) = dataSource.getEmployee(id,DocumentType.SINGLE)
+    override fun getUser(id: String) = dataSource.getUser(id,DocumentType.SINGLE)
 
-    override fun insert(employee: Employee) =
-        dataSource.createEmployee(employee)
+    override fun insert(user: User) =
+        dataSource.createUser(user)
 
-    override fun update(employee: Employee) {
+    override fun update(user: User) {
         //TODO: get update function
     }
 
-    override fun delete(employee: Employee) =
-        dataSource.deleteCategory("EfzspceETNgWk56YDOOt", employee.id!!)
+    override fun delete(user: User) =
+        dataSource.deleteCategory("EfzspceETNgWk56YDOOt", user.id!!)
 
-    override fun deleteAllEmployees () {
+    override fun deleteAllUsers () {
         //TODO: get delete all function
     }
 }

@@ -3,10 +3,10 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepsitoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
 class CategoryRepository(val dataSource: FireBaseAPI) :
-    CategoryRepsitoryAPI {
+    CategoryRepositoryAPI {
 
     override fun getAllCategory() = dataSource.getCategoryList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 

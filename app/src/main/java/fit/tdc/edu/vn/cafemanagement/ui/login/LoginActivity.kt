@@ -20,6 +20,7 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
@@ -28,8 +29,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var loginViewModel: LoginViewModel
-    private lateinit var zoneViewModel: ZoneViewModel
-    private lateinit var tableViewModel: TableViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,41 +39,13 @@ class LoginActivity : AppCompatActivity() {
 
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
-        val listZone: LiveData<List<Zone>?> = src.getZoneList(storeId, DocumentType.ALL).map {
-            when (it.status) {
-                Status.SUCCESS -> it.data
-                else -> listOf()
-            }
-        }
-        listZone.observe(this, Observer {
-            it?.forEach {zone ->
-               Log.d("test", zone.id + ": " + zone.toString())
-            }
-        })
-        val listTable: LiveData<List<Table>?> = src.getTableList(storeId, DocumentType.ALL).map {
-            when (it.status) {
-                Status.SUCCESS -> it.data
-                else -> listOf()
-            }
-        }
-        listTable.observe(this, Observer {
-            it?.forEach {table ->
-                Log.d("test", table.id + ": " + table.toString())
-            }
-        })
 
-        val filteredTableList = MediatorLiveData<List<Table>?>()
-        filteredTableList.addSource(listTable) { filteredList ->
-            filteredList?.let {
-                filteredTableList.value = filteredList.filter { table ->
-                    table.zoneId.equals("Il4QzqS8VvJIQ53ObtST")
-                }
-            }
-        }
-        filteredTableList.observe(this, Observer {
-            Log.d("test", "table in Il4QzqS8VvJIQ53ObtST")
-            it?.forEach {table ->
-                Log.d("test", table.id + ": " + table.toString())
+        val repository = ZoneRepository(src)
+
+        val ajsgahjs = repository.tablesInZone("HfFi1Zkm9ryLCdMkfonk").observe(this, Observer {
+            Log.d("tables in lầu 81: ", it?.size.toString())
+            it?.forEach { table ->
+                Log.d("========zxczczc=====", table.toString())
             }
         })
 

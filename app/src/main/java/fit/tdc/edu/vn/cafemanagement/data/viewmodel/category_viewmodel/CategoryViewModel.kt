@@ -2,10 +2,9 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepsitoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
-class CategoryViewModel (private val categoryRepository: CategoryRepsitoryAPI) {
+class CategoryViewModel (private val categoryRepository: CategoryRepositoryAPI) {
 
     private var allCategories: CollectionLiveData<Category> = categoryRepository.getAllCategory()
 

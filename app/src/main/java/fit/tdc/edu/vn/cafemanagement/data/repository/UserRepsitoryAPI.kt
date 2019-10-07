@@ -5,12 +5,13 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
 
-interface CategoryRepsitoryAPI {
-    fun getAllCategory(): CollectionLiveData<Category>
-    fun getCategory(id: String): DocumentLiveData<Category>
-    fun insert(category: Category): TaskLiveData<DocumentReference>
-    fun update(category: Category)
-    fun delete(category: Category): TaskLiveData<Void>
-    fun deleteAllCategories()
+interface UserRepsitoryAPI {
+    fun getAllUsers(): CollectionLiveData<User>
+    fun getUser(id: String): DocumentLiveData<User>
+    fun insert(user: User): TaskLiveData<DocumentReference>
+    fun update(user: User)
+    fun delete(user: User): TaskLiveData<Void>
+    fun deleteAllUsers()
 }
