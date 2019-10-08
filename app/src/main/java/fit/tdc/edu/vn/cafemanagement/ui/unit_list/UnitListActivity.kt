@@ -23,8 +23,8 @@ class UnitListActivity : AppCompatActivity() {
     var adapter = UnitAdapter()
 
     companion object {
-        const val ADD_NOTE_REQUEST = 1
-        const val EDIT_NOTE_REQUEST = 2
+        const val ADD_UNIT_REQUEST = 1
+        const val EDIT_UNIT_REQUEST = 2
     }
 
     private lateinit var unitViewModel: UnitViewModel
@@ -37,7 +37,7 @@ class UnitListActivity : AppCompatActivity() {
         btnAddUnit.setOnClickListener {
             startActivityForResult(
                 Intent(this, UnitCreateActivity::class.java),
-                ADD_NOTE_REQUEST
+                ADD_UNIT_REQUEST
             )
         }
 
@@ -92,7 +92,7 @@ class UnitListActivity : AppCompatActivity() {
                 val intent = Intent(baseContext, UnitCreateActivity::class.java)
                 intent.putExtra(UnitCreateActivity.EXTRA_ID, unit.id)
                 intent.putExtra(UnitCreateActivity.EXTRA_NAME, unit.name)
-                startActivityForResult(intent, EDIT_NOTE_REQUEST)
+                startActivityForResult(intent, EDIT_UNIT_REQUEST)
             }
 
 
@@ -120,14 +120,14 @@ class UnitListActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ADD_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ADD_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
             val newUnit = Unit(
                 data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
             )
             unitViewModel.insert(newUnit)
             Toast.makeText(this, "Unit saved!", Toast.LENGTH_SHORT).show()
 
-        } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
+        } else if (requestCode == EDIT_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
             val id = data?.getIntExtra(UnitCreateActivity.EXTRA_ID, -1)
 
             if (id == -1) {
