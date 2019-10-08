@@ -15,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitCreateActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
 
@@ -48,7 +49,7 @@ class UnitListActivity : AppCompatActivity() {
 
         recycler_view.adapter = adapter
 
-        unitViewModel = ViewModelProviders.of(this).get(UnitViewModel::class.java)
+        unitViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(UnitViewModel::class.java)
 
         unitViewModel.getAllUnits().observe(this, Observer {
             adapter.submitList(it.data)
@@ -128,16 +129,16 @@ class UnitListActivity : AppCompatActivity() {
             Toast.makeText(this, "Unit saved!", Toast.LENGTH_SHORT).show()
 
         } else if (requestCode == EDIT_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
-            val id = data?.getIntExtra(UnitCreateActivity.EXTRA_ID, -1)
+            val id = data?.getStringExtra(UnitCreateActivity.EXTRA_ID)
 
-            if (id == -1) {
+            if (id == "") {
                 Toast.makeText(this, "Could not update! Error!", Toast.LENGTH_SHORT).show()
             }
 
             val updateUnit = Unit(
                 data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
             )
-            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID)
+            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID) ?: ""
             unitViewModel.update(updateUnit)
 
         } else {

@@ -16,8 +16,6 @@ class UnitCreateActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
-        const val MODIFY_UNIT_REQUEST = 1
-        const val UPDATE_UNIT_REQUEST = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +27,7 @@ class UnitCreateActivity : AppCompatActivity() {
         btn_modifyUnit.setOnClickListener {
             edit_unit.isEnabled = true
             btn_modifyUnit.setText("Cập nhật")
-            saveUnit()
-            true
+
         }
 
         if (intent.hasExtra(EXTRA_ID)) {
@@ -69,8 +66,8 @@ class UnitCreateActivity : AppCompatActivity() {
 
         val data = Intent().apply {
             putExtra(EXTRA_NAME, edit_unit.text.toString())
-            if (intent.getIntExtra(EXTRA_ID, -1) != -1) {
-                putExtra(EXTRA_ID, intent.getIntExtra(EXTRA_ID, -1))
+            if (!intent.getStringExtra(EXTRA_ID).isNullOrEmpty()) {
+                putExtra(EXTRA_ID, intent.getStringExtra(EXTRA_ID))
             }
         }
 
