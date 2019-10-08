@@ -6,5 +6,6 @@ data class Material(
     var name: String? = null,
     var price: Long? = null,
     var unitId: String? = null,
+    var zoneId: String? = null,
     var sellable: Boolean = false
 ) : FirestoreModel()
