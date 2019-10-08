@@ -1,28 +1,25 @@
 package fit.tdc.edu.vn.cafemanagement.ui.unit_list
 
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.R
-import androidx.lifecycle.Observer
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.UnitViewModel
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitCreateActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
 
 class UnitListActivity : AppCompatActivity() {
 
-    val db = FirebaseFirestore.getInstance()
     var adapter = UnitAdapter()
 
     companion object {
@@ -76,18 +73,14 @@ class UnitListActivity : AppCompatActivity() {
                 {
                     setTitle("Xóa")
                     setMessage("Bạn có muốn xóa thông tin này không?")
-                    setPositiveButton("OK", object : DialogInterface.OnClickListener{
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            unitViewModel.delete(adapter.getUnitAt(viewHolder.adapterPosition))
-                            Toast.makeText(baseContext, "Unit bạn chọn đã bị xóa!", Toast.LENGTH_SHORT).show()
-                        }
-                    })
-                    setNegativeButton("Hủy", object : DialogInterface.OnClickListener{
-                        override fun onClick(p0: DialogInterface?, p1: Int) {
-                            adapter.notifyDataSetChanged()
-                            Toast.makeText(baseContext, "Hủy", Toast.LENGTH_SHORT).show()
-                        }
-                    })
+                    setPositiveButton("OK") { p0, p1 ->
+                        unitViewModel.delete(adapter.getUnitAt(viewHolder.adapterPosition))
+                        Toast.makeText(baseContext, "Unit bạn chọn đã bị xóa!", Toast.LENGTH_SHORT).show()
+                    }
+                    setNegativeButton("Hủy") { p0, p1 ->
+                        adapter.notifyDataSetChanged()
+                        Toast.makeText(baseContext, "Hủy", Toast.LENGTH_SHORT).show()
+                    }
                     show()
                 }
             }
@@ -96,7 +89,7 @@ class UnitListActivity : AppCompatActivity() {
 
         adapter.setOnItemClickListener(object : UnitAdapter.OnItemClickListener {
             override fun onItemClick(unit: Unit) {
-                var intent = Intent(baseContext, UnitCreateActivity::class.java)
+                val intent = Intent(baseContext, UnitCreateActivity::class.java)
                 intent.putExtra(UnitCreateActivity.EXTRA_ID, unit.id)
                 intent.putExtra(UnitCreateActivity.EXTRA_NAME, unit.name)
                 startActivityForResult(intent, EDIT_NOTE_REQUEST)

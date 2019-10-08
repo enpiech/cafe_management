@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel
 
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
 
 class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI) {
 

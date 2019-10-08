@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
@@ -20,7 +20,7 @@ class MaterialRepository ( val dataSource: FireBaseDataSource) :
     }
 
     override fun delete(material: Material) =
-        dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id!!)
+        dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)
 
     override fun deleteAllMaterials() {
         //TODO: get delete all function

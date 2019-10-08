@@ -7,7 +7,7 @@ package fit.tdc.edu.vn.cafemanagement.data.extension
  * @property data If [status] is [TaskStatus.SUCCESS], [data] represents the data returned by the task.
  * @property exception If [status] is [TaskStatus.FAILED], [exception] is the error returned by Firestore.
  */
-class TaskResult<T> private constructor(val status: TaskStatus, val data: T?, val exception: Exception?) {
+class TaskResult<T> private constructor(val status: TaskStatus, val data: T?, private val exception: Exception?) {
 
     companion object {
         /**

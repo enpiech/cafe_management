@@ -2,7 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 

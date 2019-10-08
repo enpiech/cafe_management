@@ -3,7 +3,6 @@ package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.ServerTimestamp
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 
 data class User(
     var name: String? = null,
@@ -12,8 +11,15 @@ data class User(
     var identityId: String? = null,
     var phone: String? = null,
     var address: String? = null,
-    var role: UserType? = null,
+    var role: Type? = null,
     var storeId: String? = null,
     var username: String? = null,
     @ServerTimestamp var lastLogin: Timestamp? = null
-) : FirestoreModel()
+) : FirestoreModel() {
+    enum class Type {
+        MANAGER,
+        STORE_MANAGER,
+        WAITER,
+        BARTENDER
+    }
+}

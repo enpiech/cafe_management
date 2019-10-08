@@ -6,5 +6,6 @@ data class Store(
     var name: String? = null,
     var address: String? = null,
     var managerId: String? = null,
-    var managerName: String? = null
+    var managerName: String? = null,
+    var zonesInStore: List<Zone>? = null
 ) : FirestoreModel()

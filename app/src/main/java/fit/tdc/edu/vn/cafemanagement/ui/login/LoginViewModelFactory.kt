@@ -1,10 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
-import android.app.Application
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import fit.tdc.edu.vn.cafemanagement.data.data_source.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
 /**

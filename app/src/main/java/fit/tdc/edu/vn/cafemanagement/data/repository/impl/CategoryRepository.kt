@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
@@ -20,7 +20,7 @@ class CategoryRepository(val dataSource: FireBaseAPI) :
     }
 
     override fun delete(category: Category) =
-        dataSource.deleteCategory("EfzspceETNgWk56YDOOt", category.id!!)
+        dataSource.deleteCategory("EfzspceETNgWk56YDOOt", category.id)
 
     override fun deleteAllCategories() {
         //TODO: get delete all function

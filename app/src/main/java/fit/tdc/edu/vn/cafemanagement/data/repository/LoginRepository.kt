@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
-import androidx.lifecycle.MediatorLiveData
-import fit.tdc.edu.vn.cafemanagement.data.data_source.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
@@ -53,7 +52,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
     fun login(username: String, password: String) {
         _loginResult.value = FirestoreResource.loading()
         // handle login
-
         dataSource.managerLogin(username, password)
     }
 

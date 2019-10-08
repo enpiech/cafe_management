@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.data_source
+package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
@@ -163,6 +163,53 @@ interface FireBaseAPI {
         store: Store
     ): TaskLiveData<DocumentReference>
 
+
+    /**
+     * ========== CREATE DOCUMENT ===========
+     */
+    fun modifyCategory(
+        storeId: String,
+        category: Category
+    ): TaskLiveData<Void>
+
+    fun modifyMaterial(
+        storeId: String,
+        material: Material): TaskLiveData<Void>
+
+    fun modifyRevenue(
+        storeId: String,
+        revenue: Revenue
+    ): TaskLiveData<Void>
+
+    fun modifyTable(
+        storeId: String,
+        table: Table
+    ): TaskLiveData<Void>
+
+    fun modifyUnit(
+        storeId: String,
+        unit: Unit
+    ): TaskLiveData<Void>
+
+    fun modifyZoneType(
+        storeId: String,
+        zoneType: ZoneType
+    ): TaskLiveData<Void>
+
+    fun modifyZone(
+        storeId: String,
+        zone: Zone
+    ): TaskLiveData<Void>
+
+    fun modifyUser(
+        user: User
+    ): TaskLiveData<Void>
+
+    fun modifyStore(
+        store: Store
+    ): TaskLiveData<Void>
+    
+    
     /**
      * =========== DELETE DOCUMENT ==============
      */

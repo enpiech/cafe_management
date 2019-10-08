@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
@@ -9,9 +9,10 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository ():
+class UnitRepository :
     UnitRepositoryAPI {
-    val dataSource: FireBaseAPI = FireBaseDataSource()
+    val dataSource: FireBaseAPI =
+        FireBaseDataSource()
     override fun getAllUnits() : CollectionLiveData<Unit> =
         dataSource.getUnitList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
 
@@ -27,7 +28,7 @@ class UnitRepository ():
     }
 
     override fun delete(unit: Unit) =
-        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id!!)
+        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
 
     override fun deleteAllUnits() {
         //TODO: get delete all function

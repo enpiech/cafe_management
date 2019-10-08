@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneTypeRepositoryAPI
@@ -19,7 +19,7 @@ class ZoneTypeRepository ( val dataSource: FireBaseDataSource):
         //TODO: get update function
     }
 
-    override fun delete(zoneType: ZoneType) = dataSource.deleteZoneType("", zoneType.id!!)
+    override fun delete(zoneType: ZoneType) = dataSource.deleteZoneType("", zoneType.id)
 
     override fun deleteAllZoneTypes() {
         //TODO: get delete all function
