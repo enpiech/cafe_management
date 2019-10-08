@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import android.util.Log
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
@@ -21,7 +20,7 @@ class TableRepository(val dataSource: FireBaseDataSource):
     }
 
     override fun delete(table: Table) =
-        dataSource.deleteTable("EfzspceETNgWk56YDOOt", table.id!!)
+        dataSource.deleteTable("EfzspceETNgWk56YDOOt", table.id)
 
     override fun deleteAllTables() {
         //TODO: get delete all function

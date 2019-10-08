@@ -1,6 +1,7 @@
-package fit.tdc.edu.vn.cafemanagement.data.model.unit
+package fit.tdc.edu.vn.cafemanagement.data.data_source.local.unit
 
 import androidx.lifecycle.LiveData
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import androidx.room.*
 
 @Dao

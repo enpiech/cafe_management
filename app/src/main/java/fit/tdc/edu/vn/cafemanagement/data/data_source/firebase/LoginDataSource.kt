@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.data_source
+package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 import java.lang.Exception
 import javax.inject.Singleton
 
@@ -38,7 +37,7 @@ class LoginDataSource {
                 }
                 val firebaseUser = it.user!!
                 val user = User(
-                    role = UserType.MANAGER,
+                    role = User.Type.MANAGER,
                     username = firebaseUser.email,
                     lastLogin = Timestamp.now()
                 ).apply {
@@ -52,10 +51,10 @@ class LoginDataSource {
             }
     }
 
-    fun storeManagerLogin(
+    fun employeeLogin(
         username: String,
         password: String,
-        userType: UserType
+        userType: User.Type
     ) {
         firestore.collection("users").document(username)
             .get()

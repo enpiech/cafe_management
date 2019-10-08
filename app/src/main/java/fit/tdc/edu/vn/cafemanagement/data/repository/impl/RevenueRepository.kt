@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.repository.RevenueRepositoryAPI
@@ -20,7 +20,7 @@ class RevenueRepository ( val dataSource: FireBaseDataSource):
     }
 
     override fun delete(revenue: Revenue) =
-        dataSource.deleteRevenue("EfzspceETNgWk56YDOOt", revenue.id!!)
+        dataSource.deleteRevenue("EfzspceETNgWk56YDOOt", revenue.id)
 
     override fun deleteAllRevenues() {
         //TODO: get delete all function

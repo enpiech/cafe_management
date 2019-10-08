@@ -5,6 +5,7 @@ import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 
 /**
  * An observable [LiveData] representing the current state of the data from a [Query].

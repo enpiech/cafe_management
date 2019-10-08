@@ -2,18 +2,20 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository ( val dataSource: FireBaseAPI):
+class UnitRepository :
     UnitRepositoryAPI {
+    val dataSource: FireBaseAPI =
+        FireBaseDataSource()
 
     val filteredMaterialList = MediatorLiveData<List<Material>?>()
     private var listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
@@ -38,6 +40,7 @@ class UnitRepository ( val dataSource: FireBaseAPI):
         return filteredMaterialList
     }
 
+
     override fun getAllUnits() : CollectionLiveData<Unit> =
         dataSource.getUnitList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
 
@@ -53,7 +56,7 @@ class UnitRepository ( val dataSource: FireBaseAPI):
     }
 
     override fun delete(unit: Unit) =
-        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id!!)
+        dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
 
     override fun deleteAllUnits() {
         //TODO: get delete all function

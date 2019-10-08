@@ -13,18 +13,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.*
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.extension.*
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 
 class LoginActivity : AppCompatActivity() {
 
@@ -111,6 +106,7 @@ class LoginActivity : AppCompatActivity() {
                     username.text.toString(),
                     password.text.toString()
                 )
+
             }
 
             setOnEditorActionListener { _, actionId, _ ->

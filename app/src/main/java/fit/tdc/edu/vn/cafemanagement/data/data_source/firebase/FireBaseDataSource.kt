@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.data_source
+package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,11 +76,22 @@ class FireBaseDataSource: FireBaseAPI {
     override fun createCategory(
         storeId: String,
         category: Category
-    ): TaskLiveData<DocumentReference> =
-        db.collection(STORES_KEY).document(storeId)
+    ): TaskLiveData<DocumentReference> {
+        return db.collection(STORES_KEY).document(storeId)
             .collection(CATEGORIES_KEY)
             .add(category)
             .asLiveData()
+    }
+
+    override fun modifyCategory(
+        storeId: String,
+        category: Category
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(CATEGORIES_KEY).document(category.id)
+            .set(category)
+            .asLiveData()
+    }
 
     override fun deleteCategory(
         storeId: String,
@@ -120,6 +131,16 @@ class FireBaseDataSource: FireBaseAPI {
             .collection(CATEGORIES_KEY)
             .add(material)
             .asLiveData()
+
+    override fun modifyMaterial(
+        storeId: String,
+        material: Material
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(CATEGORIES_KEY).document(material.id)
+            .set(material)
+            .asLiveData()
+    }
 
     override fun deleteMaterial(
         storeId: String,
@@ -162,6 +183,13 @@ class FireBaseDataSource: FireBaseAPI {
             .add(table)
             .asLiveData()
 
+    override fun modifyTable(storeId: String, table: Table): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(CATEGORIES_KEY).document(table.id)
+            .set(table)
+            .asLiveData()
+    }
+
     override fun deleteTable(
         storeId: String,
         tableID: String
@@ -201,6 +229,16 @@ class FireBaseDataSource: FireBaseAPI {
             .collection(CATEGORIES_KEY)
             .add(revenue)
             .asLiveData()
+
+    override fun modifyRevenue(
+        storeId: String,
+        revenue: Revenue
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(CATEGORIES_KEY).document(revenue.id)
+            .set(revenue)
+            .asLiveData()
+    }
 
     override fun deleteRevenue(
         storeId: String,
@@ -242,6 +280,16 @@ class FireBaseDataSource: FireBaseAPI {
             .add(unit)
             .asLiveData()
 
+    override fun modifyUnit(
+        storeId: String,
+        unit: Unit
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(UNITS_KEY).document(unit.id)
+            .set(unit)
+            .asLiveData()
+    }
+
     override fun deleteUnit(
         storeId: String,
         unitId: String
@@ -282,6 +330,16 @@ class FireBaseDataSource: FireBaseAPI {
             .add(zoneType)
             .asLiveData()
 
+    override fun modifyZoneType(
+        storeId: String,
+        zoneType: ZoneType
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(ZONE_TYPES_KEY).document(zoneType.id)
+            .set(zoneType)
+            .asLiveData()
+    }
+
     override fun deleteZoneType(
         storeId: String,
         zoneTypeId: String
@@ -321,6 +379,16 @@ class FireBaseDataSource: FireBaseAPI {
             .add(zone)
             .asLiveData()
 
+    override fun modifyZone(
+        storeId: String,
+        zone: Zone
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(ZONES_KEY).document(zone.id)
+            .set(zone)
+            .asLiveData()
+    }
+
     override fun deleteZone(
         storeId: String,
         zoneId: String
@@ -355,6 +423,14 @@ class FireBaseDataSource: FireBaseAPI {
             .add(user)
             .asLiveData()
 
+    override fun modifyUser(
+        user: User
+    ): TaskLiveData<Void> {
+        return db.collection(USERS_KEY).document(user.id)
+            .set(user)
+            .asLiveData()
+    }
+
     override fun deleteUser(
         userId: String
     ): TaskLiveData<Void> =
@@ -386,6 +462,14 @@ class FireBaseDataSource: FireBaseAPI {
         db.collection(STORES_KEY)
             .add(store)
             .asLiveData()
+
+    override fun modifyStore(
+        store: Store
+    ): TaskLiveData<Void> {
+        return db.collection(STORES_KEY).document(store.id)
+            .set(store)
+            .asLiveData()
+    }
 
     override fun deleteStore(
         storeId: String

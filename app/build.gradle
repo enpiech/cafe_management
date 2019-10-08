@@ -10,7 +10,7 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     dataBinding {
-        enabled = true
+        enabled = false
     }
     defaultConfig {
         applicationId "fit.tdc.edu.vn.cafemanagement"
@@ -51,7 +51,7 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version" // use kapt for Kotlin
 
     //design & cardview
-    implementation "com.google.android.material:material:1.0.0"
+    implementation 'com.google.android.material:material:1.1.0-alpha10'
     implementation "androidx.cardview:cardview:1.0.0"
 
     implementation fileTree(dir: "libs", include: ["*.jar"])

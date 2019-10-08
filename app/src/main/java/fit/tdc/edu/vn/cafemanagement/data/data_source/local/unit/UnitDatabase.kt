@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.model.unit
+package fit.tdc.edu.vn.cafemanagement.data.data_source.local.unit
 
 import android.content.Context
 import android.os.AsyncTask
@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
 @Database(entities = [Unit::class], version = 1)
 abstract class UnitDatabase : RoomDatabase() {
@@ -38,7 +39,9 @@ abstract class UnitDatabase : RoomDatabase() {
         private val roomCallback = object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
-                PopulateDbAsyncTask(instance)
+                PopulateDbAsyncTask(
+                    instance
+                )
                     .execute()
             }
         }
