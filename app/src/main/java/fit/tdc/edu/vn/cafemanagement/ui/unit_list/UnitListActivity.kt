@@ -15,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitCreateActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
 
@@ -23,8 +24,8 @@ class UnitListActivity : AppCompatActivity() {
     var adapter = UnitAdapter()
 
     companion object {
-        const val ADD_NOTE_REQUEST = 1
-        const val EDIT_NOTE_REQUEST = 2
+        const val ADD_UNIT_REQUEST = 1
+        const val EDIT_UNIT_REQUEST = 2
     }
 
     private lateinit var unitViewModel: UnitViewModel
@@ -37,7 +38,7 @@ class UnitListActivity : AppCompatActivity() {
         btnAddUnit.setOnClickListener {
             startActivityForResult(
                 Intent(this, UnitCreateActivity::class.java),
-                ADD_NOTE_REQUEST
+                ADD_UNIT_REQUEST
             )
         }
 
@@ -48,7 +49,7 @@ class UnitListActivity : AppCompatActivity() {
 
         recycler_view.adapter = adapter
 
-        unitViewModel = ViewModelProviders.of(this).get(UnitViewModel::class.java)
+        unitViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(UnitViewModel::class.java)
 
         unitViewModel.getAllUnits().observe(this, Observer {
             adapter.submitList(it.data)
@@ -92,7 +93,7 @@ class UnitListActivity : AppCompatActivity() {
                 val intent = Intent(baseContext, UnitCreateActivity::class.java)
                 intent.putExtra(UnitCreateActivity.EXTRA_ID, unit.id)
                 intent.putExtra(UnitCreateActivity.EXTRA_NAME, unit.name)
-                startActivityForResult(intent, EDIT_NOTE_REQUEST)
+                startActivityForResult(intent, EDIT_UNIT_REQUEST)
             }
 
 
@@ -120,24 +121,24 @@ class UnitListActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ADD_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
+        if (requestCode == ADD_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
             val newUnit = Unit(
                 data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
             )
             unitViewModel.insert(newUnit)
             Toast.makeText(this, "Unit saved!", Toast.LENGTH_SHORT).show()
 
-        } else if (requestCode == EDIT_NOTE_REQUEST && resultCode == Activity.RESULT_OK) {
-            val id = data?.getIntExtra(UnitCreateActivity.EXTRA_ID, -1)
+        } else if (requestCode == EDIT_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
+            val id = data?.getStringExtra(UnitCreateActivity.EXTRA_ID)
 
-            if (id == -1) {
+            if (id == "") {
                 Toast.makeText(this, "Could not update! Error!", Toast.LENGTH_SHORT).show()
             }
 
             val updateUnit = Unit(
                 data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
             )
-            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID)
+            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID) ?: ""
             unitViewModel.update(updateUnit)
 
         } else {

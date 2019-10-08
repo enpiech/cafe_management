@@ -21,7 +21,7 @@ class CategoryModifyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.category_modify_fragment, container, false)
+        return inflater.inflate(R.layout.activity_category_modifyxml, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
