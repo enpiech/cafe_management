@@ -1,6 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.ui.category_view
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import fit.tdc.edu.vn.cafemanagement.R
@@ -25,7 +29,7 @@ class CategoryViewActivity : AppCompatActivity() {
 
         }
 
-        if(intent.hasExtra(EXTRA_ID)) {
+        if (intent.hasExtra(EXTRA_ID)) {
             title = "Chỉnh sửa danh mục"
             edit_category.setText(intent.getStringExtra(EXTRA_NAME))
             edit_category.isEnabled = false
@@ -34,5 +38,37 @@ class CategoryViewActivity : AppCompatActivity() {
             edit_category.isEnabled = true
             btn_modifyCategory.visibility = View.VISIBLE
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.add_category, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item?.itemId) {
+            R.id.save_category -> {
+                saveCategory()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun saveCategory() {
+        if (edit_category.text.toString().trim().isBlank()) {
+            // TODO create AleartDialog
+            return
+        }
+
+        val data = Intent().apply {
+            putExtra(EXTRA_NAME, edit_category.text.toString())
+            if (!intent.getStringExtra(EXTRA_ID).isNullOrEmpty()) {
+                putExtra(EXTRA_ID, intent.getStringExtra(EXTRA_ID))
+            }
+        }
+
+        setResult(Activity.RESULT_OK, data)
+        finish()
     }
 }
