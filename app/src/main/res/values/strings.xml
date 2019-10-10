@@ -22,6 +22,7 @@
     <string name="btnTuan">Tuần</string>
     <string name="btnThang">Tháng</string>
 
+    <string name="donVi">Đơn vị</string>
     <string name="txtTenDonVi">Tên</string>
     <string name="edtTenDonVi">Tên đơn vị</string>
     <string name="kg">KG</string>

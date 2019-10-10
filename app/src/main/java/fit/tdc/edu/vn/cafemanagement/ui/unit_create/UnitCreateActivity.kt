@@ -8,54 +8,52 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import fit.tdc.edu.vn.cafemanagement.R
 import kotlinx.android.synthetic.main.activity_unit_create.*
+import fit.tdc.edu.vn.cafemanagement.R
 
 class UnitCreateActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
+        const val CHINH_SUA = "Chỉnh sửa"
+        const val TAO = "Tạo"
+        const val CAPNHAT = "Cập nhật"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_create)
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-
-        btn_modifyUnit.setOnClickListener {
-            edit_unit.isEnabled = true
-            btn_modifyUnit.setText("Cập nhật")
-
-        }
-
         if (intent.hasExtra(EXTRA_ID)) {
             title = "Chỉnh sửa đơn vị"
             edit_unit.setText(intent.getStringExtra(EXTRA_NAME))
             edit_unit.isEnabled = false
+            btn_modifyUnit.setText(CHINH_SUA)
         } else {
             title = "Tạo đơn vị"
             edit_unit.isEnabled = true
-            btn_modifyUnit.visibility = View.GONE
+//            btn_modifyUnit.visibility = View.GONE
+            btn_modifyUnit.setText(TAO)
         }
-    }
 
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_unit, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.save_unit -> {
+        btn_modifyUnit.setOnClickListener {
+            if(btn_modifyUnit.text == CHINH_SUA){
+                btn_modifyUnit.setText(CAPNHAT)
+                editUnit()
+            }else if(btn_modifyUnit.text == TAO){
                 saveUnit()
-                true
+            }else if(btn_modifyUnit.text == CAPNHAT){
+                saveUnit()
             }
-
-            else -> super.onOptionsItemSelected(item)
         }
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    }
+
+    private fun editUnit(){
+        edit_unit.isEnabled = true
+
     }
 
     private fun saveUnit() {

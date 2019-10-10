@@ -33,7 +33,7 @@ class UnitListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_list)
-
+        setTitle(R.string.donVi)
         //add unit
         btnAddUnit.setOnClickListener {
             startActivityForResult(
