@@ -58,6 +58,7 @@ class UnitCreateActivity : AppCompatActivity() {
 
     private fun saveUnit() {
         if (edit_unit.text.toString().trim().isBlank()) {
+            // TODO create AleartDialog & remove Toast pls
             Toast.makeText(this, "Can not insert empty unit!", Toast.LENGTH_SHORT).show()
             return
         }

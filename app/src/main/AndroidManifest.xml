@@ -12,9 +12,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.unit_create.UnitCreateActivity"></activity>
-        <activity android:name=".ui.unit_list.UnitListActivity">
-
-        </activity>
+        <activity android:name=".ui.unit_list.UnitListActivity"></activity>
+        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
         <activity
             android:name=".BartenderDrawerNavigation"
             android:label="@string/title_activity_bartender_drawer_navigation"

@@ -13,11 +13,14 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 
@@ -35,12 +38,17 @@ class LoginActivity : AppCompatActivity() {
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
 
-        val repository = ZoneRepository(src)
+        val categoryList = src.getCategoryList(storeId, DocumentType.ALL)
+        val materialList = src.getMaterialList(storeId, DocumentType.ALL)
 
-        val ajsgahjs = repository.tablesInZone("HfFi1Zkm9ryLCdMkfonk").observe(this, Observer {
-            Log.d("tables in lầu 81: ", it?.size.toString())
-            it?.forEach { table ->
-                Log.d("========zxczczc=====", table.toString())
+        materialList.observe(this, Observer {
+            it.data?.groupBy {material ->
+                material.zoneId
+            }?.forEach { materialGroup ->
+                materialGroup.value.forEach { material ->
+                    Log.d("test1", material.id + ", " + material.toString())
+                }
+
             }
         })
 
