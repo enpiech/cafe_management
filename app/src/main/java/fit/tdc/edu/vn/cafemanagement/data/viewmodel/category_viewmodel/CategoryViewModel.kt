@@ -9,8 +9,6 @@ class CategoryViewModel(private val categoryRepository: CategoryRepositoryAPI): 
 
     private var allCategories: CollectionLiveData<Category> = categoryRepository.getAllCategory()
 
-    fun getCategory(id: String) = categoryRepository.getCategory(id)
-
     fun insert(category: Category) {
         categoryRepository.insert(category)
     }
