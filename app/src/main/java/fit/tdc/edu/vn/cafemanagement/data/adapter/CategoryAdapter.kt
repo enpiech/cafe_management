@@ -60,7 +60,7 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryHolder>(DI
         fun onItemClick(category: Category)
     }
 
-    fun setOnItemClickListener(listener: CategoryAdapter.OnItemClickListener) {
+    fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
     }
 }
