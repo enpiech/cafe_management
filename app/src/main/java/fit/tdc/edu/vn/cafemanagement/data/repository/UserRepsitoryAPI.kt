@@ -12,5 +12,4 @@ interface UserRepsitoryAPI {
     fun insert(user: User): TaskLiveData<DocumentReference>
     fun update(user: User)
     fun delete(user: User): TaskLiveData<Void>
-    fun deleteAllUsers()
 }

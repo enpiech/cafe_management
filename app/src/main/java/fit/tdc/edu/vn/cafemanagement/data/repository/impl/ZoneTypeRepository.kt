@@ -16,12 +16,8 @@ class ZoneTypeRepository ( val dataSource: FireBaseDataSource):
     override fun insert(zoneType: ZoneType) = dataSource.createZoneType("",zoneType)
 
     override fun update(zoneType: ZoneType) {
-        //TODO: get update function
+        dataSource.modifyZoneType("EfzspceETNgWk56YDOOt", zoneType)
     }
 
     override fun delete(zoneType: ZoneType) = dataSource.deleteZoneType("", zoneType.id)
-
-    override fun deleteAllZoneTypes() {
-        //TODO: get delete all function
-    }
 }

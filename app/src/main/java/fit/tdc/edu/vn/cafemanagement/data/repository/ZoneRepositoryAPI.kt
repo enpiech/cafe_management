@@ -12,5 +12,4 @@ interface ZoneRepositoryAPI {
     fun insert(zone: Zone): TaskLiveData<DocumentReference>
     fun update(zone: Zone)
     fun delete(zone: Zone): TaskLiveData<Void>
-    fun deleteAllZones()
 }

@@ -12,5 +12,4 @@ interface TableRepositoryAPI {
     fun insert(table: Table): TaskLiveData<DocumentReference>
     fun update(table: Table)
     fun delete(table: Table): TaskLiveData<Void>
-    fun deleteAllTables()
 }

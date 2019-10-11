@@ -12,5 +12,4 @@ interface MaterialRepositoryAPI {
     fun insert(material: Material): TaskLiveData<DocumentReference>
     fun update(material: Material)
     fun delete(material: Material): TaskLiveData<Void>
-    fun deleteAllMaterials()
 }
