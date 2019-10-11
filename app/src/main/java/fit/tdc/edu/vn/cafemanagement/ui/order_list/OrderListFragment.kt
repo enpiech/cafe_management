@@ -21,7 +21,7 @@ class OrderListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.order_list_fragment, container, false)
+        return inflater.inflate(R.layout.order_info_item, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

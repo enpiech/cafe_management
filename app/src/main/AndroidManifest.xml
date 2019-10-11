@@ -13,7 +13,14 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.unit_create.UnitCreateActivity"></activity>
         <activity android:name=".ui.unit_list.UnitListActivity"></activity>
-        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
+        <activity android:name=".ui.category_list.CategoryListFragment">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.category_view.CategoryViewActivity"></activity>
         <activity
             android:name=".BartenderDrawerNavigation"
             android:label="@string/title_activity_bartender_drawer_navigation"
@@ -33,11 +40,7 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

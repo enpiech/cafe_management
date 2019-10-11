@@ -39,13 +39,13 @@ class UnitCreateActivity : AppCompatActivity() {
         }
 
         btn_modifyUnit.setOnClickListener {
-            if(btn_modifyUnit.text == CHINH_SUA){
-                btn_modifyUnit.setText(CAPNHAT)
-                editUnit()
-            }else if(btn_modifyUnit.text == TAO){
-                saveUnit()
-            }else if(btn_modifyUnit.text == CAPNHAT){
-                saveUnit()
+            when {
+                btn_modifyUnit.text == CHINH_SUA -> {
+                    btn_modifyUnit.setText(CAPNHAT)
+                    editUnit()
+                }
+                btn_modifyUnit.text == TAO -> saveUnit()
+                btn_modifyUnit.text == CAPNHAT -> saveUnit()
             }
         }
         supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
