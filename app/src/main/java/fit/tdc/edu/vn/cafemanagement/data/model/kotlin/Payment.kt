@@ -12,4 +12,10 @@ data class Payment(
     var paidTime: Timestamp? = null,
     var isPaid: Boolean = false,
     var orderList: List<OrderItem> = listOf()
-) : FirestoreModel()
+) : FirestoreModel() {
+    enum class State {
+        ORDERED,
+        COOKED,
+        PAID
+    }
+}

@@ -19,9 +19,5 @@ class UserViewModel (private val userRepository: UserRepsitoryAPI) {
         userRepository.delete(user)
     }
 
-    fun deleteAllUser() {
-        userRepository.deleteAllUsers()
-    }
-
     fun getAllUsers() = allUsers
 }

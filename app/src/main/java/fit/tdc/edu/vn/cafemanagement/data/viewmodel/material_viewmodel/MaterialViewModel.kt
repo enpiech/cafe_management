@@ -21,10 +21,6 @@ class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI) 
         materialRepository.delete(material)
     }
 
-    fun deleteAllMaterials() {
-        materialRepository.deleteAllMaterials()
-    }
-
     fun getAllMaterials() = allMaterials
 
 }

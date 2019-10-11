@@ -22,10 +22,6 @@ class CategoryViewModel (private val categoryRepository: CategoryRepositoryAPI) 
         categoryRepository.delete(category)
     }
 
-    fun deleteAllCategories() {
-        categoryRepository.deleteAllCategories()
-    }
-
     fun getAllCategories(): CollectionLiveData<Category> {
         return allCategories
     }

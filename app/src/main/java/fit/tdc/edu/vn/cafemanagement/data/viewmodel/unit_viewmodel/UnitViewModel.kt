@@ -22,10 +22,6 @@ class UnitViewModel (
         unitRepository.delete(unit)
     }
 
-    fun deleteAllUnits() {
-        unitRepository.deleteAllUnits()
-    }
-
     fun getAllUnits() = allUnits
 
 }

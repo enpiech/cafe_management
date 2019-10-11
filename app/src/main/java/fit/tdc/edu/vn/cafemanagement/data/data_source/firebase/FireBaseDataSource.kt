@@ -21,7 +21,8 @@ class FireBaseDataSource: FireBaseAPI {
         private const val UNITS_KEY         = "units"
         private const val ZONE_TYPES_KEY    = "zoneTypes"
         private const val ZONES_KEY         = "zones"
-        private const val USERS_KEY     = "users"
+        private const val USERS_KEY         = "users"
+        private const val PAYMENTS_KEY      = "payments"
     }
 
     /**
@@ -476,5 +477,37 @@ class FireBaseDataSource: FireBaseAPI {
     ): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
             .delete()
+            .asLiveData()
+
+
+    /**
+     *
+     * ==========  PAYMENT  ============
+     */
+    override fun getPaymentList(
+        storeId: String,
+        state: Payment.State,
+        documentType: DocumentType
+    ): QueryLiveData<Payment> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(PAYMENTS_KEY)
+            .whereEqualTo("state", Payment.State.COOKED)
+            .asLiveData()
+
+    override fun getPaymentList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Payment> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(PAYMENTS_KEY)
+            .asLiveData()
+
+    override fun getPayment(
+        storeId: String,
+        paymentId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<Payment> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(PAYMENTS_KEY).document(paymentId)
             .asLiveData()
 }

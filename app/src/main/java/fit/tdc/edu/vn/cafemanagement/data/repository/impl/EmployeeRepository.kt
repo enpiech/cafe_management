@@ -20,8 +20,4 @@ class UserRepository(val dataSource: FireBaseAPI) : UserRepsitoryAPI{
 
     override fun delete(user: User) =
         dataSource.deleteCategory("EfzspceETNgWk56YDOOt", user.id)
-
-    override fun deleteAllUsers () {
-        //TODO: get delete all function
-    }
 }
