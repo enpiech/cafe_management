@@ -49,15 +49,9 @@ class ZoneRepository ( val dataSource: FireBaseDataSource):
         dataSource.createZone("EfzspceETNgWk56YDOOt", zone)
 
     override fun update(zone: Zone) {
-        //TODO: get update function
+        dataSource.modifyZone("EfzspceETNgWk56YDOOt", zone)
     }
 
     override fun delete(zone: Zone) =
         dataSource.deleteZone("EfzspceETNgWk56YDOOt", zone.id)
-
-    override fun deleteAllZones() {
-        //TODO: get delete all function
-    }
-
-
 }

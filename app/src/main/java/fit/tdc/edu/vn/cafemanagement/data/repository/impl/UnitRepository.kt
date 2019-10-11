@@ -12,12 +12,12 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository :
-    UnitRepositoryAPI {
-    val dataSource: FireBaseAPI =
+class UnitRepository : UnitRepositoryAPI {
+
+    private val dataSource: FireBaseAPI =
         FireBaseDataSource()
 
-    val filteredMaterialList = MediatorLiveData<List<Material>?>()
+    private val filteredMaterialList = MediatorLiveData<List<Material>?>()
     private var listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
     private var id:String = ""
     init {
@@ -52,13 +52,9 @@ class UnitRepository :
         dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)
 
     override fun update(unit: Unit) {
-        dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)
+        dataSource.modifyUnit("EfzspceETNgWk56YDOOt", unit)
     }
 
     override fun delete(unit: Unit) =
         dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
-
-    override fun deleteAllUnits() {
-        //TODO: get delete all function
-    }
 }

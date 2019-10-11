@@ -16,13 +16,9 @@ class CategoryRepository(val dataSource: FireBaseAPI) :
         dataSource.createCategory("EfzspceETNgWk56YDOOt", category)
 
     override fun update(category: Category) {
-        //TODO: get update function
+        dataSource.modifyCategory("EfzspceETNgWk56YDOOt", category)
     }
 
     override fun delete(category: Category) =
         dataSource.deleteCategory("EfzspceETNgWk56YDOOt", category.id)
-
-    override fun deleteAllCategories() {
-        //TODO: get delete all function
-    }
 }

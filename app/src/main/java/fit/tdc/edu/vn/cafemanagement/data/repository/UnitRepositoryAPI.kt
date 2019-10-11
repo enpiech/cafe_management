@@ -19,5 +19,4 @@ interface UnitRepositoryAPI {
     fun insert(unit: Unit): TaskLiveData<DocumentReference>
     fun update(unit: Unit)
     fun delete(unit: Unit): TaskLiveData<Void>
-    fun deleteAllUnits()
 }

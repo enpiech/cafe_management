@@ -16,13 +16,9 @@ class MaterialRepository ( val dataSource: FireBaseDataSource) :
         dataSource.createMaterial("EfzspceETNgWk56YDOOt", material)
 
     override fun update(material: Material) {
-        //TODO: get update function
+        dataSource.modifyMaterial("EfzspceETNgWk56YDOOt", material)
     }
 
     override fun delete(material: Material) =
         dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)
-
-    override fun deleteAllMaterials() {
-        //TODO: get delete all function
-    }
 }

@@ -16,13 +16,9 @@ class TableRepository(val dataSource: FireBaseDataSource):
         dataSource.createTable("EfzspceETNgWk56YDOOt", table)
 
     override fun update(table: Table) {
-        //TODO: get update function
+        dataSource.modifyTable("EfzspceETNgWk56YDOOt", table)
     }
 
     override fun delete(table: Table) =
         dataSource.deleteTable("EfzspceETNgWk56YDOOt", table.id)
-
-    override fun deleteAllTables() {
-        //TODO: get delete all function
-    }
 }

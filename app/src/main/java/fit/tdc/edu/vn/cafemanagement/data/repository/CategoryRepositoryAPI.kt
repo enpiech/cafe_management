@@ -12,5 +12,4 @@ interface CategoryRepositoryAPI {
     fun insert(category: Category): TaskLiveData<DocumentReference>
     fun update(category: Category)
     fun delete(category: Category): TaskLiveData<Void>
-    fun deleteAllCategories()
 }
