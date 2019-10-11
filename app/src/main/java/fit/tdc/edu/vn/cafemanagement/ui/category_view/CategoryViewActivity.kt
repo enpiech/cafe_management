@@ -25,7 +25,16 @@ class CategoryViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_view)
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+        if (intent.hasExtra(EXTRA_ID)) {
+            title = "Chỉnh sửa danh mục"
+            edit_category.setText(intent.getStringExtra(EXTRA_NAME))
+            edit_category.isEnabled = false
+            btn_modifyCategory.setText(EDIT)
+        } else {
+            title = "Tạo danh mục"
+            edit_category.isEnabled = true
+            btn_modifyCategory.setText(CREATE)
+        }
 
         btn_modifyCategory.setOnClickListener {
             when {
@@ -38,16 +47,7 @@ class CategoryViewActivity : AppCompatActivity() {
             }
         }
 
-        if (intent.hasExtra(EXTRA_ID)) {
-            title = "Chỉnh sửa danh mục"
-            edit_category.setText(intent.getStringExtra(EXTRA_NAME))
-            edit_category.isEnabled = false
-            btn_modifyCategory.setText(EDIT)
-        } else if (intent.hasExtra(EXTRA_NAME)) {
-            title = "Tạo danh mục"
-            edit_category.isEnabled = true
-            btn_modifyCategory.setText(CREATE)
-        }
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
     }
 
     private fun modifyCategory() {
