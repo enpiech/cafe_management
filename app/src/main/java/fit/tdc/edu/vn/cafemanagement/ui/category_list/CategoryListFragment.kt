@@ -1,11 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.ui.category_list
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 
 class CategoryListFragment : Fragment() {
@@ -28,5 +28,4 @@ class CategoryListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(CategoryListViewModel::class.java)
         // TODO: Use the ViewModel
     }
-
 }

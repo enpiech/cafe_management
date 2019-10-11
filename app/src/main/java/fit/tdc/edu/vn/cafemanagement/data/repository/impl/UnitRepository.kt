@@ -47,14 +47,12 @@ class UnitRepository : UnitRepositoryAPI {
     override fun getUnit(id: String) : DocumentLiveData<Unit> =
         dataSource.getUnit("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
 
-
     override fun insert(unit: Unit) =
         dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)
 
     override fun update(unit: Unit) {
         dataSource.modifyUnit("EfzspceETNgWk56YDOOt", unit)
     }
-
     override fun delete(unit: Unit) =
         dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
 }

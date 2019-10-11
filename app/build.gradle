@@ -101,4 +101,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-storage:$firebaseui_version"
     implementation "com.google.firebase:firebase-firestore:21.1.1"
     implementation "com.google.firebase:firebase-auth:19.1.0"
+
+    // SectionRecyclerViewAdapter
+    implementation 'io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.0.0'
 }
