@@ -1,9 +1,10 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel
+package fit.tdc.edu.vn.cafemanagement.ui.unit_list
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 
 class UnitViewModel (
     private val unitRepository: UnitRepositoryAPI): ViewModel() {
@@ -22,6 +23,6 @@ class UnitViewModel (
         unitRepository.delete(unit)
     }
 
-    fun getAllUnits() = allUnits
+    fun getAllUnits() = unitRepository.getAllUnits()
 
 }

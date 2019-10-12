@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitCreateActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
@@ -34,29 +33,22 @@ class UnitListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_list)
         setTitle(R.string.donVi)
+
+
         //add unit
         btnAddUnit.setOnClickListener {
-            startActivityForResult(
-                Intent(this, UnitCreateActivity::class.java),
-                ADD_UNIT_REQUEST
-            )
+            startActivityForResult(Intent(this, UnitCreateActivity::class.java), ADD_UNIT_REQUEST)
         }
 
         recycler_view.layoutManager = LinearLayoutManager(this)
         recycler_view.setHasFixedSize(true)
-
-
-
         recycler_view.adapter = adapter
 
         unitViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(UnitViewModel::class.java)
-
         unitViewModel.getAllUnits().observe(this, Observer {
+            //Log.d("test", "${it.data?.size}")
             adapter.submitList(it.data)
         })
-
-
-
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT.or(
             ItemTouchHelper.RIGHT)) {
@@ -95,56 +87,34 @@ class UnitListActivity : AppCompatActivity() {
                 intent.putExtra(UnitCreateActivity.EXTRA_NAME, unit.name)
                 startActivityForResult(intent, EDIT_UNIT_REQUEST)
             }
-
-
         })
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.main_menu, menu)
-//        return true
-//    }
 
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//        return when (item?.itemId) {
-//            R.id.delete_all_notes -> {
-//                unitViewModel.deleteAllUnits()
-//                Toast.makeText(this, "All units deleted!", Toast.LENGTH_SHORT).show()
-//                true
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == ADD_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
+//            val newUnit = Unit(
+//                data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
+//            )
+//            unitViewModel.insert(newUnit)
+//            Toast.makeText(this, "Unit saved!", Toast.LENGTH_SHORT).show()
+//
+//        } else if (requestCode == EDIT_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
+//            val id = data?.getStringExtra(UnitCreateActivity.EXTRA_ID)
+//            if (id == "") {
+//                Toast.makeText(this, "Could not update! Error!", Toast.LENGTH_SHORT).show()
 //            }
-//            else -> {
-//                super.onOptionsItemSelected(item)
-//            }
+//
+//            val updateUnit = Unit(
+//                data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
+//            )
+//            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID) ?: ""
+//            unitViewModel.update(updateUnit)
+//            Toast.makeText(this, "Unit updated!", Toast.LENGTH_SHORT).show()
+//
+//        } else {
+//            Toast.makeText(this, "Unit not saved!", Toast.LENGTH_SHORT).show()
 //        }
 //    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ADD_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
-            val newUnit = Unit(
-                data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
-            )
-            unitViewModel.insert(newUnit)
-            Toast.makeText(this, "Unit saved!", Toast.LENGTH_SHORT).show()
-
-        } else if (requestCode == EDIT_UNIT_REQUEST && resultCode == Activity.RESULT_OK) {
-            val id = data?.getStringExtra(UnitCreateActivity.EXTRA_ID)
-
-            if (id == "") {
-                Toast.makeText(this, "Could not update! Error!", Toast.LENGTH_SHORT).show()
-            }
-
-            val updateUnit = Unit(
-                data!!.getStringExtra(UnitCreateActivity.EXTRA_NAME)
-            )
-            updateUnit.id = data.getStringExtra(UnitCreateActivity.EXTRA_ID) ?: ""
-            unitViewModel.update(updateUnit)
-
-        } else {
-            Toast.makeText(this, "Unit not saved!", Toast.LENGTH_SHORT).show()
-        }
-
-
-    }
 }

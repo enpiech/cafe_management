@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
@@ -285,6 +286,7 @@ class FireBaseDataSource: FireBaseAPI {
         storeId: String,
         unit: Unit
     ): TaskLiveData<Void> {
+        Log.d("test", unit.id)
         return db.collection(STORES_KEY).document(storeId)
             .collection(UNITS_KEY).document(unit.id)
             .set(unit)
