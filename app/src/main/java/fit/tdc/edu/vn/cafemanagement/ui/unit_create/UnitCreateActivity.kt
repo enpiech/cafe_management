@@ -2,14 +2,11 @@ package fit.tdc.edu.vn.cafemanagement.ui.unit_create
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_unit_create.*
+import androidx.appcompat.app.AppCompatActivity
 import fit.tdc.edu.vn.cafemanagement.R
+import kotlinx.android.synthetic.main.activity_unit_create.*
 
 class UnitCreateActivity : AppCompatActivity() {
 
@@ -30,18 +27,18 @@ class UnitCreateActivity : AppCompatActivity() {
             title = "Chỉnh sửa đơn vị"
             edit_unit.setText(intent.getStringExtra(EXTRA_NAME))
             edit_unit.isEnabled = false
-            btn_modifyUnit.setText(CHINH_SUA)
+            btn_modifyUnit.text = CHINH_SUA
         } else {
             title = "Tạo đơn vị"
             edit_unit.isEnabled = true
 //            btn_modifyUnit.visibility = View.GONE
-            btn_modifyUnit.setText(TAO)
+            btn_modifyUnit.text = TAO
         }
 
         btn_modifyUnit.setOnClickListener {
             when {
                 btn_modifyUnit.text == CHINH_SUA -> {
-                    btn_modifyUnit.setText(CAPNHAT)
+                    btn_modifyUnit.text = CAPNHAT
                     editUnit()
                 }
                 btn_modifyUnit.text == TAO -> saveUnit()
