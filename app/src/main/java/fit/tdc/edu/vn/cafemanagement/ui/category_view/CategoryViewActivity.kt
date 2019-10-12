@@ -5,7 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import kotlinx.android.synthetic.main.activity_category_view.*
 
 class CategoryViewActivity : AppCompatActivity() {
@@ -13,38 +18,64 @@ class CategoryViewActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
-        const val CREATE = "Tạo"
-        const val EDIT = "Chỉnh sửa"
-        const val UPDATE = "Cập nhật"
+        const val CREATE = R.string.btnTao
+        const val EDIT = R.string.btnChinhSua
+        const val UPDATE = R.string.btnUpdate
     }
+
+    private lateinit var viewModel: CategoryViewViewModel
+
+    enum class ButtonState {
+        ADD,
+        MODIFY,
+        UPDATE
+    }
+
+    private var buttonState = ButtonState.ADD
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_view)
 
+        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory())
+            .get(CategoryViewViewModel::class.java)
+
         if (intent.hasExtra(EXTRA_ID)) {
             title = "Chỉnh sửa danh mục"
-            edit_category.setText(intent.getStringExtra(EXTRA_NAME))
-            edit_category.isEnabled = false
-            btn_modifyCategory.text = EDIT
+            viewModel.getCategory(intent.getStringExtra(EXTRA_ID))
+            viewModel.category.observe(this, Observer {
+                if (it == null) return@Observer
+                edit_category.setText(intent.getStringExtra(EXTRA_NAME))
+                edit_category.isEnabled = false
+                btn_modifyCategory.setText(EDIT)
+                buttonState = ButtonState.MODIFY
+            })
         } else {
             title = "Tạo danh mục"
             edit_category.isEnabled = true
-            btn_modifyCategory.text = CREATE
+            btn_modifyCategory.setText(CREATE)
+            buttonState = ButtonState.ADD
         }
 
         btn_modifyCategory.setOnClickListener {
-            when {
-                btn_modifyCategory.text == EDIT -> {
-                    btn_modifyCategory.text = UPDATE
+            when (buttonState) {
+                ButtonState.MODIFY -> {
+                    buttonState = ButtonState.UPDATE
+                    btn_modifyCategory.setText(UPDATE)
                     modifyCategory()
                 }
-                btn_modifyCategory.text == CREATE -> saveCategory()
-                btn_modifyCategory.text == UPDATE -> saveCategory()
+                ButtonState.ADD -> saveCategory()
+                ButtonState.UPDATE -> updateCategory()
+                else -> finish()
             }
         }
+    }
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    private fun updateCategory() {
+        viewModel.update(Category(name = edit_category.text.toString()).apply {
+            id = viewModel.category.value!!.id
+            finish()
+        })
     }
 
     private fun modifyCategory() {
@@ -53,19 +84,10 @@ class CategoryViewActivity : AppCompatActivity() {
 
     private fun saveCategory() {
         if (edit_category.text.toString().trim().isBlank()) {
-            // TODO create AleartDialog
             Toast.makeText(this, "Can not insert empty category!", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val data = Intent().apply {
-            putExtra(EXTRA_NAME, edit_category.text.toString())
-            if (!intent.getStringExtra(EXTRA_ID).isNullOrEmpty()) {
-                putExtra(EXTRA_ID, intent.getStringExtra(EXTRA_ID))
-            }
-        }
-
-        setResult(Activity.RESULT_OK, data)
+        viewModel.insert(Category(name = edit_category.text.toString()))
         finish()
     }
 }
