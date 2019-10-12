@@ -1,13 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.ui.unit_create
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -15,7 +10,6 @@ import kotlinx.android.synthetic.main.activity_unit_create.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitViewModel
 
 class UnitCreateActivity : AppCompatActivity() {
 
