@@ -28,14 +28,12 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitHolder {
-        val itemView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.unit_list_item, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.unit_list_item, parent, false)
         return UnitHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: UnitHolder, position: Int) {
         val currentUnit: Unit = getItem(position)
-
         holder.textUnit.text = currentUnit.name
     }
 

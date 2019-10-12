@@ -12,6 +12,10 @@ class UnitViewModelFactory : ViewModelProvider.Factory {
             return UnitViewModel(
                 unitRepository = UnitRepository()
             ) as T
+        } else if (modelClass.isAssignableFrom(UnitCreateViewModel::class.java)) {
+            return UnitCreateViewModel(
+                unitRepository = UnitRepository()
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

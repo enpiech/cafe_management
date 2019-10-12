@@ -17,6 +17,7 @@
     <string name="btnTao">Tạo</string>
     <string name="btnXoa">Xóa</string>
     <string name="btnUpdate">Cập nhật</string>
+    <string name="btnDaXong">Đã xong</string>
     <string name="btnDauCong">+</string>
     <string name="btnNgay">Ngày</string>
     <string name="btnTuan">Tuần</string>

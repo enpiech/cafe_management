@@ -17,12 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity
 import kotlinx.android.synthetic.main.category_list_fragment.*
 
-class CategoryListFragment : Fragment() /*AppCompatActivity()*/ {
+class CategoryListFragment : Fragment() {
 
     var adapter = CategoryAdapter()
 
@@ -51,11 +50,6 @@ class CategoryListFragment : Fragment() /*AppCompatActivity()*/ {
         activity?.setTitle(R.string.danhMuc)
         //Add Category
         btnAddCategory.setOnClickListener {
-            /*startActivity(
-                arguments.getString(CategoryViewActivity::class.java),
-                //Intent(this, CategoryViewActivity::class.java),
-                ADD_CATEGORY_REQUEST
-            )*/
             activity?.let {
                 val intent = Intent(it, CategoryViewActivity::class.java)
                 it.startActivity(intent)
