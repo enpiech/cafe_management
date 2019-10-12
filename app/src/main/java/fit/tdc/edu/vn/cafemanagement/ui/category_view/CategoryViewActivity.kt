@@ -47,7 +47,7 @@ class CategoryViewActivity : AppCompatActivity() {
                 if (it == null) return@Observer
                 edit_category.setText(intent.getStringExtra(EXTRA_NAME))
                 edit_category.isEnabled = false
-                btn_modifyCategory.text = EDIT
+                btn_modifyCategory.setText(EDIT)
                 buttonState = ButtonState.MODIFY
             })
         } else {
