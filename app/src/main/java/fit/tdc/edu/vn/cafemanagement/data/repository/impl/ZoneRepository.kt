@@ -2,13 +2,14 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
 
-class ZoneRepository ( val dataSource: FireBaseDataSource):
+class ZoneRepository ( val dataSource: FireBaseAPI):
     ZoneRepositoryAPI {
 
     private val filteredTableList = MediatorLiveData<List<Table>?>()

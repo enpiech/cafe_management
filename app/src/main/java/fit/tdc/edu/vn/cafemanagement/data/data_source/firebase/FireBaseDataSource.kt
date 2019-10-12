@@ -484,14 +484,14 @@ class FireBaseDataSource: FireBaseAPI {
      *
      * ==========  PAYMENT  ============
      */
-    override fun getPaymentList(
+    override fun getPaymentListByState(
         storeId: String,
         state: Payment.State,
         documentType: DocumentType
     ): QueryLiveData<Payment> =
         db.collection(STORES_KEY).document(storeId)
             .collection(PAYMENTS_KEY)
-            .whereEqualTo("state", Payment.State.COOKED)
+            .whereEqualTo("state", state)
             .asLiveData()
 
 //    fun getPaymentWithInfo(
@@ -517,7 +517,7 @@ class FireBaseDataSource: FireBaseAPI {
 //            }
 //    }
 
-    override fun getPaymentList(
+    override fun getAllPaymentList(
         storeId: String,
         documentType: DocumentType
     ): CollectionLiveData<Payment> =

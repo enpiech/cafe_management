@@ -53,13 +53,13 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): CollectionLiveData<Store>
 
-    fun getPaymentList(
+    fun getPaymentListByState(
         storeId: String,
         state: Payment.State,
         documentType: DocumentType
     ): QueryLiveData<Payment>
 
-    fun getPaymentList(
+    fun getAllPaymentList(
         storeId: String,
         documentType: DocumentType
     ): CollectionLiveData<Payment>

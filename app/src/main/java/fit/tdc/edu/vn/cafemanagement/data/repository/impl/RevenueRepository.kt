@@ -1,11 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.repository.RevenueRepositoryAPI
 
-class RevenueRepository ( val dataSource: FireBaseDataSource):
+class RevenueRepository ( val dataSource: FireBaseAPI):
     RevenueRepositoryAPI {
 
     override fun getAllRevenues() = dataSource.getRevenueList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
