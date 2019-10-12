@@ -22,7 +22,7 @@ class ZoneRepository ( val dataSource: FireBaseDataSource):
         }
     }
 
-    fun tablesInZone(id: String) : LiveData<List<Table>?> {
+    override fun tablesInZone(id: String) : LiveData<List<Table>?> {
         this.currentZoneId = id
         listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
         return filteredTableList
