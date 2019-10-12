@@ -3,8 +3,6 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
-import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitCreateViewModel
-import fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitViewModel
 
 class UnitViewModelFactory : ViewModelProvider.Factory {
 

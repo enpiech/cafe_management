@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_unit_create.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 
 class UnitCreateActivity : AppCompatActivity() {
@@ -33,7 +34,8 @@ class UnitCreateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_create)
 
-        unitCreateViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(UnitCreateViewModel::class.java)
+        unitCreateViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(
+            UnitCreateViewModel::class.java)
 
 
         if (intent.hasExtra(EXTRA_ID)) {

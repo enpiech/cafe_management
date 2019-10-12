@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.unit_list
+package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
