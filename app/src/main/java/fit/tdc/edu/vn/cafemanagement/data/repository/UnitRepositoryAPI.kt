@@ -17,6 +17,6 @@ interface UnitRepositoryAPI {
     fun getAllUnits(): CollectionLiveData<Unit>
     fun getUnit(id: String): DocumentLiveData<Unit>
     fun insert(unit: Unit): TaskLiveData<DocumentReference>
-    fun update(unit: Unit)
+    fun update(unit: Unit): TaskLiveData<Void>
     fun delete(unit: Unit): TaskLiveData<Void>
 }

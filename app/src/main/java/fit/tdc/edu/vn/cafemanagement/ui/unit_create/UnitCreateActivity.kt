@@ -1,51 +1,80 @@
 package fit.tdc.edu.vn.cafemanagement.ui.unit_create
 
-import android.app.Activity
-import android.content.Intent
-import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import fit.tdc.edu.vn.cafemanagement.R
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_unit_create.*
+import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 
 class UnitCreateActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
-        const val CHINH_SUA = "Chỉnh sửa"
-        const val TAO = "Tạo"
-        const val CAPNHAT = "Cập nhật"
+        const val CHINH_SUA = R.string.btnChinhSua
+        const val TAO = R.string.btnTao
+        const val CAPNHAT = R.string.btnUpdate
 
     }
 
+    private lateinit var unitCreateViewModel: UnitCreateViewModel
+    enum class ButtonState {
+        ADD,
+        MODIFY,
+        UPDATE
+    }
+    private var buttonState = ButtonState.ADD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_create)
 
+        unitCreateViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(
+            UnitCreateViewModel::class.java)
+
+
         if (intent.hasExtra(EXTRA_ID)) {
             title = "Chỉnh sửa đơn vị"
-            edit_unit.setText(intent.getStringExtra(EXTRA_NAME))
-            edit_unit.isEnabled = false
-            btn_modifyUnit.text = CHINH_SUA
+            unitCreateViewModel.getUnit(intent.getStringExtra(EXTRA_ID))
+            unitCreateViewModel.unit.observe(this, Observer {
+                if (it == null) return@Observer
+                Log.d("test", it.id + ": " + it.toString())
+                edit_unit.setText(it.name)
+                edit_unit.isEnabled = false
+                btn_modifyUnit.setText(CHINH_SUA)
+                buttonState = ButtonState.MODIFY
+            })
         } else {
             title = "Tạo đơn vị"
             edit_unit.isEnabled = true
-//            btn_modifyUnit.visibility = View.GONE
-            btn_modifyUnit.text = TAO
+//          btn_modifyUnit.visibility = View.GONE
+            btn_modifyUnit.setText(TAO)
+            buttonState = ButtonState.ADD
         }
 
         btn_modifyUnit.setOnClickListener {
-            when {
-                btn_modifyUnit.text == CHINH_SUA -> {
-                    btn_modifyUnit.text = CAPNHAT
+            Log.d("test", buttonState.toString())
+            when (buttonState) {
+                ButtonState.MODIFY -> {
+                    buttonState = ButtonState.UPDATE
+                    btn_modifyUnit.setText(CAPNHAT)
                     editUnit()
                 }
-                btn_modifyUnit.text == TAO -> saveUnit()
-                btn_modifyUnit.text == CAPNHAT -> saveUnit()
+                ButtonState.ADD -> saveUnit()
+                ButtonState.UPDATE -> updateUnit()
+                else -> finish()
             }
         }
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    }
+
+    private fun updateUnit() {
+        unitCreateViewModel.update(Unit(name = edit_unit.text.toString()).apply { id = unitCreateViewModel.unit.value!!.id })
+        finish()
     }
 
     private fun editUnit(){
@@ -55,19 +84,10 @@ class UnitCreateActivity : AppCompatActivity() {
 
     private fun saveUnit() {
         if (edit_unit.text.toString().trim().isBlank()) {
-            // TODO create AleartDialog & remove Toast pls
-            Toast.makeText(this, "Can not insert empty unit!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Can not insert, empty unit!", Toast.LENGTH_SHORT).show()
             return
         }
-
-        val data = Intent().apply {
-            putExtra(EXTRA_NAME, edit_unit.text.toString())
-            if (!intent.getStringExtra(EXTRA_ID).isNullOrEmpty()) {
-                putExtra(EXTRA_ID, intent.getStringExtra(EXTRA_ID))
-            }
-        }
-
-        setResult(Activity.RESULT_OK, data)
+        unitCreateViewModel.insert(Unit(name = edit_unit.text.toString()))
         finish()
     }
 }

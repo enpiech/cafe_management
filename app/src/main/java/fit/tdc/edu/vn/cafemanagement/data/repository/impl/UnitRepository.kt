@@ -40,7 +40,6 @@ class UnitRepository : UnitRepositoryAPI {
         return filteredMaterialList
     }
 
-
     override fun getAllUnits() : CollectionLiveData<Unit> =
         dataSource.getUnitList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
@@ -50,9 +49,9 @@ class UnitRepository : UnitRepositoryAPI {
     override fun insert(unit: Unit) =
         dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)
 
-    override fun update(unit: Unit) {
+    override fun update(unit: Unit) =
         dataSource.modifyUnit("EfzspceETNgWk56YDOOt", unit)
-    }
+    
     override fun delete(unit: Unit) =
         dataSource.deleteUnit("EfzspceETNgWk56YDOOt", unit.id)
 }
