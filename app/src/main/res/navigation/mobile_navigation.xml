@@ -1,43 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="tdc.edu.vn.cafemanagement.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="tdc.edu.vn.cafemanagement.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="tdc.edu.vn.cafemanagement.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-
-    <fragment
-        android:id="@+id/nav_tools"
-        android:name="tdc.edu.vn.cafemanagement.ui.tools.ToolsFragment"
-        android:label="@string/menu_tools"
-        tools:layout="@layout/fragment_tools" />
-
-    <fragment
-        android:id="@+id/nav_share"
-        android:name="tdc.edu.vn.cafemanagement.ui.share.ShareFragment"
-        android:label="@string/menu_share"
-        tools:layout="@layout/fragment_share" />
-
-    <fragment
-        android:id="@+id/nav_send"
-        android:name="tdc.edu.vn.cafemanagement.ui.send.SendFragment"
-        android:label="@string/menu_send"
-        tools:layout="@layout/fragment_send" />
+    app:startDestination="@id/loginActivity">
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginActivity"
+        tools:layout="@layout/activity_login2"
+        android:label="LoginActivity" />
+    <activity
+        android:id="@+id/managerDrawerNavigation"
+        android:name="fit.tdc.edu.vn.cafemanagement.ManagerDrawerNavigation"
+        android:label="ManagerDrawerNavigation" />
+    <activity
+        android:id="@+id/bartenderDrawerNavigation"
+        android:name="fit.tdc.edu.vn.cafemanagement.BartenderDrawerNavigation"
+        android:label="BartenderDrawerNavigation" />
+    <activity
+        android:id="@+id/headDrawerNavigation"
+        android:name="fit.tdc.edu.vn.cafemanagement.HeadDrawerNavigation"
+        android:label="HeadDrawerNavigation" />
+    <activity
+        android:id="@+id/waiterDrawerNavigation"
+        android:name="fit.tdc.edu.vn.cafemanagement.WaiterDrawerNavigation"
+        android:label="WaiterDrawerNavigation" />
 </navigation>
