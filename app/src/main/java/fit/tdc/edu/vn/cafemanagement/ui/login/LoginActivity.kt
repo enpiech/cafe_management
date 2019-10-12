@@ -38,17 +38,10 @@ class LoginActivity : AppCompatActivity() {
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
 
-        val categoryList = src.getCategoryList(storeId, DocumentType.ALL)
-        val materialList = src.getMaterialList(storeId, DocumentType.ALL)
-
-        materialList.observe(this, Observer {
-            it.data?.groupBy {material ->
-                material.zoneId
-            }?.forEach { materialGroup ->
-                materialGroup.value.forEach { material ->
-                    Log.d("test1", material.id + ", " + material.toString())
-                }
-
+        val paymentList = src.getPaymentList(storeId, DocumentType.ALL)
+        paymentList.observe(this, Observer {
+            it?.data?.forEach { payment ->
+                Log.d("test", payment.toString())
             }
         })
 

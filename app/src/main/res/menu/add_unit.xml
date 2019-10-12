@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/save_unit"
+        android:id="@+id/edit_unit_icon"
+        android:icon="@drawable/ic_mode_edit"
+        android:title="edit"
+        app:showAsAction="ifRoom">
+    </item>
+    <item
+        android:id="@+id/save_unit_icon"
         android:icon="@drawable/ic_save"
         android:title="save"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom">
+    </item>
+
 </menu>

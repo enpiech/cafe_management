@@ -1,14 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
+import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
-class CategoryViewModel (private val categoryRepository: CategoryRepositoryAPI) {
+class CategoryViewModel(private val categoryRepository: CategoryRepositoryAPI): ViewModel() {
 
     private var allCategories: CollectionLiveData<Category> = categoryRepository.getAllCategory()
-
-    fun getCategory(id: String) = categoryRepository.getCategory(id)
 
     fun insert(category: Category) {
         categoryRepository.insert(category)
@@ -22,12 +21,7 @@ class CategoryViewModel (private val categoryRepository: CategoryRepositoryAPI) 
         categoryRepository.delete(category)
     }
 
-    fun deleteAllCategories() {
-        categoryRepository.deleteAllCategories()
-    }
-
     fun getAllCategories(): CollectionLiveData<Category> {
         return allCategories
     }
-
 }

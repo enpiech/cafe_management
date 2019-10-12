@@ -28,10 +28,6 @@ class ZoneViewModel (private val zoneRepository: ZoneRepository, tableRepository
         zoneRepository.delete(zone)
     }
 
-    fun deleteAllZones() {
-        zoneRepository.deleteAllZones()
-    }
-
     fun getAllZones() = allZones
 
     fun getTablesInZone(id: String) = tableViewModel.getAlltables().value.let {

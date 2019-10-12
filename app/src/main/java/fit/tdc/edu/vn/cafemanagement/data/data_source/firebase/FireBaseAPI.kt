@@ -53,6 +53,16 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): CollectionLiveData<Store>
 
+    fun getPaymentList(
+        storeId: String,
+        state: Payment.State,
+        documentType: DocumentType
+    ): QueryLiveData<Payment>
+
+    fun getPaymentList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Payment>
 
     /**
      * ========== FETCH ============
@@ -116,6 +126,12 @@ interface FireBaseAPI {
         storeId: String,
         documentType: DocumentType
     ): DocumentLiveData<Store>
+
+    fun getPayment(
+        storeId: String,
+        paymentId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<Payment>
 
 
     /**

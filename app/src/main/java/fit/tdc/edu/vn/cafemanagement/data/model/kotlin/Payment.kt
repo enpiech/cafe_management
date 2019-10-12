@@ -13,4 +13,10 @@ data class Payment(
     var isPaid: Boolean = false,
     var orderList: List<OrderItem> = listOf(),
     var total: Long = 0
-) : FirestoreModel()
+) : FirestoreModel() {
+    enum class State {
+        ORDERED,
+        COOKED,
+        PAID
+    }
+}

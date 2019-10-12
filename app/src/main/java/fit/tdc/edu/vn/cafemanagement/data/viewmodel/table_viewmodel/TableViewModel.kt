@@ -19,10 +19,6 @@ class TableViewModel (private val tableRepository: TableRepositoryAPI) {
         tableRepository.delete(table)
     }
 
-    fun deleteAllTables() {
-        tableRepository.deleteAllTables()
-    }
-
     fun getAlltables() = allTables
 
 }

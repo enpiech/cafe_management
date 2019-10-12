@@ -7,7 +7,6 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserType
 import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
