@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
+package fit.tdc.edu.vn.cafemanagement.ui.category_list
 
 import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
