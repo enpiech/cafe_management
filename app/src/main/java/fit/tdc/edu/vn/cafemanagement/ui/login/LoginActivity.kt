@@ -13,16 +13,13 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 
 class LoginActivity : AppCompatActivity() {
 

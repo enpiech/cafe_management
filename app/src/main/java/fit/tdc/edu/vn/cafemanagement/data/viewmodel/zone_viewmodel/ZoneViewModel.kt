@@ -13,7 +13,7 @@ class ZoneViewModel (private val zoneRepository: ZoneRepository, tableRepository
     private var tableViewModel = TableViewModel(tableRepository)
     private var allZones = zoneRepository.getAllZones()
 
-    val tables = MediatorLiveData<List<Table>>()
+    private val tables = MediatorLiveData<List<Table>>()
 
 
     fun insert(zone: Zone) {

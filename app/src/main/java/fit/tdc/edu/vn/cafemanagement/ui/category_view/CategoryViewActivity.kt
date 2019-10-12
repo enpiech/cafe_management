@@ -3,9 +3,6 @@ package fit.tdc.edu.vn.cafemanagement.ui.category_view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fit.tdc.edu.vn.cafemanagement.R
@@ -29,17 +26,17 @@ class CategoryViewActivity : AppCompatActivity() {
             title = "Chỉnh sửa danh mục"
             edit_category.setText(intent.getStringExtra(EXTRA_NAME))
             edit_category.isEnabled = false
-            btn_modifyCategory.setText(EDIT)
+            btn_modifyCategory.text = EDIT
         } else {
             title = "Tạo danh mục"
             edit_category.isEnabled = true
-            btn_modifyCategory.setText(CREATE)
+            btn_modifyCategory.text = CREATE
         }
 
         btn_modifyCategory.setOnClickListener {
             when {
                 btn_modifyCategory.text == EDIT -> {
-                    btn_modifyCategory.setText(UPDATE)
+                    btn_modifyCategory.text = UPDATE
                     modifyCategory()
                 }
                 btn_modifyCategory.text == CREATE -> saveCategory()

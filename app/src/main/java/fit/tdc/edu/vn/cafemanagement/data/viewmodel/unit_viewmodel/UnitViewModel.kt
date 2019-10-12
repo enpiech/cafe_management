@@ -22,5 +22,4 @@ class UnitViewModel (
     }
 
     fun getAllUnits() = allUnits
-
 }

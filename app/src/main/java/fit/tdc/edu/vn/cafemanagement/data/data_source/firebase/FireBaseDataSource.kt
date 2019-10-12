@@ -494,6 +494,29 @@ class FireBaseDataSource: FireBaseAPI {
             .whereEqualTo("state", Payment.State.COOKED)
             .asLiveData()
 
+//    fun getPaymentWithInfo(
+//        storeId: String,
+//        paymentId: String,
+//        documentType: DocumentType
+//    ): LiveData<List<Payment>> {
+//        db.collection(STORES_KEY).document(storeId)
+//            .collection(PAYMENTS_KEY)
+//            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+//                if (querySnapshot != null && !querySnapshot.isEmpty) {
+//                    querySnapshot.forEach { payment ->
+//                        payment.reference.collection("order")
+//                            .addSnapshotListener { orderSnapshot, firebaseFirestoreException ->
+//                                if (orderSnapshot != null && !orderSnapshot.isEmpty) {
+//                                    orderSnapshot.forEach { order ->
+//
+//                                    }
+//                                }
+//                            }
+//                    }
+//                }
+//            }
+//    }
+
     override fun getPaymentList(
         storeId: String,
         documentType: DocumentType
