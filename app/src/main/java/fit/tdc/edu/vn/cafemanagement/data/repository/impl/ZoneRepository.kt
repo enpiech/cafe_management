@@ -11,7 +11,7 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
 class ZoneRepository ( val dataSource: FireBaseDataSource):
     ZoneRepositoryAPI {
 
-    val filteredTableList = MediatorLiveData<List<Table>?>()
+    private val filteredTableList = MediatorLiveData<List<Table>?>()
     private var listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
     private var currentZoneId:String = ""
     init {
@@ -22,7 +22,7 @@ class ZoneRepository ( val dataSource: FireBaseDataSource):
         }
     }
 
-    fun tablesInZone(id: String) : LiveData<List<Table>?> {
+    override fun tablesInZone(id: String) : LiveData<List<Table>?> {
         this.currentZoneId = id
         listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
         return filteredTableList

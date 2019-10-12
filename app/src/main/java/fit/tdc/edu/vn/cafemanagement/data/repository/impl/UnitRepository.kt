@@ -24,10 +24,10 @@ class UnitRepository : UnitRepositoryAPI {
         filteredMaterialList.addSource(listMaterial) { filteredList ->
             filteredList?.let {
                 filteredMaterialList.value = filteredList.data?.filter { material ->
-                    if (id.isNullOrEmpty()) {
+                    if (id.isEmpty()) {
                         true
                     } else {
-                        material.id.equals(id)
+                        material.id == id
                     }
                 }
             }
@@ -41,7 +41,7 @@ class UnitRepository : UnitRepositoryAPI {
     }
 
     override fun getAllUnits() : CollectionLiveData<Unit> =
-        dataSource.getUnitList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+        dataSource.getUnitList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
     override fun getUnit(id: String) : DocumentLiveData<Unit> =
         dataSource.getUnit("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)

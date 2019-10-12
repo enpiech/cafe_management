@@ -3,9 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.ui.category_view
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import fit.tdc.edu.vn.cafemanagement.R
 import kotlinx.android.synthetic.main.activity_category_view.*
@@ -15,49 +13,48 @@ class CategoryViewActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
+        const val CREATE = "Tạo"
+        const val EDIT = "Chỉnh sửa"
+        const val UPDATE = "Cập nhật"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_view)
 
-        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
-
-        btn_modifyCategory.setOnClickListener {
-            edit_category.isEnabled = true
-            btn_modifyCategory.setText("Cập nhật")
-
-        }
-
         if (intent.hasExtra(EXTRA_ID)) {
             title = "Chỉnh sửa danh mục"
             edit_category.setText(intent.getStringExtra(EXTRA_NAME))
             edit_category.isEnabled = false
-        } else if (intent.hasExtra(EXTRA_NAME)) {
+            btn_modifyCategory.text = EDIT
+        } else {
             title = "Tạo danh mục"
             edit_category.isEnabled = true
-            btn_modifyCategory.visibility = View.VISIBLE
+            btn_modifyCategory.text = CREATE
         }
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.add_category, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item?.itemId) {
-            R.id.save_category -> {
-                saveCategory()
-                true
+        btn_modifyCategory.setOnClickListener {
+            when {
+                btn_modifyCategory.text == EDIT -> {
+                    btn_modifyCategory.text = UPDATE
+                    modifyCategory()
+                }
+                btn_modifyCategory.text == CREATE -> saveCategory()
+                btn_modifyCategory.text == UPDATE -> saveCategory()
             }
-            else -> super.onOptionsItemSelected(item)
         }
+
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_close)
+    }
+
+    private fun modifyCategory() {
+        edit_category.isEnabled = true
     }
 
     private fun saveCategory() {
         if (edit_category.text.toString().trim().isBlank()) {
             // TODO create AleartDialog
+            Toast.makeText(this, "Can not insert empty category!", Toast.LENGTH_SHORT).show()
             return
         }
 
