@@ -12,17 +12,17 @@
     <string name="txtNgayKetThuc">Ngày kết thúc</string>
 
 
-    <string name="btnDLOgin">Đăng nhập</string>
-    <string name="btnChinhSua">Chỉnh sửa</string>
-    <string name="btnTao">Tạo</string>
-    <string name="btnXoa">Xóa</string>
+    <string name="btnLogin">Đăng nhập</string>
+    <string name="btnModify">Chỉnh sửa</string>
+    <string name="btnAdd">Tạo</string>
+    <string name="btnDelete">Xóa</string>
     <string name="btnUpdate">Cập nhật</string>
-    <string name="btnDaXong">Đã xong</string>
-    <string name="btnDauCong">+</string>
+    <string name="btnComplete">Đã xong</string>
+    <string name="btnPlus">+</string>
     <string name="btnNgay">Ngày</string>
     <string name="btnTuan">Tuần</string>
     <string name="btnThang">Tháng</string>
-    <string name="btnXacNhan">Xác nhận thanh toán</string>
+    <string name="btnConfirm">Xác nhận thanh toán</string>
 
     <string name="donVi">Đơn vị</string>
     <string name="txtTenDonVi">Tên</string>
@@ -85,7 +85,7 @@
     <string name="label_category_list">Danh sách danh mục</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invalid_zone_name">Tên khu vực không được để trống</string>
     <string name="label_zone_list">Danh sách khu vực bàn</string>
 
 </resources>

@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +17,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity
-import kotlinx.android.synthetic.main.category_list_fragment.*
+import kotlinx.android.synthetic.main.list_fragment.*
 
-class CategoryListFragment : Fragment(R.layout.category_list_fragment) {
+class CategoryListFragment : Fragment(R.layout.list_fragment) {
 
     var adapter = CategoryAdapter()
 
@@ -38,7 +38,7 @@ class CategoryListFragment : Fragment(R.layout.category_list_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Add Category
-        btnAddCategory.setOnClickListener {
+        btnAdd.setOnClickListener {
             activity?.let {
                 val intent = Intent(it, CategoryViewActivity::class.java)
                 it.startActivity(intent)
@@ -50,7 +50,7 @@ class CategoryListFragment : Fragment(R.layout.category_list_fragment) {
 
         recycler_view.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this, CategoryViewModelFactory())
+        viewModel = ViewModelProvider(this, CategoryViewModelFactory())
             .get(CategoryViewModel::class.java)
 
         viewModel.getAllCategories().observe(this, Observer {

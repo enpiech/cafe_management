@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
-import kotlinx.android.synthetic.main.unit_list_item.view.*
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
+import kotlinx.android.synthetic.main.item_zone.view.*
 
 class ZoneAdapter : ListAdapter<Zone, ZoneAdapter.ZoneHolder>(DIFF_CALLBACK) {
 
@@ -52,7 +52,7 @@ class ZoneAdapter : ListAdapter<Zone, ZoneAdapter.ZoneHolder>(DIFF_CALLBACK) {
             }
         }
 
-        var textUnit: TextView = itemView.txt_unit
+        var textUnit: TextView = itemView.txtZoneName
     }
 
     interface OnItemClickListener {

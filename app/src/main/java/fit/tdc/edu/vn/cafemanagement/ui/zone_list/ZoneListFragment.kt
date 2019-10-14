@@ -3,20 +3,18 @@ package fit.tdc.edu.vn.cafemanagement.ui.zone_list
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewActivity
@@ -47,13 +45,8 @@ class ZoneListFragment : Fragment(R.layout.list_fragment) {
         recycler_view.setHasFixedSize(true)
         recycler_view.adapter = adapter
 
-        val storeId = "EfzspceETNgWk56YDOOt"
-        FireBaseDataSource().getZoneList(storeId, DocumentType.ALL).observe(this, Observer {
-            Log.d("test", "${it.data?.size}")
-        })
-
         viewModel =
-            ViewModelProviders.of(this, ZoneViewModelFactory()).get(ZoneViewModel::class.java)
+            ViewModelProvider(this, ZoneViewModelFactory()).get(ZoneViewModel::class.java)
         viewModel.getAllZones().observe(this, Observer {
 //            Log.d("test", "${it.data?.size}")
             adapter.submitList(it.data)
@@ -98,10 +91,12 @@ class ZoneListFragment : Fragment(R.layout.list_fragment) {
 
         adapter.setOnItemClickListener(object : ZoneAdapter.OnItemClickListener {
             override fun onItemClick(zone: Zone) {
-                val intent = Intent(context, UnitViewActivity::class.java)
-                intent.putExtra(UnitViewActivity.EXTRA_ID, zone.id)
-                intent.putExtra(UnitViewActivity.EXTRA_NAME, zone.name)
-                startActivity(intent)
+                val action = ZoneListFragmentDirections.viewZoneAction(zone.id)
+                findNavController().navigate(action)
+//                val intent = Intent(context, UnitViewActivity::class.java)
+//                intent.putExtra(UnitViewActivity.EXTRA_ID, zone.id)
+//                intent.putExtra(UnitViewActivity.EXTRA_NAME, zone.name)
+//                startActivity(intent)
             }
         })
     }

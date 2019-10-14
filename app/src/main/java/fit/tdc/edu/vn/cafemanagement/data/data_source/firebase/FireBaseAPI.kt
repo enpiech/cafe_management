@@ -5,6 +5,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 
 interface FireBaseAPI {
     /**

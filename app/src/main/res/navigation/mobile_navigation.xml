@@ -4,12 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/zoneListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
         android:label="@string/label_category_list"
-        tools:layout="@layout/list_fragment" />
+        tools:layout="@layout/list_fragment" >
+        <action
+            android:id="@+id/categoryViewAction"
+            app:destination="@id/categoryViewActivity" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
@@ -21,6 +25,9 @@
         <action
             android:id="@+id/action_loginFragment_to_unitListFragment"
             app:destination="@id/unitListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_zoneListFragment"
+            app:destination="@id/zoneListFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitListFragment"
@@ -30,5 +37,24 @@
     <fragment
         android:id="@+id/zoneListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragment"
-        android:label="@string/label_zone_list" />
+        android:label="@string/label_zone_list" >
+        <action
+            android:id="@+id/viewZoneAction"
+            app:destination="@id/zoneViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/zoneViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_view.ZoneViewFragment"
+        android:label="ZoneViewFragment" >
+        <argument
+            android:name="zoneId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <argument android:defaultValue='""'
+        android:name="zoneId" />
+    <activity
+        android:id="@+id/categoryViewActivity"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity"
+        android:label="CategoryViewActivity" />
 </navigation>

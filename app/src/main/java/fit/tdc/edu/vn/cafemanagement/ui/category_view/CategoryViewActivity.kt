@@ -16,8 +16,8 @@ class CategoryViewActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
-        const val CREATE = R.string.btnTao
-        const val EDIT = R.string.btnChinhSua
+        const val CREATE = R.string.btnAdd
+        const val EDIT = R.string.btnModify
         const val UPDATE = R.string.btnUpdate
     }
 
