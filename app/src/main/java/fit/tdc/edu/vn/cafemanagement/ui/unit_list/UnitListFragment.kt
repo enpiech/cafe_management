@@ -20,7 +20,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
 
-class UnitListFragment : Fragment() {
+class UnitListFragment : Fragment(R.layout.activity_unit_list) {
 
     var adapter = UnitAdapter()
 
@@ -30,18 +30,8 @@ class UnitListFragment : Fragment() {
 
     private lateinit var unitViewModel: UnitViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater!!.inflate(R.layout.activity_unit_list, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        activity?.setTitle(R.string.donVi)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //add unit
         btnAddUnit.setOnClickListener {
             activity?.let {
