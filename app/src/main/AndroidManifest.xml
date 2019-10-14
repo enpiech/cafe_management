@@ -13,14 +13,18 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.unit_create.UnitViewActivity"></activity>
         <activity android:name=".ui.unit_list.UnitListFragment"></activity>
-        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
-        <activity android:name=".ui.category_view.CategoryViewActivity"></activity>
-        <activity android:name=".ui.category_list.CategoryFragmentPlaceholder">
+        <activity android:name=".ui.unit_list.UnitFragmentPlaceholder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
+        <activity android:name=".ui.category_view.CategoryViewActivity"></activity>
+        <activity android:name=".ui.category_list.CategoryFragmentPlaceholder">
         </activity>
         <activity android:name=".ui.material_list.MaterialListFragment"></activity>
         <activity

@@ -35,6 +35,7 @@ class UnitListFragment : Fragment(R.layout.activity_unit_list) {
             activity?.let {
                 val intent = Intent(it, UnitViewActivity::class.java)
                 it.startActivity(intent)
+
             }
         }
 
@@ -61,6 +62,7 @@ class UnitListFragment : Fragment(R.layout.activity_unit_list) {
             ): Boolean {
                 return false
             }
+
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val builder = android.app.AlertDialog.Builder(context)
