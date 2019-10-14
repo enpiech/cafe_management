@@ -24,18 +24,21 @@ class UnitViewActivity : AppCompatActivity() {
     }
 
     private lateinit var unitCreateViewModel: UnitCreateViewModel
+
     enum class ButtonState {
         ADD,
         MODIFY,
         UPDATE
     }
+
     private var buttonState = ButtonState.ADD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_create)
 
         unitCreateViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(
-            UnitCreateViewModel::class.java)
+            UnitCreateViewModel::class.java
+        )
 
 
         if (intent.hasExtra(EXTRA_ID)) {
@@ -67,17 +70,18 @@ class UnitViewActivity : AppCompatActivity() {
                 }
                 ButtonState.ADD -> saveUnit()
                 ButtonState.UPDATE -> updateUnit()
-                else -> finish()
             }
         }
     }
 
     private fun updateUnit() {
-        unitCreateViewModel.update(Unit(name = edit_unit.text.toString()).apply { id = unitCreateViewModel.unit.value!!.id })
+        unitCreateViewModel.update(Unit(name = edit_unit.text.toString()).apply {
+            id = unitCreateViewModel.unit.value!!.id
+        })
         finish()
     }
 
-    private fun editUnit(){
+    private fun editUnit() {
         edit_unit.isEnabled = true
 
     }

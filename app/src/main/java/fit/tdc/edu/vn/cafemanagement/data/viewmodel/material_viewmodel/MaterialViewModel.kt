@@ -1,13 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel
 
+import androidx.lifecycle.ViewModel
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 
-class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI) {
+class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI): ViewModel() {
 
-    private var allMaterials = materialRepository.getAllMaterials()
-
-    fun getMaterial(id: String) = materialRepository.getMaterial(id)
+    private var allMaterials: CollectionLiveData<Material> = materialRepository.getAllMaterials()
 
     fun insert(material: Material) {
         materialRepository.insert(material)
@@ -21,6 +21,7 @@ class MaterialViewModel (private val materialRepository: MaterialRepositoryAPI) 
         materialRepository.delete(material)
     }
 
-    fun getAllMaterials() = allMaterials
-
+    fun getAllMaterials(): CollectionLiveData<Material> {
+        return allMaterials
+    }
 }
