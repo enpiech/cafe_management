@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
-import fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryViewModel
-import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewViewModel
 
 class CategoryViewModelFactory : ViewModelProvider.Factory {
 

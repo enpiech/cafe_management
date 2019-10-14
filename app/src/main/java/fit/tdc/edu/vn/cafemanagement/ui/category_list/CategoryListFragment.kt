@@ -1,12 +1,9 @@
 package fit.tdc.edu.vn.cafemanagement.ui.category_list
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,11 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity
-import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.android.synthetic.main.category_list_fragment.*
 
-class CategoryListFragment : Fragment() {
+class CategoryListFragment : Fragment(R.layout.category_list_fragment) {
 
     var adapter = CategoryAdapter()
 
@@ -37,19 +35,10 @@ class CategoryListFragment : Fragment() {
 
     private lateinit var viewModel: CategoryViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater!!.inflate(R.layout.list_fragment, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        activity?.setTitle(R.string.danhMuc)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         //Add Category
-        btnAdd.setOnClickListener {
+        btnAddCategory.setOnClickListener {
             activity?.let {
                 val intent = Intent(it, CategoryViewActivity::class.java)
                 it.startActivity(intent)
@@ -82,7 +71,7 @@ class CategoryListFragment : Fragment() {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val builder = AlertDialog.Builder(context)//@CategoryListFragment)
+                val builder = AlertDialog.Builder(context)
                 with(builder) {
                     setTitle("Xóa")
                     setMessage("Bạn có muốn xóa thông tin này không?")
@@ -111,34 +100,6 @@ class CategoryListFragment : Fragment() {
                 intent.putExtra(CategoryViewActivity.EXTRA_NAME, category.name)
                 startActivityForResult(intent, EDIT_CATEGORY_REQUEST)
             }
-
-
         })
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == ADD_CATEGORY_REQUEST && resultCode == Activity.RESULT_OK) {
-            val newCate = Category(
-                data!!.getStringExtra(CategoryViewActivity.EXTRA_NAME)
-            )
-            viewModel.insert(newCate)
-            Toast.makeText(context, "Đã lưu danh mục!", Toast.LENGTH_SHORT).show()
-        } else if (requestCode == EDIT_CATEGORY_REQUEST && resultCode == Activity.RESULT_OK) {
-            val id = data?.getStringExtra(CategoryViewActivity.EXTRA_ID)
-
-            if (id == "") {
-                Toast.makeText(context, "Could not update! Error!", Toast.LENGTH_SHORT).show()
-            }
-
-            val updateCategory = Category(
-                data!!.getStringExtra(CategoryViewActivity.EXTRA_NAME)
-            )
-            updateCategory.id = data.getStringExtra(CategoryViewActivity.EXTRA_ID) ?: ""
-            viewModel.update(updateCategory)
-        } else {
-            Toast.makeText(context, "Chưa lưu danh mục!", Toast.LENGTH_SHORT).show()
-        }
     }
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_unit_create.*
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
@@ -24,18 +25,21 @@ class UnitViewActivity : AppCompatActivity() {
     }
 
     private lateinit var unitCreateViewModel: UnitCreateViewModel
+
     enum class ButtonState {
         ADD,
         MODIFY,
         UPDATE
     }
+
     private var buttonState = ButtonState.ADD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_unit_create)
 
         unitCreateViewModel = ViewModelProviders.of(this, UnitViewModelFactory()).get(
-            UnitCreateViewModel::class.java)
+            UnitCreateViewModel::class.java
+        )
 
 
         if (intent.hasExtra(EXTRA_ID)) {
@@ -67,27 +71,30 @@ class UnitViewActivity : AppCompatActivity() {
                 }
                 ButtonState.ADD -> saveUnit()
                 ButtonState.UPDATE -> updateUnit()
-                else -> finish()
             }
         }
     }
 
     private fun updateUnit() {
-        unitCreateViewModel.update(Unit(name = edit_unit.text.toString()).apply { id = unitCreateViewModel.unit.value!!.id })
+        unitCreateViewModel.update(Unit(name = edit_unit.text.toString()).apply {
+            id = unitCreateViewModel.unit.value!!.id
+        })
         finish()
     }
 
-    private fun editUnit(){
+    private fun editUnit() {
         edit_unit.isEnabled = true
-
     }
 
     private fun saveUnit() {
         if (edit_unit.text.toString().trim().isBlank()) {
-            Toast.makeText(this, "Can not insert, empty unit!", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Can not insert, empty unit!", Toast.LENGTH_SHORT).show()
+            Snackbar.make(edit_unit, "Can not insert, empty unit!", Snackbar.LENGTH_SHORT)
+                .setAction("Action", null).show()
             return
         }
         unitCreateViewModel.insert(Unit(name = edit_unit.text.toString()))
+
         finish()
     }
 }

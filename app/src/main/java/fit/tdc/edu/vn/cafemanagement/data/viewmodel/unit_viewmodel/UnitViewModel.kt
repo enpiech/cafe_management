@@ -9,8 +9,6 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 class UnitViewModel (
     private val unitRepository: UnitRepositoryAPI): ViewModel() {
 
-    private var allUnits = unitRepository.getAllUnits()
-
     fun insert(unit: Unit) {
         unitRepository.insert(unit)
     }

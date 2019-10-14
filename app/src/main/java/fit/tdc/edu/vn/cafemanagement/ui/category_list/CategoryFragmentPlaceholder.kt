@@ -3,6 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.ui.category_list
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.ui.material_list.MaterialListFragment
 
 class CategoryFragmentPlaceholder : AppCompatActivity() {
 
@@ -12,7 +13,8 @@ class CategoryFragmentPlaceholder : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_holder)
 
-        showFragmentCategory()
+        //showFragmentCategory()
+        showFragmentMaterial()
     }
 
     private fun showFragmentCategory() {
@@ -23,5 +25,11 @@ class CategoryFragmentPlaceholder : AppCompatActivity() {
         transaction.commit()
     }
 
-
+    private fun showFragmentMaterial() {
+        val transaction = manager.beginTransaction()
+        val fragment = MaterialListFragment()
+        transaction.replace(R.id.fragment_holder, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
 }
