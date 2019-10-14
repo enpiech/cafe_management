@@ -1,12 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.ui.zone_modify
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 
 class ZoneModifyFragment : Fragment() {
@@ -21,7 +20,7 @@ class ZoneModifyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.zone_modify_fragment, container, false)
+        return inflater.inflate(R.layout.zone_create_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

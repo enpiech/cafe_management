@@ -80,5 +80,11 @@
     <string name="title_activity_head_drawer_navigation">HeadDrawerNavigation</string>
     <string name="title_activity_waiter_drawer_navigation">WaiterDrawerNavigation</string>
     <string name="title_activity_bartender_drawer_navigation">BartenderDrawerNavigation</string>
+    <string name="menu_item_logout">Đăng xuất</string>
+    <string name="label_category_list">Danh sách danh mục</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="label_zone_list">Danh sách khu vực bàn</string>
 
 </resources>

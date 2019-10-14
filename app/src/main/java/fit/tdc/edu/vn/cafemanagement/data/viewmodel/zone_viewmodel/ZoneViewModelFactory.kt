@@ -12,9 +12,9 @@ class ZoneViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ZoneViewModel::class.java)) {
             return ZoneViewModel(
-                 zoneRepository = ZoneRepository(
+                zoneRepository = ZoneRepository(
                      dataSource = FireBaseDataSource()
-                 ),
+                ),
                 tableRepository = TableRepository(
                     dataSource = FireBaseDataSource()
                 )

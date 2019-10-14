@@ -1,54 +1,33 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
-import android.app.Activity
+
+import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
+import kotlinx.android.synthetic.main.login_layout.*
 
-class LoginActivity : AppCompatActivity() {
-
+class LoginFragment : Fragment(R.layout.login_layout) {
     private lateinit var loginViewModel: LoginViewModel
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.login_layout)
-
-
-        val storeId = "EfzspceETNgWk56YDOOt"
-        val src = FireBaseDataSource()
-
-        //val paymentList = src.getPaymentList(storeId, DocumentType.ALL)
-//        paymentList.observe(this, Observer {
-//            it?.data?.forEach { payment ->
-//                Log.d("test", payment.toString())
-//            }
-//        })
-
-
-
-        val username = findViewById<EditText>(R.id.username)
-        val password = findViewById<EditText>(R.id.password)
-        val login = findViewById<Button>(R.id.login)
-        val loading = findViewById<ProgressBar>(R.id.loading)
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loginViewModel = ViewModelProviders.of(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
+        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
             val loginState = it ?: return@Observer
 
             // disable managerLogin button unless both username / password is valid
@@ -62,14 +41,14 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
+        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
             val loginResult = it ?: return@Observer
 
             when (loginResult.status) {
                 Status.LOADING -> loading.visibility = View.VISIBLE
                 Status.ERROR -> {
                     loading.visibility = View.GONE
-                    loginResult.errorMessage?.let { message -> showLoginFailed(message) }
+                    loginResult.errorMessage?.let { msg -> showLoginFailed(msg) }
                 }
                 Status.SUCCESS -> {
                     loading.visibility = View.GONE
@@ -80,13 +59,19 @@ class LoginActivity : AppCompatActivity() {
                     )
                 }
             }
-            setResult(Activity.RESULT_OK)
+//            activity?.setResult(Activity.RESULT_OK)
 
             //Complete and destroy managerLogin activity once successful
-            //TODO Navigate
-//            finish()
-        })
+            this.findNavController().navigate(R.id.zoneListFragment)
+            when (loginResult.data?.role) {
+                User.Type.BARTENDER -> null
+                User.Type.MANAGER -> null
+                User.Type.STORE_MANAGER -> {
 
+                }
+                User.Type.WAITER -> null
+            }
+        })
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
                 username.text.toString(),
@@ -115,10 +100,14 @@ class LoginActivity : AppCompatActivity() {
             }
 
             login.setOnClickListener {
+                val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(windowToken, 0)
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
             }
         }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -126,21 +115,28 @@ class LoginActivity : AppCompatActivity() {
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
         Toast.makeText(
-            applicationContext,
+            context,
             "$welcome $displayName",
             Toast.LENGTH_SHORT
         ).show()
     }
 
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
-    }
-
     private fun showLoginFailed(errorString: String) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 
 /**
  * Extension function to simplify setting an afterTextChanged action to EditText components.
  */
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
+
+        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
+}

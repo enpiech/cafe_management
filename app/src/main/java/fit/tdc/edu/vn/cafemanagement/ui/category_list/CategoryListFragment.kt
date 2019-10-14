@@ -19,7 +19,7 @@ import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity
-import kotlinx.android.synthetic.main.category_list_fragment.*
+import kotlinx.android.synthetic.main.list_fragment.*
 
 class CategoryListFragment : Fragment() {
 
@@ -42,14 +42,14 @@ class CategoryListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater!!.inflate(R.layout.category_list_fragment, container, false)
+        return inflater!!.inflate(R.layout.list_fragment, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         activity?.setTitle(R.string.danhMuc)
         //Add Category
-        btnAddCategory.setOnClickListener {
+        btnAdd.setOnClickListener {
             activity?.let {
                 val intent = Intent(it, CategoryViewActivity::class.java)
                 it.startActivity(intent)

@@ -4,26 +4,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginActivity">
-    <activity
-        android:id="@+id/loginActivity"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginActivity"
-        tools:layout="@layout/activity_login2"
-        android:label="LoginActivity" />
-    <activity
-        android:id="@+id/managerDrawerNavigation"
-        android:name="fit.tdc.edu.vn.cafemanagement.ManagerDrawerNavigation"
-        android:label="ManagerDrawerNavigation" />
-    <activity
-        android:id="@+id/bartenderDrawerNavigation"
-        android:name="fit.tdc.edu.vn.cafemanagement.BartenderDrawerNavigation"
-        android:label="BartenderDrawerNavigation" />
-    <activity
-        android:id="@+id/headDrawerNavigation"
-        android:name="fit.tdc.edu.vn.cafemanagement.HeadDrawerNavigation"
-        android:label="HeadDrawerNavigation" />
-    <activity
-        android:id="@+id/waiterDrawerNavigation"
-        android:name="fit.tdc.edu.vn.cafemanagement.WaiterDrawerNavigation"
-        android:label="WaiterDrawerNavigation" />
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/categoryListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
+        android:label="@string/label_category_list"
+        tools:layout="@layout/list_fragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/login_layout" >
+        <action
+            android:id="@+id/action_loginFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_unitListFragment"
+            app:destination="@id/unitListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/unitListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
+        android:label="activity_unit_list"
+        tools:layout="@layout/activity_unit_list" />
+    <fragment
+        android:id="@+id/zoneListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragment"
+        android:label="@string/label_zone_list" />
 </navigation>

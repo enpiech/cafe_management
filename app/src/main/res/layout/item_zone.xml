@@ -11,11 +11,11 @@
     android:layout_marginBottom="@dimen/margin_32dp">
 
     <ImageView
-        android:id="@+id/imgZoneImage"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txtZoneName"
+        app:layout_constraintEnd_toStartOf="@+id/lblProductCategoryName"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,7 @@
         android:contentDescription="@string/img_product_category" />
 
     <TextView
-        android:id="@+id/txtZoneName"
+        android:id="@+id/lblProductCategoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -32,6 +32,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/imgZoneImage"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

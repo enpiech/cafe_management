@@ -4,23 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Zone
 import kotlinx.android.synthetic.main.unit_list_item.view.*
 
-class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
+class ZoneAdapter : ListAdapter<Zone, ZoneAdapter.ZoneHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Unit>() {
-            override fun areItemsTheSame(oldItem: Unit, newItem: Unit): Boolean {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Zone>() {
+            override fun areItemsTheSame(oldItem: Zone, newItem: Zone): Boolean {
                 return oldItem.id == newItem.id
             }
 
-            override fun areContentsTheSame(oldItem: Unit, newItem: Unit): Boolean {
+            override fun areContentsTheSame(oldItem: Zone, newItem: Zone): Boolean {
                 return oldItem.name == newItem.name
             }
         }
@@ -28,21 +27,22 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
 
     private var listener: OnItemClickListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.unit_list_item, parent, false)
-        return UnitHolder(itemView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ZoneHolder {
+        val itemView: View =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_zone, parent, false)
+        return ZoneHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: UnitHolder, position: Int) {
-        val currentUnit: Unit = getItem(position)
+    override fun onBindViewHolder(holder: ZoneHolder, position: Int) {
+        val currentUnit: Zone = getItem(position)
         holder.textUnit.text = currentUnit.name
     }
 
-    fun getUnitAt(position: Int): Unit {
+    fun getUnitAt(position: Int): Zone {
         return getItem(position)
     }
 
-    inner class UnitHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ZoneHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -56,7 +56,7 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
     }
 
     interface OnItemClickListener {
-        fun onItemClick(unit: Unit)
+        fun onItemClick(zone: Zone)
     }
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
