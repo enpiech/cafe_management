@@ -8,6 +8,7 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.PaymentRepositoryAPI
 
 class PaymentRepositoryRepository (val dataSource: FireBaseAPI) : PaymentRepositoryAPI{
 
+
     override fun getListPaymentByState(state: Payment.State) =
         dataSource.getPaymentListByState("",state,DocumentType.ALL)
 

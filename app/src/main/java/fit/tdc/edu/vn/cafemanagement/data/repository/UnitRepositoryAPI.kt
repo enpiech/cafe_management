@@ -1,9 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import com.google.firebase.firestore.DocumentReference
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 
 /**
@@ -19,4 +22,7 @@ interface UnitRepositoryAPI {
     fun insert(unit: Unit): TaskLiveData<DocumentReference>
     fun update(unit: Unit): TaskLiveData<Void>
     fun delete(unit: Unit): TaskLiveData<Void>
+    fun materialsWithUnit(id: String) : LiveData<List<Material>?>
+    fun getUnitsASC(): MediatorLiveData<List<Unit>?>
+    fun getUnitsDESC(): MediatorLiveData<List<Unit>?>
 }

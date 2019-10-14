@@ -12,4 +12,10 @@ interface MaterialRepositoryAPI {
     fun insert(material: Material): TaskLiveData<DocumentReference>
     fun update(material: Material)
     fun delete(material: Material): TaskLiveData<Void>
+    fun getMaterialsListASCName() : List<Material>
+    fun getMaterialsListASCPrice() : List<Material>
+    fun getSellableMaterialsList() : List<Material>
+    fun getMaterialsListDESCName() : List<Material>
+    fun getMaterialsListDESCPrice() : List<Material>
+    fun getUnSellableMaterialsList() : List<Material>
 }

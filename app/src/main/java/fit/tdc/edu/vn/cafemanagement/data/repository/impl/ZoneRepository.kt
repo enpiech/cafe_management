@@ -13,13 +13,13 @@ class ZoneRepository ( val dataSource: FireBaseAPI):
     ZoneRepositoryAPI {
 
     private val filteredTableList = MediatorLiveData<List<Table>?>()
+
     private var listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+
     private var currentZoneId:String = ""
     init {
-        filteredTableList.addSource(listTable) { filteredList ->
-            filteredList?.let {
-                filteredTableList.value = listTableInZone(filteredList.data, currentZoneId)
-            }
+        filteredTableList.addSource(listTable) {
+            filterTable(currentZoneId)
         }
     }
 
@@ -29,7 +29,7 @@ class ZoneRepository ( val dataSource: FireBaseAPI):
         return filteredTableList
     }
 
-    fun filterTable(zoneId: String) = listTable.value?.let {
+    private fun filterTable(zoneId: String) = listTable.value?.let {
         filteredTableList.value = listTableInZone(it.data, currentZoneId)
     }.also { currentZoneId = zoneId }
 

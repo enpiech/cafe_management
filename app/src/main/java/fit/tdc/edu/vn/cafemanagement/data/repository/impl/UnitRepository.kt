@@ -18,6 +18,8 @@ class UnitRepository : UnitRepositoryAPI {
         FireBaseDataSource()
 
     private val filteredMaterialList = MediatorLiveData<List<Material>?>()
+    private val filteredUnitList = MediatorLiveData<List<Unit>?>()
+
     private var listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
     private var id:String = ""
     init {
@@ -32,12 +34,29 @@ class UnitRepository : UnitRepositoryAPI {
                 }
             }
         }
+        filteredUnitList.addSource(getAllUnits()) {}
     }
 
-    fun tablesInZone(id: String) : LiveData<List<Material>?> {
+    override fun materialsWithUnit(id: String) : LiveData<List<Material>?> {
         this.id = id
         listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
         return filteredMaterialList
+    }
+
+    override fun getUnitsASC() : MediatorLiveData<List<Unit>?> {
+        filteredUnitList.addSource(getAllUnits()) {}
+        filteredUnitList.value!!.sortedBy {
+            it.name
+        }
+        return filteredUnitList
+    }
+
+    override fun getUnitsDESC() : MediatorLiveData<List<Unit>?> {
+        filteredUnitList.addSource(getAllUnits()) {}
+        filteredUnitList.value!!.sortedByDescending {
+            it.name
+        }
+        return filteredUnitList
     }
 
     override fun getAllUnits() : CollectionLiveData<Unit> =
