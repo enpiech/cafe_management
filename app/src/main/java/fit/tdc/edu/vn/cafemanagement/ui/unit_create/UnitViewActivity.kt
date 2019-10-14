@@ -12,7 +12,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 
-class UnitCreateActivity : AppCompatActivity() {
+class UnitViewActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"

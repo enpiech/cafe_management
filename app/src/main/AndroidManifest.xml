@@ -11,19 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.unit_create.UnitCreateActivity"></activity>
-        <activity android:name=".ui.unit_list.UnitListActivity"></activity>
-        <activity android:name=".ui.category_list.CategoryListFragment">
-
-        </activity>
-        <activity android:name=".ui.category_view.CategoryViewActivity"></activity>
-        <activity android:name=".ui.category_list.CategoryFragmentPlaceholder">
+        <activity android:name=".ui.unit_list.UnitFragmentPlaceholder">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.unit_create.UnitViewActivity" />
+        <activity android:name=".ui.unit_list.UnitListFragment" />
+        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
+        <activity android:name=".ui.category_view.CategoryViewActivity" />
+        <activity android:name=".ui.category_list.CategoryFragmentPlaceholder"></activity>
         <activity
             android:name=".BartenderDrawerNavigation"
             android:label="@string/title_activity_bartender_drawer_navigation"
@@ -42,9 +41,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login">
-
-        </activity>
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

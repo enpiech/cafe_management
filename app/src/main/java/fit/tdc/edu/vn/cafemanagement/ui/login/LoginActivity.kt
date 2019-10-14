@@ -35,12 +35,12 @@ class LoginActivity : AppCompatActivity() {
         val storeId = "EfzspceETNgWk56YDOOt"
         val src = FireBaseDataSource()
 
-        val paymentList = src.getPaymentList(storeId, DocumentType.ALL)
-        paymentList.observe(this, Observer {
-            it?.data?.forEach { payment ->
-                Log.d("test", payment.toString())
-            }
-        })
+        //val paymentList = src.getPaymentList(storeId, DocumentType.ALL)
+//        paymentList.observe(this, Observer {
+//            it?.data?.forEach { payment ->
+//                Log.d("test", payment.toString())
+//            }
+//        })
 
 
 
