@@ -25,13 +25,7 @@ class UnitListFragment : Fragment() {
     var adapter = UnitAdapter()
 
     companion object {
-
-        fun newInstance(): UnitListFragment {
-            return UnitListFragment()
-        }
-
-        const val ADD_UNIT_REQUEST = 1
-        const val EDIT_UNIT_REQUEST = 2
+        fun newInstance() = UnitListFragment()
     }
 
     private lateinit var unitViewModel: UnitViewModel
@@ -109,7 +103,7 @@ class UnitListFragment : Fragment() {
                 val intent = Intent(context, UnitViewActivity::class.java)
                 intent.putExtra(UnitViewActivity.EXTRA_ID, unit.id)
                 intent.putExtra(UnitViewActivity.EXTRA_NAME, unit.name)
-                startActivityForResult(intent, EDIT_UNIT_REQUEST)
+                startActivity(intent)
             }
         })
     }
