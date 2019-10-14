@@ -31,6 +31,7 @@
     <string name="txtName">Name</string>
     <string name="danhMuc">Danh mục</string>
     <string name="summaryOrder">Tổng tiền:</string>
+    <string name="nguyenLieu">Nguyên liệu</string>
 
 
     <string name="titleChinhSuaThonTinBan">Chỉnh sửa thông tin bàn</string>

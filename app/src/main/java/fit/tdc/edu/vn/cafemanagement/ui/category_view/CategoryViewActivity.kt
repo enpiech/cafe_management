@@ -1,16 +1,14 @@
 package fit.tdc.edu.vn.cafemanagement.ui.category_view
 
-import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProviders
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
 import kotlinx.android.synthetic.main.activity_category_view.*
 
 class CategoryViewActivity : AppCompatActivity() {
@@ -45,7 +43,7 @@ class CategoryViewActivity : AppCompatActivity() {
             viewModel.getCategory(intent.getStringExtra(EXTRA_ID))
             viewModel.category.observe(this, Observer {
                 if (it == null) return@Observer
-                edit_category.setText(intent.getStringExtra(EXTRA_NAME))
+                edit_category.setText(it.name)
                 edit_category.isEnabled = false
                 btn_modifyCategory.setText(EDIT)
                 buttonState = ButtonState.MODIFY
@@ -66,7 +64,6 @@ class CategoryViewActivity : AppCompatActivity() {
                 }
                 ButtonState.ADD -> saveCategory()
                 ButtonState.UPDATE -> updateCategory()
-                else -> finish()
             }
         }
     }
