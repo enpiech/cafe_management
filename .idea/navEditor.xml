@@ -29,13 +29,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="categoryViewActivity">
+                  <entry key="categoryViewFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="586" />
-                            <option name="y" value="360" />
+                            <option name="x" value="593" />
+                            <option name="y" value="372" />
                           </Point>
                         </option>
                       </LayoutPositions>

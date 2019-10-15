@@ -116,8 +116,20 @@ class ZoneViewFragment : Fragment(R.layout.fragment_zone_view) {
                         Zone(
                             name = edtZoneName.text.toString()
                         )
-                    ).observe(this, Observer {
+                    ).observe(this, Observer { result ->
+                        when (result.status) {
+                            TaskStatus.SUCCESS -> {
+                                Snackbar.make(it, R.string.addComplete, Snackbar.LENGTH_LONG).show()
+                            }
+                            TaskStatus.FAILED -> {
+                                if (result.exception != null) {
+                                    Snackbar.make(it, result.exception.localizedMessage, Snackbar.LENGTH_LONG).show()
+                                } else {
+                                    Snackbar.make(it, R.string.addFailed, Snackbar.LENGTH_LONG).show()
+                                }
 
+                            }
+                        }
                     })
                 }
                 FormState.Type.VIEW -> {
@@ -131,7 +143,15 @@ class ZoneViewFragment : Fragment(R.layout.fragment_zone_view) {
                     ).observe(this, Observer { result ->
                         when (result.status) {
                             TaskStatus.SUCCESS -> {
-                                Snackbar.make(it, "complete", Snackbar.LENGTH_LONG).show()
+                                Snackbar.make(it, R.string.updateComplete, Snackbar.LENGTH_LONG).show()
+                            }
+                            TaskStatus.FAILED -> {
+                                if (result.exception != null) {
+                                    Snackbar.make(it, result.exception.localizedMessage, Snackbar.LENGTH_LONG).show()
+                                } else {
+                                    Snackbar.make(it, R.string.updateFailed, Snackbar.LENGTH_LONG).show()
+                                }
+
                             }
                         }
                     })

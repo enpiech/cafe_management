@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.unit_view
+package fit.tdc.edu.vn.cafemanagement.ui.category_view
 
 import android.content.Context
 import android.os.Bundle
@@ -15,52 +15,49 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
-import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.unit_view_fragment.*
+import kotlinx.android.synthetic.main.category_view_fragment.*
 
-class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
+class CategoryViewFragment : Fragment(R.layout.category_view_fragment) {
 
     private val viewModel by lazy {
-        ViewModelProvider(this, UnitViewModelFactory()).get(UnitCreateViewModel::class.java)
+        ViewModelProvider(this, CategoryViewModelFactory()).get(CategoryViewViewModel::class.java)
     }
-    private val args: UnitViewFragmentArgs by navArgs()
-    private val unitId by lazy {
-        args.unitId
+    private val args: CategoryViewFragmentArgs by navArgs()
+    private val categoryId by lazy {
+        args.categoryId
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.viewState.observe(this, Observer {
             when (it) {
                 FormState.Type.ADD -> {
-                    // TODO: Add
-                    activity?.setTitle("asdfasdfa")
-                    btn_modifyUnit.setText(R.string.btnAdd)
-//                    imgUnitImage.isEnabled = true
+                    btn_modifyCategory.setText(R.string.btnAdd)
+//                    imgCategoryImage.isEnabled = true
                 }
                 FormState.Type.MODIFY -> {
                     // TODO: editable
-                    edit_unit.isEnabled = true
-//                    imgUnitImage.isEnabled = false
-                    btn_modifyUnit.isEnabled = false
-                    btn_modifyUnit.setText(R.string.btnUpdate)
+                    edit_category.isEnabled = true
+//                    imgCategoryImage.isEnabled = false
+                    btn_modifyCategory.isEnabled = false
+                    btn_modifyCategory.setText(R.string.btnUpdate)
                 }
                 FormState.Type.VIEW -> {
-                    edit_unit.isEnabled = false
-//                    imgUnitImage.isEnabled = true
-                    btn_modifyUnit.setText(R.string.btnModify)
+                    edit_category.isEnabled = false
+//                    imgCategoryImage.isEnabled = true
+                    btn_modifyCategory.setText(R.string.btnModify)
                 }
                 null -> {
-                    when (unitId) {
+                    when (categoryId) {
                         null -> {
                             viewModel.setViewType(FormState.Type.ADD)
                         }
                         else -> {
                             viewModel.setViewType(FormState.Type.VIEW)
-                            viewModel.getUnit(unitId!!)
+                            viewModel.getCategory(categoryId!!)
                         }
                     }
                 }
@@ -70,44 +67,44 @@ class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
             val state = it ?: return@Observer
 
             // disable managerLogin button unless both username / password is valid
-            btn_modifyUnit.isEnabled = state.isDataValid
+            btn_modifyCategory.isEnabled = state.isDataValid
 
             if (state.nameError != null) {
-                edit_unit.error = getString(state.nameError)
+                edit_category.error = getString(state.nameError)
             }
         })
-        viewModel.currentUnit.observe(this, Observer {
-            if (edit_unit.text.isNullOrEmpty()) {
+        viewModel.currentCategory.observe(this, Observer {
+            if (edit_category.text.isNullOrEmpty()) {
                 when (it.status) {
                     Status.SUCCESS -> {
-                        edit_unit.setText(it.data!!.name)
+                        edit_category.setText(it.data!!.name)
                     }
                 }
             }
         })
 
-        edit_unit.apply {
+        edit_category.apply {
             afterTextChanged {
                 viewModel.dataChange(
-                    Unit(
-                        name = edit_unit.text.toString()
+                    Category(
+                        name = edit_category.text.toString()
                     )
                 )
             }
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        btn_modifyUnit.callOnClick()
+                        btn_modifyCategory.callOnClick()
                 }
                 false
             }
         }
 
-//        imgUnitImage.setOnClickListener {
+//        imgCategoryImage.setOnClickListener {
 //
 //        }
 
-        btn_modifyUnit.setOnClickListener {
+        btn_modifyCategory.setOnClickListener {
             val imm =
                 view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             imm.hideSoftInputFromWindow(view.windowToken, 0)
@@ -115,8 +112,8 @@ class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
             when (viewModel.viewState.value) {
                 FormState.Type.ADD -> {
                     viewModel.insert(
-                        Unit(
-                            name = edit_unit.text.toString()
+                        Category(
+                            name = edit_category.text.toString()
                         )
                     ).observe(this, Observer {
                         //back
@@ -134,13 +131,13 @@ class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
                         setMessage("Bạn có muốn cập nhật thông tin này không?")
                         setPositiveButton("OK") { p0, p1 ->
                             viewModel.update(
-                                Unit(
-                                    name = edit_unit.text.toString()
-                                ).also { it.id = unitId!! }
+                                Category(
+                                    name = edit_category.text.toString()
+                                ).also { it.id = categoryId!! }
                             ).observe(viewLifecycleOwner, Observer { result ->
                                 when (result.status) {
                                     TaskStatus.SUCCESS -> {
-                                        Snackbar.make(it, "Cập nhật thành công tên: "+edit_unit.text, Snackbar.LENGTH_LONG).show()
+                                        Snackbar.make(it, "Cập nhật thành công tên: "+edit_category.text, Snackbar.LENGTH_LONG).show()
                                         findNavController().navigateUp()
                                     }
                                 }

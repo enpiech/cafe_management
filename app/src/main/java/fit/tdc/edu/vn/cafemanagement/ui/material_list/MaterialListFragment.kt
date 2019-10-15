@@ -1,19 +1,17 @@
 package fit.tdc.edu.vn.cafemanagement.ui.material_list
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.MaterialAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModelFactory
 import kotlinx.android.synthetic.main.material_list_fragment.*

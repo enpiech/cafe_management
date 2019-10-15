@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
+package fit.tdc.edu.vn.cafemanagement.data.model.category
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -9,6 +9,6 @@ data class Category(
     var name: String? = null
 ): FirestoreModel() {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey(autoGenerate = false)
     override var id: String = ""
 }
