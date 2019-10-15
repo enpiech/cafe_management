@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.model.kotlin
+package fit.tdc.edu.vn.cafemanagement.data.model.unit
 
 import androidx.room.Entity
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel

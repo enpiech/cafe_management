@@ -52,17 +52,17 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_loginFragment_to_categoryListFragment">
+                            <entry key="getCategoryListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_loginFragment_to_unitListFragment">
+                            <entry key="getUnitListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_loginFragment_to_zoneListFragment">
+                            <entry key="getZoneListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -79,6 +79,18 @@
                           <Point>
                             <option name="x" value="256" />
                             <option name="y" value="724" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="unitViewFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="587" />
+                            <option name="y" value="727" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -7,7 +7,7 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 
 /**
  * UNIT REPOSITORY API

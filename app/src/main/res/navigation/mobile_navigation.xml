@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/zoneListFragment">
+    app:startDestination="@id/unitListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
@@ -33,7 +33,11 @@
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
         android:label="activity_unit_list"
-        tools:layout="@layout/activity_unit_list" />
+        tools:layout="@layout/activity_unit_list" >
+        <action
+            android:id="@+id/unitViewAction"
+            app:destination="@id/unitViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/zoneListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragment"
@@ -57,4 +61,16 @@
         android:id="@+id/categoryViewActivity"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity"
         android:label="CategoryViewActivity" />
+    <fragment
+        android:id="@+id/unitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment"
+        android:label="UnitViewFragment" >
+        <argument
+            android:name="unitId"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/comeback_unit"
+            app:destination="@id/unitListFragment" />
+    </fragment>
 </navigation>

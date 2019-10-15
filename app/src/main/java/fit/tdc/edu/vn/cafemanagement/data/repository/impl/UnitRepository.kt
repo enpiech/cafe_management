@@ -2,13 +2,17 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
@@ -19,6 +23,8 @@ class UnitRepository : UnitRepositoryAPI {
 
     private val filteredMaterialList = MediatorLiveData<List<Material>?>()
     private val filteredUnitList = MediatorLiveData<List<Unit>?>()
+
+
 
     private var listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
     private var id:String = ""

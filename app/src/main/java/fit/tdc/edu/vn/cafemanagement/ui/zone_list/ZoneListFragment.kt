@@ -17,7 +17,7 @@ import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewActivity
+import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment
 import kotlinx.android.synthetic.main.activity_unit_list.recycler_view
 import kotlinx.android.synthetic.main.list_fragment.*
 
@@ -36,7 +36,7 @@ class ZoneListFragment : Fragment(R.layout.list_fragment) {
 
         btnAdd.setOnClickListener {
             activity?.let {
-                val intent = Intent(it, UnitViewActivity::class.java)
+                val intent = Intent(it, UnitViewFragment::class.java)
                 it.startActivity(intent)
             }
         }
@@ -93,9 +93,9 @@ class ZoneListFragment : Fragment(R.layout.list_fragment) {
             override fun onItemClick(zone: Zone) {
                 val action = ZoneListFragmentDirections.viewZoneAction(zone.id)
                 findNavController().navigate(action)
-//                val intent = Intent(context, UnitViewActivity::class.java)
-//                intent.putExtra(UnitViewActivity.EXTRA_ID, zone.id)
-//                intent.putExtra(UnitViewActivity.EXTRA_NAME, zone.name)
+//                val intent = Intent(context, UnitViewFragment::class.java)
+//                intent.putExtra(UnitViewFragment.EXTRA_ID, zone.id)
+//                intent.putExtra(UnitViewFragment.EXTRA_NAME, zone.name)
 //                startActivity(intent)
             }
         })

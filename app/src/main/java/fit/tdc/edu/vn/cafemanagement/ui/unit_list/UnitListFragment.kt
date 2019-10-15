@@ -1,21 +1,20 @@
 package fit.tdc.edu.vn.cafemanagement.ui.unit_list
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewActivity
 import kotlinx.android.synthetic.main.activity_unit_list.*
 
 class UnitListFragment : Fragment(R.layout.activity_unit_list) {
@@ -30,12 +29,11 @@ class UnitListFragment : Fragment(R.layout.activity_unit_list) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         //add unit
         btnAddUnit.setOnClickListener {
             activity?.let {
-                val intent = Intent(it, UnitViewActivity::class.java)
-                it.startActivity(intent)
-
+                findNavController().navigate(UnitListFragmentDirections.unitViewAction(null))
             }
         }
 
@@ -44,7 +42,7 @@ class UnitListFragment : Fragment(R.layout.activity_unit_list) {
         recycler_view.adapter = adapter
 
         unitViewModel =
-            ViewModelProviders.of(this, UnitViewModelFactory()).get(UnitViewModel::class.java)
+            ViewModelProvider(this, UnitViewModelFactory()).get(UnitViewModel::class.java)
         unitViewModel.getAllUnits().observe(this, Observer {
             //Log.d("test", "${it.data?.size}")
             adapter.submitList(it.data)
@@ -90,10 +88,7 @@ class UnitListFragment : Fragment(R.layout.activity_unit_list) {
 
         adapter.setOnItemClickListener(object : UnitAdapter.OnItemClickListener {
             override fun onItemClick(unit: Unit) {
-                val intent = Intent(context, UnitViewActivity::class.java)
-                intent.putExtra(UnitViewActivity.EXTRA_ID, unit.id)
-                intent.putExtra(UnitViewActivity.EXTRA_NAME, unit.name)
-                startActivity(intent)
+                findNavController().navigate(UnitListFragmentDirections.unitViewAction(unit.id))
             }
         })
     }
