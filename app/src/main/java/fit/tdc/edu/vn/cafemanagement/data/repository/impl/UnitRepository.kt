@@ -45,7 +45,7 @@ class UnitRepository : UnitRepositoryAPI {
 
     override fun getUnitsASC() : MediatorLiveData<List<Unit>?> {
         filteredUnitList.addSource(getAllUnits()) {}
-        filteredUnitList.value!!.sortedBy {
+        filteredUnitList.value = filteredUnitList.value!!.sortedBy {
             it.name
         }
         return filteredUnitList
@@ -53,7 +53,7 @@ class UnitRepository : UnitRepositoryAPI {
 
     override fun getUnitsDESC() : MediatorLiveData<List<Unit>?> {
         filteredUnitList.addSource(getAllUnits()) {}
-        filteredUnitList.value!!.sortedByDescending {
+        filteredUnitList.value = filteredUnitList.value!!.sortedByDescending {
             it.name
         }
         return filteredUnitList
