@@ -29,13 +29,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="categoryViewActivity">
+                  <entry key="categoryViewFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="586" />
-                            <option name="y" value="360" />
+                            <option name="x" value="593" />
+                            <option name="y" value="372" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -101,15 +101,6 @@
                             <option name="x" value="587" />
                             <option name="y" value="727" />
                           </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="comeback_unit">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

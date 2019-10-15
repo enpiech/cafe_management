@@ -2,7 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
 import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
 class CategoryViewModel(private val categoryRepository: CategoryRepositoryAPI): ViewModel() {
