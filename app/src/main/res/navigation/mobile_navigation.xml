@@ -17,8 +17,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/login_layout" >
+        android:label="fragment_login" >
         <action
             android:id="@+id/getCategoryListAction"
             app:destination="@id/categoryListFragment" />
@@ -58,7 +57,7 @@
         android:name="zoneId" />
     <fragment
         android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment"
         android:label="UnitViewFragment" >
         <argument
             android:name="unitId"
