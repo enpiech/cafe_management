@@ -8,15 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity
 import kotlinx.android.synthetic.main.list_fragment.*
 
 class CategoryListFragment : Fragment(R.layout.list_fragment) {
@@ -24,13 +24,7 @@ class CategoryListFragment : Fragment(R.layout.list_fragment) {
     var adapter = CategoryAdapter()
 
     companion object {
-
-        fun newInstance(): CategoryListFragment {
-            return CategoryListFragment()
-        }
-
-        const val ADD_CATEGORY_REQUEST = 1
-        const val EDIT_CATEGORY_REQUEST = 2
+        fun newInstance() = CategoryListFragment()
     }
 
     private lateinit var viewModel: CategoryViewModel
@@ -40,8 +34,7 @@ class CategoryListFragment : Fragment(R.layout.list_fragment) {
         //Add Category
         btnAdd.setOnClickListener {
             activity?.let {
-                val intent = Intent(it, CategoryViewActivity::class.java)
-                it.startActivity(intent)
+                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(null))
             }
         }
 
@@ -95,10 +88,7 @@ class CategoryListFragment : Fragment(R.layout.list_fragment) {
 
         adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
             override fun onItemClick(category: Category) {
-                val intent = Intent(context, CategoryViewActivity::class.java)
-                intent.putExtra(CategoryViewActivity.EXTRA_ID, category.id)
-                intent.putExtra(CategoryViewActivity.EXTRA_NAME, category.name)
-                startActivityForResult(intent, EDIT_CATEGORY_REQUEST)
+                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(category.id))
             }
         })
     }

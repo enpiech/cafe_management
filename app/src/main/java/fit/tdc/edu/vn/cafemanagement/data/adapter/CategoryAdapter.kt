@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import kotlinx.android.synthetic.main.category_list_item.view.*
 
 class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryHolder>(DIFF_CALLBACK) {

@@ -2,7 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
 class CategoryRepository(val dataSource: FireBaseAPI) :
@@ -15,9 +15,8 @@ class CategoryRepository(val dataSource: FireBaseAPI) :
     override fun insert(category: Category) =
         dataSource.createCategory("EfzspceETNgWk56YDOOt", category)
 
-    override fun update(category: Category) {
+    override fun update(category: Category) =
         dataSource.modifyCategory("EfzspceETNgWk56YDOOt", category)
-    }
 
     override fun delete(category: Category) =
         dataSource.deleteCategory("EfzspceETNgWk56YDOOt", category.id)
