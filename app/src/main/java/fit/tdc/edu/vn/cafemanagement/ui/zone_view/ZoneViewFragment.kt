@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.ui.zone_view
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
@@ -37,13 +36,13 @@ class ZoneViewFragment : Fragment(R.layout.fragment_zone_view) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.viewState.observe(this, Observer {
-            Log.d("test", it?.name ?: "null")
             when (it) {
                 FormState.Type.ADD -> {
                     btnModify.setText(R.string.btnAdd)
                     imgZoneImage.isEnabled = true
                 }
                 FormState.Type.MODIFY -> {
+                    // TODO: editable
                     edtZoneName.isEnabled = true
                     imgZoneImage.isEnabled = false
                     btnModify.setText(R.string.btnUpdate)
@@ -117,7 +116,9 @@ class ZoneViewFragment : Fragment(R.layout.fragment_zone_view) {
                         Zone(
                             name = edtZoneName.text.toString()
                         )
-                    )
+                    ).observe(this, Observer {
+
+                    })
                 }
                 FormState.Type.VIEW -> {
                     viewModel.setViewType(FormState.Type.MODIFY)

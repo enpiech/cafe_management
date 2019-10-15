@@ -20,13 +20,13 @@
         android:label="fragment_login"
         tools:layout="@layout/login_layout" >
         <action
-            android:id="@+id/action_loginFragment_to_categoryListFragment"
+            android:id="@+id/getCategoryListAction"
             app:destination="@id/categoryListFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_unitListFragment"
+            android:id="@+id/getUnitListAction"
             app:destination="@id/unitListFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_zoneListFragment"
+            android:id="@+id/getZoneListAction"
             app:destination="@id/zoneListFragment" />
     </fragment>
     <fragment
