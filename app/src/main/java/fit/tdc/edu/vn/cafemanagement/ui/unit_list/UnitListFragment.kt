@@ -33,7 +33,7 @@ class UnitListFragment : Fragment(R.layout.unit_list_fragment) {
         //add unit
         btnAddUnit.setOnClickListener {
             activity?.let {
-                findNavController().navigate(UnitListFragmentDirections.unitViewAction(null))
+                findNavController().navigate(UnitListFragmentDirections.unitViewAction(unitId = null, title = "Tạo Unit"))
             }
         }
 
@@ -88,7 +88,7 @@ class UnitListFragment : Fragment(R.layout.unit_list_fragment) {
 
         adapter.setOnItemClickListener(object : UnitAdapter.OnItemClickListener {
             override fun onItemClick(unit: Unit) {
-                findNavController().navigate(UnitListFragmentDirections.unitViewAction(unit.id))
+                findNavController().navigate(UnitListFragmentDirections.unitViewAction(unitId = unit.id, title = "Chỉnh sửa"))
             }
         })
     }

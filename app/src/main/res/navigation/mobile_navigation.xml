@@ -32,8 +32,8 @@
     <fragment
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
-        android:label="activity_unit_list"
-        tools:layout="@layout/activity_unit_list" >
+        android:label="Đơn vị"
+        tools:layout="@layout/activity_unit_list">
         <action
             android:id="@+id/unitViewAction"
             app:destination="@id/unitViewFragment" />
@@ -64,13 +64,13 @@
     <fragment
         android:id="@+id/unitViewFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment"
-        android:label="UnitViewFragment" >
+        android:label="{title}">
         <argument
             android:name="unitId"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/comeback_unit"
-            app:destination="@id/unitListFragment" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 </navigation>

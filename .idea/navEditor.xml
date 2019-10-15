@@ -102,15 +102,6 @@
                             <option name="y" value="727" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="comeback_unit">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>

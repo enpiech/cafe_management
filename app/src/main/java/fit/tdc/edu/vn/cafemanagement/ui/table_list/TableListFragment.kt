@@ -8,26 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
 
-class TableListFragment : Fragment() {
+class TableListFragment : Fragment(R.layout.item_table_each_zone) {
+
+    var adapter = TableAdapter()
 
     companion object {
         fun newInstance() = TableListFragment()
     }
 
-    private lateinit var viewModel: TableListViewModel
+    private lateinit var viewModel: TableViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.table_list_fragment, container, false)
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(TableListViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

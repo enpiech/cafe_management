@@ -21,7 +21,7 @@ class TableCreateFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.table_create_fragment, container, false)
+        return inflater.inflate(R.layout.item_table, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
