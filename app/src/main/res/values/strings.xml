@@ -89,5 +89,9 @@
     <string name="invalid_unit_name">Tên đơn vị không được để trống</string>
     <string name="invalid_category_name">Tên danh mục không được để trống</string>
     <string name="label_zone_list">Danh sách khu vực bàn</string>
+    <string name="updateComplete">Cập nhật thành công</string>
+    <string name="updateFailed">Cập nhật thất bại</string>
+    <string name="addComplete">Tạo mới thành công</string>
+    <string name="addFailed">Tạo mới thất bại</string>
 
 </resources>

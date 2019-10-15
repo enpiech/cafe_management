@@ -8,8 +8,6 @@ import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 
 class UnitCreateViewModel (
