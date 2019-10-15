@@ -81,6 +81,15 @@
                             <option name="y" value="724" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="unitViewAction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -92,6 +101,15 @@
                             <option name="x" value="587" />
                             <option name="y" value="727" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="comeback_unit">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>

@@ -15,9 +15,9 @@ import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
-import kotlinx.android.synthetic.main.activity_unit_list.*
+import kotlinx.android.synthetic.main.unit_list_fragment.*
 
-class UnitListFragment : Fragment(R.layout.activity_unit_list) {
+class UnitListFragment : Fragment(R.layout.unit_list_fragment) {
 
     var adapter = UnitAdapter()
 

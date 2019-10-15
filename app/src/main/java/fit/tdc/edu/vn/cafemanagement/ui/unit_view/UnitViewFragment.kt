@@ -20,9 +20,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
-import kotlinx.android.synthetic.main.activity_unit_create.*
+import kotlinx.android.synthetic.main.unit_view_fragment.*
 
-class UnitViewFragment : Fragment(R.layout.activity_unit_create) {
+class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
 
     private val viewModel by lazy {
         ViewModelProvider(this, UnitViewModelFactory()).get(UnitCreateViewModel::class.java)
@@ -43,6 +43,7 @@ class UnitViewFragment : Fragment(R.layout.activity_unit_create) {
                     // TODO: editable
                     edit_unit.isEnabled = true
 //                    imgUnitImage.isEnabled = false
+                    btn_modifyUnit.isEnabled = false
                     btn_modifyUnit.setText(R.string.btnUpdate)
                 }
                 FormState.Type.VIEW -> {
@@ -124,17 +125,32 @@ class UnitViewFragment : Fragment(R.layout.activity_unit_create) {
                     viewModel.setViewType(FormState.Type.MODIFY)
                 }
                 FormState.Type.MODIFY -> {
-                    viewModel.update(
-                        Unit(
-                            name = edit_unit.text.toString()
-                        ).also { it.id = unitId!! }
-                    ).observe(this, Observer { result ->
-                        when (result.status) {
-                            TaskStatus.SUCCESS -> {
-                                Snackbar.make(it, "complete", Snackbar.LENGTH_LONG).show()
-                            }
+                    val builder = android.app.AlertDialog.Builder(context)
+                    with(builder)
+                    {
+                        setTitle("Xóa")
+                        setMessage("Bạn có muốn cập nhật thông tin này không?")
+                        setPositiveButton("OK") { p0, p1 ->
+                            viewModel.update(
+                                Unit(
+                                    name = edit_unit.text.toString()
+                                ).also { it.id = unitId!! }
+                            ).observe(viewLifecycleOwner, Observer { result ->
+                                when (result.status) {
+                                    TaskStatus.SUCCESS -> {
+                                        Snackbar.make(it, "Cập nhật thành công tên: "+edit_unit.text, Snackbar.LENGTH_LONG).show()
+                                        findNavController().navigateUp()
+                                    }
+                                }
+                            })
                         }
-                    })
+                        setNegativeButton("Hủy") { p0, p1 ->
+                            Snackbar.make(it, "Hủy", Snackbar.LENGTH_SHORT).show()
+                            viewModel.setViewType(FormState.Type.MODIFY)
+                        }
+                        show()
+                    }
+
                     viewModel.setViewType(FormState.Type.VIEW)
                 }
             }
