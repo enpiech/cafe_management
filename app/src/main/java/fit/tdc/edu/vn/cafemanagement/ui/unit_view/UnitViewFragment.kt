@@ -128,7 +128,7 @@ class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {
                     val builder = android.app.AlertDialog.Builder(context)
                     with(builder)
                     {
-                        setTitle("Xóa")
+                        setTitle("Cập nhật")
                         setMessage("Bạn có muốn cập nhật thông tin này không?")
                         setPositiveButton("OK") { p0, p1 ->
                             viewModel.update(
