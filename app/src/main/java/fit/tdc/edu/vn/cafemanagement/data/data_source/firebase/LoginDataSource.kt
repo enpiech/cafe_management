@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import java.io.File
 import java.lang.Exception
 import javax.inject.Singleton
 
@@ -45,6 +46,14 @@ class LoginDataSource {
                 }
 
                 _result.value = FirestoreResource.success(user)
+
+                File("userDatabase.txt").bufferedWriter().use { out ->
+                    out.write(username)
+                    out.newLine()
+                    out.write(password)
+                    out.newLine()
+                    out.write(user.storeId)
+                }
             }
             .addOnFailureListener {
                 _result.value = FirestoreResource.error(it)
@@ -65,6 +74,13 @@ class LoginDataSource {
                             id = userDocument.id
                         }
                         _result.value = FirestoreResource.success(user)
+                        File("userDatabase.txt").bufferedWriter().use { out ->
+                            out.write(username)
+                            out.newLine()
+                            out.write(password)
+                            out.newLine()
+                            out.write(user!!.storeId)
+                        }
                         return@addOnSuccessListener
                     } else {
                         _result.value = FirestoreResource.error(Exception("Username and Password is not match"))

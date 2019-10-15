@@ -16,38 +16,44 @@ class MaterialRepository ( val dataSource: FireBaseAPI) :
         filteredMeterialsList.addSource(getAllMaterials()){}
     }
 
-    override fun getMaterialsListASCName() : List<Material>{
+    override fun getMaterialsListASCName() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.sortedBy { it.name }
+        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedBy { it.name }
+        return filteredMeterialsList
     }
 
-    override fun getMaterialsListASCPrice() : List<Material>{
+    override fun getMaterialsListASCPrice() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.sortedBy { it.price }
+        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedBy { it.price }
+        return filteredMeterialsList
     }
 
-    override fun getSellableMaterialsList() : List<Material>{
+    override fun getSellableMaterialsList() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.filter {
+        filteredMeterialsList.value = filteredMeterialsList.value!!.filter {
             it.sellable
         }
+        return filteredMeterialsList
     }
 
-    override fun getMaterialsListDESCName() : List<Material>{
+    override fun getMaterialsListDESCName() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.sortedByDescending { it.name }
+        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedByDescending { it.name }
+        return filteredMeterialsList
     }
 
-    override fun getMaterialsListDESCPrice() : List<Material>{
+    override fun getMaterialsListDESCPrice() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.sortedByDescending { it.price }
+        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedByDescending { it.price }
+        return filteredMeterialsList
     }
 
-    override fun getUnSellableMaterialsList() : List<Material>{
+    override fun getUnSellableMaterialsList() : MediatorLiveData<List<Material>?>{
         filteredMeterialsList.addSource(getAllMaterials()){}
-        return filteredMeterialsList.value!!.filter {
+        filteredMeterialsList.value = filteredMeterialsList.value!!.filter {
             !it.sellable
         }
+        return filteredMeterialsList
     }
 
 
