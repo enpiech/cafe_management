@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/unitListFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
@@ -18,7 +18,7 @@
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/login_layout" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/getCategoryListAction"
             app:destination="@id/categoryListFragment" />
@@ -63,14 +63,11 @@
         android:label="CategoryViewActivity" />
     <fragment
         android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment"
         android:label="UnitViewFragment" >
         <argument
             android:name="unitId"
             app:argType="string"
             app:nullable="true" />
-        <action
-            android:id="@+id/comeback_unit"
-            app:destination="@id/unitListFragment" />
     </fragment>
 </navigation>
