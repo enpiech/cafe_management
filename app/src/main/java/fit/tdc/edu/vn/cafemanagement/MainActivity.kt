@@ -45,10 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if (destination.id in arrayOf(
-                    R.id.loginFragment,
-                    R.id.zoneViewFragment,
-                    R.id.unitViewFragment,
-                    R.id.categoryViewActivity
+                    R.id.loginFragment
                 )
             ) {
                 toolbar.visibility = View.GONE

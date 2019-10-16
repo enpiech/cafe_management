@@ -1,13 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.extension
 
-import androidx.lifecycle.LiveData
 import android.util.Log
+import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
-import java.lang.Exception
 
 /**
  * An observable [LiveData] representing the current state of the data at a [CollectionReference].

@@ -1,10 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.ui.zone_list
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,43 +10,40 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment
 import kotlinx.android.synthetic.main.list_fragment.*
 
 class ZoneListFragment : Fragment(R.layout.list_fragment) {
 
-    var adapter = ZoneAdapter()
+    var viewAdapter = ZoneAdapter()
+    private val viewModel by lazy {
+        ViewModelProvider(this, ZoneViewModelFactory()).get(ZoneViewModel::class.java)
+    }
 
     companion object {
         fun newInstance() = ZoneListFragment()
     }
 
-    private lateinit var viewModel: ZoneViewModel
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         btnAdd.setOnClickListener {
-            activity?.let {
-                val intent = Intent(it, UnitViewFragment::class.java)
-                it.startActivity(intent)
-            }
+            findNavController().navigate(ZoneListFragmentDirections.viewZoneAction(null))
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.setHasFixedSize(true)
-        recycler_view.adapter = adapter
+        recycler_view.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
 
-        viewModel =
-            ViewModelProvider(this, ZoneViewModelFactory()).get(ZoneViewModel::class.java)
+            adapter = viewAdapter
+        }
+
         viewModel.getAllZones().observe(this, Observer {
-//            Log.d("test", "${it.data?.size}")
-            adapter.submitList(it.data)
+            viewAdapter.submitList(it.data)
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -71,32 +66,25 @@ class ZoneListFragment : Fragment(R.layout.list_fragment) {
                     setTitle("Xóa")
                     setMessage("Bạn có muốn xóa thông tin này không?")
                     setPositiveButton("OK") { p0, p1 ->
-                        viewModel.delete(adapter.getUnitAt(viewHolder.adapterPosition))
-                        Toast.makeText(
-                            context,
+                        viewModel.delete(viewAdapter.getUnitAt(viewHolder.adapterPosition))
+                        Snackbar.make(
+                            viewHolder.itemView,
                             "Đơn vị bạn chọn đã bị xóa!",
-                            Toast.LENGTH_SHORT
+                            Snackbar.LENGTH_LONG
                         ).show()
                     }
                     setNegativeButton("Hủy") { p0, p1 ->
-                        adapter.notifyDataSetChanged()
-                        Toast.makeText(context, "Hủy", Toast.LENGTH_SHORT).show()
+                        viewAdapter.notifyDataSetChanged()
+                        Snackbar.make(
+                            viewHolder.itemView,
+                            "Hủy",
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                     show()
                 }
             }
         }
         ).attachToRecyclerView(recycler_view)
-
-        adapter.setOnItemClickListener(object : ZoneAdapter.OnItemClickListener {
-            override fun onItemClick(zone: Zone) {
-                val action = ZoneListFragmentDirections.viewZoneAction(zone.id)
-                findNavController().navigate(action)
-//                val intent = Intent(context, UnitViewFragment::class.java)
-//                intent.putExtra(UnitViewFragment.EXTRA_ID, zone.id)
-//                intent.putExtra(UnitViewFragment.EXTRA_NAME, zone.name)
-//                startActivity(intent)
-            }
-        })
     }
 }

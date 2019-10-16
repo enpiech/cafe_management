@@ -3,6 +3,8 @@ package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
@@ -13,7 +15,7 @@ import javax.inject.Singleton
 @Singleton
 class FireBaseDataSource: FireBaseAPI {
     private val db: FirebaseFirestore by lazy {
-        FirebaseFirestore.getInstance()
+        Firebase.firestore
     }
     companion object {
         private const val STORES_KEY        = "stores"
@@ -32,25 +34,6 @@ class FireBaseDataSource: FireBaseAPI {
     *
     * ==========  CATEGORY  ============
     */
-
-//    fun getUserOfStore(storeId: String) {
-//        db.collection("userOfStore").document("7MmeTKnmhgOieVehY05S")
-//            .get()
-//            .addOnSuccessListener {
-//                if (!it.data.isNullOrEmpty()) {
-//                    val list = ArrayList<String>()
-//                    val map: Map<String, Any>? = it.data
-//                    if (!map.isNullOrEmpty()) {
-//                        for (entry in map.entries) {
-//                            list.add(entry.value.toString())
-//                        }
-//                    }
-//                    list.forEach { tag ->
-//                        Log.d("test", tag)
-//                    }
-//                }
-//            }
-//    }
 
     override fun fetchCategoryList(
         storeId: String

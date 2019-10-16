@@ -19,7 +19,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
-import kotlinx.android.synthetic.main.activity_main.*
+import fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragmentArgs
 import kotlinx.android.synthetic.main.unit_view_fragment.*
 
 class UnitViewFragment : Fragment(R.layout.unit_view_fragment) {

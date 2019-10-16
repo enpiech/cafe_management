@@ -88,7 +88,7 @@ class MaterialListFragment : Fragment(R.layout.material_list_fragment) {
         ).attachToRecyclerView(recycler_view)
 
         // TODO setEvent when click on list item (send data to material view)
-        /*adapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
+        /*viewAdapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
             override fun onItemClick(material: Material) {
 
             }
