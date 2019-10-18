@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.zone_list
+package fit.tdc.edu.vn.cafemanagement.ui.zone
 
 import android.app.AlertDialog
 import android.os.Bundle

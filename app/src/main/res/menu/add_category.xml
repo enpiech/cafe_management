@@ -5,5 +5,5 @@
         android:id="@+id/save_category"
         android:icon="@drawable/ic_save"
         android:title="save"
-        app:showAsAction="ifRoom"></item>
+        app:showAsAction="ifRoom" />
 </menu>

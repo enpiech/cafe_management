@@ -4,7 +4,7 @@ import android.view.View
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragmentDirections
+import fit.tdc.edu.vn.cafemanagement.ui.zone.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.item_zone.view.*
 
 class ZoneHolder(

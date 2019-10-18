@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.zone_view
+package fit.tdc.edu.vn.cafemanagement.ui.zone
 
 import android.content.Context
 import android.os.Bundle
@@ -18,6 +18,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
+import fit.tdc.edu.vn.cafemanagement.ui.zone_view.ZoneViewFragmentArgs
 import kotlinx.android.synthetic.main.fragment_zone_view.*
 
 class ZoneViewFragment : Fragment(R.layout.fragment_zone_view) {

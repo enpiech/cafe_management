@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.unit_view
+package fit.tdc.edu.vn.cafemanagement.ui.unit
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
@@ -24,7 +25,7 @@ import kotlinx.android.synthetic.main.fragment_unit_view.*
 class UnitViewFragment : Fragment(R.layout.fragment_unit_view) {
 
     private val viewModel by lazy {
-        ViewModelProvider(this, UnitViewModelFactory()).get(UnitCreateViewModel::class.java)
+        ViewModelProvider(this, UnitViewModelFactory()).get<UnitCreateViewModel>()
     }
     private val args: UnitViewFragmentArgs by navArgs()
     private val unitId by lazy {
@@ -36,7 +37,6 @@ class UnitViewFragment : Fragment(R.layout.fragment_unit_view) {
             when (it) {
                 FormState.Type.ADD -> {
                     // TODO: Add
-                    activity?.setTitle("asdfasdfa")
                     btn_modifyUnit.setText(R.string.btnAdd)
 //                    imgUnitImage.isEnabled = true
                 }

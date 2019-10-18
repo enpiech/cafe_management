@@ -1,13 +1,15 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.switchMap
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 
 class CategoryViewViewModel(
@@ -32,8 +34,6 @@ class CategoryViewViewModel(
 
 
     private var allCategorys = categoryRepository.getAllCategory()
-
-    private val tables = MediatorLiveData<List<Table>>()
 
     fun insert(category: Category) = categoryRepository.insert(category)
 
