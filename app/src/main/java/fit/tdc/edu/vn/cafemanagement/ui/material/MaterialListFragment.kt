@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.material_list
+package fit.tdc.edu.vn.cafemanagement.ui.material
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -14,18 +14,15 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.MaterialAdapter
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModelFactory
-import kotlinx.android.synthetic.main.fragment_list_material.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
-class MaterialListFragment : Fragment(R.layout.fragment_list_material) {
+class MaterialListFragment : Fragment(R.layout.fragment_list) {
 
     var adapter = MaterialAdapter()
 
     companion object {
 
         fun newInstance() = MaterialListFragment()
-
-        const val ADD_MATERIAL_REQUEST = 1
-        const val EDIT_MATERIAL_REQUEST = 2
     }
 
     private lateinit var viewModel: MaterialViewModel

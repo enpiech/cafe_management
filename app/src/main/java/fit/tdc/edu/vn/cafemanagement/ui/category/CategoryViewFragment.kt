@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.category_view
+package fit.tdc.edu.vn.cafemanagement.ui.category
 
 import android.content.Context
 import android.os.Bundle
@@ -18,6 +18,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
+import fit.tdc.edu.vn.cafemanagement.ui.category.CategoryViewFragmentArgs
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
 import kotlinx.android.synthetic.main.fragment_category_view.*
 
@@ -35,6 +36,7 @@ class CategoryViewFragment : Fragment(R.layout.fragment_category_view) {
         viewModel.viewState.observe(this, Observer {
             when (it) {
                 FormState.Type.ADD -> {
+                    activity?.setTitle("example")
                     btn_modifyCategory.setText(R.string.btnAdd)
 //                    imgCategoryImage.isEnabled = true
                 }

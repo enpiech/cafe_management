@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.category_list
+package fit.tdc.edu.vn.cafemanagement.ui.category
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -33,7 +33,7 @@ class CategoryListFragment : Fragment(R.layout.fragment_list) {
         //Add Category
         btnAdd.setOnClickListener {
             activity?.let {
-                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(null))
+                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(null, "Tạo danh mục"))
             }
         }
 
@@ -87,7 +87,7 @@ class CategoryListFragment : Fragment(R.layout.fragment_list) {
 
         adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
             override fun onItemClick(category: Category) {
-                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(category.id))
+                findNavController().navigate(CategoryListFragmentDirections.categoryViewAction(category.id, "Chỉnh sửa danh mục"))
             }
         })
     }
