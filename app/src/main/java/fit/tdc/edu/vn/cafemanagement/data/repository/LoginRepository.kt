@@ -1,17 +1,21 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
+import android.app.Application
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDAO
+import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDatabase
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
  * maintains an in-memory cache of login status and loggedInUser credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class LoginRepository(val dataSource: LoginDataSource, application: Application) {
+    private var userDAO : UserDAO
 
     // in-memory cache of the loggedInUser object
     // TODO Local db or reference to make session
@@ -27,6 +31,15 @@ class LoginRepository(val dataSource: LoginDataSource) {
     init {
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
+        //TODO: bỏ database vô đây
+        val database: UserDatabase = UserDatabase.getInstance(application.applicationContext)!!
+        userDAO = database.userDAO()
+        try {
+            loggedInUser = userDAO.getAllUsers().value!!.get(0)
+        } catch (e:Exception) {
+            loggedInUser = null
+        }
+
         loggedInUser = null
         _loginResult.value = null
         _loginResult.addSource(dataSource.result) {

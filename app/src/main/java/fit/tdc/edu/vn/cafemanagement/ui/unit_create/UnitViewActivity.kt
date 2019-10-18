@@ -18,8 +18,8 @@ class UnitViewActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_ID = "fit.tdc.edu.vn.cafemanagement.EXTRA_ID"
         const val EXTRA_NAME = "fit.tdc.edu.vn.cafemanagement.EXTRA_NAME"
-        const val CHINH_SUA = R.string.btnChinhSua
-        const val TAO = R.string.btnTao
+//        const val CHINH_SUA = R.string.btnChinhSua
+//        const val TAO = R.string.btnTao
         const val CAPNHAT = R.string.btnUpdate
 
     }
@@ -50,14 +50,14 @@ class UnitViewActivity : AppCompatActivity() {
                 Log.d("test", it.id + ": " + it.toString())
                 edit_unit.setText(it.name)
                 edit_unit.isEnabled = false
-                btn_modifyUnit.setText(CHINH_SUA)
+//                btn_modifyUnit.setText(CHINH_SUA)
                 buttonState = ButtonState.MODIFY
             })
         } else {
             title = "Tạo đơn vị"
             edit_unit.isEnabled = true
 //          btn_modifyUnit.visibility = View.GONE
-            btn_modifyUnit.setText(TAO)
+//            btn_modifyUnit.setText(TAO)
             buttonState = ButtonState.ADD
         }
 

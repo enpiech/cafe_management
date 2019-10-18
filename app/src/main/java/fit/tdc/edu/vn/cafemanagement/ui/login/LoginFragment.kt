@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import kotlinx.android.synthetic.main.login_layout.*
 

@@ -6,7 +6,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import java.io.File
 import java.lang.Exception
 import javax.inject.Singleton

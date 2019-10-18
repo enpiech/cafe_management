@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import javax.inject.Singleton
 
