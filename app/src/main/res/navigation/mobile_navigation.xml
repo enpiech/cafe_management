@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/zoneListFragment">
+    app:startDestination="@id/unitListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
         android:label="@string/label_category_list"
-        tools:layout="@layout/list_fragment" >
+        tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/categoryViewAction"
             app:destination="@id/categoryViewFragment" />
@@ -33,7 +33,7 @@
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
         android:label="Đơn vị"
-        tools:layout="@layout/unit_list_fragment">
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/unitViewAction"
             app:destination="@id/unitViewFragment" />
@@ -59,7 +59,7 @@
         android:name="zoneId" />
     <fragment
         android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_create.UnitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment"
         android:label="{title}">
         <argument
             android:name="unitId"

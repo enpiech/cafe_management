@@ -6,6 +6,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,13 +16,13 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
-import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
-class ZoneListFragment : Fragment(R.layout.list_fragment) {
+class ZoneListFragment : Fragment(R.layout.fragment_list) {
 
     var viewAdapter = ZoneAdapter()
     private val viewModel by lazy {
-        ViewModelProvider(this, ZoneViewModelFactory()).get(ZoneViewModel::class.java)
+        ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneViewModel>()
     }
 
     companion object {

@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.ui.category_list
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -17,9 +16,9 @@ import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
-import kotlinx.android.synthetic.main.list_fragment.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
-class CategoryListFragment : Fragment(R.layout.list_fragment) {
+class CategoryListFragment : Fragment(R.layout.fragment_list) {
 
     var adapter = CategoryAdapter()
 

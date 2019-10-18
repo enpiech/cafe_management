@@ -1,32 +1,31 @@
-package fit.tdc.edu.vn.cafemanagement.ui.menu_modify
+package fit.tdc.edu.vn.cafemanagement.ui.menu_view
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.R
 
-class MenuModifyFragment : Fragment() {
+class MenuCreateFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MenuModifyFragment()
+        fun newInstance() = MenuCreateFragment()
     }
 
-    private lateinit var viewModel: MenuModifyViewModel
+    private lateinit var viewModel: MenuCreateViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.menu_modify_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_menu_view, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MenuModifyViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MenuCreateViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

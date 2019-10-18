@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import kotlinx.android.synthetic.main.category_list_item.view.*
+import kotlinx.android.synthetic.main.item_category.view.*
 
 class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryHolder>(DIFF_CALLBACK) {
 
@@ -29,7 +29,7 @@ class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryHolder>(DI
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
         val itemView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.category_list_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
         return CategoryHolder(itemView)
     }
 

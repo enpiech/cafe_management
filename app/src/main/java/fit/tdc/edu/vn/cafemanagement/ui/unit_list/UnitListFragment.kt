@@ -15,9 +15,9 @@ import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
-import kotlinx.android.synthetic.main.unit_list_fragment.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
-class UnitListFragment : Fragment(R.layout.unit_list_fragment) {
+class UnitListFragment : Fragment(R.layout.fragment_list) {
 
     var adapter = UnitAdapter()
 
@@ -31,7 +31,7 @@ class UnitListFragment : Fragment(R.layout.unit_list_fragment) {
         super.onViewCreated(view, savedInstanceState)
 
         //add unit
-        btnAddUnit.setOnClickListener {
+        btnAdd.setOnClickListener {
             activity?.let {
                 findNavController().navigate(UnitListFragmentDirections.unitViewAction(unitId = null, title = "Tạo Unit"))
             }

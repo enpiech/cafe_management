@@ -19,9 +19,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
 import fit.tdc.edu.vn.cafemanagement.ui.login.afterTextChanged
-import kotlinx.android.synthetic.main.category_view_fragment.*
+import kotlinx.android.synthetic.main.fragment_category_view.*
 
-class CategoryViewFragment : Fragment(R.layout.category_view_fragment) {
+class CategoryViewFragment : Fragment(R.layout.fragment_category_view) {
 
     private val viewModel by lazy {
         ViewModelProvider(this, CategoryViewModelFactory()).get(CategoryViewViewModel::class.java)
