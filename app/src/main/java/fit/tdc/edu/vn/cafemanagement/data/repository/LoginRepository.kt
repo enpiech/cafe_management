@@ -20,7 +20,6 @@ class LoginRepository(val dataSource: LoginDataSource, application: Application)
     // in-memory cache of the loggedInUser object
     // TODO Local db or reference to make session
     private var loggedInUser: User? = null
-        private set
 
     val isLoggedIn: Boolean
         get() = loggedInUser != null

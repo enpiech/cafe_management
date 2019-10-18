@@ -11,42 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".ui.unit_list.UnitFragmentPlaceholder">
-
-        </activity>
-        <activity android:name=".ui.unit_create.UnitViewActivity" />
-        <activity android:name=".ui.unit_list.UnitListFragment" />
-        <activity android:name=".ui.category_list.CategoryListFragment"></activity>
-        <activity android:name=".ui.category_view.CategoryViewActivity" />
-        <activity android:name=".ui.category_list.CategoryFragmentPlaceholder"></activity>
-        <activity
-            android:name=".BartenderDrawerNavigation"
-            android:label="@string/title_activity_bartender_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".WaiterDrawerNavigation"
-            android:label="@string/title_activity_waiter_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".HeadDrawerNavigation"
-            android:label="@string/title_activity_head_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ManagerDrawerNavigation"
-            android:label="@string/title_activity_manager_drawer_navigation"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

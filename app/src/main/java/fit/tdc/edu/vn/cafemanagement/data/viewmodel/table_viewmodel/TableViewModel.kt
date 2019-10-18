@@ -1,11 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
+import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
 
-class TableViewModel (private val tableRepository: TableRepositoryAPI) {
-
-    private var allTables = tableRepository.getAllTables()
+class TableViewModel (
+    private val tableRepository: TableRepositoryAPI): ViewModel() {
 
     fun insert(table: Table) {
         tableRepository.insert(table)
@@ -19,6 +19,6 @@ class TableViewModel (private val tableRepository: TableRepositoryAPI) {
         tableRepository.delete(table)
     }
 
-    fun getAlltables() = allTables
+    fun getAlltables() = tableRepository.getAllTables()
 
 }

@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import androidx.lifecycle.MediatorLiveData
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
@@ -10,7 +9,7 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 class MaterialRepository ( val dataSource: FireBaseAPI) :
     MaterialRepositoryAPI {
 
-    var filteredMeterialsList = MediatorLiveData<List<Material>?>()
+    private var filteredMeterialsList = MediatorLiveData<List<Material>?>()
 
     init {
         filteredMeterialsList.addSource(getAllMaterials()){}

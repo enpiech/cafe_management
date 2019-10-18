@@ -1,11 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 )
             ) {
                 toolbar.visibility = View.GONE
+                drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
             } else {
                 toolbar.visibility = View.VISIBLE
             }
@@ -56,10 +57,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        Log.d("test", "click")
         when (item.itemId) {
             R.id.logout -> {
-                Log.d("test", "logout")
                 navController.navigate(R.id.loginFragment)
             }
         }
@@ -72,7 +71,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) ||   super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onBackPressed() {

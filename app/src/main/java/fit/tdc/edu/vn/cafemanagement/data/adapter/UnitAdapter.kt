@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.annotation.LayoutRes
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Unit
-import kotlinx.android.synthetic.main.unit_list_item.view.*
+import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
+import kotlinx.android.synthetic.main.item_unit.view.*
 
 class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
 
@@ -29,7 +28,7 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
     private var listener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitHolder {
-        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.unit_list_item, parent, false)
+        val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_unit, parent, false)
         return UnitHolder(itemView)
     }
 

@@ -1,24 +1,22 @@
 package fit.tdc.edu.vn.cafemanagement.ui.material_list
 
 import android.app.AlertDialog
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.MaterialAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModelFactory
-import kotlinx.android.synthetic.main.material_list_fragment.*
+import kotlinx.android.synthetic.main.fragment_list_material.*
 
-class MaterialListFragment : Fragment(R.layout.material_list_fragment) {
+class MaterialListFragment : Fragment(R.layout.fragment_list_material) {
 
     var adapter = MaterialAdapter()
 
@@ -46,7 +44,7 @@ class MaterialListFragment : Fragment(R.layout.material_list_fragment) {
 
         recycler_view.adapter = adapter
 
-        viewModel = ViewModelProviders.of(this, MaterialViewModelFactory())
+        viewModel = ViewModelProvider(this, MaterialViewModelFactory())
             .get(MaterialViewModel::class.java)
 
         viewModel.getAllMaterials().observe(this, Observer {
@@ -90,7 +88,7 @@ class MaterialListFragment : Fragment(R.layout.material_list_fragment) {
         ).attachToRecyclerView(recycler_view)
 
         // TODO setEvent when click on list item (send data to material view)
-        /*adapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
+        /*viewAdapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
             override fun onItemClick(material: Material) {
 
             }

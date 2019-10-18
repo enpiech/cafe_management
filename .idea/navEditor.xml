@@ -29,13 +29,13 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="categoryViewActivity">
+                  <entry key="categoryViewFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="586" />
-                            <option name="y" value="360" />
+                            <option name="x" value="505" />
+                            <option name="y" value="365" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -46,23 +46,23 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-95" />
-                            <option name="y" value="361" />
+                            <option name="x" value="12" />
+                            <option name="y" value="76" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_loginFragment_to_categoryListFragment">
+                            <entry key="getCategoryListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_loginFragment_to_unitListFragment">
+                            <entry key="getUnitListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_loginFragment_to_zoneListFragment">
+                            <entry key="getZoneListAction">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -78,6 +78,27 @@
                         <option name="myPosition">
                           <Point>
                             <option name="x" value="256" />
+                            <option name="y" value="724" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="unitViewAction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="unitViewFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="500" />
                             <option name="y" value="724" />
                           </Point>
                         </option>
@@ -110,8 +131,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="591" />
-                            <option name="y" value="1" />
+                            <option name="x" value="500" />
+                            <option name="y" value="12" />
                           </Point>
                         </option>
                       </LayoutPositions>

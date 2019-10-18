@@ -4,21 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/zoneListFragment">
+    app:startDestination="@id/unitListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
         android:label="@string/label_category_list"
-        tools:layout="@layout/list_fragment" >
+        tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/categoryViewAction"
-            app:destination="@id/categoryViewActivity" />
+            app:destination="@id/categoryViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/login_layout" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/getCategoryListAction"
             app:destination="@id/categoryListFragment" />
@@ -32,8 +32,12 @@
     <fragment
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
-        android:label="activity_unit_list"
-        tools:layout="@layout/activity_unit_list" />
+        android:label="Đơn vị"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/unitViewAction"
+            app:destination="@id/unitViewFragment" />
+    </fragment>
     <fragment
         android:id="@+id/zoneListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragment"
@@ -53,8 +57,25 @@
     </fragment>
     <argument android:defaultValue='""'
         android:name="zoneId" />
-    <activity
-        android:id="@+id/categoryViewActivity"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewActivity"
-        android:label="CategoryViewActivity" />
+    <fragment
+        android:id="@+id/unitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment"
+        android:label="{title}">
+        <argument
+            android:name="unitId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoryViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewFragment"
+        android:label="CategoryViewFragment" >
+        <argument
+            android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>
