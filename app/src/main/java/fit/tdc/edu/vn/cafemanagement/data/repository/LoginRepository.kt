@@ -1,10 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
+import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
-import fit.tdc.edu.vn.cafemanagement.data.extension.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.User
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and

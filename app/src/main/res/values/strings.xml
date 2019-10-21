@@ -88,10 +88,22 @@
     <string name="invalid_zone_name">Tên khu vực không được để trống</string>
     <string name="invalid_unit_name">Tên đơn vị không được để trống</string>
     <string name="invalid_category_name">Tên danh mục không được để trống</string>
-    <string name="label_zone_list">Danh sách khu vực bàn</string>
+    <string name="label_zone_list">Danh sách khu vực</string>
     <string name="updateComplete">Cập nhật thành công</string>
     <string name="updateFailed">Cập nhật thất bại</string>
     <string name="addComplete">Tạo mới thành công</string>
     <string name="addFailed">Tạo mới thất bại</string>
+    <string name="lbl_user_name">Họ và tên</string>
+    <string name="lbl_zone_name">Tên khu vực</string>
+    <string name="lbl_user_birth">Ngày sinh</string>
+    <string name="modify_zone">Chỉnh sửa khu vực</string>
+    <string name="insert_zone">Thêm khu vực</string>
 
+    <string name="dialog_title_warning">Chú ý!</string>
+    <string name="warning_message_unsaved_changed">Dữ liệu bạn vừa nhập sẽ không được lưu lại!</string>
+    <string name="btnCancel">Cancel</string>
+    <string name="btnOK">OK</string>
+    <string name="warning_message_delete">Mục này sẽ bị xóa và không thể phục hồi lại</string>
+    <string name="dialog_title_delete">Xác nhận xóa</string>
+    <string name="lbl_unit_name">Tên đơn vị</string>
 </resources>

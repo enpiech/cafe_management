@@ -50,25 +50,6 @@
                             <option name="y" value="76" />
                           </Point>
                         </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="getCategoryListAction">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="getUnitListAction">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="getZoneListAction">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -100,6 +81,18 @@
                           <Point>
                             <option name="x" value="500" />
                             <option name="y" value="724" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="userListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="265" />
+                            <option name="y" value="1055" />
                           </Point>
                         </option>
                       </LayoutPositions>

@@ -10,12 +10,12 @@
     android:layout_marginBottom="@dimen/margin_32dp">
 
     <ImageView
-        android:id="@+id/imgZoneImage"
+        android:id="@+id/imgUserImage"
         android:layout_width="@dimen/image_size"
         android:layout_height="@dimen/image_size"
         android:layout_marginStart="8dp"
         android:contentDescription="@string/img_product_category"
-        android:src="@drawable/placeholder"
+        app:srcCompat="@drawable/placeholder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,13 +23,13 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/txtZoneName"
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_marginStart="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgZoneImage"
+        app:layout_constraintStart_toEndOf="@+id/imgUserImage"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.504"
         tools:text="Cà phê" />

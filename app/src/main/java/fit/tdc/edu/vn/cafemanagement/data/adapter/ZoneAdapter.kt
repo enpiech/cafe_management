@@ -22,11 +22,11 @@ class ZoneAdapter : ListAdapter<Zone, ZoneHolder>(Zone.DIFF_CALLBACK) {
         holder: ZoneHolder,
         position: Int
     ) {
-        val currentUnit: Zone = getItem(position)
-        holder.bind(currentUnit)
+        val currentZone: Zone = getItem(position)
+        holder.bind(currentZone)
     }
 
-    fun getUnitAt(
+    fun getZoneAt(
         position: Int
     ): Zone {
         return getItem(position)
