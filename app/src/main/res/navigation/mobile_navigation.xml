@@ -4,41 +4,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/unitListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.category.CategoryListFragment"
-        android:label="@string/label_category_list">
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragment"
+        android:label="@string/label_category_list"
+        tools:layout="@layout/fragment_list" >
         <action
             android:id="@+id/categoryViewAction"
             app:destination="@id/categoryViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/getCategoryListAction"
-            app:destination="@id/categoryListFragment" />
-        <action
-            android:id="@+id/getUnitListAction"
-            app:destination="@id/unitListFragment" />
-        <action
-            android:id="@+id/getZoneListAction"
-            app:destination="@id/zoneListFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/unitListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
-        android:label="Đơn vị">
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
+        android:label="Đơn vị"
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/unitViewAction"
             app:destination="@id/unitViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/zoneListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone.ZoneListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragment"
         android:label="@string/label_zone_list" >
         <action
             android:id="@+id/viewZoneAction"
@@ -46,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/zoneViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone.ZoneViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneViewFragment"
         android:label="ZoneViewFragment" >
         <argument
             android:name="zoneId"
@@ -57,7 +49,7 @@
         android:name="zoneId" />
     <fragment
         android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit.UnitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitViewFragment"
         android:label="{title}">
         <argument
             android:name="unitId"
@@ -69,14 +61,15 @@
     </fragment>
     <fragment
         android:id="@+id/categoryViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.category.CategoryViewFragment"
-        android:label="{title}" >
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryViewFragment"
+        android:label="CategoryViewFragment" >
         <argument
             android:name="categoryId"
             app:argType="string"
             app:nullable="true" />
-        <argument
-            android:name="title"
-            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragment"
+        android:label="UserListFragment" />
 </navigation>

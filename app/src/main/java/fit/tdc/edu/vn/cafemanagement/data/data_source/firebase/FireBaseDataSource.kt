@@ -9,6 +9,7 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import javax.inject.Singleton
 
@@ -26,7 +27,7 @@ class FireBaseDataSource: FireBaseAPI {
         private const val UNITS_KEY         = "units"
         private const val ZONE_TYPES_KEY    = "zoneTypes"
         private const val ZONES_KEY         = "zones"
-        private const val USERS_KEY         = "users"
+        private const val USERS_KEY         = "employees"
         private const val PAYMENTS_KEY      = "payments"
     }
 
@@ -42,7 +43,7 @@ class FireBaseDataSource: FireBaseAPI {
             .collection(CATEGORIES_KEY)
             .get()
             .asLiveData()
-
+    
     override fun getCategoryList(
         storeId: String,
         documentType: DocumentType

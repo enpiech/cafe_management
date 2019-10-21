@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_32dp"
         android:layout_marginBottom="@dimen/margin_32dp"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

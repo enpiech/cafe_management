@@ -1,9 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel
 
+import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepsitoryAPI
 
-class UserViewModel (private val userRepository: UserRepsitoryAPI) {
+class UserViewModel (private val userRepository: UserRepsitoryAPI):ViewModel() {
 
     private var allUsers = userRepository.getAllUsers()
 
