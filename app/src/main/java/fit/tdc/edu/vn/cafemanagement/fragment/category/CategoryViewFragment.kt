@@ -1,31 +1,28 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.category
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
+import fit.tdc.edu.vn.cafemanagement.util.setupFocusHandle
 import kotlinx.android.synthetic.main.fragment_category_view.*
 
-class CategoryViewFragment : Fragment(R.layout.fragment_category_view) {
+class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
 
     private val viewModel by lazy {
-        ViewModelProvider(this, CategoryViewModelFactory()).get(CategoryViewViewModel::class.java)
+        ViewModelProvider(this, CategoryViewModelFactory()).get<CategoryViewViewModel>()
     }
     private val args: CategoryViewFragmentArgs by navArgs()
     private val categoryId by lazy {
@@ -33,128 +30,134 @@ class CategoryViewFragment : Fragment(R.layout.fragment_category_view) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.viewState.observe(this, Observer {
-            when (it) {
-                FormState.Type.ADD -> {
-                    btn_modifyCategory.setText(R.string.btnAdd)
-//                    imgCategoryImage.isEnabled = true
-                }
-                FormState.Type.MODIFY -> {
-                    // TODO: editable
-                    edit_category.isEnabled = true
-//                    imgCategoryImage.isEnabled = false
-                    btn_modifyCategory.isEnabled = false
-                    btn_modifyCategory.setText(R.string.btnUpdate)
-                }
-                FormState.Type.VIEW -> {
-                    edit_category.isEnabled = false
-//                    imgCategoryImage.isEnabled = true
-                    btn_modifyCategory.setText(R.string.btnModify)
-                }
-                null -> {
+        viewModel.viewType.observe(this, Observer {
+            if (it == null) {
                     when (categoryId) {
-                        null -> {
-                            viewModel.setViewType(FormState.Type.ADD)
-                        }
-                        else -> {
-                            viewModel.setViewType(FormState.Type.VIEW)
-                            viewModel.getCategory(categoryId!!)
-                        }
+                    null -> {
+                        viewModel.setViewType(FormState.Type.ADD)
+                    }
+                    else -> {
+                        viewModel.setViewType(FormState.Type.VIEW)
+                        viewModel.getCategory(categoryId!!)
                     }
                 }
+            } else {
+                changeViewType(it)
             }
         })
+
         viewModel.formState.observe(this, Observer {
             val state = it ?: return@Observer
+            if (viewModel.viewType.value != FormState.Type.VIEW) {
+                if (state.isDataValid && state.isChanged) {
+                    fab.show()
+                } else {
+                    fab.hide()
+                }
 
-            // disable managerLogin button unless both username / password is valid
-            btn_modifyCategory.isEnabled = state.isDataValid
-
-            if (state.nameError != null) {
-                edit_category.error = getString(state.nameError)
-            }
-        })
-        viewModel.currentCategory.observe(this, Observer {
-            if (edit_category.text.isNullOrEmpty()) {
-                when (it.status) {
-                    Status.SUCCESS -> {
-                        edit_category.setText(it.data!!.name)
-                    }
+                if (state.nameError != null) {
+                    edtName.error = getString(state.nameError)
                 }
             }
         })
 
-        edit_category.apply {
-            afterTextChanged {
-                viewModel.dataChange(
-                    Category(
-                        name = edit_category.text.toString()
-                    )
-                )
-            }
-            setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        btn_modifyCategory.callOnClick()
-                }
-                false
-            }
-        }
-
-//        imgCategoryImage.setOnClickListener {
-//
-//        }
-
-        btn_modifyCategory.setOnClickListener {
-            val imm =
-                view.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-
-            when (viewModel.viewState.value) {
+        fab.setOnClickListener {
+            when (viewModel.viewType.value) {
                 FormState.Type.ADD -> {
                     viewModel.insert(
                         Category(
-                            name = edit_category.text.toString()
+                            name = edtName.editText?.text.toString()
                         )
-                    ).observe(this, Observer {
-                        //back
-                        findNavController().navigateUp()
-                    })
+                    )
+                    findNavController().navigateUp()
                 }
                 FormState.Type.VIEW -> {
                     viewModel.setViewType(FormState.Type.MODIFY)
                 }
                 FormState.Type.MODIFY -> {
-                    val builder = AlertDialog.Builder(requireContext())
-                    with(builder)
-                    {
-                        setTitle("Cập nhật")
-                        setMessage("Bạn có muốn cập nhật thông tin này không?")
-                        setPositiveButton("OK") { p0, p1 ->
-                            viewModel.update(
-                                Category(
-                                    name = edit_category.text.toString()
-                                ).also { it.id = categoryId!! }
-                            ).observe(viewLifecycleOwner, Observer { result ->
-                                when (result.status) {
-                                    TaskStatus.SUCCESS -> {
-                                        Snackbar.make(it, "Cập nhật thành công tên: "+edit_category.text, Snackbar.LENGTH_LONG).show()
-                                        findNavController().navigateUp()
-                                    }
-                                }
-                            })
-                        }
-                        setNegativeButton("Hủy") { p0, p1 ->
-                            Snackbar.make(it, "Hủy", Snackbar.LENGTH_SHORT).show()
-                            viewModel.setViewType(FormState.Type.MODIFY)
-                        }
-                        show()
-                    }
-
-                    viewModel.setViewType(FormState.Type.VIEW)
+                    viewModel.update(
+                        Category(
+                            name = edtName.editText?.text.toString()
+                        ).also { it.id = categoryId!! }
+                    )
+                    findNavController().navigateUp()
                 }
             }
         }
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun updateUI(type: FormState.Type) {
+        when (type) {
+            FormState.Type.MODIFY, FormState.Type.ADD -> {
+                edtName.editText?.isEnabled = true
+            }
+            FormState.Type.VIEW -> {
+                edtName.editText?.isEnabled = false
+            }
+        }
+
+        if (type != FormState.Type.ADD) {
+            viewModel.currentCategory.observe(this, Observer {
+                if (it != null) {
+                    edtName.editText?.setText(it.name)
+                } else {
+                    TODO("Notify user about this category has been removed")
+                }
+            })
+        }
+        setupForm()
+    }
+
+    private fun setupForm() {
+        edtName.setupFocusHandle()
+
+        edtName.editText?.let {
+            it.afterTextChanged { name ->
+                viewModel.dataChange(
+                    Category(
+                        name = name
+                    )
+                )
+            }
+            it.setOnEditorActionListener { _, actionId, _ ->
+                when (actionId) {
+                    EditorInfo.IME_ACTION_DONE ->
+                        viewModel.dataChange(
+                            Category(
+                                name = edtName.editText?.text.toString()
+                            )
+                        )
+                }
+                false
+            }
+        }
+    }
+
+    override fun requestNavigateUp() {
+        if (viewModel.viewType.value == FormState.Type.VIEW) {
+            findNavController().navigateUp()
+            return
+        }
+
+        if (viewModel.formState.value?.isChanged == true) {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.dialog_title_warning)
+                .setMessage(R.string.warning_message_unsaved_changed)
+                .setPositiveButton(R.string.btnOK) { _, _ ->
+                    when (viewModel.viewType.value) {
+                        FormState.Type.MODIFY -> viewModel.setViewType(FormState.Type.VIEW)
+                        FormState.Type.ADD -> findNavController().navigateUp()
+                    }
+                }
+                .setNegativeButton(R.string.btnCancel, null)
+                .show()
+        } else {
+            if (viewModel.viewType.value == FormState.Type.ADD) {
+                findNavController().navigateUp()
+            } else {
+                viewModel.setViewType(FormState.Type.VIEW)
+            }
+        }
     }
 }

@@ -3,10 +3,12 @@ package fit.tdc.edu.vn.cafemanagement.data.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragmentDirections
 import kotlinx.android.synthetic.main.item_user.view.*
 
 class UserAdapter  : ListAdapter<User, UserHolder>(User.DIFF_CALLBACK) {
@@ -41,11 +43,11 @@ class UserHolder(
         user: User,
         it: View
     ) {
-//        val direction =
-//            UserListFragmentDirections.viewUserAction(
-//                zoneId = zone.id
-//            )
-//        it.findNavController().navigate(direction)
+        val direction =
+            UserListFragmentDirections.userViewAction(
+                userId = user.id
+            )
+        it.findNavController().navigate(direction)
     }
 
     fun bind(item: User) {

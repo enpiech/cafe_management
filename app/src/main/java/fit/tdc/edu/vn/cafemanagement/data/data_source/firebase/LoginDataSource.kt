@@ -45,14 +45,6 @@ class LoginDataSource {
                 }
 
                 _result.value = FirestoreResource.success(user)
-
-                File("userDatabase.txt").bufferedWriter().use { out ->
-                    out.write(username)
-                    out.newLine()
-                    out.write(password)
-                    out.newLine()
-                    out.write(user.storeId)
-                }
             }
             .addOnFailureListener {
                 _result.value = FirestoreResource.error(it)

@@ -2,12 +2,16 @@ package fit.tdc.edu.vn.cafemanagement
 
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
-import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -19,9 +23,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             setOf(
                 R.id.categoryListFragment,
                 R.id.unitListFragment,
-                R.id.zoneListFragment
+                R.id.zoneListFragment,
+                R.id.userListFragment
             ), drawer_layout)
     }
+
     private val navController by lazy {
         findNavController(R.id.nav_host_fragment)
     }
@@ -30,34 +36,46 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setSupportActionBar(toolbar)
         setupNavigation()
-        setupViews()
         setupFab()
     }
 
 
     private fun setupNavigation() {
-        setupActionBarWithNavController(navController, drawer_layout)
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        setSupportActionBar(toolbar)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        nav_view.setupWithNavController(navController)
 
-        navController.addOnDestinationChangedListener { _, destination, _ ->
+        navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
-                in arrayOf(
+                in setOf(
                     R.id.loginFragment
                 ) -> {
+                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    supportActionBar?.hide()
                     fab.hide()
+                }
+                in setOf(
+                    R.id.zoneViewFragment,
+                    R.id.unitViewFragment,
+                    R.id.categoryViewFragment,
+                    R.id.userViewFragment
+                ) -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                 }
-                in arrayOf(
-                    R.id.zoneViewFragment
-                ) -> {
-
-                }
                 else -> {
-                    supportActionBar?.show()
+                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     fab.setImageDrawable(getDrawable(R.drawable.ic_add))
                     fab.show()
+                    val callback = onBackPressedDispatcher.addCallback(this) {
+                        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                            drawer_layout.closeDrawer(GravityCompat.START)
+                        }
+                    }
+                    toolbar.setNavigationOnClickListener {
+                        controller.navigateUp(appBarConfiguration)
+                    }
+                    callback.isEnabled = true
                 }
             }
             hideKeyboard()
@@ -66,34 +84,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.logout -> {
-                navController.navigate(R.id.loginFragment)
-            }
-        }
-        drawer_layout.closeDrawer(GravityCompat.START)
+        item.isChecked = true
+        drawer_layout.closeDrawers()
+        navController.navigate(item.itemId)
         return true
-    }
-
-    private fun setupViews() {
-        nav_view.setNavigationItemSelectedListener(this)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return item.onNavDestinationSelected(navController) || super.onOptionsItemSelected(item)
     }
 
     private fun setupFab() {

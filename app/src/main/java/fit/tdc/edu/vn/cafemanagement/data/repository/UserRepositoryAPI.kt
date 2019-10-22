@@ -6,10 +6,10 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 
-interface UserRepsitoryAPI {
+interface UserRepositoryAPI {
     fun getAllUsers(): CollectionLiveData<User>
     fun getUser(id: String): DocumentLiveData<User>
     fun insert(user: User): TaskLiveData<DocumentReference>
-    fun update(user: User)
+    fun update(user: User): TaskLiveData<Void>
     fun delete(user: User): TaskLiveData<Void>
 }

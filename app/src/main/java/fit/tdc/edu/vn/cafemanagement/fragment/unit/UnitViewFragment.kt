@@ -87,25 +87,28 @@ class UnitViewFragment : BaseViewFragment(R.layout.fragment_unit_view) {
     }
 
     override fun requestNavigateUp() {
-        when (viewModel.viewType.value) {
-            FormState.Type.MODIFY, FormState.Type.ADD -> {
-                if (viewModel.formState.value?.isChanged == true) {
-                    MaterialAlertDialogBuilder(context)
-                        .setTitle(R.string.dialog_title_warning)
-                        .setMessage(R.string.warning_message_unsaved_changed)
-                        .setPositiveButton(R.string.btnOK) { _, _ -> viewModel.setViewType(FormState.Type.VIEW) }
-                        .setNegativeButton(R.string.btnCancel, null)
-                        .show()
-                } else {
-                    if (viewModel.viewType.value == FormState.Type.ADD) {
-                        findNavController().navigateUp()
-                    } else {
-                        viewModel.setViewType(FormState.Type.VIEW)
+        if (viewModel.viewType.value == FormState.Type.VIEW) {
+            findNavController().navigateUp()
+            return
+        }
+
+        if (viewModel.formState.value?.isChanged == true) {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.dialog_title_warning)
+                .setMessage(R.string.warning_message_unsaved_changed)
+                .setPositiveButton(R.string.btnOK) { _, _ ->
+                    when (viewModel.viewType.value) {
+                        FormState.Type.MODIFY -> viewModel.setViewType(FormState.Type.VIEW)
+                        FormState.Type.ADD -> findNavController().navigateUp()
                     }
                 }
-            }
-            else -> {
+                .setNegativeButton(R.string.btnCancel, null)
+                .show()
+        } else {
+            if (viewModel.viewType.value == FormState.Type.ADD) {
                 findNavController().navigateUp()
+            } else {
+                viewModel.setViewType(FormState.Type.VIEW)
             }
         }
     }

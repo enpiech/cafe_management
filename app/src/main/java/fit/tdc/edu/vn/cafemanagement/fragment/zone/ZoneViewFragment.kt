@@ -29,9 +29,13 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
         ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneViewModel>()
     }
 
-    private val args: ZoneViewFragmentArgs by navArgs()
+    private val args by navArgs<ZoneViewFragmentArgs>()
     private val zoneId by lazy {
         args.zoneId
+    }
+
+    private val navController by lazy {
+        findNavController()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,7 +47,7 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                     }
                     else -> {
                         viewModel.setViewType(FormState.Type.VIEW)
-                        viewModel.getZone(zoneId!!)
+                        viewModel.getCurrentZone(zoneId!!)
                     }
                 }
             } else {
@@ -74,7 +78,7 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                             name = edtName.editText?.text.toString()
                         )
                     )
-                    findNavController().navigateUp()
+                    navController.navigateUp()
                 }
                 FormState.Type.VIEW -> {
                     viewModel.setViewType(FormState.Type.MODIFY)
@@ -85,7 +89,7 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                             name = edtName.editText?.text.toString()
                         ).also { it.id = zoneId!! }
                     )
-                    findNavController().navigateUp()
+                    navController.navigateUp()
                 }
             }
         }
@@ -107,7 +111,21 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                 if (it != null) {
                     edtName.editText?.setText(it.name)
                 } else {
-                    TODO("Notify user about this zone has been removed")
+                    MaterialAlertDialogBuilder(context)
+                        .setTitle(R.string.dialog_title_modifying_removed_item)
+                        .setMessage(R.string.warning_message_modifying_removed_item)
+                        .setPositiveButton(R.string.btnOK) { _, _ ->
+                            viewModel.setViewType(FormState.Type.ADD)
+                            viewModel.dataChange(
+                                Zone(
+                                    name = edtName.editText?.text.toString()
+                                )
+                            )
+                        }
+                        .setNegativeButton(R.string.btnCancel) { _, _ ->
+                            navController.navigateUp()
+                        }
+                        .show()
                 }
             })
         }
@@ -140,25 +158,28 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
     }
 
     override fun requestNavigateUp() {
-        when (viewModel.viewType.value) {
-            FormState.Type.MODIFY, FormState.Type.ADD -> {
-                if (viewModel.formState.value?.isChanged == true) {
-                    MaterialAlertDialogBuilder(context)
-                        .setTitle(R.string.dialog_title_warning)
-                        .setMessage(R.string.warning_message_unsaved_changed)
-                        .setPositiveButton(R.string.btnOK) { _, _ -> viewModel.setViewType(FormState.Type.VIEW) }
-                        .setNegativeButton(R.string.btnCancel, null)
-                        .show()
-                } else {
-                    if (viewModel.viewType.value == FormState.Type.ADD) {
-                        findNavController().navigateUp()
-                    } else {
-                        viewModel.setViewType(FormState.Type.VIEW)
+        if (viewModel.viewType.value == FormState.Type.VIEW) {
+            findNavController().navigateUp()
+            return
+        }
+
+        if (viewModel.formState.value?.isChanged == true) {
+            MaterialAlertDialogBuilder(context)
+                .setTitle(R.string.dialog_title_warning)
+                .setMessage(R.string.warning_message_unsaved_changed)
+                .setPositiveButton(R.string.btnOK) { _, _ ->
+                    when (viewModel.viewType.value) {
+                        FormState.Type.MODIFY -> viewModel.setViewType(FormState.Type.VIEW)
+                        FormState.Type.ADD -> findNavController().navigateUp()
                     }
                 }
-            }
-            else -> {
+                .setNegativeButton(R.string.btnCancel, null)
+                .show()
+        } else {
+            if (viewModel.viewType.value == FormState.Type.ADD) {
                 findNavController().navigateUp()
+            } else {
+                viewModel.setViewType(FormState.Type.VIEW)
             }
         }
     }

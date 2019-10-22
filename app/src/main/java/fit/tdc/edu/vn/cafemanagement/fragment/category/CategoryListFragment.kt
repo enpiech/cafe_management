@@ -2,26 +2,27 @@ package fit.tdc.edu.vn.cafemanagement.fragment.category
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
-import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class CategoryListFragment : Fragment(R.layout.fragment_list) {
 
-    var adapter = CategoryAdapter()
+    private val categoryAdapter = CategoryAdapter()
 
     companion object {
         fun newInstance() =
@@ -30,29 +31,26 @@ class CategoryListFragment : Fragment(R.layout.fragment_list) {
 
     private lateinit var viewModel: CategoryViewModel
 
+    private val btn by lazy {
+        requireActivity().fab
+    }
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //Add Category
-        fab.setOnClickListener {
-            activity?.let {
-                findNavController().navigate(
-                    CategoryListFragmentDirections.categoryViewAction(
-                        null
-                    )
-                )
-            }
+        btn.setOnClickListener {
+            findNavController().navigate(ZoneListFragmentDirections.zoneViewAction(null))
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.setHasFixedSize(true)
-
-        recycler_view.adapter = adapter
-
-        viewModel = ViewModelProvider(this, CategoryViewModelFactory())
-            .get(CategoryViewModel::class.java)
-
+        recycler_view.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = categoryAdapter
+        }
+        viewModel =
+            ViewModelProvider(this, CategoryViewModelFactory()).get()
         viewModel.getAllCategories().observe(this, Observer {
-            adapter.submitList(it.data)
+            categoryAdapter.submitList(it.data)
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -69,36 +67,27 @@ class CategoryListFragment : Fragment(R.layout.fragment_list) {
             }
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val builder = AlertDialog.Builder(requireContext())
-                with(builder) {
-                    setTitle("Xóa")
-                    setMessage("Bạn có muốn xóa thông tin này không?")
-                    setPositiveButton("OK") { p0, p1 ->
-                        viewModel.delete(adapter.getCategoryAt(viewHolder.adapterPosition))
-                        Toast.makeText(
-                            context,
-                            "Danh mục bạn chọn đã bị xóa!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(R.string.dialog_title_delete)
+                    .setMessage(R.string.warning_message_delete)
+                    .setPositiveButton(R.string.btnOK) { _, _ ->
+                        run {
+                            categoryAdapter.getCategoryAt(viewHolder.adapterPosition).apply {
+                                viewModel.delete(this)
+                                Snackbar.make(
+                                    viewHolder.itemView,
+                                    "Danh mục ${this.name} đã bị xóa!",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
                     }
-                    setNegativeButton("Hủy") { p0, p1 ->
-                        adapter.notifyDataSetChanged()
-                        Toast.makeText(context, "Hủy", Toast.LENGTH_SHORT).show()
+                    .setNegativeButton(R.string.btnCancel) { _, _ ->
+                        categoryAdapter.notifyDataSetChanged()
                     }
-                    show()
-                }
+                    .show()
             }
         }
         ).attachToRecyclerView(recycler_view)
-
-        adapter.setOnItemClickListener(object : CategoryAdapter.OnItemClickListener {
-            override fun onItemClick(category: Category) {
-                findNavController().navigate(
-                    CategoryListFragmentDirections.categoryViewAction(
-                        category.id
-                    )
-                )
-            }
-        })
     }
 }

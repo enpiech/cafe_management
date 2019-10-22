@@ -4,13 +4,14 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDatabase
 import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
  * Required given LoginViewModel has a non-empty constructor
  */
-class LoginViewModelFactory : ViewModelProvider.Factory {
+class LoginViewModelFactory(private val userDatabase: UserDatabase) : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -18,8 +19,9 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
             return LoginViewModel(
                 loginRepository = LoginRepository(
                     dataSource = LoginDataSource(),
-                    application = Application()
-                )
+                    database = userDatabase
+                ),
+                application = Application()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

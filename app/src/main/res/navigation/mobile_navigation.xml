@@ -18,7 +18,20 @@
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_categoryListFragment"
+            app:destination="@id/categoryListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_unitListFragment"
+            app:destination="@id/unitListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_zoneListFragment"
+            app:destination="@id/zoneListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
@@ -26,14 +39,15 @@
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/unitViewAction"
-            app:destination="@id/unitViewFragment" />
+            app:destination="@id/unitViewFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/zoneListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragment"
         android:label="@string/label_zone_list" >
         <action
-            android:id="@+id/viewZoneAction"
+            android:id="@+id/zoneViewAction"
             app:destination="@id/zoneViewFragment" />
     </fragment>
     <fragment
@@ -71,5 +85,18 @@
     <fragment
         android:id="@+id/userListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragment"
-        android:label="UserListFragment" />
+        android:label="UserListFragment" >
+        <action
+            android:id="@+id/userViewAction"
+            app:destination="@id/userViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserViewFragment"
+        android:label="UserViewFragment" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

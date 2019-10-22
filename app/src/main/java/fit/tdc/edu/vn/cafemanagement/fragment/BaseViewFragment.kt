@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 abstract class BaseViewFragment(
     @LayoutRes contentLayoutId: Int
 ): Fragment(contentLayoutId) {
-    val fab by lazy {
+    val fab: FloatingActionButton by lazy {
         requireActivity().fab
     }
 
@@ -28,12 +29,6 @@ abstract class BaseViewFragment(
         setupNavigate()
         return super.onCreateView(inflater, container, savedInstanceState)
     }
-    private fun handleBackPress() {
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            requestNavigateUp()
-        }
-        callback.isEnabled = true
-    }
 
     private fun setupNavigate() {
         requireActivity().toolbar.setNavigationOnClickListener {
@@ -42,18 +37,25 @@ abstract class BaseViewFragment(
         handleBackPress()
     }
 
+    private fun handleBackPress() {
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requestNavigateUp()
+        }
+        callback.isEnabled = true
+    }
+
     fun changeViewType(type: FormState.Type) {
         when (type) {
             FormState.Type.MODIFY, FormState.Type.ADD -> {
-                (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-                    setHomeAsUpIndicator(R.drawable.ic_close)
+                (requireActivity() as AppCompatActivity).toolbar.apply {
+                    setNavigationIcon(R.drawable.ic_close)
                 }
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_check))
                 fab.hide()
             }
             FormState.Type.VIEW -> {
-                (requireActivity() as AppCompatActivity).supportActionBar?.apply {
-                    setHomeAsUpIndicator(R.drawable.ic_back)
+                (requireActivity() as AppCompatActivity).toolbar.apply {
+                    setNavigationIcon(R.drawable.ic_back)
                 }
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_mode_edit))
                 fab.show()

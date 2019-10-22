@@ -51,7 +51,7 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
             }
         }
 
-        var textUnit: TextView = itemView.txt_unit
+        var textUnit: TextView = itemView.txt_name
     }
 
     interface OnItemClickListener {

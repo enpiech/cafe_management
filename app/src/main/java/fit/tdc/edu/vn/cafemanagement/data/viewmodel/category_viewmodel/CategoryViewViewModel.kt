@@ -1,11 +1,9 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
+import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
@@ -16,24 +14,35 @@ class CategoryViewViewModel(
     private val categoryRepository: CategoryRepositoryAPI
 ) : ViewModel() {
 
-    private var _viewState = MutableLiveData<FormState.Type?>(null)
-    val viewState: LiveData<FormState.Type?> = _viewState
+    private var _viewType = MutableLiveData<FormState.Type?>(null)
+    val viewType: LiveData<FormState.Type?> = _viewType
 
-    private var _formState = MutableLiveData<CategoryViewFormState>()
+    private var _formState = MutableLiveData<CategoryViewFormState>(null)
     val formState: LiveData<CategoryViewFormState> = _formState
 
-    private var _currentCategoryId = MutableLiveData<String>()
+    private var _currentCategoryId = LiveEvent<String>()
+    val currentCategory = MediatorLiveData<Category?>()
 
-    val currentCategory: LiveData<FirestoreResource<Category>> = _currentCategoryId.switchMap {
-        categoryRepository.getCategory(it)
+    init {
+        with(currentCategory) {
+            addSource(
+                _currentCategoryId.switchMap {categoryId ->
+                    categoryRepository.getCategory(categoryId)
+                }
+            ) { result ->
+                if (result.status == Status.SUCCESS) {
+                    currentCategory.value = result.data
+                }
+            }
+        }
+
     }
 
     fun setViewType(type: FormState.Type) {
-        _viewState.value = type
+        _viewType.value = type
     }
 
-
-    private var allCategorys = categoryRepository.getAllCategory()
+    private var allCategories = categoryRepository.getAllCategories()
 
     fun insert(category: Category) = categoryRepository.insert(category)
 
@@ -41,17 +50,38 @@ class CategoryViewViewModel(
 
     fun delete(category: Category) = categoryRepository.delete(category)
 
-    fun getAllUnits() = allCategorys
+    fun getAllCategories() = allCategories
 
     fun getCategory(categoryId: String) {
         _currentCategoryId.value = categoryId
     }
 
-    fun dataChange(category: Category?) {
+    fun dataChange(category: Category) {
         when {
-            !isNameValid(category?.name) -> _formState.value =
-                CategoryViewFormState(nameError = R.string.invalid_category_name)
-            else -> _formState.value = CategoryViewFormState().also { it.isDataValid = true }
+            category == currentCategory.value -> {
+                _formState.value = CategoryViewFormState(
+                    nameError = null
+                ).apply {
+                    isChanged = false
+                    isDataValid = true
+                }
+            }
+            !isNameValid(category.name) -> {
+                _formState.value = CategoryViewFormState(
+                    nameError = R.string.invalid_category_name
+                ).apply {
+                    isChanged = false
+                    isDataValid = false
+                }
+            }
+            isNameValid(category.name) && category != currentCategory.value -> {
+                _formState.value = CategoryViewFormState(
+                    nameError = null
+                ).apply {
+                    isChanged = true
+                    isDataValid = true
+                }
+            }
         }
     }
 }

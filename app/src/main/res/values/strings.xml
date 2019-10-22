@@ -106,4 +106,12 @@
     <string name="warning_message_delete">Mục này sẽ bị xóa và không thể phục hồi lại</string>
     <string name="dialog_title_delete">Xác nhận xóa</string>
     <string name="lbl_unit_name">Tên đơn vị</string>
+    <string name="lbl_category_name">Tên danh mục</string>
+    <string name="title_category">Danh mục sản phẩm</string>
+    <string name="title_zone">Khu vực bàn</string>
+    <string name="title_unit">Đơn vị tính</string>
+    <string name="dialog_title_modifying_removed_item">Dữ liệu không còn tồn tại</string>
+    <string name="warning_message_modifying_removed_item">Có vẻ như ai đó đã xóa dữ liệu này. Bạn có muốn tạo mới dựa trên dữ liệu hiện tại hay không?</string>
+    <string name="invalid_user_name">Tên nhân viên không được để trống</string>
+    <string name="title_user">Nhân viên</string>
 </resources>

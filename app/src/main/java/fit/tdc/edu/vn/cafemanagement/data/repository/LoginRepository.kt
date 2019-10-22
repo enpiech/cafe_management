@@ -1,6 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
-import android.app.Application
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDAO
@@ -14,8 +13,8 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
  * maintains an in-memory cache of login status and loggedInUser credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource, application: Application) {
-    private var userDAO : UserDAO
+class LoginRepository(val dataSource: LoginDataSource, database: UserDatabase) {
+    private var userDAO : UserDAO = database.userDAO()
 
     // in-memory cache of the loggedInUser object
     // TODO Local db or reference to make session
@@ -31,12 +30,10 @@ class LoginRepository(val dataSource: LoginDataSource, application: Application)
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
         //TODO: bỏ database vô đây
-        val database: UserDatabase = UserDatabase.getInstance(application.applicationContext)!!
-        userDAO = database.userDAO()
-        try {
-            loggedInUser = userDAO.getAllUsers().value!!.get(0)
+        loggedInUser = try {
+            userDAO.getAllUsers().value!!.get(0)
         } catch (e:Exception) {
-            loggedInUser = null
+            null
         }
 
         loggedInUser = null

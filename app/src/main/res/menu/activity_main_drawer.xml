@@ -4,7 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
     <item
-        android:id="@+id/logout"
+        android:id="@+id/categoryListFragment"
+        android:title="@string/title_category" />
+    <item
+        android:id="@+id/zoneListFragment"
+        android:title="@string/title_zone" />
+    <item
+        android:id="@+id/unitListFragment"
+        android:title="@string/title_unit" />
+    <item
+        android:id="@+id/userListFragment"
+        android:title="@string/title_user" />
+    <item
+        android:id="@+id/loginFragment"
         android:icon="@drawable/ic_logout"
         android:title="@string/menu_item_logout" />
 </menu>

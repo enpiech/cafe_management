@@ -8,12 +8,10 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
 
 class ZoneViewModel(
-    private val zoneRepository: ZoneRepository,
-    private val tableRepository: TableRepository
+    private val zoneRepository: ZoneRepositoryAPI
 ) : ViewModel() {
 
     private var _viewType = MutableLiveData<FormState.Type?>(null)
@@ -28,7 +26,7 @@ class ZoneViewModel(
     init {
         with(currentZone) {
             addSource(
-                _currentZoneId.switchMap {zoneId ->
+                _currentZoneId.switchMap { zoneId ->
                     zoneRepository.getZone(zoneId)
                 }
             ) { result ->
@@ -54,7 +52,7 @@ class ZoneViewModel(
 
     fun getAllZones() = allZones
 
-    fun getZone(zoneId: String) {
+    fun getCurrentZone(zoneId: String) {
         _currentZoneId.value = zoneId
     }
 

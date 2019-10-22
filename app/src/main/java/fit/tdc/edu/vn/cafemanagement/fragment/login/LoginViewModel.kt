@@ -1,9 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.login
 
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
@@ -12,7 +13,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.isUserNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel(private val loginRepository: LoginRepository, application: Application) : AndroidViewModel(application) {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm

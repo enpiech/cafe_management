@@ -16,8 +16,6 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.UserAdapter
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragment
-import fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
@@ -29,14 +27,14 @@ class UserListFragment : Fragment(R.layout.fragment_list) {
     }
 
     companion object {
-        fun newInstance() = ZoneListFragment()
+        fun newInstance() = UserListFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fab.setOnClickListener {
-            findNavController().navigate(ZoneListFragmentDirections.viewZoneAction(null))
+        requireActivity().fab.setOnClickListener {
+            findNavController().navigate(UserListFragmentDirections.userViewAction(null))
         }
 
         recycler_view.apply {
@@ -46,7 +44,7 @@ class UserListFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllUsers().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             viewAdapter.submitList(it.data)
         })
 

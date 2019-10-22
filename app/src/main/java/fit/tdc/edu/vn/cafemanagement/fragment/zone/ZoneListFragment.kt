@@ -30,15 +30,11 @@ class ZoneListFragment : Fragment(R.layout.fragment_list) {
         fun newInstance() = ZoneListFragment()
     }
 
-    private val btn by lazy {
-        requireActivity().fab
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        btn.setOnClickListener {
-            findNavController().navigate(ZoneListFragmentDirections.viewZoneAction(null))
+        requireActivity().fab.setOnClickListener {
+            findNavController().navigate(ZoneListFragmentDirections.zoneViewAction(null))
         }
 
         recycler_view.apply {
