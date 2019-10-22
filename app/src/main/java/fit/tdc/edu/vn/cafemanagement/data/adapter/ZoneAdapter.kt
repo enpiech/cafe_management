@@ -22,8 +22,8 @@ class ZoneAdapter : ListAdapter<Zone, ZoneHolder>(Zone.DIFF_CALLBACK) {
     }
 
     override fun onBindViewHolder(
-        holder: ZoneHolder,
-        position: Int
+    holder: ZoneHolder,
+    position: Int
     ) {
         val currentZone: Zone = getItem(position)
         holder.bind(currentZone)

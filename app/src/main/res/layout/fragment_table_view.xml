@@ -16,16 +16,4 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:gravity="bottom|center_horizontal">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_32dp"
-            android:text="@string/btn_create" />
-    </LinearLayout>
 </LinearLayout>

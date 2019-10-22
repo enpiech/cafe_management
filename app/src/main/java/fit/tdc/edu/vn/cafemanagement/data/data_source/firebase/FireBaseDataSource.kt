@@ -160,7 +160,7 @@ class FireBaseDataSource: FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Table> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(tableId)
+            .collection(TABLES_KEY).document(tableId)
             .asLiveData(documentType)
 
     override fun createTable(
@@ -168,13 +168,13 @@ class FireBaseDataSource: FireBaseAPI {
         table: Table
     ): TaskLiveData<DocumentReference> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY)
+            .collection(TABLES_KEY)
             .add(table)
             .asLiveData()
 
     override fun modifyTable(storeId: String, table: Table): TaskLiveData<Void> {
         return db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(table.id)
+            .collection(TABLES_KEY).document(table.id)
             .set(table)
             .asLiveData()
     }
@@ -184,7 +184,7 @@ class FireBaseDataSource: FireBaseAPI {
         tableID: String
     ): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(tableID)
+            .collection(TABLES_KEY).document(tableID)
             .delete()
             .asLiveData()
 

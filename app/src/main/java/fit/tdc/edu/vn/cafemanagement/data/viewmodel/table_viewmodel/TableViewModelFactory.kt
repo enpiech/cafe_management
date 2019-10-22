@@ -15,12 +15,6 @@ class TableViewModelFactory : ViewModelProvider.Factory {
                      dataSource = FireBaseDataSource()
                  )
             ) as T
-        }else if (modelClass.isAssignableFrom(TableCreateViewModel::class.java)) {
-            return TableCreateViewModel(
-                tableRepository = TableRepository(
-                    dataSource = FireBaseDataSource()
-                )
-            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

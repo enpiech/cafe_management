@@ -1,10 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.table
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,36 +24,32 @@ import kotlinx.android.synthetic.main.item_table_each_zone.*
 
 class TableListFragment : Fragment(R.layout.fragment_list) {
 
-    var adapter = TableAdapter()
+    var viewAdapter = TableAdapter()
+
+    private val viewModel by lazy {
+        ViewModelProvider(this, TableViewModelFactory()).get<TableViewModel>()
+    }
 
     companion object {
         fun newInstance() = TableListFragment()
     }
 
-    private lateinit var tableViewModel: TableViewModel
-    private val btn by lazy {
-        requireActivity().fab
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //add unit
-        btn.setOnClickListener {
-            activity?.let {
-                findNavController().navigate(TableListFragmentDirections.tableViewAction(tableId = null, title = "Tạo Table"))
-            }
+        requireActivity().fab.setOnClickListener {
+            findNavController().navigate(TableListFragmentDirections.tableViewAction(tableId = null, title = "Tạo Table"))
         }
 
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.setHasFixedSize(true)
-        recycler_view.adapter = adapter
+        recycler_view.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
 
-        tableViewModel =
-            ViewModelProvider(this, TableViewModelFactory()).get(TableViewModel::class.java)
-        tableViewModel.getAlltables().observe(this, Observer {
-            //Log.d("test", "${it.data?.size}")
-            adapter.submitList(it.data)
+            adapter = viewAdapter
+        }
+
+        viewModel.getAllTables().observe(this, Observer {
+            viewAdapter.submitList(it.data)
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
@@ -74,8 +72,8 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
                     .setMessage(R.string.warning_message_delete)
                     .setPositiveButton(R.string.btnOK) { _, _ ->
                         run {
-                            adapter.getTableAt(viewHolder.adapterPosition).apply {
-                                tableViewModel.delete(this)
+                            viewAdapter.getTableAt(viewHolder.adapterPosition).apply {
+                                viewModel.delete(this)
                                 Snackbar.make(
                                     viewHolder.itemView,
                                     "${this.name} đã bị xóa!",
@@ -85,18 +83,11 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
                         }
                     }
                     .setNegativeButton(R.string.btnCancel) { _, _ ->
-                        adapter.notifyDataSetChanged()
+                        viewAdapter.notifyDataSetChanged()
                     }
                     .show()
             }
         }
         ).attachToRecyclerView(recycler_view)
-
-        adapter.setOnItemClickListener(object : TableAdapter.OnItemClickListener {
-
-            override fun onItemClick(table: Table) {
-                findNavController().navigate(TableListFragmentDirections.tableViewAction(tableId = table.id, title = "Chỉnh sửa"))
-            }
-        })
     }
 }
