@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.ui.login
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
@@ -16,7 +17,8 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
                 loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
+                    dataSource = LoginDataSource(),
+                    application = Application()
                 )
             ) as T
         }

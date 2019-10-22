@@ -8,6 +8,7 @@ data class Material(
     var name: String? = null,
     var price: Long? = null,
     var unitId: String? = null,
-    var zoneId: String? = null,
+    var categoryID : String? = null,
+    var image: Int? = 0,
     var sellable: Boolean = false
 ) : FirestoreModel()
