@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/unitListFragment">
+    app:startDestination="@id/tableListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragment"
@@ -79,6 +79,26 @@
         android:label="CategoryViewFragment" >
         <argument
             android:name="categoryId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableListFragment"
+        android:label="Bàn">
+        <action
+            android:id="@+id/tableViewAction"
+            app:destination="@id/tableViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableViewFragment"
+        android:label="{title}" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="tableId"
             app:argType="string"
             app:nullable="true" />
     </fragment>

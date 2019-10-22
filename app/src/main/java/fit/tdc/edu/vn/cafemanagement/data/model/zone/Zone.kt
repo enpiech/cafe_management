@@ -2,7 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.model.zone
 
 import androidx.recyclerview.widget.DiffUtil
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 
 data class Zone(
     var name: String? = null,

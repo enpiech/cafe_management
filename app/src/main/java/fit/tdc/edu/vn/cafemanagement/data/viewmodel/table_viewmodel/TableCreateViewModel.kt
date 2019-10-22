@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 
 class TableCreateViewModel (

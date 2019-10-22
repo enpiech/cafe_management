@@ -1,74 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <EditText
-        android:id="@+id/edtProductCategoryName"
-        android:layout_width="0dp"
+        android:id="@+id/table_edit_name"
+        android:layout_width="288dp"
         android:layout_height="wrap_content"
         android:hint="@string/txtTableName"
         android:importantForAutofill="no"
         android:inputType="text"
 
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtUserName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
+        tools:layout_editor_absoluteX="123dp" />
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="0dp"
+        android:id="@+id/table_spinner_zone"
+        android:layout_width="288dp"
         android:layout_height="wrap_content"
 
-        app:layout_constraintBottom_toBottomOf="@+id/lblZone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/lblZone"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="@+id/lblTableType"
-        app:layout_constraintEnd_toEndOf="@+id/edtProductCategoryName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/lblTableType" />
+        tools:layout_editor_absoluteX="123dp"
+        tools:layout_editor_absoluteY="49dp" />
 
     <TextView
         android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
 
         android:text="@string/txtTableName"
-        app:layout_constraintBottom_toTopOf="@+id/lblZone"
+        app:layout_constraintEnd_toStartOf="@+id/table_edit_name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="14dp" />
 
     <TextView
         android:id="@+id/lblZone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/line_height_16dp"
 
         android:text="@string/txtZone"
-        app:layout_constraintBottom_toTopOf="@+id/lblTableType"
+        app:layout_constraintEnd_toStartOf="@+id/table_spinner_zone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
-
-    <TextView
-        android:id="@+id/lblTableType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-
-        android:text="@string/txtTableType"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblZone" />
+        tools:layout_editor_absoluteY="49dp" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -76,6 +49,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
 
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.29927006" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

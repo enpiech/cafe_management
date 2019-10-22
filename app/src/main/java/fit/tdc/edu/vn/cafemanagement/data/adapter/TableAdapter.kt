@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import kotlinx.android.synthetic.main.item_table.view.*
 
 class TableAdapter : ListAdapter<Table, TableAdapter.TableHolder>(DIFF_CALLBACK) {
@@ -34,7 +34,7 @@ class TableAdapter : ListAdapter<Table, TableAdapter.TableHolder>(DIFF_CALLBACK)
 
     override fun onBindViewHolder(holder: TableHolder, position: Int) {
         val currentTable: Table = getItem(position)
-        holder.nameTable.text = currentTable.name
+        holder.btn_item_table.text = currentTable.name
     }
 
     fun getTableAt(position: Int): Table {
@@ -51,7 +51,7 @@ class TableAdapter : ListAdapter<Table, TableAdapter.TableHolder>(DIFF_CALLBACK)
             }
         }
 
-        var nameTable: Button = itemView.btn_item_table
+        var btn_item_table: Button = itemView.btn_item_table
     }
 
     interface OnItemClickListener {

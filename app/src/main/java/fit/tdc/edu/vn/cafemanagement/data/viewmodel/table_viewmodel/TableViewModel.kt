@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
 import androidx.lifecycle.ViewModel
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
 
 class TableViewModel (

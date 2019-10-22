@@ -45,6 +45,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -86,7 +87,7 @@ dependencies {
 
     // RecyclerView
     implementation "androidx.recyclerview:recyclerview:1.1.0-beta05"
-    
+
     // Fragment
     implementation "androidx.fragment:fragment-ktx:1.2.0-beta02"
     implementation "androidx.fragment:fragment-testing:1.2.0-beta02"
