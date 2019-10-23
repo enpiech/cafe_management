@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.fragment.zone
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -12,11 +11,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
-import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
-import fit.tdc.edu.vn.cafemanagement.util.setupFocusHandle
+import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.fragment_zone_view.*
 
 
@@ -47,7 +46,7 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                     }
                     else -> {
                         viewModel.setViewType(FormState.Type.VIEW)
-                        viewModel.getCurrentZone(zoneId!!)
+                        viewModel.getCurrentItem(zoneId!!)
                     }
                 }
             } else {
@@ -63,9 +62,9 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
                 } else {
                     fab.hide()
                 }
-
-                if (state.nameError != null) {
-                    edtName.error = getString(state.nameError)
+                val zoneFormState = state as ZoneViewFormState
+                if (zoneFormState.nameError != null) {
+                    edtName.error = getString(zoneFormState.nameError)
                 }
             }
         })
@@ -107,7 +106,7 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
         }
 
         if (type != FormState.Type.ADD) {
-            viewModel.currentZone.observe(this, Observer {
+            viewModel.currentItem.observe(this, Observer {
                 if (it != null) {
                     edtName.editText?.setText(it.name)
                 } else {
@@ -133,27 +132,12 @@ class ZoneViewFragment : BaseViewFragment(R.layout.fragment_zone_view) {
     }
 
     private fun setupForm() {
-        edtName.setupFocusHandle()
-
-        edtName.editText?.let {
-            it.afterTextChanged { name ->
-                viewModel.dataChange(
-                    Zone(
-                        name = name
-                    )
+        edtName.asEditText {
+            viewModel.dataChange(
+                Zone(
+                    name = it
                 )
-            }
-            it.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        viewModel.dataChange(
-                            Zone(
-                                name = edtName.editText?.text.toString()
-                            )
-                        )
-                }
-                false
-            }
+            )
         }
     }
 

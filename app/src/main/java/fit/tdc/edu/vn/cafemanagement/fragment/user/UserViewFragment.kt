@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.fragment.user
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -16,9 +15,10 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.UserViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
-import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
-import fit.tdc.edu.vn.cafemanagement.util.setupFocusHandle
+import fit.tdc.edu.vn.cafemanagement.util.asDatePicker
+import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.fragment_user_view.*
+
 
 class UserViewFragment : BaseViewFragment(R.layout.fragment_user_view) {
     companion object {
@@ -99,32 +99,35 @@ class UserViewFragment : BaseViewFragment(R.layout.fragment_user_view) {
 
     override fun updateUI(type: FormState.Type) {
         when (type) {
-            FormState.Type.MODIFY -> {
+            FormState.Type.MODIFY, FormState.Type.ADD -> {
                 edtId.editText?.isEnabled = true
                 edtPassword.editText?.isEnabled = true
                 edtName.editText?.isEnabled = true
                 edtBirth.editText?.isEnabled = true
-            }
-            FormState.Type.ADD -> {
-                edtId.editText?.isEnabled = false
-                edtPassword.editText?.isEnabled = true
-                edtName.editText?.isEnabled = true
-                edtBirth.editText?.isEnabled = true
+                edtBirth.isEndIconVisible = true
             }
             FormState.Type.VIEW -> {
                 edtId.editText?.isEnabled = false
                 edtPassword.editText?.isEnabled = false
                 edtName.editText?.isEnabled = false
                 edtBirth.editText?.isEnabled = false
+//                edtBirth.setEndIconActivated(false)
+                edtBirth.isEndIconVisible = false
             }
+        }
+
+        if (type == FormState.Type.MODIFY) {
+            edtId.editText?.isEnabled = false
         }
 
         if (type != FormState.Type.ADD) {
             viewModel.currentItem.observe(this, Observer {
                 if (it != null) {
                     edtId.editText?.setText(it.id)
+                    edtPassword.editText?.setText(R.string.hiddenPassword)
                     edtName.editText?.setText(it.name)
-                    edtBirth.editText?.setText(it.birth.toString())
+                    //TODO
+                    edtBirth.editText?.setText(it.birth?.toDate().toString())
                 } else {
                     MaterialAlertDialogBuilder(context)
                         .setTitle(R.string.dialog_title_modifying_removed_item)
@@ -148,27 +151,20 @@ class UserViewFragment : BaseViewFragment(R.layout.fragment_user_view) {
     }
 
     private fun setupForm() {
-        edtName.setupFocusHandle()
-
-        edtName.editText?.let {
-            it.afterTextChanged { name ->
-                viewModel.dataChange(
-                    User(
-                        name = name
-                    )
+        edtName.asEditText {
+            viewModel.dataChange(
+                User(
+                    name = edtName.editText?.text.toString()
                 )
-            }
-            it.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        viewModel.dataChange(
-                            User(
-                                name = edtName.editText?.text.toString()
-                            )
-                        )
-                }
-                false
-            }
+            )
+        }
+
+        edtBirth.asDatePicker(requireContext()) {
+            viewModel.dataChange(
+                User(
+                    birth = it
+                )
+            )
         }
     }
 

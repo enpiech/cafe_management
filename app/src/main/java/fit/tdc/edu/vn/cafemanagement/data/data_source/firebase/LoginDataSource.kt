@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
@@ -21,12 +20,8 @@ class LoginDataSource {
     private val firestore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
-    private val _result = MutableLiveData<FirestoreResource<User>>()
+    private val _result = MutableLiveData<FirestoreResource<User>>(null)
     val result: LiveData<FirestoreResource<User>> = _result
-
-    init {
-        _result.value = null
-    }
 
     fun managerLogin(username: String, password: String) {
         auth.signInWithEmailAndPassword(username, password)
@@ -38,12 +33,10 @@ class LoginDataSource {
                 val firebaseUser = it.user!!
                 val user = User(
                     role = User.Type.MANAGER,
-                    username = firebaseUser.email,
-                    lastLogin = Timestamp.now()
+                    username = firebaseUser.email
                 ).apply {
                     id = firebaseUser.uid
                 }
-
                 _result.value = FirestoreResource.success(user)
             }
             .addOnFailureListener {

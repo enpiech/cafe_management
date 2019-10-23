@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.fragment.category
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -12,11 +11,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
-import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
-import fit.tdc.edu.vn.cafemanagement.util.setupFocusHandle
+import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.fragment_category_view.*
 
 class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
@@ -38,7 +37,7 @@ class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
                     }
                     else -> {
                         viewModel.setViewType(FormState.Type.VIEW)
-                        viewModel.getCategory(categoryId!!)
+                        viewModel.getItem(categoryId!!)
                     }
                 }
             } else {
@@ -54,9 +53,9 @@ class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
                 } else {
                     fab.hide()
                 }
-
-                if (state.nameError != null) {
-                    edtName.error = getString(state.nameError)
+                val categoryFormState = state as CategoryViewFormState
+                if (categoryFormState.nameError != null) {
+                    edtName.error = getString(categoryFormState.nameError)
                 }
             }
         })
@@ -98,7 +97,7 @@ class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
         }
 
         if (type != FormState.Type.ADD) {
-            viewModel.currentCategory.observe(this, Observer {
+            viewModel.currentItem.observe(this, Observer {
                 if (it != null) {
                     edtName.editText?.setText(it.name)
                 } else {
@@ -110,27 +109,12 @@ class CategoryViewFragment : BaseViewFragment(R.layout.fragment_category_view) {
     }
 
     private fun setupForm() {
-        edtName.setupFocusHandle()
-
-        edtName.editText?.let {
-            it.afterTextChanged { name ->
-                viewModel.dataChange(
-                    Category(
-                        name = name
-                    )
+        edtName.asEditText {
+            viewModel.dataChange(
+                Category(
+                    name = it
                 )
-            }
-            it.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        viewModel.dataChange(
-                            Category(
-                                name = edtName.editText?.text.toString()
-                            )
-                        )
-                }
-                false
-            }
+            )
         }
     }
 

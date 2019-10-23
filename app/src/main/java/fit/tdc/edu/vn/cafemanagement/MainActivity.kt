@@ -64,9 +64,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     R.id.tableViewFragment
                 ) -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    supportActionBar?.show()
                 }
                 else -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+                    supportActionBar?.show()
                     fab.setImageDrawable(getDrawable(R.drawable.ic_add))
                     fab.show()
                     val callback = onBackPressedDispatcher.addCallback(this) {

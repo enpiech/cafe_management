@@ -44,7 +44,7 @@ class ZoneListFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllZones().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             viewAdapter.submitList(it.data)
         })
 

@@ -1,64 +1,28 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel
 
-import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
 
 class CategoryViewViewModel(
     private val categoryRepository: CategoryRepositoryAPI
-) : ViewModel() {
+) : BaseViewViewModel<Category>() {
+    override fun getAllItems() = categoryRepository.getAllCategories()
 
-    private var _viewType = MutableLiveData<FormState.Type?>(null)
-    val viewType: LiveData<FormState.Type?> = _viewType
+    override fun getItem(id: String) = categoryRepository.getCategory(id)
 
-    private var _formState = MutableLiveData<CategoryViewFormState>(null)
-    val formState: LiveData<CategoryViewFormState> = _formState
+    override fun insert(item: Category) = categoryRepository.insert(item)
 
-    private var _currentCategoryId = LiveEvent<String>()
-    val currentCategory = MediatorLiveData<Category?>()
+    override fun update(item: Category) = categoryRepository.update(item)
 
-    init {
-        with(currentCategory) {
-            addSource(
-                _currentCategoryId.switchMap {categoryId ->
-                    categoryRepository.getCategory(categoryId)
-                }
-            ) { result ->
-                if (result.status == Status.SUCCESS) {
-                    currentCategory.value = result.data
-                }
-            }
-        }
+    override fun delete(item: Category) = categoryRepository.delete(item)
 
-    }
-
-    fun setViewType(type: FormState.Type) {
-        _viewType.value = type
-    }
-
-    private var allCategories = categoryRepository.getAllCategories()
-
-    fun insert(category: Category) = categoryRepository.insert(category)
-
-    fun update(category: Category) = categoryRepository.update(category)
-
-    fun delete(category: Category) = categoryRepository.delete(category)
-
-    fun getAllCategories() = allCategories
-
-    fun getCategory(categoryId: String) {
-        _currentCategoryId.value = categoryId
-    }
-
-    fun dataChange(category: Category) {
+    override fun dataChange(item: Category) {
         when {
-            category == currentCategory.value -> {
+            item == currentItem.value -> {
                 _formState.value = CategoryViewFormState(
                     nameError = null
                 ).apply {
@@ -66,7 +30,7 @@ class CategoryViewViewModel(
                     isDataValid = true
                 }
             }
-            !isNameValid(category.name) -> {
+            !isNameValid(item.name) -> {
                 _formState.value = CategoryViewFormState(
                     nameError = R.string.invalid_category_name
                 ).apply {
@@ -74,7 +38,7 @@ class CategoryViewViewModel(
                     isDataValid = false
                 }
             }
-            isNameValid(category.name) && category != currentCategory.value -> {
+            isNameValid(item.name) && item != currentItem.value -> {
                 _formState.value = CategoryViewFormState(
                     nameError = null
                 ).apply {

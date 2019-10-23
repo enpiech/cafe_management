@@ -10,6 +10,7 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
 class UserViewModel (
     private val userRepository: UserRepositoryAPI
 ): BaseViewViewModel<User>() {
+
     override fun getAllItems() = userRepository.getAllUsers()
 
     override fun getItem(id: String) = userRepository.getUser(id)

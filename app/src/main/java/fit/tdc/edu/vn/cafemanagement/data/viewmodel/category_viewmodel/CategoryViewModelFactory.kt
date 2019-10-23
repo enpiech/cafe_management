@@ -15,7 +15,8 @@ class CategoryViewModelFactory : ViewModelProvider.Factory {
                     dataSource = FireBaseDataSource()
                 )
             ) as T
-        }else if(modelClass.isAssignableFrom(CategoryViewViewModel::class.java)) {
+        }
+        else if(modelClass.isAssignableFrom(CategoryViewViewModel::class.java)) {
             return CategoryViewViewModel(
                 categoryRepository = CategoryRepository(
                     dataSource = FireBaseDataSource()

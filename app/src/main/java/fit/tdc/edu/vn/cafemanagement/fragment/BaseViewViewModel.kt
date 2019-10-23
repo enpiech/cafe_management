@@ -11,7 +11,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 
 abstract class BaseViewViewModel<T: FirestoreModel> : ViewModel() {
-    protected var _viewType = MutableLiveData<FormState.Type?>(null)
+    private var _viewType = MutableLiveData<FormState.Type?>(null)
     val viewType: LiveData<FormState.Type?> = _viewType
 
     protected var _formState = MutableLiveData<FormState>(null)

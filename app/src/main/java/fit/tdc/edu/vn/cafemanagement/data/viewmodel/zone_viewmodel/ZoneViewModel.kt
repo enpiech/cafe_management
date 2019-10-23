@@ -1,64 +1,29 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 
-import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
 
 class ZoneViewModel(
     private val zoneRepository: ZoneRepositoryAPI
-) : ViewModel() {
+) : BaseViewViewModel<Zone>() {
 
-    private var _viewType = MutableLiveData<FormState.Type?>(null)
-    val viewType: LiveData<FormState.Type?> = _viewType
+    override fun getAllItems() = zoneRepository.getAllZones()
 
-    private var _formState = MutableLiveData<ZoneViewFormState>(null)
-    val formState: LiveData<ZoneViewFormState> = _formState
+    override fun getItem(id: String) = zoneRepository.getZone(id)
 
-    private var _currentZoneId = LiveEvent<String>()
-    val currentZone = MediatorLiveData<Zone?>()
+    override fun insert(item: Zone) = zoneRepository.insert(item)
 
-    init {
-        with(currentZone) {
-            addSource(
-                _currentZoneId.switchMap { zoneId ->
-                    zoneRepository.getZone(zoneId)
-                }
-            ) { result ->
-                if (result.status == Status.SUCCESS) {
-                    currentZone.value = result.data
-                }
-            }
-        }
+    override fun update(item: Zone) = zoneRepository.update(item)
 
-    }
+    override fun delete(item: Zone) = zoneRepository.delete(item)
 
-    fun setViewType(type: FormState.Type) {
-        _viewType.value = type
-    }
-
-    private var allZones = zoneRepository.getAllZones()
-
-    fun insert(zone: Zone) = zoneRepository.insert(zone)
-
-    fun update(zone: Zone) = zoneRepository.update(zone)
-
-    fun delete(zone: Zone) = zoneRepository.delete(zone)
-
-    fun getAllZones() = allZones
-
-    fun getCurrentZone(zoneId: String) {
-        _currentZoneId.value = zoneId
-    }
-
-    fun dataChange(zone: Zone) {
+    override fun dataChange(item: Zone) {
         when {
-            zone == currentZone.value -> {
+            item == currentItem.value -> {
                 _formState.value = ZoneViewFormState(
                     nameError = null
                 ).apply {
@@ -66,7 +31,7 @@ class ZoneViewModel(
                     isDataValid = true
                 }
             }
-            !isNameValid(zone.name) -> {
+            !isNameValid(item.name) -> {
                 _formState.value = ZoneViewFormState(
                     nameError = R.string.invalid_zone_name
                 ).apply {
@@ -74,7 +39,7 @@ class ZoneViewModel(
                     isDataValid = false
                 }
             }
-            isNameValid(zone.name) && zone != currentZone.value -> {
+            isNameValid(item.name) && item != currentItem.value -> {
                 _formState.value = ZoneViewFormState(
                     nameError = null
                 ).apply {

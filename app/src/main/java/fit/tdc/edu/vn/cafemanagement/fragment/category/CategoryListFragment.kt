@@ -49,7 +49,7 @@ class CategoryListFragment : Fragment(R.layout.fragment_list) {
         }
         viewModel =
             ViewModelProvider(this, CategoryViewModelFactory()).get()
-        viewModel.getAllCategories().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             categoryAdapter.submitList(it.data)
         })
 

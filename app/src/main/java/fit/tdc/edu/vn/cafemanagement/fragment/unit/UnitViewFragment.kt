@@ -2,7 +2,6 @@ package fit.tdc.edu.vn.cafemanagement.fragment.unit
 
 import android.os.Bundle
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -15,8 +14,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitCreateViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
-import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
-import fit.tdc.edu.vn.cafemanagement.util.setupFocusHandle
+import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.fragment_unit_view.*
 
 class UnitViewFragment : BaseViewFragment(R.layout.fragment_unit_view) {
@@ -136,27 +134,12 @@ class UnitViewFragment : BaseViewFragment(R.layout.fragment_unit_view) {
     }
 
     private fun setupForm() {
-        edtName.setupFocusHandle()
-
-        edtName.editText?.let {
-            it.afterTextChanged { name ->
-                viewModel.dataChange(
-                    Unit(
-                        name = name
-                    )
+        edtName.asEditText {
+            viewModel.dataChange(
+                Unit(
+                    name = it
                 )
-            }
-            it.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE ->
-                        viewModel.dataChange(
-                            Unit(
-                                name = edtName.editText?.text.toString()
-                            )
-                        )
-                }
-                false
-            }
+            )
         }
     }
 }

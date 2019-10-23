@@ -6,7 +6,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 
 data class Zone(
     var name: String? = null,
-    var tablesInZone: List<Table>? = null
+    var tablesInZone: List<Table>? = listOf()
 ) : FirestoreModel() {
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Zone>() {

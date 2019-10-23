@@ -94,7 +94,7 @@
     <string name="updateFailed">Cập nhật thất bại</string>
     <string name="addComplete">Tạo mới thành công</string>
     <string name="addFailed">Tạo mới thất bại</string>
-    <string name="lbl_user_name">Họ và tên</string>
+    <string name="lbl_user_gender">Giới tính</string>
     <string name="lbl_zone_name">Tên khu vực</string>
     <string name="lbl_user_birth">Ngày sinh</string>
     <string name="modify_zone">Chỉnh sửa khu vực</string>
@@ -115,4 +115,11 @@
     <string name="warning_message_modifying_removed_item">Có vẻ như ai đó đã xóa dữ liệu này. Bạn có muốn tạo mới dựa trên dữ liệu hiện tại hay không?</string>
     <string name="invalid_user_name">Tên nhân viên không được để trống</string>
     <string name="title_user">Nhân viên</string>
+    <string name="hiddenPassword">******</string>
+    <string name="desc_date_picker">Chọn ngày tháng</string>
+    <string name="title_table">Bàn</string>
+    <string name="lbl_user_role">Chức vụ</string>
+    <string name="lbl_user_name">Họ và tên</string>
+    <string name="lbl_user_uid">Chứng minh nhân dân</string>
+    <string name="lbl_user_address">Địa chỉ</string>
 </resources>
