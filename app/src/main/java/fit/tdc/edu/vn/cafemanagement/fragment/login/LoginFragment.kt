@@ -63,12 +63,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             //Complete and destroy managerLogin activity once successful
             this.findNavController().navigate(R.id.zoneListFragment)
             when (loginResult.data?.role) {
-                User.Type.BARTENDER -> null
-                User.Type.MANAGER -> null
-                User.Type.STORE_MANAGER -> {
+                User.Role.BARTENDER -> null
+                User.Role.MANAGER -> null
+                User.Role.STORE_MANAGER -> {
 
                 }
-                User.Type.WAITER -> null
+                User.Role.WAITER -> null
             }
         })
         username.afterTextChanged {

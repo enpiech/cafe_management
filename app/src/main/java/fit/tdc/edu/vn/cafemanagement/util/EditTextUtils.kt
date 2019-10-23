@@ -17,15 +17,17 @@ fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
             if (!hasFocus) {
                 this.clearFocus()
             }
-            it.setOnEditorActionListener { _, actionId, _ ->
-                when (actionId) {
-                    EditorInfo.IME_ACTION_DONE -> {
-                        this.clearFocus()
-                        dataChanged.invoke(it.text.toString())
-                    }
+        }
+    }
+    editText?.let {
+        it.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE -> {
+                    this.clearFocus()
+                    dataChanged.invoke(it.text.toString())
                 }
-                false
             }
+            false
         }
     }
 }

@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "fit.tdc.edu.vn.cafemanagement"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner kotlin_version
@@ -45,7 +45,6 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
-    implementation 'com.google.firebase:firebase-firestore:17.1.2'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room

@@ -11,7 +11,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.item_zone.view.*
 
-class ZoneAdapter : ListAdapter<Zone, ZoneHolder>(Zone.DIFF_CALLBACK) {
+class ZoneAdapter : ListAdapter<Zone, RecyclerView.ViewHolder>(Zone.DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,18 +21,9 @@ class ZoneAdapter : ListAdapter<Zone, ZoneHolder>(Zone.DIFF_CALLBACK) {
         return ZoneHolder(itemView)
     }
 
-    override fun onBindViewHolder(
-    holder: ZoneHolder,
-    position: Int
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentZone: Zone = getItem(position)
-        holder.bind(currentZone)
-    }
-
-    fun getZoneAt(
-        position: Int
-    ): Zone {
-        return getItem(position)
+        (holder as ZoneHolder).bind(currentZone)
     }
 }
 

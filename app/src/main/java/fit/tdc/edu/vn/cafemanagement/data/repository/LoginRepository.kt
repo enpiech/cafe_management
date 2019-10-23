@@ -31,7 +31,7 @@ class LoginRepository(val dataSource: LoginDataSource, database: UserDatabase) {
         // @see https://developer.android.com/training/articles/keystore
         //TODO: bỏ database vô đây
         loggedInUser = try {
-            userDAO.getAllUsers().value!!.get(0)
+            userDAO.getAllUsers().value!![0]
         } catch (e:Exception) {
             null
         }

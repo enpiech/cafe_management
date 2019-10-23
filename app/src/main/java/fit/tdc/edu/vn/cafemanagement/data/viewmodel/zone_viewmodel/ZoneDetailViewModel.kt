@@ -1,17 +1,16 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel
 
+import android.util.Log
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
-class ZoneViewModel(
+class ZoneDetailViewModel(
     private val zoneRepository: ZoneRepositoryAPI
-) : BaseViewViewModel<Zone>() {
-
-    override fun getAllItems() = zoneRepository.getAllZones()
+) : BaseDetailViewModel<Zone>() {
 
     override fun getItem(id: String) = zoneRepository.getZone(id)
 
@@ -19,16 +18,22 @@ class ZoneViewModel(
 
     override fun update(item: Zone) = zoneRepository.update(item)
 
-    override fun delete(item: Zone) = zoneRepository.delete(item)
-
-    override fun dataChange(item: Zone) {
+    override fun dataChange(item: Zone?) {
         when {
-            item == currentItem.value -> {
+            item == null -> {
                 _formState.value = ZoneViewFormState(
                     nameError = null
                 ).apply {
                     isChanged = false
                     isDataValid = true
+                }
+            }
+            item == currentItem.value -> {
+                _formState.value = ZoneViewFormState(
+                    nameError = null
+                ).apply {
+                    isChanged = false
+                    isDataValid = false
                 }
             }
             !isNameValid(item.name) -> {
@@ -40,6 +45,7 @@ class ZoneViewModel(
                 }
             }
             isNameValid(item.name) && item != currentItem.value -> {
+                Log.d("test", item.toString() + ":" + currentItem.value.toString())
                 _formState.value = ZoneViewFormState(
                     nameError = null
                 ).apply {

@@ -8,13 +8,13 @@ class UnitViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UnitViewModel::class.java)) {
-            return UnitViewModel(
+        if (modelClass.isAssignableFrom(UnitListViewModel::class.java)) {
+            return UnitListViewModel(
                 unitRepository = UnitRepository()
             ) as T
-        } else if (modelClass.isAssignableFrom(UnitCreateViewModel::class.java)) {
-            return UnitCreateViewModel(
-                unitRepository = UnitRepository()
+        } else if (modelClass.isAssignableFrom(UnitDetailViewModel::class.java)) {
+            return UnitDetailViewModel(
+                itemRepository = UnitRepository()
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

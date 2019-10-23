@@ -6,7 +6,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
-import java.io.File
 import javax.inject.Singleton
 
 /**
@@ -32,7 +31,7 @@ class LoginDataSource {
                 }
                 val firebaseUser = it.user!!
                 val user = User(
-                    role = User.Type.MANAGER,
+                    role = User.Role.MANAGER,
                     username = firebaseUser.email
                 ).apply {
                     id = firebaseUser.uid
@@ -47,7 +46,7 @@ class LoginDataSource {
     fun employeeLogin(
         username: String,
         password: String,
-        userType: User.Type
+        userType: User.Role
     ) {
         firestore.collection("users").document(username)
             .get()
@@ -58,13 +57,6 @@ class LoginDataSource {
                             id = userDocument.id
                         }
                         _result.value = FirestoreResource.success(user)
-                        File("userDatabase.txt").bufferedWriter().use { out ->
-                            out.write(username)
-                            out.newLine()
-                            out.write(password)
-                            out.newLine()
-                            out.write(user!!.storeId)
-                        }
                         return@addOnSuccessListener
                     } else {
                         _result.value = FirestoreResource.error(Exception("Username and Password is not match"))

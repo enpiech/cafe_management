@@ -12,7 +12,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragmentDirections
 import kotlinx.android.synthetic.main.item_zone.view.*
 
-class CategoryAdapter : ListAdapter<Category, CategoryHolder>(DIFF_CALLBACK) {
+class CategoryAdapter : ListAdapter<Category, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -22,18 +22,9 @@ class CategoryAdapter : ListAdapter<Category, CategoryHolder>(DIFF_CALLBACK) {
         return CategoryHolder(itemView)
     }
 
-    override fun onBindViewHolder(
-        holder: CategoryHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentCategory: Category = getItem(position)
-        holder.bind(currentCategory)
-    }
-
-    fun getCategoryAt(
-        position: Int
-    ): Category {
-        return getItem(position)
+        (holder as CategoryHolder).bind(currentCategory)
     }
 }
 

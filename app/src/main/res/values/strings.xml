@@ -122,4 +122,14 @@
     <string name="lbl_user_name">Họ và tên</string>
     <string name="lbl_user_uid">Chứng minh nhân dân</string>
     <string name="lbl_user_address">Địa chỉ</string>
+    <string name="lbl_user_phone_number">Số điện thoại</string>
+
+    <string name="lbl_manager">Tổng quản lý</string>
+    <string name="lbl_store_manager">Quản lý quán</string>
+    <string name="lbl_waiter">Phục vụ</string>
+    <string name="lbl_bartender">Bếp</string>
+    <string name="lbl_male">Nam</string>
+    <string name="lbl_female">Nữ</string>
+    <string name="lbl_gender_other">Khác</string>
+    <string name="lbl_gender_unknown">Không tiết lộ</string>
 </resources>

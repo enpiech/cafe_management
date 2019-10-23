@@ -3,15 +3,16 @@ package fit.tdc.edu.vn.cafemanagement.data.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
+import fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragmentDirections
 import kotlinx.android.synthetic.main.item_unit.view.*
 
-class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
+class UnitAdapter : ListAdapter<Unit, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Unit>() {
@@ -25,40 +26,35 @@ class UnitAdapter : ListAdapter<Unit, UnitAdapter.UnitHolder>(DIFF_CALLBACK) {
         }
     }
 
-    private var listener: OnItemClickListener? = null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UnitHolder {
         val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.item_unit, parent, false)
         return UnitHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: UnitHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentUnit: Unit = getItem(position)
-        holder.textUnit.text = currentUnit.name
-    }
-
-    fun getUnitAt(position: Int): Unit {
-        return getItem(position)
+        (holder as UnitHolder).bind(currentUnit)
     }
 
     inner class UnitHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
+        private fun navigateToView(
+            unit: Unit,
+            it: View
+        ) {
+            val direction =
+                UnitListFragmentDirections.unitViewAction(unit.id, "Chỉnh sửa đơn vị")
+            it.findNavController().navigate(direction)
+        }
+
+        fun bind(item: Unit) {
+            itemView.txt_name.text = item.name
+
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener?.onItemClick(getItem(position))
+                    navigateToView(item, it)
                 }
             }
         }
-
-        var textUnit: TextView = itemView.txt_name
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(unit: Unit)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
     }
 }

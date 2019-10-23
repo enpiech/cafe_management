@@ -11,7 +11,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragmentDirections
 import kotlinx.android.synthetic.main.item_user.view.*
 
-class UserAdapter  : ListAdapter<User, UserHolder>(User.DIFF_CALLBACK) {
+class UserAdapter  : ListAdapter<User, RecyclerView.ViewHolder>(User.DIFF_CALLBACK) {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -21,18 +21,9 @@ class UserAdapter  : ListAdapter<User, UserHolder>(User.DIFF_CALLBACK) {
         return UserHolder(itemView)
     }
 
-    override fun onBindViewHolder(
-        holder: UserHolder,
-        position: Int
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentUser: User = getItem(position)
-        holder.bind(currentUser)
-    }
-
-    fun getUserAt(
-        position: Int
-    ): User {
-        return getItem(position)
+        (holder as UserHolder).bind(currentUser)
     }
 }
 

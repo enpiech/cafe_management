@@ -9,10 +9,17 @@ class ZoneViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ZoneViewModel::class.java)) {
-            return ZoneViewModel(
+        if (modelClass.isAssignableFrom(ZoneDetailViewModel::class.java)) {
+            return ZoneDetailViewModel(
                 zoneRepository = ZoneRepository(
                      dataSource = FireBaseDataSource()
+                )
+            ) as T
+        }
+        else if (modelClass.isAssignableFrom(ZoneListViewModel::class.java)) {
+            return ZoneListViewModel(
+                zoneRepository = ZoneRepository(
+                    dataSource = FireBaseDataSource()
                 )
             ) as T
         }

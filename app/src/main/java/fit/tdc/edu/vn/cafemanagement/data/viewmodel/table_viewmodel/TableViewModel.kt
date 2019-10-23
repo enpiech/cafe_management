@@ -3,7 +3,6 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 import androidx.lifecycle.*
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid

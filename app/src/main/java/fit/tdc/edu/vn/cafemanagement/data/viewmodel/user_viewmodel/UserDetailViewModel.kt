@@ -5,13 +5,11 @@ import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
-class UserViewModel (
+class UserDetailViewModel (
     private val userRepository: UserRepositoryAPI
-): BaseViewViewModel<User>() {
-
-    override fun getAllItems() = userRepository.getAllUsers()
+): BaseDetailViewModel<User>() {
 
     override fun getItem(id: String) = userRepository.getUser(id)
 
@@ -19,10 +17,16 @@ class UserViewModel (
 
     override fun update(item: User) = userRepository.update(item)
 
-    override fun delete(item: User) = userRepository.delete(item)
-
-    override fun dataChange(item: User) {
+    override fun dataChange(item: User?) {
         when {
+            item == null -> {
+                _formState.value = UserViewFormState(
+                    nameError = null
+                ).apply {
+                    isChanged = false
+                    isDataValid = true
+                }
+            }
             item == currentItem.value -> {
                 _formState.value = UserViewFormState(
                     nameError = null

@@ -9,8 +9,14 @@ class UserViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(UserViewModel::class.java)) {
-            return UserViewModel(
+        if (modelClass.isAssignableFrom(UserDetailViewModel::class.java)) {
+            return UserDetailViewModel(
+                userRepository = UserRepository(
+                    dataSource = FireBaseDataSource()
+                )
+            ) as T
+        } else if (modelClass.isAssignableFrom(UserListViewModel::class.java)) {
+            return UserListViewModel(
                 userRepository = UserRepository(
                     dataSource = FireBaseDataSource()
                 )

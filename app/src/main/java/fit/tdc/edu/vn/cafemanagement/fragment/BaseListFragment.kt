@@ -1,54 +1,63 @@
-package fit.tdc.edu.vn.cafemanagement.fragment.table
+package fit.tdc.edu.vn.cafemanagement.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class TableListFragment : Fragment(R.layout.fragment_list) {
-
-    var viewAdapter = TableAdapter()
-
-    private val viewModel by lazy {
-        ViewModelProvider(this, TableViewModelFactory()).get<TableViewModel>()
-    }
-
-    companion object {
-        fun newInstance() = TableListFragment()
-    }
+abstract class BaseListFragment<T: FirestoreModel>(
+    @LayoutRes resId: Int
+) : Fragment(resId) {
+    abstract val viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>
+    abstract val viewModel: BaseListViewModel<T>
+    abstract val navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        requireActivity().fab.setOnClickListener {
-            findNavController().navigate(TableListFragmentDirections.tableViewAction(tableId = null, title = "Tạo Table"))
-        }
+        setupFab(requireActivity().fab)
+        setupRecyclerView(recycler_view, viewAdapter)
+        setupSwipeToDelete()
+    }
 
+    protected open fun setupFab(fab: FloatingActionButton ) {
+        fab.setOnClickListener {
+            navController.navigate(ZoneListFragmentDirections.zoneViewAction(null))
+        }
+    }
+
+    open fun setupRecyclerView(recyclerView: RecyclerView, viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>) {
         recycler_view.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-
             adapter = viewAdapter
         }
 
-        viewModel.getAllTables().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             viewAdapter.submitList(it.data)
         })
 
+    }
+
+    open fun deleteItem(item: T, view: View) {
+        viewModel.delete(item)
+        showDeleteNotifySnackBar(item, view)
+    }
+
+    open fun setupSwipeToDelete() {
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0, ItemTouchHelper.LEFT.or(
                 ItemTouchHelper.RIGHT
@@ -62,20 +71,14 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
                 return false
             }
 
-
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 MaterialAlertDialogBuilder(context)
                     .setTitle(R.string.dialog_title_delete)
                     .setMessage(R.string.warning_message_delete)
                     .setPositiveButton(R.string.btnOK) { _, _ ->
                         run {
-                            viewAdapter.getTableAt(viewHolder.adapterPosition).apply {
-                                viewModel.delete(this)
-                                Snackbar.make(
-                                    viewHolder.itemView,
-                                    "${this.name} đã bị xóa!",
-                                    Snackbar.LENGTH_LONG
-                                ).show()
+                            viewAdapter.currentList[viewHolder.adapterPosition].apply {
+                                deleteItem(this, viewHolder.itemView)
                             }
                         }
                     }
@@ -87,4 +90,6 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
         }
         ).attachToRecyclerView(recycler_view)
     }
+
+    protected abstract fun showDeleteNotifySnackBar(item: T, view: View)
 }
