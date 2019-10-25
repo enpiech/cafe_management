@@ -25,6 +25,9 @@ class UnitViewFragment : BaseViewFragment(R.layout.fragment_unit_view) {
     private val unitId by lazy {
         args.unitId
     }
+    private val navController by lazy {
+        findNavController()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.viewType.observe(this, Observer {
@@ -126,7 +129,21 @@ class UnitViewFragment : BaseViewFragment(R.layout.fragment_unit_view) {
                 if (it != null) {
                     edtName.editText?.setText(it.name)
                 } else {
-                    TODO("Notify user about this unit has been removed")
+                    MaterialAlertDialogBuilder(context)
+                        .setTitle(R.string.dialog_title_modifying_removed_item)
+                        .setMessage(R.string.warning_message_modifying_removed_item)
+                        .setPositiveButton(R.string.btnOK) { _, _ ->
+                            viewModel.setViewType(FormState.Type.ADD)
+                            viewModel.dataChange(
+                                Unit(
+                                    name = edtName.editText?.text.toString()
+                                )
+                            )
+                        }
+                        .setNegativeButton(R.string.btnCancel) { _, _ ->
+                            navController.navigateUp()
+                        }
+                        .show()
                 }
             })
         }
