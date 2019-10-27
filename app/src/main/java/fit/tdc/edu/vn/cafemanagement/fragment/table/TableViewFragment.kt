@@ -14,8 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.SpinnerZoneAdapter
-import fit.tdc.edu.vn.cafemanagement.data.adapter.SpinnerZoneHolder
 import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
 import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneHolder
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
@@ -32,7 +30,7 @@ import kotlinx.android.synthetic.main.form_table.*
 
 class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
 
-    val spinnerAdapter = SpinnerZoneAdapter()
+    //val spinnerAdapter = SpinnerZoneAdapter()
 
     companion object {
         fun newInstance() = TableViewFragment()
@@ -79,12 +77,12 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
 //            table_spinner.adapter = adapter
 //        })
 
-        zoneViewModel.getAllItems().observe(this, Observer {
-            spinnerAdapter.submitList(it.data)
-            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerAdapter.currentList)
-            Log.d("test", "casdads"+spinnerAdapter.currentList)
-            table_spinner.adapter = adapter
-        })
+//        zoneViewModel.getAllItems().observe(this, Observer {
+//            spinnerAdapter.submitList(it.data)
+//            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerAdapter.currentList)
+//            Log.d("test", "casdads"+spinnerAdapter.currentList)
+//            table_spinner.adapter = adapter
+//        })
 
 //        zoneViewModel.getAllItems().observe(this, Observer {
 //            val options = it.data
