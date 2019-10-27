@@ -122,4 +122,7 @@
     <string name="lbl_user_name">Họ và tên</string>
     <string name="lbl_user_uid">Chứng minh nhân dân</string>
     <string name="lbl_user_address">Địa chỉ</string>
+    <string name="txtZoneName">Khu A</string>
+    <string name="btnCong">+</string>
+    <string name="btnMinus">-</string>
 </resources>
