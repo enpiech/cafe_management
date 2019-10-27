@@ -107,6 +107,15 @@
                             <option name="y" value="468" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="tableOrderViewAction">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>

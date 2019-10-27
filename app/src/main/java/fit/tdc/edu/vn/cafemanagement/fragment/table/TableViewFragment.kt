@@ -1,31 +1,44 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.table
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.ListAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
+import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.form_table.*
 
 class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
-
+    var viewAdapter = TableAdapter()
 
     companion object {
         fun newInstance() = TableViewFragment()
     }
 
-    private val viewModel by lazy {
+    private val tableViewModel by lazy {
         ViewModelProvider(this, TableViewModelFactory()).get<TableViewModel>()
+    }
+
+    private val zoneViewModel by lazy {
+        ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneViewModel>()
     }
 
     private val args by navArgs<TableViewFragmentArgs>()
@@ -38,15 +51,32 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.viewType.observe(this, Observer {
+        zoneViewModel.getAllItems().observe(this, Observer {
+            val options = it.data
+            val spinnerAdapter = options?.let { it1 ->
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
+                    it1
+                )
+            }
+            table_spinner.adapter = spinnerAdapter
+        })
+
+//        zoneViewModel.getAllItems().observe(this, Observer {
+//            val items = ArrayList<Zone>()
+//            it.data?.let { it1 -> items.addAll(it1) }
+//            val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,items)
+//            table_spinner.adapter = spinnerAdapter
+//        })
+
+        tableViewModel.viewType.observe(this, Observer {
             if (it == null) {
                 when (tableId) {
                     null -> {
-                        viewModel.setViewType(FormState.Type.ADD)
+                        tableViewModel.setViewType(FormState.Type.ADD)
                     }
                     else -> {
-                        viewModel.setViewType(FormState.Type.VIEW)
-                        viewModel.getCurrentTable(tableId!!)
+                        tableViewModel.setViewType(FormState.Type.VIEW)
+                        tableViewModel.getCurrentItem(tableId!!)
                     }
                 }
             } else {
@@ -54,25 +84,25 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
             }
         })
 
-        viewModel.formState.observe(this, Observer {
+        tableViewModel.formState.observe(this, Observer {
             val state = it ?: return@Observer
-            if (viewModel.viewType.value != FormState.Type.VIEW) {
+            if (tableViewModel.viewType.value != FormState.Type.VIEW) {
                 if (state.isDataValid && state.isChanged) {
                     fab.show()
                 } else {
                     fab.hide()
                 }
-
-                if (state.nameError != null) {
-                    table_edit_name.error = getString(state.nameError)
+                val tableFormState = state as TableViewFormState
+                if (tableFormState.nameError != null) {
+                    table_edit_name.error = getString(tableFormState.nameError)
                 }
             }
         })
 
         fab.setOnClickListener {
-            when (viewModel.viewType.value) {
+            when (tableViewModel.viewType.value) {
                 FormState.Type.ADD -> {
-                    viewModel.insert(
+                    tableViewModel.insert(
                         Table(
                             name = table_edit_name.editText?.text.toString()
                         )
@@ -80,10 +110,10 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
                     navController.navigateUp()
                 }
                 FormState.Type.VIEW -> {
-                    viewModel.setViewType(FormState.Type.MODIFY)
+                    tableViewModel.setViewType(FormState.Type.MODIFY)
                 }
                 FormState.Type.MODIFY -> {
-                    viewModel.update(
+                    tableViewModel.update(
                         Table(
                             name = table_edit_name.editText?.text.toString()
                         ).also { it.id = tableId!! }
@@ -96,28 +126,28 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
     }
 
     override fun requestNavigateUp() {
-        if (viewModel.viewType.value == FormState.Type.VIEW) {
+        if (tableViewModel.viewType.value == FormState.Type.VIEW) {
             findNavController().navigateUp()
             return
         }
 
-        if (viewModel.formState.value?.isChanged == true) {
+        if (tableViewModel.formState.value?.isChanged == true) {
             MaterialAlertDialogBuilder(context)
                 .setTitle(R.string.dialog_title_warning)
                 .setMessage(R.string.warning_message_unsaved_changed)
                 .setPositiveButton(R.string.btnOK) { _, _ ->
-                    when (viewModel.viewType.value) {
-                        FormState.Type.MODIFY -> viewModel.setViewType(FormState.Type.VIEW)
+                    when (tableViewModel.viewType.value) {
+                        FormState.Type.MODIFY -> tableViewModel.setViewType(FormState.Type.VIEW)
                         FormState.Type.ADD -> findNavController().navigateUp()
                     }
                 }
                 .setNegativeButton(R.string.btnCancel, null)
                 .show()
         } else {
-            if (viewModel.viewType.value == FormState.Type.ADD) {
+            if (tableViewModel.viewType.value == FormState.Type.ADD) {
                 findNavController().navigateUp()
             } else {
-                viewModel.setViewType(FormState.Type.VIEW)
+                tableViewModel.setViewType(FormState.Type.VIEW)
             }
         }
     }
@@ -126,14 +156,16 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         when (type) {
             FormState.Type.MODIFY, FormState.Type.ADD -> {
                 table_edit_name.isEnabled = true
+                table_spinner.isEnabled = true
             }
             FormState.Type.VIEW -> {
                 table_edit_name.isEnabled = false
+                table_spinner.isEnabled = false
             }
         }
 
         if (type != FormState.Type.ADD) {
-            viewModel.currentTable.observe(this, Observer {
+            tableViewModel.currentItem.observe(this, Observer {
                 if (it != null) {
                     table_edit_name.editText?.setText(it.name)
                 } else {
@@ -141,8 +173,8 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
                         .setTitle(R.string.dialog_title_modifying_removed_item)
                         .setMessage(R.string.warning_message_modifying_removed_item)
                         .setPositiveButton(R.string.btnOK) { _, _ ->
-                            viewModel.setViewType(FormState.Type.ADD)
-                            viewModel.dataChange(
+                            tableViewModel.setViewType(FormState.Type.ADD)
+                            tableViewModel.dataChange(
                                 Table(
                                     name = table_edit_name.editText?.text.toString()
                                 )
@@ -159,7 +191,7 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
     }
     private fun setupForm() {
         table_edit_name.asEditText {
-            viewModel.dataChange(
+            tableViewModel.dataChange(
                 Table(
                     name = it
                 )
