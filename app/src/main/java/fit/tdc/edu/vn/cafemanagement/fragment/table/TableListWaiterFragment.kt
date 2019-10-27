@@ -31,7 +31,7 @@ class TableListWaiterFragment : Fragment(R.layout.fragment_list) {
     }
 
     companion object {
-        fun newInstance() = TableListFragment()
+        fun newInstance() = TableListWaiterFragment()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

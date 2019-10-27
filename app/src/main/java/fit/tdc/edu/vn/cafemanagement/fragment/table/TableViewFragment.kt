@@ -54,45 +54,15 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        spinnerAdapter.fetchSpinnerItems().observe(this, Observer {
-//            val spinnerAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, it)
-//            table_spinner.adapter = spinnerAdapter
-//        })
-
-//        zoneViewModel.getAllItems().observe(this, Observer {
-////            val spinner = spinnerAdapter.submitList(it.data)
-////            table_spinner.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, spinnerAdapter.submitList(it.data))
-////            Log.d("test", "testtt "+it.data.toString())
-//            val options = arrayOf(Zone.apply {
-//                var zone:Zone
-//                return@apply
-//                zone.name
-//            })
-//
-//            val adapter = options?.let { it1 ->
-//                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
-//                    it1
-//                )
-//            }
-//            table_spinner.adapter = adapter
-//        })
-
-//        zoneViewModel.getAllItems().observe(this, Observer {
-//            spinnerAdapter.submitList(it.data)
-//            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, spinnerAdapter.currentList)
-//            Log.d("test", "casdads"+spinnerAdapter.currentList)
-//            table_spinner.adapter = adapter
-//        })
-
-//        zoneViewModel.getAllItems().observe(this, Observer {
-//            val options = it.data
-//            val spinnerAdapter = options?.let { it1 ->
-//                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
-//                    it1
-//                )
-//            }
-//            table_spinner.adapter = spinnerAdapter
-//        })
+        zoneViewModel.getAllItems().observe(this, Observer {
+            val options = it.data
+            val spinnerAdapter = options?.let { it1 ->
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
+                    it1
+                )
+            }
+            table_spinner.adapter = spinnerAdapter
+        })
 
 //        zoneViewModel.getAllItems().observe(this, Observer {
 //            val items = ArrayList<Zone>()

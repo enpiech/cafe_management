@@ -14,7 +14,7 @@ class OrderListFragment : Fragment() {
         fun newInstance() = OrderListFragment()
     }
 
-    private lateinit var viewModel: OrderListViewModel
+    //private lateinit var viewModel: OrderListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +25,7 @@ class OrderListFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(OrderListViewModel::class.java)
+        //viewModel = ViewModelProvider(this).get(OrderListViewModel::class.java)
         // TODO: Use the ViewModel
     }
 
