@@ -14,7 +14,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -24,7 +24,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
     var viewAdapter = TableAdapter()
 
     private val viewModel by lazy {
-        ViewModelProvider(this, TableViewModelFactory()).get<TableViewModel>()
+        ViewModelProvider(this, TableViewModelFactory()).get<TableListViewModel>()
     }
 
     companion object {
@@ -45,7 +45,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllTables().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             viewAdapter.submitList(it.data)
             //Log.d("test", "cao"+it.data.toString())
         })
@@ -70,7 +70,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
                     .setMessage(R.string.warning_message_delete)
                     .setPositiveButton(R.string.btnOK) { _, _ ->
                         run {
-                            viewAdapter.getTableAt(viewHolder.adapterPosition).apply {
+                            viewAdapter.currentList[viewHolder.adapterPosition].apply {
                                 viewModel.delete(this)
                                 Snackbar.make(
                                     viewHolder.itemView,
@@ -81,7 +81,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
                         }
                     }
                     .setNegativeButton(R.string.btnCancel) { _, _ ->
-                        viewAdapter.notifyDataSetChanged()
+                        viewAdapter.notifyItemChanged(viewHolder.adapterPosition)
                     }
                     .show()
             }

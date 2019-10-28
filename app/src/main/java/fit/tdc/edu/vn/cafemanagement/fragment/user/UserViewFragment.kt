@@ -83,7 +83,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
 
     override fun setupForm() {
         edtId.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     username = it
                 )
@@ -91,7 +91,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         edtPassword.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     password = it
                 )
@@ -99,7 +99,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         edtName.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     name = it
                 )
@@ -107,7 +107,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         edtBirth.asDatePicker(requireContext()) {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     birth = it
                 )
@@ -127,7 +127,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         ))
 
         edtIdentityId.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     identityId = it
                 )
@@ -135,7 +135,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         edtPhoneNumber.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     phone = it
                 )
@@ -143,7 +143,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         edtAddress.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 User(
                     address = it
                 )

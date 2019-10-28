@@ -1,23 +1,17 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
-import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
+import androidx.lifecycle.MediatorLiveData
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
-import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
-class TableViewModel (
+class TableDetailViewModel(
     private val tableRepository: TableRepository
-) : BaseViewViewModel<Table>() {
-    override fun getAllItems() = tableRepository.getAllTables()
+) : BaseDetailViewModel<Table>() {
+    fun getAllItems() = tableRepository.getAllTables()
 
     override fun getItem(id: String) = tableRepository.getTable(id)
 
@@ -30,14 +24,12 @@ class TableViewModel (
 
     override fun update(table: Table) = tableRepository.update(table)
 
-    override fun delete(table: Table) = tableRepository.delete(table)
-
     fun getAllTables() = allTables
 
 
-    override fun dataChange(table: Table) {
+    override fun validate(item: Table?) {
         when {
-            table == currentItem.value -> {
+            item == currentItem.value -> {
                 _formState.value = TableViewFormState(
                     nameError = null
                 ).apply {
@@ -45,7 +37,7 @@ class TableViewModel (
                     isDataValid = true
                 }
             }
-            !isNameValid(table.name) -> {
+            !isNameValid(item?.name) -> {
                 _formState.value = TableViewFormState(
                     nameError = R.string.invalid_table_name
                 ).apply {
@@ -53,7 +45,7 @@ class TableViewModel (
                     isDataValid = false
                 }
             }
-            isNameValid(table.name) && table != currentItem.value -> {
+            isNameValid(item?.name) && item != currentItem.value -> {
                 _formState.value = TableViewFormState(
                     nameError = null
                 ).apply {

@@ -54,7 +54,7 @@ class UnitViewFragment : BaseViewFragmentTest<Unit>(R.layout.fragment_unit_view)
 
     override fun setupForm() {
         edtName.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 Unit(
                     name = it
                 )

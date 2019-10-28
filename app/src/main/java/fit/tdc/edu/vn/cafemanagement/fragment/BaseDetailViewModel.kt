@@ -42,5 +42,5 @@ abstract class BaseDetailViewModel<T: FirestoreModel> : ViewModel() {
     abstract fun getItem(id: String): DocumentLiveData<T>
     abstract fun insert(item: T): TaskLiveData<DocumentReference>
     abstract fun update(item: T): TaskLiveData<Void>
-    abstract fun dataChange(item: T?)
+    abstract fun validate(item: T?)
 }

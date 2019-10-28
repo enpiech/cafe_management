@@ -1,28 +1,21 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.table
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.ListAdapter
-import android.widget.Spinner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
-import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneHolder
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
@@ -37,11 +30,11 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
     }
 
     private val tableViewModel by lazy {
-        ViewModelProvider(this, TableViewModelFactory()).get<TableViewModel>()
+        ViewModelProvider(this, TableViewModelFactory()).get<TableDetailViewModel>()
     }
 
     private val zoneViewModel by lazy {
-        ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneViewModel>()
+        ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneListViewModel>()
     }
 
     private val args by navArgs<TableViewFragmentArgs>()
@@ -57,7 +50,8 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         zoneViewModel.getAllItems().observe(this, Observer {
             val options = it.data
             val spinnerAdapter = options?.let { it1 ->
-                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
+                ArrayAdapter(
+                    requireContext(), android.R.layout.simple_spinner_dropdown_item,
                     it1
                 )
             }
@@ -177,10 +171,8 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
                         .setMessage(R.string.warning_message_modifying_removed_item)
                         .setPositiveButton(R.string.btnOK) { _, _ ->
                             tableViewModel.setViewType(FormState.Type.ADD)
-                            tableViewModel.dataChange(
-                                Table(
-                                    name = table_edit_name.editText?.text.toString()
-                                )
+                            tableViewModel.currentItem.value = Table(
+                                name = table_edit_name.editText?.text.toString()
                             )
                         }
                         .setNegativeButton(R.string.btnCancel) { _, _ ->
@@ -192,9 +184,10 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         }
         setupForm()
     }
+
     private fun setupForm() {
         table_edit_name.asEditText {
-            tableViewModel.dataChange(
+            tableViewModel.validate(
                 Table(
                     name = it
                 )

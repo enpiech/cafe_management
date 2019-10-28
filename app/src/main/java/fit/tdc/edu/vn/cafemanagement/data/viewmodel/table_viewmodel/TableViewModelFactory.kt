@@ -9,11 +9,17 @@ class TableViewModelFactory : ViewModelProvider.Factory {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(TableViewModel::class.java)) {
-            return TableViewModel(
-                 tableRepository = TableRepository(
-                     dataSource = FireBaseDataSource()
-                 )
+        if (modelClass.isAssignableFrom(TableDetailViewModel::class.java)) {
+            return TableDetailViewModel(
+                tableRepository = TableRepository(
+                    dataSource = FireBaseDataSource()
+                )
+            ) as T
+        } else if (modelClass.isAssignableFrom(TableListViewModel::class.java)) {
+            return TableListViewModel(
+                tableRepository = TableRepository(
+                    dataSource = FireBaseDataSource()
+                )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

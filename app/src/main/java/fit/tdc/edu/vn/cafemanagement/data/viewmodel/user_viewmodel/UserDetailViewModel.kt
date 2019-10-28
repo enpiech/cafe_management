@@ -17,7 +17,7 @@ class UserDetailViewModel (
 
     override fun update(item: User) = userRepository.update(item)
 
-    override fun dataChange(item: User?) {
+    override fun validate(item: User?) {
         when {
             item == null -> {
                 _formState.value = UserViewFormState(

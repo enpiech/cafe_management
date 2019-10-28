@@ -54,7 +54,7 @@ class CategoryViewFragment : BaseViewFragmentTest<Category>(R.layout.fragment_ca
 
     override fun setupForm() {
         edtName.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 Category(
                     name = it
                 )

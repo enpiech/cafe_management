@@ -18,7 +18,7 @@ class ZoneDetailViewModel(
 
     override fun update(item: Zone) = zoneRepository.update(item)
 
-    override fun dataChange(item: Zone?) {
+    override fun validate(item: Zone?) {
         when {
             item == null -> {
                 _formState.value = ZoneViewFormState(

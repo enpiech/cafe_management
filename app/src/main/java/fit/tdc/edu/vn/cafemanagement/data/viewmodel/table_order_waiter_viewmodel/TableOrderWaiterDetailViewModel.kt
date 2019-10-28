@@ -5,23 +5,18 @@ import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
-class TableOrderWaiterViewModel(
+class TableOrderWaiterDetailViewModel(
     private val categoryRepository: CategoryRepositoryAPI
-): BaseViewViewModel<Category>() {
-
-    override fun getAllItems() = categoryRepository.getAllCategories()
-
+) : BaseDetailViewModel<Category>() {
     override fun getItem(id: String) = categoryRepository.getCategory(id)
 
     override fun insert(item: Category) = categoryRepository.insert(item)
 
     override fun update(item: Category) = categoryRepository.update(item)
 
-    override fun delete(item: Category) = categoryRepository.delete(item)
-
-    override fun dataChange(item: Category) {
+    override fun validate(item: Category?) {
         when {
             item == currentItem.value -> {
                 _formState.value = CategoryViewFormState(
@@ -31,7 +26,7 @@ class TableOrderWaiterViewModel(
                     isDataValid = true
                 }
             }
-            !isNameValid(item.name) -> {
+            !isNameValid(item?.name) -> {
                 _formState.value = CategoryViewFormState(
                     nameError = R.string.invalid_category_name
                 ).apply {
@@ -39,7 +34,7 @@ class TableOrderWaiterViewModel(
                     isDataValid = false
                 }
             }
-            isNameValid(item.name) && item != currentItem.value -> {
+            isNameValid(item?.name) && item != currentItem.value -> {
                 _formState.value = CategoryViewFormState(
                     nameError = null
                 ).apply {

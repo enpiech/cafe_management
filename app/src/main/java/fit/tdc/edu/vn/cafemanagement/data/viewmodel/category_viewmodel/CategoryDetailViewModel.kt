@@ -16,7 +16,7 @@ class CategoryDetailViewModel(
 
     override fun update(item: Category) = categoryRepository.update(item)
 
-    override fun dataChange(item: Category?) {
+    override fun validate(item: Category?) {
         when {
             item == null -> {
                 _formState.value = CategoryViewFormState(

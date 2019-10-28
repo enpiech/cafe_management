@@ -55,7 +55,7 @@ class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_view)
 
     override fun setupForm() {
         edtName.asEditText {
-            viewModel.dataChange(
+            viewModel.validate(
                 Zone(
                     name = it
                 )
