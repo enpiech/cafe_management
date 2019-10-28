@@ -47,6 +47,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
 
         viewModel.getAllTables().observe(this, Observer {
             viewAdapter.submitList(it.data)
+            //Log.d("test", "cao"+it.data.toString())
         })
 
         ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(

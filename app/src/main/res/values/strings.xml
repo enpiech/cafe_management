@@ -132,4 +132,9 @@
     <string name="lbl_female">Nữ</string>
     <string name="lbl_gender_other">Khác</string>
     <string name="lbl_gender_unknown">Không tiết lộ</string>
+    <string name="txtZoneName">Khu A</string>
+    <string name="btnCong">+</string>
+    <string name="btnMinus">-</string>
+    <string name="so_khong">0</string>
+    <string name="so_luong">0</string>
 </resources>

@@ -3,67 +3,41 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 import androidx.lifecycle.*
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewViewModel
 
 class TableViewModel (
     private val tableRepository: TableRepository
-) : ViewModel() {
+) : BaseViewViewModel<Table>() {
+    override fun getAllItems() = tableRepository.getAllTables()
 
-    private var _viewType = MutableLiveData<FormState.Type?>(null)
-    val viewType: LiveData<FormState.Type?> = _viewType
+    override fun getItem(id: String) = tableRepository.getTable(id)
 
-    private var _formState = MutableLiveData<TableViewFormState>(null)
-    val formState: LiveData<TableViewFormState> = _formState
-
-    private var _currentTableId = LiveEvent<String>()
-    val currentTable = MediatorLiveData<Table?>()
-
-    init {
-        with(currentTable) {
-            addSource(
-                _currentTableId.switchMap { tableId ->
-                    tableRepository.getTable(tableId)
-                }
-            ) { result ->
-                if (result.status == Status.SUCCESS) {
-                    currentTable.value = result.data
-                }
-            }
-        }
-
-    }
-
-    fun setViewType(type: FormState.Type) {
-        _viewType.value = type
-    }
 
     private var allTables = tableRepository.getAllTables()
 
     private val tables = MediatorLiveData<List<Table>>()
 
-    fun insert(table: Table) = tableRepository.insert(table)
+    override fun insert(table: Table) = tableRepository.insert(table)
 
-    fun update(table: Table) = tableRepository.update(table)
+    override fun update(table: Table) = tableRepository.update(table)
 
-    fun delete(table: Table) = tableRepository.delete(table)
+    override fun delete(table: Table) = tableRepository.delete(table)
 
     fun getAllTables() = allTables
 
-    fun getTable(tableId: String) {
-        _currentTableId.value = tableId
-    }
 
-    fun getCurrentTable(tableId: String) {
-        _currentTableId.value = tableId
-    }
-    fun dataChange(table: Table) {
+    override fun dataChange(table: Table) {
         when {
-            table == currentTable.value -> {
+            table == currentItem.value -> {
                 _formState.value = TableViewFormState(
                     nameError = null
                 ).apply {
@@ -79,7 +53,7 @@ class TableViewModel (
                     isDataValid = false
                 }
             }
-            isNameValid(table.name) && table != currentTable.value -> {
+            isNameValid(table.name) && table != currentItem.value -> {
                 _formState.value = TableViewFormState(
                     nameError = null
                 ).apply {

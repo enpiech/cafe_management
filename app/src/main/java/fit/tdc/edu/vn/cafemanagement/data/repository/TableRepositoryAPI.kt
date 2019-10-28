@@ -10,6 +10,6 @@ interface TableRepositoryAPI {
     fun getAllTables(): CollectionLiveData<Table>
     fun getTable(id: String): DocumentLiveData<Table>
     fun insert(table: Table): TaskLiveData<DocumentReference>
-    fun update(table: Table)
+    fun update(table: Table): TaskLiveData<Void>
     fun delete(table: Table): TaskLiveData<Void>
 }
