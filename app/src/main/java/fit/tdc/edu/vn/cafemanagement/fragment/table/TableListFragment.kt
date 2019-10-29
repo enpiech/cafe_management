@@ -27,10 +27,6 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
         ViewModelProvider(this, TableViewModelFactory()).get<TableListViewModel>()
     }
 
-    companion object {
-        fun newInstance() = TableListFragment()
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -45,8 +41,8 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllItems().observe(this, Observer {
-            viewAdapter.submitList(it.data)
+        viewModel.itemList.observe(this, Observer {
+            viewAdapter.submitList(it)
             //Log.d("test", "cao"+it.data.toString())
         })
 

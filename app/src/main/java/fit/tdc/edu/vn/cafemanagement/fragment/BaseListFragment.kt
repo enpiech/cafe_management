@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 abstract class BaseListFragment<T: FirestoreModel>(
-    @LayoutRes resId: Int
+    @LayoutRes resId: Int,
+    private val viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>
 ) : Fragment(resId) {
-    abstract val viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>
     abstract val viewModel: BaseListViewModel<T>
     abstract val navController: NavController
 
@@ -46,8 +46,8 @@ abstract class BaseListFragment<T: FirestoreModel>(
             adapter = viewAdapter
         }
 
-        viewModel.getAllItems().observe(this, Observer {
-            viewAdapter.submitList(it.data)
+        viewModel.itemList.observe(viewLifecycleOwner, Observer {
+            viewAdapter.submitList(it)
         })
 
     }

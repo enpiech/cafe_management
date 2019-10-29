@@ -31,6 +31,12 @@
         <action
             android:id="@+id/action_loginFragment_to_userListFragment"
             app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_tableListWaiterFragment"
+            app:destination="@id/tableListWaiterFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitListFragment"

@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.fragment.table_order
+package fit.tdc.edu.vn.cafemanagement.fragment.table_order
 
 import android.os.Bundle
 import android.view.LayoutInflater

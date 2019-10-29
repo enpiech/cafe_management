@@ -15,6 +15,12 @@ class TableOrderWaiterViewModelFactory : ViewModelProvider.Factory {
                      dataSource = FireBaseDataSource()
                  )
             ) as T
+        } else if (modelClass.isAssignableFrom(TableOrderWaiterListViewModel::class.java)) {
+            return TableOrderWaiterListViewModel(
+                categoryRepository = CategoryRepository(
+                    dataSource = FireBaseDataSource()
+                )
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

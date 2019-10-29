@@ -19,6 +19,8 @@ abstract class BaseDetailViewModel<T: FirestoreModel> : ViewModel() {
     private var _currentItemId = LiveEvent<String>()
     val currentItem = MediatorLiveData<T>()
 
+    protected var draftItem = MutableLiveData<T>()
+
     init {
         currentItem.addSource(
             _currentItemId.switchMap { id ->

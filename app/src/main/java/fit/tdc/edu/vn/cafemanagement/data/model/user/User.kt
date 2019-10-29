@@ -11,7 +11,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 @Entity(tableName = "user_table")
 data class User(
     var name: String? = null,
-    @Ignore var birth: Timestamp = Timestamp.now(),
+    @Ignore var birth: Timestamp? = null,
     @Ignore var gender: Gender = Gender.UNKNOWN,
     var identityId: String? = null,
     var phone: String? = null,

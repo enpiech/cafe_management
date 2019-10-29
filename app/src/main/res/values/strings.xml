@@ -137,4 +137,11 @@
     <string name="btnMinus">-</string>
     <string name="so_khong">0</string>
     <string name="so_luong">0</string>
+    <string name="invalid_user_username">Tên đăng nhập không được bỏ trống</string>
+    <string name="invalid_user_password">Mật khẩu phải dài hơn 5 kí tự</string>
+    <string name="invalid_user_birth">Ngày sinh không hợp lý</string>
+    <string name="invalid_user_identityId">Chứng minh nhân dân không xác thực</string>
+    <string name="invalid_user_phone">Số điện thoại không xác thực</string>
+    <string name="invalid_user_address">Địa chỉ không xác thực</string>
+    <string name="lbl_user_store">Cửa hàng</string>
 </resources>

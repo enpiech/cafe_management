@@ -19,6 +19,9 @@
         android:id="@+id/tableListFragment"
         android:title="@string/title_table" />
     <item
+        android:id="@+id/tableListWaiterFragment"
+        android:title="@string/title_table" />
+    <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/ic_logout"
         android:title="@string/menu_item_logout" />

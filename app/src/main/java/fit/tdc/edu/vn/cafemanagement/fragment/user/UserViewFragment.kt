@@ -6,6 +6,7 @@ import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
@@ -17,6 +18,7 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asDatePicker
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.fragment_user_view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -31,22 +33,73 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
 
     override fun showError(state: FormState) {
         val userFormState = state as UserViewFormState
+        if (userFormState.usernameError != null) {
+            edtUsername.error = getString(userFormState.usernameError!!)
+        } else {
+            edtUsername.error = null
+            edtUsername.isErrorEnabled = false
+        }
+        if (userFormState.passwordError != null) {
+            edtPassword.error = getString(userFormState.passwordError!!)
+        } else {
+            edtPassword.error = null
+            edtPassword.isErrorEnabled = false
+        }
         if (userFormState.nameError != null) {
-            edtName.error = getString(userFormState.nameError)
+            edtName.error = getString(userFormState.nameError!!)
+        } else {
+            edtName.error = null
+            edtName.isErrorEnabled = false
+        }
+        if (userFormState.birthError != null) {
+            edtBirth.error = getString(userFormState.birthError!!)
+        } else {
+            edtBirth.error = null
+            edtBirth.isErrorEnabled = false
+        }
+        if (userFormState.identityIdError != null) {
+            edtIdentityId.error = getString(userFormState.identityIdError!!)
+        } else {
+            edtIdentityId.error = null
+            edtIdentityId.isErrorEnabled = false
+        }
+        if (userFormState.phoneError != null) {
+            edtPhoneNumber.error = getString(userFormState.phoneError!!)
+        } else {
+            edtPhoneNumber.error = null
+            edtPhoneNumber.isErrorEnabled = false
+        }
+        if (userFormState.addressError != null) {
+            edtAddress.error = getString(userFormState.addressError!!)
+        } else {
+            edtAddress.error = null
+            edtAddress.isErrorEnabled = false
         }
     }
 
     override fun getCurrentFormData() = User(
-        username = edtId?.editText?.text.toString(),
+        username = edtUsername?.editText?.text.toString(),
         password = edtPassword?.editText?.text.toString(),
         name = edtName?.editText?.text.toString(),
-        /*TODO Birth edt to timestamp*/
-        gender = User.Gender.valueOf(gender.text.toString().toUpperCase(Locale.getDefault())),
-        role = User.Role.valueOf(role.text.toString().toUpperCase(Locale.getDefault())),
         identityId = edtIdentityId?.editText?.text.toString(),
         phone = edtPhoneNumber?.editText?.text.toString(),
         address = edtAddress?.editText?.text.toString()
-    )
+    ).also {
+        val date = SimpleDateFormat(
+            "dd-MM-yyyy",
+            Locale.getDefault()
+        ).parse(edtBirth?.editText?.text.toString())
+        it.birth = if (date != null) {
+            Timestamp(date)
+        } else {
+            null
+        }
+        it.gender =
+            User.Gender.values().first { res -> getString(res.nameResId) == gender.text.toString() }
+        it.role =
+            User.Role.values().first { res -> getString(res.nameResId) == role.text.toString() }
+        it.storeId = (viewModel as UserDetailViewModel).currentStore.value?.id
+    }
 
     override fun updateUI(type: FormState.Type) {
         when (type) {
@@ -59,14 +112,14 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         }
 
         if (type == FormState.Type.MODIFY) {
-            edtId.editText?.isEnabled = false
+            edtUsername.editText?.isEnabled = false
         }
 
         setupForm()
     }
 
     private fun enableForm(isEnabled: Boolean) {
-        edtId.editText?.isEnabled = isEnabled
+        edtUsername.editText?.isEnabled = isEnabled
         edtPassword.editText?.isEnabled = isEnabled
         edtName.editText?.isEnabled = isEnabled
         edtBirth.editText?.isEnabled = isEnabled
@@ -75,91 +128,138 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         gender.isEnabled = isEnabled
         tilGender.isEndIconVisible = isEnabled
         role.isEnabled = isEnabled
-        tilGender.isEndIconVisible = isEnabled
+        tilRole.isEndIconVisible = isEnabled
+        store.isEnabled = isEnabled
+        tilStore.isEndIconVisible = isEnabled
         edtIdentityId.editText?.isEnabled = isEnabled
         edtPhoneNumber.editText?.isEnabled = isEnabled
         edtAddress.editText?.isEnabled = isEnabled
     }
 
     override fun setupForm() {
-        edtId.asEditText {
+        edtUsername.asEditText {
             viewModel.validate(
-                User(
-                    username = it
-                )
+                getCurrentFormData()
             )
         }
 
         edtPassword.asEditText {
             viewModel.validate(
-                User(
-                    password = it
-                )
+                getCurrentFormData()
             )
         }
 
         edtName.asEditText {
             viewModel.validate(
-                User(
-                    name = it
-                )
+                getCurrentFormData()
             )
         }
 
         edtBirth.asDatePicker(requireContext()) {
             viewModel.validate(
-                User(
+                getCurrentFormData().apply {
                     birth = it
-                )
+                }
             )
         }
 
-        gender.setAdapter(ArrayAdapter(
-            requireContext(),
-            R.layout.dropdown_menu_popup_item,
-            User.Gender.values()
-        ))
+        gender.setAdapter(
+            ArrayAdapter(
+                requireContext(),
+                R.layout.dropdown_menu_popup_item,
+                User.Gender.values().map { getString(it.nameResId) }
+            )
+        )
+        gender.setOnItemClickListener { parent, view, position, id ->
+            viewModel.validate(
+                getCurrentFormData().apply {
+                    gender = User.Gender.values()[position]
+                }
+            )
+        }
 
         role.setAdapter(ArrayAdapter(
             requireContext(),
             R.layout.dropdown_menu_popup_item,
-            User.Role.values().filterNot { role -> role == User.Role.MANAGER }
+            User.Role.values().filterNot { role -> role == User.Role.MANAGER }.map {
+                getString(
+                    it.nameResId
+                )
+            }
         ))
+        role.setOnItemClickListener { parent, view, position, id ->
+            viewModel.validate(
+                getCurrentFormData().apply {
+                    role = User.Role.values()[position]
+                }
+            )
+        }
+
+        (viewModel as UserDetailViewModel).storeList.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer {
+                if (it.isNotEmpty()) {
+                    val list = it.map { store -> store.name }
+                    store.setAdapter(
+                        ArrayAdapter(
+                            requireContext(),
+                            R.layout.dropdown_menu_popup_item,
+                            list
+                        )
+                    )
+                }
+            })
+        store.setOnItemClickListener { parent, view, position, id ->
+            viewModel.validate(
+                getCurrentFormData().apply {
+                    storeId = (viewModel as UserDetailViewModel).storeList.value?.get(position)?.id
+                }
+            )
+            (viewModel as UserDetailViewModel).currentStore.value =
+                (viewModel as UserDetailViewModel).storeList.value?.get(position)
+        }
 
         edtIdentityId.asEditText {
             viewModel.validate(
-                User(
-                    identityId = it
-                )
+                getCurrentFormData()
             )
         }
 
         edtPhoneNumber.asEditText {
             viewModel.validate(
-                User(
-                    phone = it
-                )
+                getCurrentFormData()
             )
         }
 
         edtAddress.asEditText {
             viewModel.validate(
-                User(
-                    address = it
-                )
+                getCurrentFormData()
             )
         }
     }
 
     override fun fillFormWith(item: User) {
-        edtId?.editText?.setText(item.username)
-        edtPassword?.editText?.setText(item.password)
-        edtName?.editText?.setText(item.name)
-        edtIdentityId?.editText?.setText(item.identityId)
-        edtPhoneNumber?.editText?.setText(item.phone)
-        edtAddress?.editText?.setText(item.address)
-
+        edtUsername.editText?.setText(item.username)
+        edtPassword.editText?.setText(item.password)
+        edtName.editText?.setText(item.name)
+        edtIdentityId.editText?.setText(item.identityId)
+        edtPhoneNumber.editText?.setText(item.phone)
+        edtAddress.editText?.setText(item.address)
+        val fm = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+        item.birth?.toDate()?.let {
+            edtBirth.editText?.setText(fm.format(it))
+        }
         gender.setText(item.gender.nameResId)
         role.setText(item.role?.nameResId ?: User.Role.WAITER.nameResId)
+        (viewModel as UserDetailViewModel).currentStore.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { cstore ->
+                cstore?.name?.let { name ->
+                    store.setText(name)
+                    (viewModel as UserDetailViewModel).currentStore.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            })
     }
 }

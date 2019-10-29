@@ -9,6 +9,7 @@ import android.widget.EditText
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.item_order.view.*
+import java.text.SimpleDateFormat
 import java.util.*
 
 fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
@@ -38,7 +39,26 @@ fun TextInputLayout.asDatePicker(context: Context, dataChanged: (Timestamp) -> U
         DatePickerDialog(
             context,
             DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                dataChanged.invoke(Timestamp(Date(year, monthOfYear, dayOfMonth)))
+                now.set(year, monthOfYear, dayOfMonth)
+                val fm = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                editText?.setText(fm.format(now.time))
+                dataChanged.invoke(Timestamp(now.time))
+                clearFocus()
+            },
+            now.get(Calendar.YEAR),  // Initial year selection
+            now.get(Calendar.MONTH),  // Initial month selection
+            now.get(Calendar.DAY_OF_MONTH) // Inital day selection
+        ).show()
+    }
+    editText?.setOnClickListener {
+        val now: Calendar = Calendar.getInstance()
+        DatePickerDialog(
+            context,
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                now.set(year, monthOfYear, dayOfMonth)
+                val fm = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                editText?.setText(fm.format(now.time))
+                dataChanged.invoke(Timestamp(now.time))
                 clearFocus()
             },
             now.get(Calendar.YEAR),  // Initial year selection
@@ -48,39 +68,39 @@ fun TextInputLayout.asDatePicker(context: Context, dataChanged: (Timestamp) -> U
     }
 }
 
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
-        this.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(editable: Editable?) {
-                afterTextChanged.invoke(editable.toString())
-            }
+fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
 
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
+        override fun beforeTextChanged(
+            s: CharSequence,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+        }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-        })
-    }
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
+}
 
 
-    fun TextInputLayout.afterTextChanged(afterTextChanged: (String) -> Unit) {
-        this.editText?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(editable: Editable?) {
-                afterTextChanged.invoke(editable.toString())
-            }
+fun TextInputLayout.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    this.editText?.addTextChangedListener(object : TextWatcher {
+        override fun afterTextChanged(editable: Editable?) {
+            afterTextChanged.invoke(editable.toString())
+        }
 
-            override fun beforeTextChanged(
-                s: CharSequence,
-                start: Int,
-                count: Int,
-                after: Int
-            ) {
-            }
+        override fun beforeTextChanged(
+            s: CharSequence,
+            start: Int,
+            count: Int,
+            after: Int
+        ) {
+        }
 
-            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
-        })
-    }
+        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
+    })
+}

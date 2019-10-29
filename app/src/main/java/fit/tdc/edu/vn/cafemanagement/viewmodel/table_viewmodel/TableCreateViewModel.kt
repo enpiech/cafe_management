@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.viewmodel.table_viewmodel
+package fit.tdc.edu.vn.cafemanagement.viewmodel.table_viewmodel
 
 import androidx.lifecycle.*
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource

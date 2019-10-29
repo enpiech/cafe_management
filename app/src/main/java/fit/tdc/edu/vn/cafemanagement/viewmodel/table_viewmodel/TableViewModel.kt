@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.viewmodel.table_viewmodel
+package fit.tdc.edu.vn.cafemanagement.viewmodel.table_viewmodel
 
 import androidx.lifecycle.*
 import com.hadilq.liveevent.LiveEvent

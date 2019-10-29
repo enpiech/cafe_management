@@ -43,7 +43,9 @@ class UserHolder(
 
     fun bind(item: User) {
         itemView.txtUserName.text = item.name
-        itemView.txtUserRole.text = item.role?.name
+        if (item.role?.nameResId != null) {
+            itemView.txtUserRole.setText(item.role?.nameResId!!)
+        }
         itemView.setOnClickListener {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
