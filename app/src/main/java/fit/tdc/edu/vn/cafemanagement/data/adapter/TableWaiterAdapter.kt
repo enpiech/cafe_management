@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,9 +49,16 @@ class TableWaiterAdapter : ListAdapter<Table, TableWaiterAdapter.TableWaiterHold
             it.findNavController().navigate(direction)
         }
 
+        @SuppressLint("ResourceAsColor")
         fun bind(item: Table) {
             itemView.btn_item_table.text = item.name
-
+            if(item.state == Table.Companion.TableState.FREE){
+                itemView.btn_item_table.setBackgroundColor(R.color.green)
+            }else if(item.state == Table.Companion.TableState.ORDERING){
+                itemView.btn_item_table.setBackgroundColor(R.color.red)
+            }else if(item.state == Table.Companion.TableState.BOOKED){
+                itemView.btn_item_table.setBackgroundColor(R.color.yellow)
+            }
             itemView.setOnClickListener {
                 Log.d("test", "ssss")
                 val position = adapterPosition

@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.fragment_list.*
 class TableOrderWaiterFragment : Fragment(R.layout.fragment_list) {
 
     var viewAdapter = TableOrderWaiterAdapter()
-    var soluong = 0
     private val viewModel by lazy {
         ViewModelProvider(
             this,

@@ -32,7 +32,7 @@
         <LinearLayout
             android:layout_width="@dimen/layout_width_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            android:layout_weight="0.6">
             <Button
                 android:id="@+id/btnMinus"
                 android:layout_width="wrap_content"
@@ -43,8 +43,10 @@
         <LinearLayout
             android:layout_width="@dimen/layout_width_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            android:layout_weight="0.6"
+            >
             <TextView
+                android:gravity="center"
                 android:id="@+id/txt_so_luong"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -59,7 +61,7 @@
         <LinearLayout
             android:layout_width="@dimen/layout_width_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5">
+            android:layout_weight="0.6">
             <Button
                 android:id="@+id/btnPlus"
                 android:layout_width="wrap_content"
