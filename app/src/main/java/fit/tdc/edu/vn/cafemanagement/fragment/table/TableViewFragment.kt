@@ -1,8 +1,9 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.table
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
+import android.widget.*
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -13,6 +14,7 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneListViewModel
@@ -22,8 +24,6 @@ import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.form_table.*
 
 class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
-
-    //val spinnerAdapter = SpinnerZoneAdapter()
 
     companion object {
         fun newInstance() = TableViewFragment()
@@ -46,17 +46,54 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         findNavController()
     }
 
+    private var tableName: String? = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        var listZones: List<Zone>? = null
+        var listTable: List<Table>? = null
+        var currentTable: Table = Table()
+
+        tableViewModel.getAllItems().observe(this, Observer {
+            listTable = it.data
+            listTable!!.forEach {
+                if (it.name.equals(tableName)) {
+                    currentTable = it
+                }
+            }
+        })
+
         zoneViewModel.getAllItems().observe(this, Observer {
-            val options = it.data
-            val spinnerAdapter = options?.let { it1 ->
-                ArrayAdapter(
-                    requireContext(), android.R.layout.simple_spinner_dropdown_item,
-                    it1
+            listZones = it.data
+            var arrZoneName: Array<String?>
+
+            val spinnerAdapter = listZones?.let { it1 ->
+                var i = 0
+                arrZoneName = Array<String?>(listZones!!.size) {""}
+                listZones!!.forEach {
+                    arrZoneName[i] = it.name
+                    if(it.id.equals(currentTable.zoneId)) {
+                        table_spinner.setSelection(i)
+                    }
+                    i++
+                }
+                ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item,
+                    arrZoneName
                 )
+            }
+            table_spinner?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                    Toast.makeText(requireContext(), "Nothing Selected", Toast.LENGTH_SHORT).show()
+                }
+
+                override fun onItemSelected(items: AdapterView<*>?, view: View?, position: Int, p3: Long) {
+                    Log.d("test", "adawdw "+items!!.getItemAtPosition(position)).toString()
+                    var zoneID = items!!.getItemAtPosition(position)
+                }
+
             }
             table_spinner.adapter = spinnerAdapter
         })
+
 
 //        zoneViewModel.getAllItems().observe(this, Observer {
 //            val items = ArrayList<Zone>()
@@ -97,11 +134,22 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         })
 
         fab.setOnClickListener {
+            var zoneID = ""
+            listZones!!.forEach {
+                if(it.name.equals(table_spinner.selectedItem.toString())) {
+                    zoneID = it.id
+                    Log.d("test", "aaaaaaaaaaaa "+zoneID)
+                }
+            }
+
             when (tableViewModel.viewType.value) {
+
                 FormState.Type.ADD -> {
                     tableViewModel.insert(
                         Table(
-                            name = table_edit_name.editText?.text.toString()
+                            name = table_edit_name.editText?.text.toString(),
+                            zoneId = zoneID,
+                            state = Table.Companion.TableState.FREE
                         )
                     )
                     navController.navigateUp()
@@ -112,7 +160,8 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
                 FormState.Type.MODIFY -> {
                     tableViewModel.update(
                         Table(
-                            name = table_edit_name.editText?.text.toString()
+                            name = table_edit_name.editText?.text.toString(),
+                            zoneId = zoneID
                         ).also { it.id = tableId!! }
                     )
                     navController.navigateUp()
@@ -165,14 +214,17 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
             tableViewModel.currentItem.observe(this, Observer {
                 if (it != null) {
                     table_edit_name.editText?.setText(it.name)
+                    tableName = it.name
                 } else {
                     MaterialAlertDialogBuilder(context)
                         .setTitle(R.string.dialog_title_modifying_removed_item)
                         .setMessage(R.string.warning_message_modifying_removed_item)
                         .setPositiveButton(R.string.btnOK) { _, _ ->
                             tableViewModel.setViewType(FormState.Type.ADD)
-                            tableViewModel.currentItem.value = Table(
-                                name = table_edit_name.editText?.text.toString()
+                            tableViewModel.validate(
+                                Table(
+                                    name = table_edit_name.editText?.text.toString()
+                                )
                             )
                         }
                         .setNegativeButton(R.string.btnCancel) { _, _ ->
@@ -184,7 +236,6 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
         }
         setupForm()
     }
-
     private fun setupForm() {
         table_edit_name.asEditText {
             tableViewModel.validate(
