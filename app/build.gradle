@@ -139,4 +139,5 @@ dependencies {
 
     // SectionRecyclerViewAdapter
     implementation "io.github.luizgrp.sectionedrecyclerviewadapter:sectionedrecyclerviewadapter:3.0.0"
+    implementation 'androidx.mediarouter:mediarouter:1.1.0'
 }

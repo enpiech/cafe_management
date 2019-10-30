@@ -9,8 +9,8 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText

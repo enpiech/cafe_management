@@ -14,8 +14,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category_viewmodel.CategoryViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryListViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 

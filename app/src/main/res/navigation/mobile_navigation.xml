@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_loginFragment_to_tableListFragment"
             app:destination="@id/tableListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_storeListFragment"
+            app:destination="@id/storeListFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitListFragment"
@@ -144,5 +147,22 @@
         <argument
             android:name="title"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.store.StoreListFragment"
+        android:label="StoreListFragment">
+        <action
+            android:id="@+id/storeViewAction"
+            app:destination="@id/storeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.store.StoreDetailFragment"
+        android:label="StoreDetailFragment">
+        <argument
+            android:name="storeId"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
