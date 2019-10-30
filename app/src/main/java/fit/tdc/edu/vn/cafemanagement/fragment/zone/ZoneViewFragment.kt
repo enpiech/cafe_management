@@ -9,15 +9,15 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
-import kotlinx.android.synthetic.main.fragment_zone_view.*
+import kotlinx.android.synthetic.main.fragment_zone_detail.*
 
 
-class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_view) {
+class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_detail) {
     override val viewModel: BaseDetailViewModel<Zone>
         get() = ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneDetailViewModel>()
     override val navController: NavController

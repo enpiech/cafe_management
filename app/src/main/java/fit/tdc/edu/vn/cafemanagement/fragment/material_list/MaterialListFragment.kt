@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.MaterialAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material_viewmodel.MaterialViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFactory
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class MaterialListFragment : Fragment(R.layout.fragment_list) {

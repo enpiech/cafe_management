@@ -20,7 +20,7 @@
         android:contentDescription="@string/img_store" />
 
     <TextView
-        android:id="@+id/lblStoreName"
+        android:id="@+id/txtName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_32dp"
@@ -30,12 +30,12 @@
 
         tools:text="Combo 2 người"
 
-        app:layout_constraintBottom_toTopOf="@+id/lblStoreAddress"
+        app:layout_constraintBottom_toTopOf="@+id/txtAddress"
         app:layout_constraintStart_toEndOf="@+id/imgStoreImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lblStoreAddress"
+        android:id="@+id/txtAddress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
@@ -45,8 +45,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
 
         app:layout_constraintEnd_toStartOf="@+id/imageButton"
-        app:layout_constraintStart_toStartOf="@+id/lblStoreName"
-        app:layout_constraintTop_toBottomOf="@+id/lblStoreName"
+        app:layout_constraintStart_toStartOf="@+id/txtName"
+        app:layout_constraintTop_toBottomOf="@+id/txtName"
         tools:text="15,000 đ" />
 
     <ImageButton

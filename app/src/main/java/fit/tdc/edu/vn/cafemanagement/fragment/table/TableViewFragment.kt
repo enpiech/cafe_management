@@ -13,15 +13,15 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneListViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.form_table.*
 
-class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
+class TableViewFragment : BaseViewFragment(R.layout.fragment_table_detail) {
 
     //val spinnerAdapter = SpinnerZoneAdapter()
 

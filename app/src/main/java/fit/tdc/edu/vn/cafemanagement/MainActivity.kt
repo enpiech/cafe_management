@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.zoneListFragment,
                 R.id.userListFragment,
                 R.id.tableListFragment,
-                R.id.tableListWaiterFragment
+                R.id.tableListWaiterFragment,
+                R.id.storeListFragment
             ), drawer_layout)
     }
 
@@ -63,7 +64,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     R.id.categoryViewFragment,
                     R.id.userViewFragment,
                     R.id.tableViewFragment,
-                    R.id.tableListWaiterFragment
+                    R.id.tableOrderFragment,
+                    R.id.userViewFragment
                 ) -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     supportActionBar?.show()
