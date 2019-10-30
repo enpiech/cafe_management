@@ -17,11 +17,8 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
@@ -30,7 +27,7 @@ import kotlinx.android.synthetic.main.dropdown_menu_popup_item.*
 import kotlinx.android.synthetic.main.form_table.*
 import kotlinx.android.synthetic.main.layout_tab_list.*
 
-class TableViewFragment : BaseViewFragmentTest<Table>(R.layout.fragment_table_view) {
+class TableViewFragment : BaseViewFragmentTest<Table>(R.layout.fragment_table_detail) {
     override val args by navArgs<TableViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Table>
         get() = ViewModelProvider(this, TableViewModelFactory()).get<TableDetailViewModel>()
