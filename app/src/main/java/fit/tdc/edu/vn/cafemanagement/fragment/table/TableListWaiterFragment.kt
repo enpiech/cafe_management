@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.TableWaiterAdapter
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -19,7 +20,7 @@ class TableListWaiterFragment : Fragment(R.layout.fragment_list) {
     var viewAdapter = TableWaiterAdapter()
 
     private val viewModel by lazy {
-        ViewModelProvider(this, TableViewModelFactory()).get<TableDetailViewModel>()
+        ViewModelProvider(this, TableViewModelFactory()).get<TableListViewModel>()
     }
 
     companion object {
@@ -38,7 +39,7 @@ class TableListWaiterFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllTables().observe(this, Observer {
+        viewModel.getAllItems().observe(this, Observer {
             viewAdapter.submitList(it.data)
         })
     }

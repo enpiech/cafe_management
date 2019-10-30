@@ -28,7 +28,7 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Spinner
+    <AutoCompleteTextView
         android:id="@+id/table_spinner"
         android:layout_width="0dp"
         android:layout_height="match_parent"

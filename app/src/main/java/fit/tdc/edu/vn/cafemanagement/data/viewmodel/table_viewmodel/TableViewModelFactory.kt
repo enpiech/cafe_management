@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 
 class TableViewModelFactory : ViewModelProvider.Factory {
 
@@ -12,6 +13,9 @@ class TableViewModelFactory : ViewModelProvider.Factory {
         if (modelClass.isAssignableFrom(TableDetailViewModel::class.java)) {
             return TableDetailViewModel(
                 tableRepository = TableRepository(
+                    dataSource = FireBaseDataSource()
+                ),
+                zoneRepository = ZoneRepository(
                     dataSource = FireBaseDataSource()
                 )
             ) as T

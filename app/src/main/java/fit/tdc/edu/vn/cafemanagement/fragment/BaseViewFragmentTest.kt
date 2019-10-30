@@ -41,7 +41,7 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.viewType.observe(this, Observer {
+        viewModel.viewType.observe(viewLifecycleOwner, Observer {
             if (it == null) {
                 if (itemId != null) {
                     viewModel.setViewType(FormState.Type.VIEW)
@@ -54,7 +54,7 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
             }
         })
 
-        viewModel.formState.observe(this, Observer {
+        viewModel.formState.observe(viewLifecycleOwner, Observer {
             val state = it ?: return@Observer
             if (viewModel.viewType.value != FormState.Type.VIEW) {
                 if (state.isDataValid && state.isChanged) {
@@ -122,7 +122,7 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
         }
 
         if (type != FormState.Type.ADD) {
-            viewModel.currentItem.observe(this, Observer {
+            viewModel.currentItem.observe(viewLifecycleOwner, Observer {
                 if (it != null) {
                     fillFormWith(it)
                 } else {

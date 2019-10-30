@@ -1,31 +1,51 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
+import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
+import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class TableDetailViewModel(
-    private val tableRepository: TableRepository
+    private val tableRepository: TableRepositoryAPI,
+    private val zoneRepository: ZoneRepositoryAPI
 ) : BaseDetailViewModel<Table>() {
-    fun getAllItems() = tableRepository.getAllTables()
+    //val pos: LiveData<Int> = CombinedLiveData<Table, List<Zone>, Int>(currentItem, )
+
+    private val _zoneResponseList = zoneRepository.getAllZones()
+    val zoneList: LiveData<List<Zone>> = _zoneResponseList.map {
+        if (it.status == Status.SUCCESS && it.data != null) {
+            it.data
+        } else {
+            listOf()
+        }
+    }
+    val currentZone =
+        CombinedLiveData<Table, List<Zone>, Zone?>(currentItem, zoneList) { zone, zoneList ->
+            getCurrentStoreOfUser(zone, zoneList)
+        }
+
+    private fun getCurrentStoreOfUser(table: Table?, res: List<Zone>?): Zone? {
+        if (!res.isNullOrEmpty() && table != null) {
+            return res.find { zone -> zone.id == table.zoneId }
+        }
+        return null
+    }
 
     override fun getItem(id: String) = tableRepository.getTable(id)
-
-
-    private var allTables = tableRepository.getAllTables()
-
-    private val tables = MediatorLiveData<List<Table>>()
 
     override fun insert(table: Table) = tableRepository.insert(table)
 
     override fun update(table: Table) = tableRepository.update(table)
-
-    fun getAllTables() = allTables
-
 
     override fun validate(item: Table?) {
         when {
