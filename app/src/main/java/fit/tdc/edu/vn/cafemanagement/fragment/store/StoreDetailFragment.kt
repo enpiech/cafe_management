@@ -56,38 +56,6 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
         setupForm()
     }
 
-    private fun enableForm(isEnabled: Boolean) {
-        edtName.editText?.isEnabled = isEnabled
-        edtAddress.editText?.isEnabled = isEnabled
-        tilManager.isEndIconVisible = isEnabled
-        manager.isEnabled = isEnabled
-    }
-
-    override fun getCurrentFormData(): Store {
-        return Store(
-            name = edtName.editText?.text.toString(),
-            address = edtAddress.editText?.text.toString()
-        ).also {
-            it.managerId = (viewModel as StoreDetailViewModel).currentStoreManager.value?.id
-            it.managerName = (viewModel as StoreDetailViewModel).currentStoreManager.value?.name
-        }
-    }
-
-    override fun fillFormWith(item: Store) {
-        edtName.editText?.setText(item.name)
-        edtAddress.editText?.setText(item.address)
-        (viewModel as StoreDetailViewModel).currentStoreManager.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer { cmanager ->
-                cmanager?.name?.let { name ->
-                    manager.setText(name, false)
-                    (viewModel as StoreDetailViewModel).currentStoreManager.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            })
-    }
-
     override fun setupForm() {
         edtName.asEditText {
             viewModel.validate(
@@ -133,4 +101,35 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
         }
     }
 
+    private fun enableForm(isEnabled: Boolean) {
+        edtName.editText?.isEnabled = isEnabled
+        edtAddress.editText?.isEnabled = isEnabled
+        tilManager.isEndIconVisible = isEnabled
+        manager.isEnabled = isEnabled
+    }
+
+    override fun getCurrentFormData(): Store {
+        return Store(
+            name = edtName.editText?.text.toString(),
+            address = edtAddress.editText?.text.toString()
+        ).also {
+            it.managerId = (viewModel as StoreDetailViewModel).currentStoreManager.value?.id
+            it.managerName = (viewModel as StoreDetailViewModel).currentStoreManager.value?.name
+        }
+    }
+
+    override fun fillFormWith(item: Store) {
+        edtName.editText?.setText(item.name)
+        edtAddress.editText?.setText(item.address)
+        (viewModel as StoreDetailViewModel).currentStoreManager.observe(
+            viewLifecycleOwner,
+            androidx.lifecycle.Observer { cmanager ->
+                cmanager?.name?.let { name ->
+                    manager.setText(name, false)
+                    (viewModel as StoreDetailViewModel).currentStoreManager.removeObservers(
+                        viewLifecycleOwner
+                    )
+                }
+            })
+    }
 }

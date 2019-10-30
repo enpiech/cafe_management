@@ -3,7 +3,9 @@ package fit.tdc.edu.vn.cafemanagement.fragment.table
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -15,15 +17,15 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_viewmodel.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneListViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.form_table.*
 
-class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
+class TableViewFragment : BaseViewFragment(R.layout.fragment_table_detail) {
 
     companion object {
         fun newInstance() = TableViewFragment()
@@ -55,9 +57,9 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
 
         tableViewModel.getAllItems().observe(this, Observer {
             listTable = it.data
-            listTable!!.forEach {
-                if (it.name.equals(tableName)) {
-                    currentTable = it
+            listTable?.forEach { table ->
+                if (table.name.equals(tableName)) {
+                    currentTable = table
                 }
             }
         })
@@ -87,7 +89,7 @@ class TableViewFragment : BaseViewFragment(R.layout.fragment_table_view) {
 
                 override fun onItemSelected(items: AdapterView<*>?, view: View?, position: Int, p3: Long) {
                     Log.d("test", "adawdw "+items!!.getItemAtPosition(position)).toString()
-                    var zoneID = items!!.getItemAtPosition(position)
+                    var zoneID = items.getItemAtPosition(position)
                 }
 
             }

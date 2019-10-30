@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavArgs
@@ -25,6 +25,9 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
     private val fab: FloatingActionButton by lazy {
         requireActivity().fab
     }
+    private val toolbar: Toolbar by lazy {
+        requireActivity().toolbar
+    }
 
     protected abstract val viewModel: BaseDetailViewModel<T>
     protected abstract val navController: NavController
@@ -38,6 +41,20 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
     ): View? {
         setupNavigate()
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    private fun setupNavigate() {
+        toolbar.setNavigationOnClickListener {
+            requestNavigateUp()
+        }
+        handleBackPress()
+    }
+
+    private fun handleBackPress() {
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requestNavigateUp()
+        }
+        callback.isEnabled = true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,33 +106,15 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setupNavigate() {
-        requireActivity().toolbar.setNavigationOnClickListener {
-            requestNavigateUp()
-        }
-        handleBackPress()
-    }
-
-    private fun handleBackPress() {
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            requestNavigateUp()
-        }
-        callback.isEnabled = true
-    }
-
     private fun changeViewType(type: FormState.Type) {
         when (type) {
             FormState.Type.MODIFY, FormState.Type.ADD -> {
-                (requireActivity() as AppCompatActivity).toolbar.apply {
-                    setNavigationIcon(R.drawable.ic_close)
-                }
+                toolbar.setNavigationIcon(R.drawable.ic_close)
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_check))
                 fab.hide()
             }
             FormState.Type.VIEW -> {
-                (requireActivity() as AppCompatActivity).toolbar.apply {
-                    setNavigationIcon(R.drawable.ic_back)
-                }
+                toolbar.setNavigationIcon(R.drawable.ic_back)
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_mode_edit))
                 fab.show()
             }
