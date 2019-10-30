@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.ui.fragment.order_list
+package fit.tdc.edu.vn.cafemanagement.fragment.order_list
 
 import androidx.lifecycle.ViewModel
 

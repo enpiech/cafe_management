@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-            android:id="@+id/imgUserImage"
+            android:id="@+id/imgImage"
             android:layout_width="@dimen/image_size"
             android:layout_height="@dimen/image_size"
             android:layout_marginStart="8dp"
@@ -33,7 +33,7 @@
             app:layout_constraintBottom_toTopOf="@+id/txtUserRole"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imgUserImage"
+            app:layout_constraintStart_toEndOf="@+id/imgImage"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/full_names" />
 

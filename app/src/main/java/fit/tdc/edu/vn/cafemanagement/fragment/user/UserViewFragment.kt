@@ -11,18 +11,19 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user_viewmodel.UserViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asDatePicker
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
-import kotlinx.android.synthetic.main.fragment_user_view.*
+import fit.tdc.edu.vn.cafemanagement.util.init
+import kotlinx.android.synthetic.main.fragment_user_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 
-class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view) {
+class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detail) {
     override val args by navArgs<UserViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<User>
         get() = ViewModelProvider(this, UserViewModelFactory()).get<UserDetailViewModel>()
@@ -85,20 +86,31 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         phone = edtPhoneNumber?.editText?.text.toString(),
         address = edtAddress?.editText?.text.toString()
     ).also {
-        val date = SimpleDateFormat(
-            "dd-MM-yyyy",
-            Locale.getDefault()
-        ).parse(edtBirth?.editText?.text.toString())
-        it.birth = if (date != null) {
-            Timestamp(date)
+        if (!edtBirth?.editText?.text.toString().isBlank()) {
+            val date = SimpleDateFormat(
+                "dd-MM-yyyy",
+                Locale.getDefault()
+            ).parse(edtBirth?.editText?.text.toString())
+            it.birth = if (date != null) {
+                Timestamp(date)
+            } else {
+                null
+            }
         } else {
-            null
+            it.birth = null
         }
-        it.gender =
-            User.Gender.values().first { res -> getString(res.nameResId) == gender.text.toString() }
-        it.role =
-            User.Role.values().first { res -> getString(res.nameResId) == role.text.toString() }
-        it.storeId = (viewModel as UserDetailViewModel).currentStore.value?.id
+        if (!gender.text.isNullOrBlank()) {
+            it.gender =
+                User.Gender.values()
+                    .first { res -> getString(res.nameResId) == gender.text.toString() }
+        }
+        if (!role.text.isNullOrBlank()) {
+            it.role =
+                User.Role.values().first { res -> getString(res.nameResId) == role.text.toString() }
+        }
+        if (!store.text.isNullOrBlank() && store.text.toString() != getString(R.string.warning_user_no_store)) {
+            it.storeId = (viewModel as UserDetailViewModel).currentStore.value?.id
+        }
     }
 
     override fun updateUI(type: FormState.Type) {
@@ -163,37 +175,41 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
             )
         }
 
-        gender.setAdapter(
-            ArrayAdapter(
-                requireContext(),
-                R.layout.dropdown_menu_popup_item,
-                User.Gender.values().map { getString(it.nameResId) }
-            )
-        )
-        gender.setOnItemClickListener { parent, view, position, id ->
-            viewModel.validate(
-                getCurrentFormData().apply {
-                    gender = User.Gender.values()[position]
-                }
-            )
-        }
-
-        role.setAdapter(ArrayAdapter(
-            requireContext(),
-            R.layout.dropdown_menu_popup_item,
-            User.Role.values().filterNot { role -> role == User.Role.MANAGER }.map {
+        gender.init(
+            context = requireContext(),
+            resId = R.layout.dropdown_menu_popup_item,
+            dataset = User.Gender.values().map {
                 getString(
                     it.nameResId
                 )
+            },
+            defaultSelection = getString(User.Gender.UNKNOWN.nameResId),
+            dataChanged = {
+                viewModel.validate(
+                    getCurrentFormData().apply {
+                        gender = User.Gender.values()[it]
+                    }
+                )
             }
-        ))
-        role.setOnItemClickListener { parent, view, position, id ->
-            viewModel.validate(
-                getCurrentFormData().apply {
-                    role = User.Role.values()[position]
-                }
-            )
-        }
+        )
+
+        role.init(
+            context = requireContext(),
+            resId = R.layout.dropdown_menu_popup_item,
+            dataset = User.Role.values().filterNot { role -> role == User.Role.MANAGER }.map {
+                getString(
+                    it.nameResId
+                )
+            },
+            defaultSelection = getString(User.Role.WAITER.nameResId),
+            dataChanged = {
+                viewModel.validate(
+                    getCurrentFormData().apply {
+                        role = User.Role.values()[it]
+                    }
+                )
+            }
+        )
 
         (viewModel as UserDetailViewModel).storeList.observe(
             viewLifecycleOwner,
@@ -207,6 +223,8 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
                             list
                         )
                     )
+                } else {
+                    store.setText(getString(R.string.warning_user_no_store), false)
                 }
             })
         store.setOnItemClickListener { parent, view, position, id ->
@@ -249,13 +267,13 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_view)
         item.birth?.toDate()?.let {
             edtBirth.editText?.setText(fm.format(it))
         }
-        gender.setText(item.gender.nameResId)
-        role.setText(item.role?.nameResId ?: User.Role.WAITER.nameResId)
+        gender.setText(getString(item.gender.nameResId), false)
+        role.setText(getString(item.role?.nameResId ?: User.Role.WAITER.nameResId), false)
         (viewModel as UserDetailViewModel).currentStore.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer { cstore ->
                 cstore?.name?.let { name ->
-                    store.setText(name)
+                    store.setText(name, false)
                     (viewModel as UserDetailViewModel).currentStore.removeObservers(
                         viewLifecycleOwner
                     )

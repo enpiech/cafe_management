@@ -9,8 +9,8 @@ import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.TableOrderWaiterAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter_viewmodel.TableOrderWaiterListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter_viewmodel.TableOrderWaiterViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter.TableOrderWaiterListViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter.TableOrderWaiterViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 

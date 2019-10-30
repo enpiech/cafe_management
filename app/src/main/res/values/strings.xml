@@ -144,4 +144,11 @@
     <string name="invalid_user_phone">Số điện thoại không xác thực</string>
     <string name="invalid_user_address">Địa chỉ không xác thực</string>
     <string name="lbl_user_store">Cửa hàng</string>
+    <string name="lbl_store">Cửa hàng</string>
+    <string name="lbl_store_name">Tên cửa hàng</string>
+    <string name="warning_store_no_free_manager">Không có quản lý quán nào sẵn sàng</string>
+    <string name="warning_user_no_store">Không có cửa hàng trong danh sách.</string>
+    <string name="warning_store_missing_manager">Chưa chọn quản lý quán</string>
+    <string name="warning_message_delete_store_has_manager">Nếu xác nhận xóa, thông tin của quản lý cửa hàng này sẽ được cập nhật lại</string>
+    <string name="warning_message_delete_user_in_store">Nếu xác nhận xóa, thông tin cửa hàng liên quan đến nhân viên này sẽ được cập nhật lại.</string>
 </resources>

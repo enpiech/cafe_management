@@ -5,7 +5,10 @@ import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
+import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
 import android.widget.EditText
+import androidx.annotation.LayoutRes
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
 import kotlinx.android.synthetic.main.item_order.view.*
@@ -65,6 +68,25 @@ fun TextInputLayout.asDatePicker(context: Context, dataChanged: (Timestamp) -> U
             now.get(Calendar.MONTH),  // Initial month selection
             now.get(Calendar.DAY_OF_MONTH) // Inital day selection
         ).show()
+    }
+}
+
+fun AutoCompleteTextView.init(
+    context: Context, @LayoutRes resId: Int,
+    dataset: List<String>,
+    defaultSelection: String? = dataset[0],
+    dataChanged: (position: Int) -> Unit
+) {
+    setAdapter(
+        ArrayAdapter(
+            context,
+            resId,
+            dataset
+        )
+    )
+    setText(defaultSelection, false)
+    setOnItemClickListener { _, _, position, _ ->
+        dataChanged.invoke(position)
     }
 }
 

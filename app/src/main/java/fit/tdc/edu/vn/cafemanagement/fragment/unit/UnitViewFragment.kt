@@ -9,14 +9,14 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit_viewmodel.UnitViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
-import kotlinx.android.synthetic.main.fragment_unit_view.*
+import kotlinx.android.synthetic.main.fragment_unit_detail.*
 
-class UnitViewFragment : BaseViewFragmentTest<Unit>(R.layout.fragment_unit_view) {
+class UnitViewFragment : BaseViewFragmentTest<Unit>(R.layout.fragment_unit_detail) {
     override val args by navArgs<UnitViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Unit>
         get() = ViewModelProvider(this, UnitViewModelFactory()).get<UnitDetailViewModel>()
