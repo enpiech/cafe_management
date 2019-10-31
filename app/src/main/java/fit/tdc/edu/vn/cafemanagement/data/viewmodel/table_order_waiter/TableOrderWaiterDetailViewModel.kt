@@ -28,7 +28,7 @@ class TableOrderWaiterDetailViewModel(
             }
             !isNameValid(item?.name) -> {
                 _formState.value = CategoryViewFormState(
-                    nameError = R.string.invalid_category_name
+                    nameError = R.string.invalid_table_name
                 ).apply {
                     isChanged = false
                     isDataValid = false

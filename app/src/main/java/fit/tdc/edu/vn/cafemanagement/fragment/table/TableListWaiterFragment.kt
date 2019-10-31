@@ -38,7 +38,7 @@ class TableListWaiterFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.getAllItems().observe(this, Observer {
+        viewModel.getAllItems().observe(viewLifecycleOwner, Observer {
             viewAdapter.submitList(it.data)
         })
     }

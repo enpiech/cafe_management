@@ -41,7 +41,7 @@ class TableListFragment : Fragment(R.layout.fragment_list) {
             adapter = viewAdapter
         }
 
-        viewModel.itemList.observe(this, Observer {
+        viewModel.itemList.observe(viewLifecycleOwner, Observer {
             viewAdapter.submitList(it)
             //Log.d("test", "cao"+it.data.toString())
         })
