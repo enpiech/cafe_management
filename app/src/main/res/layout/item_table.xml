@@ -9,5 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:maxLines="3"
         tools:text="Bàn 1"/>
 </androidx.cardview.widget.CardView>

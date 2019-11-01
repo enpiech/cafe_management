@@ -27,3 +27,17 @@ fun <T> LiveData<T>.observeUntil(
         }
     })
 }
+
+fun <T> LiveData<T>.observeUntil(
+    observer: Observer<T>,
+    stopCondition: (T?) -> Boolean
+) {
+    observeForever(object : Observer<T> {
+        override fun onChanged(t: T?) {
+            observer.onChanged(t)
+            if (stopCondition.invoke(t)) {
+                removeObserver(this)
+            }
+        }
+    })
+}

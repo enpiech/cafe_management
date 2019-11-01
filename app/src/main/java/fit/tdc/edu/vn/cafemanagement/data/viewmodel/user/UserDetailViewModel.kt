@@ -189,7 +189,7 @@ class UserDetailViewModel(
             formState.isChanged = true
         }
 
-        formState.isDataValid = noError && formState.isChanged
+        formState.isDataValid = noError
         _formState.value = formState
     }
 }

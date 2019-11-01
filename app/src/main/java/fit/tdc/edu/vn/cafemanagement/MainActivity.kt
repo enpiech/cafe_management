@@ -44,12 +44,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupNavigation()
         setupFab()
 
-        when (getUserType()) {
-            resources.getInteger(R.integer.no_user_type) -> {
-                logout()
-                navController.navigate(R.id.loginFragment)
-            }
-        }
+//        when (getUserType()) {
+//            resources.getInteger(R.integer.no_user_type) -> {
+//                logout()
+//                navController.navigate(R.id.loginFragment)
+//            }
+//        }
     }
 
 
