@@ -60,6 +60,15 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
                 enableForm(false)
             }
         }
+
+        setupForm()
+    }
+
+    private fun enableForm(isEnabled: Boolean) {
+        edtName.editText?.isEnabled = isEnabled
+        edtAddress.editText?.isEnabled = isEnabled
+        tilManager.isEndIconVisible = isEnabled
+        manager.isEnabled = isEnabled
     }
 
     override fun setupForm() {
@@ -101,13 +110,6 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
                     )
                 }
             })
-    }
-
-    private fun enableForm(isEnabled: Boolean) {
-        edtName.editText?.isEnabled = isEnabled
-        edtAddress.editText?.isEnabled = isEnabled
-        tilManager.isEndIconVisible = isEnabled
-        manager.isEnabled = isEnabled
     }
 
     override fun getCurrentFormData() = Store(

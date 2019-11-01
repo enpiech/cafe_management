@@ -26,7 +26,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory(UserDatabase.getInstance(requireContext())!!))
             .get(LoginViewModel::class.java)
 
-        loginViewModel.loginFormState.observe(this@LoginFragment, Observer {
+        loginViewModel.loginFormState.observe(viewLifecycleOwner, Observer {
             val loginState = it ?: return@Observer
 
             // disable managerLogin button unless both username / password is valid
