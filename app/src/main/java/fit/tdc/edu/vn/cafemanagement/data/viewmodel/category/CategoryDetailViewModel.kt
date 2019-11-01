@@ -10,6 +10,10 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 class CategoryDetailViewModel(
     private val categoryRepository: CategoryRepositoryAPI
 ) : BaseDetailViewModel<Category>() {
+    override var saved: Category
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        set(value) {}
+
     override fun getItem(id: String) = categoryRepository.getCategory(id)
 
     override fun insert(item: Category) = categoryRepository.insert(item)

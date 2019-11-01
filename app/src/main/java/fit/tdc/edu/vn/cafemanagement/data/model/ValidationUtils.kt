@@ -33,7 +33,7 @@ fun String?.isValidPassword(): Boolean {
     return !isNullOrBlank() && this!!.length > 5
 }
 
-fun String?.isValidName(): Boolean {
+fun String?.isValidPersonalName(): Boolean {
     return !isNullOrBlank()
 }
 
@@ -50,5 +50,17 @@ fun String?.isValidPhoneNumber(): Boolean {
 }
 
 fun String?.isValidAddress(): Boolean {
+    return !isNullOrBlank()
+}
+
+fun String?.isValidZoneId(): Boolean {
+    return !isNullOrBlank()
+}
+
+fun String?.isValidUnitName(): Boolean {
+    return !isNullOrBlank()
+}
+
+fun String?.isValidZoneName(): Boolean {
     return !isNullOrBlank()
 }

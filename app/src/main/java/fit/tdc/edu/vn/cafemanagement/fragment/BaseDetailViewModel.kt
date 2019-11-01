@@ -17,21 +17,20 @@ abstract class BaseDetailViewModel<T: FirestoreModel> : ViewModel() {
     val formState: LiveData<FormState> = _formState
 
     private var _currentItemId = LiveEvent<String>()
-    val currentItem = MediatorLiveData<T>()
-
-    protected var draftItem = MutableLiveData<T>()
-
-    init {
-        currentItem.addSource(
+    val currentItem = MediatorLiveData<T>().apply {
+        addSource(
             _currentItemId.switchMap { id ->
                 getItem(id)
             }
         ) { result ->
             if (result.status == Status.SUCCESS) {
-                currentItem.value = result.data
+                value = result.data
             }
         }
     }
+
+    var draftItem = MutableLiveData<T>()
+    abstract var saved: T
 
     fun setViewType(type: FormState.Type) {
         _viewType.value = type

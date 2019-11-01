@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.StoreAdapter
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreViewModelFactory
@@ -27,7 +28,10 @@ class StoreListFragment : BaseListFragment<Store>(
     }
 
     override val viewModel: BaseListViewModel<Store>
-        get() = ViewModelProvider(this, StoreViewModelFactory()).get<StoreListViewModel>()
+        get() = ViewModelProvider(
+            this,
+            StoreViewModelFactory(FireBaseDataSource(), this)
+        ).get<StoreListViewModel>()
     override val navController: NavController
         get() = findNavController()
 

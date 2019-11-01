@@ -1,29 +1,18 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
-import android.content.Context
-import android.util.AndroidException
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Button
-import android.widget.Toast
-import androidx.core.view.get
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
-import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.fragment.table.TableListFragmentDirections
-import kotlinx.android.synthetic.main.form_table.*
-import kotlinx.android.synthetic.main.form_table.view.*
 import kotlinx.android.synthetic.main.item_table.view.*
-import kotlinx.coroutines.withContext
 
-class TableAdapter : ListAdapter<Table, TableAdapter.TableHolder>(DIFF_CALLBACK) {
+class TableAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Table>() {
@@ -43,13 +32,9 @@ class TableAdapter : ListAdapter<Table, TableAdapter.TableHolder>(DIFF_CALLBACK)
         return TableHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: TableHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentTable: Table = getItem(position)
-        holder.bind(currentTable)
-    }
-
-    fun getTableAt(position: Int): Table {
-        return getItem(position)
+        (holder as TableHolder).bind(currentTable)
     }
 
     inner class TableHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

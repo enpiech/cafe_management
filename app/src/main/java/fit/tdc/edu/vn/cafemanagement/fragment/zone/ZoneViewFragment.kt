@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
@@ -19,7 +20,10 @@ import kotlinx.android.synthetic.main.fragment_zone_detail.*
 
 class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_detail) {
     override val viewModel: BaseDetailViewModel<Zone>
-        get() = ViewModelProvider(this, ZoneViewModelFactory()).get<ZoneDetailViewModel>()
+        get() = ViewModelProvider(
+            this,
+            ZoneViewModelFactory(FireBaseDataSource(), this)
+        ).get<ZoneDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?
@@ -29,7 +33,7 @@ class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_detai
     override fun showError(state: FormState) {
         val zoneFormState = state as ZoneViewFormState
         if (zoneFormState.nameError != null) {
-            edtName.error = getString(zoneFormState.nameError)
+            edtName.error = getString(zoneFormState.nameError!!)
         }
     }
 

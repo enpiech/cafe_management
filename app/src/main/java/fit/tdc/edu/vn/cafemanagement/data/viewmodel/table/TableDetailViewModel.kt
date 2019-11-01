@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
@@ -12,14 +12,24 @@ import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class TableDetailViewModel(
+    private val handle: SavedStateHandle,
     private val tableRepository: TableRepositoryAPI,
     private val zoneRepository: ZoneRepositoryAPI
 ) : BaseDetailViewModel<Table>() {
-    //val pos: LiveData<Int> = CombinedLiveData<Table, List<Zone>, Int>(currentItem, )
+    override var saved: Table
+        get() = Table(
+            name = handle.get("name"),
+            zoneId = handle.get("zoneId"),
+            state = handle.get<Table.State>("state") ?: Table.State.FREE
+        )
+        set(value) {
+            handle.set("name", value.name)
+            handle.set("zoneId", value.zoneId)
+            handle.set("state", value.state)
+        }
 
     private val _zoneResponseList = zoneRepository.getAllZones()
     val zoneList: LiveData<List<Zone>> = _zoneResponseList.map {

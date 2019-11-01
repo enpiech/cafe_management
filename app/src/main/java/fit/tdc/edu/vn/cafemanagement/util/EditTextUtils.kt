@@ -11,15 +11,16 @@ import android.widget.EditText
 import androidx.annotation.LayoutRes
 import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.Timestamp
-import kotlinx.android.synthetic.main.item_order.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
-    textView?.let {
+    editText?.let {
         it.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 this.clearFocus()
+            } else {
+                dataChanged.invoke(it.text.toString())
             }
         }
     }
@@ -28,6 +29,7 @@ fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
             when (actionId) {
                 EditorInfo.IME_ACTION_DONE -> {
                     this.clearFocus()
+                    it.clearFocus()
                     dataChanged.invoke(it.text.toString())
                 }
             }
@@ -74,7 +76,6 @@ fun TextInputLayout.asDatePicker(context: Context, dataChanged: (Timestamp) -> U
 fun AutoCompleteTextView.init(
     context: Context, @LayoutRes resId: Int,
     dataset: List<String>,
-    defaultSelection: String? = dataset[0],
     dataChanged: (position: Int) -> Unit
 ) {
     setAdapter(
@@ -84,7 +85,6 @@ fun AutoCompleteTextView.init(
             dataset
         )
     )
-    setText(defaultSelection, false)
     setOnItemClickListener { _, _, position, _ ->
         dataChanged.invoke(position)
     }

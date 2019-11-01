@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
@@ -20,7 +21,10 @@ import kotlinx.android.synthetic.main.form_table.*
 class TableViewFragment : BaseViewFragmentTest<Table>(R.layout.fragment_table_detail) {
     override val args by navArgs<TableViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Table>
-        get() = ViewModelProvider(this, TableViewModelFactory()).get<TableDetailViewModel>()
+        get() = ViewModelProvider(
+            this,
+            TableViewModelFactory(FireBaseDataSource(), this)
+        ).get<TableDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?
@@ -29,7 +33,7 @@ class TableViewFragment : BaseViewFragmentTest<Table>(R.layout.fragment_table_de
     override fun showError(state: FormState) {
         val tableFormState = state as TableViewFormState
         if (tableFormState.nameError != null) {
-            table_edit_name.error = getString(tableFormState.nameError)
+            table_edit_name.error = getString(tableFormState.nameError!!)
         } else {
             table_edit_name.error = null
             table_edit_name.isErrorEnabled = false

@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavArgs
@@ -25,6 +25,9 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
     private val fab: FloatingActionButton by lazy {
         requireActivity().fab
     }
+    private val toolbar: Toolbar by lazy {
+        requireActivity().toolbar
+    }
 
     protected abstract val viewModel: BaseDetailViewModel<T>
     protected abstract val navController: NavController
@@ -38,6 +41,20 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
     ): View? {
         setupNavigate()
         return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
+    private fun setupNavigate() {
+        toolbar.setNavigationOnClickListener {
+            requestNavigateUp()
+        }
+        handleBackPress()
+    }
+
+    private fun handleBackPress() {
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+            requestNavigateUp()
+        }
+        callback.isEnabled = true
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,14 +79,14 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
                 } else {
                     fab.hide()
                 }
-
-                showError(state)
             }
+            showError(state)
         })
 
         fab.setOnClickListener {
             when (viewModel.viewType.value) {
                 FormState.Type.ADD -> {
+                    viewModel.validate(getCurrentFormData())
                     viewModel.insert(
                         getCurrentFormData()
                     )
@@ -89,60 +106,59 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
         super.onViewCreated(view, savedInstanceState)
     }
 
-    private fun setupNavigate() {
-        requireActivity().toolbar.setNavigationOnClickListener {
-            requestNavigateUp()
-        }
-        handleBackPress()
-    }
-
-    private fun handleBackPress() {
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
-            requestNavigateUp()
-        }
-        callback.isEnabled = true
-    }
-
     private fun changeViewType(type: FormState.Type) {
         when (type) {
             FormState.Type.MODIFY, FormState.Type.ADD -> {
-                (requireActivity() as AppCompatActivity).toolbar.apply {
-                    setNavigationIcon(R.drawable.ic_close)
-                }
+                toolbar.setNavigationIcon(R.drawable.ic_close)
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_check))
                 fab.hide()
             }
             FormState.Type.VIEW -> {
-                (requireActivity() as AppCompatActivity).toolbar.apply {
-                    setNavigationIcon(R.drawable.ic_back)
-                }
+                toolbar.setNavigationIcon(R.drawable.ic_back)
                 fab.setImageDrawable(requireActivity().getDrawable(R.drawable.ic_mode_edit))
                 fab.show()
             }
         }
 
-        if (type != FormState.Type.ADD) {
-            viewModel.currentItem.observe(viewLifecycleOwner, Observer {
-                if (it != null) {
-                    fillFormWith(it)
-                } else {
-                    MaterialAlertDialogBuilder(context)
-                        .setTitle(R.string.dialog_title_modifying_removed_item)
-                        .setMessage(R.string.warning_message_modifying_removed_item)
-                        .setPositiveButton(R.string.btnOK) { _, _ ->
-                            viewModel.setViewType(FormState.Type.ADD)
-                            viewModel.currentItem.value = getCurrentFormData()
-                            fab.show()
-                        }
-                        .setNegativeButton(R.string.btnCancel) { _, _ ->
-                            navController.navigateUp()
-                        }
-                        .show()
-                }
-            })
+        when (type) {
+            FormState.Type.VIEW -> {
+                updateUIWithCurrentItem()
+            }
+            FormState.Type.MODIFY -> {
+                updateUIWithDraftItem()
+            }
         }
 
         updateUI(type)
+    }
+
+    private fun updateUIWithCurrentItem() {
+        viewModel.currentItem.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                viewModel.validate(null)
+                fillFormWith(it)
+                viewModel.draftItem.value = it
+                viewModel.saved = it
+            } else {
+                MaterialAlertDialogBuilder(context)
+                    .setTitle(R.string.dialog_title_modifying_removed_item)
+                    .setMessage(R.string.warning_message_modifying_removed_item)
+                    .setPositiveButton(R.string.btnOK) { _, _ ->
+                        viewModel.setViewType(FormState.Type.ADD)
+                        viewModel.currentItem.value = getCurrentFormData()
+                        fab.show()
+                    }
+                    .setNegativeButton(R.string.btnCancel) { _, _ ->
+                        navController.navigateUp()
+                    }
+                    .show()
+            }
+        })
+    }
+
+    private fun updateUIWithDraftItem() {
+        fillFormWith(viewModel.saved)
+        viewModel.currentItem.removeObservers(viewLifecycleOwner)
     }
 
     private fun requestNavigateUp() {

@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.store.StoreViewFormState
@@ -19,7 +20,10 @@ import kotlinx.android.synthetic.main.fragment_store_detail.*
 
 class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_detail) {
     override val viewModel: BaseDetailViewModel<Store>
-        get() = ViewModelProvider(this, StoreViewModelFactory()).get<StoreDetailViewModel>()
+        get() = ViewModelProvider(
+            this,
+            StoreViewModelFactory(FireBaseDataSource(), this)
+        ).get<StoreDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?
@@ -45,47 +49,17 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
 
     override fun updateUI(type: FormState.Type) {
         when (type) {
-            FormState.Type.MODIFY, FormState.Type.ADD -> {
+            FormState.Type.MODIFY -> {
+                enableForm(true)
+                setupForm()
+            }
+            FormState.Type.ADD -> {
                 enableForm(true)
             }
             FormState.Type.VIEW -> {
                 enableForm(false)
             }
         }
-
-        setupForm()
-    }
-
-    private fun enableForm(isEnabled: Boolean) {
-        edtName.editText?.isEnabled = isEnabled
-        edtAddress.editText?.isEnabled = isEnabled
-        tilManager.isEndIconVisible = isEnabled
-        manager.isEnabled = isEnabled
-    }
-
-    override fun getCurrentFormData(): Store {
-        return Store(
-            name = edtName.editText?.text.toString(),
-            address = edtAddress.editText?.text.toString()
-        ).also {
-            it.managerId = (viewModel as StoreDetailViewModel).currentStoreManager.value?.id
-            it.managerName = (viewModel as StoreDetailViewModel).currentStoreManager.value?.name
-        }
-    }
-
-    override fun fillFormWith(item: Store) {
-        edtName.editText?.setText(item.name)
-        edtAddress.editText?.setText(item.address)
-        (viewModel as StoreDetailViewModel).currentStoreManager.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer { cmanager ->
-                cmanager?.name?.let { name ->
-                    manager.setText(name, false)
-                    (viewModel as StoreDetailViewModel).currentStoreManager.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            })
     }
 
     override fun setupForm() {
@@ -111,26 +85,44 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
                             list
                         )
                     )
-                } else {
-                    if ((viewModel as StoreDetailViewModel).currentStoreManager.value != null) {
-                        manager.setText(getText(R.string.warning_store_no_free_manager), false)
-                    } else {
+                } else if (manager.text.isNullOrBlank()) {
+                    val storeManager = (viewModel as StoreDetailViewModel).currentStoreManager.value
+                    if (storeManager == null) {
                         manager.setText(getText(R.string.warning_store_missing_manager), false)
+                    } else {
+                        manager.setText(getText(R.string.warning_store_no_free_manager), false)
                     }
-                    tilManager.isEndIconVisible = false
-                    manager.isEnabled = false
+                }
+                manager.setOnItemClickListener { _, _, position, _ ->
+                    viewModel.validate(
+                        getCurrentFormData().also { store ->
+                            store.managerId = it[position].id
+                        }
+                    )
                 }
             })
-        manager.setOnItemClickListener { parent, view, position, id ->
-            viewModel.validate(
-                getCurrentFormData().apply {
-                    managerId =
-                        (viewModel as StoreDetailViewModel).userList.value?.get(position)?.id
-                }
-            )
-            (viewModel as StoreDetailViewModel).currentStoreManager.value =
-                (viewModel as StoreDetailViewModel).userList.value?.get(position)
-        }
     }
 
+    private fun enableForm(isEnabled: Boolean) {
+        edtName.editText?.isEnabled = isEnabled
+        edtAddress.editText?.isEnabled = isEnabled
+        tilManager.isEndIconVisible = isEnabled
+        manager.isEnabled = isEnabled
+    }
+
+    override fun getCurrentFormData() = Store(
+        name = edtName.editText?.text.toString(),
+        address = edtAddress.editText?.text.toString(),
+        managerName = manager.text.toString(),
+        managerId = viewModel.saved.managerId
+    )
+
+    override fun fillFormWith(item: Store) {
+        edtName.editText?.setText(item.name)
+        edtAddress.editText?.setText(item.address)
+        when {
+            item.managerId != null -> manager.setText(item.managerName, false)
+            else -> manager.setText(getText(R.string.warning_store_missing_manager), false)
+        }
+    }
 }

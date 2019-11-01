@@ -106,6 +106,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$jetpack_version"
     implementation "androidx.lifecycle:lifecycle-livedata-core-ktx:$jetpack_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$jetpack_version"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$jetpack_version"
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:1.0.0-rc01'
+    implementation "androidx.activity:activity-ktx:1.1.0-rc01"
 
     // Test
     testImplementation "junit:junit:4.12"
@@ -125,6 +128,9 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$jetpack_version"
 
     implementation 'com.google.dagger:dagger:2.25.2'
+    implementation 'com.google.dagger:dagger-android-support:2.25.2' // if you use the support libraries
+    kapt 'com.google.dagger:dagger-android-processor:2.25.2'
+
 
     // FirebaseUI for Cloud Firestore
     implementation "com.firebaseui:firebase-ui-firestore:$firebaseui_version"

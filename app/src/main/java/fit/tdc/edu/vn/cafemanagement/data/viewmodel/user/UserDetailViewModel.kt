@@ -1,7 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.user
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
+import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
@@ -14,9 +17,43 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class UserDetailViewModel(
+    private val handle: SavedStateHandle,
     private val userRepository: UserRepositoryAPI,
-    private val storeRepository: StoreRepositoryAPI
+    storeRepository: StoreRepositoryAPI
 ) : BaseDetailViewModel<User>() {
+    override var saved: User
+        get() = User(
+            name = handle.get<String>("name"),
+            birth = handle.get<Timestamp>("birth"),
+            gender = handle.get<User.Gender>("gender") ?: User.Gender.UNKNOWN,
+            identityId = handle.get<String>("identityId"),
+            phone = handle.get<String>("phone"),
+            address = handle.get<String>("address"),
+            role = handle.get<User.Role>("role"),
+            storeId = handle.get<String>("storeId"),
+            username = handle.get<String>("username"),
+            password = handle.get<String>("password")
+        )
+        set(value) {
+            handle.set("name", value.name)
+            handle.set("birth", value.birth)
+            handle.set("gender", value.gender)
+            handle.set("identityId", value.identityId)
+            handle.set("phone", value.phone)
+            handle.set("address", value.address)
+            handle.set("role", value.role)
+            handle.set("storeId", value.storeId)
+            handle.set("username", value.username)
+            handle.set("password", value.password)
+        }
+
+    var currentStoreSelection: LiveData<String>
+        get() = getCurrentStoreSelection
+        set(value) {}
+
+    fun setCurrentStoreSelection(name: String?) {
+        handle.set("storeName", name)
+    }
 
     private val _storeResponseList = storeRepository.getStoreList()
     val storeList: LiveData<List<Store>> = _storeResponseList.map {
@@ -31,6 +68,18 @@ class UserDetailViewModel(
         CombinedLiveData<User, List<Store>, Store?>(currentItem, storeList) { user, storeList ->
             getCurrentStoreOfUser(user, storeList)
         }
+
+    private val getCurrentStoreSelection = MediatorLiveData<String>().apply {
+        addSource(currentStore) {
+            //            Log.d("test", it.toString())
+            it?.let { store ->
+                value = store.name
+            }
+        }
+        addSource(handle.getLiveData<String>("storeName")) {
+            value = it
+        }
+    }
 
     private fun getCurrentStoreOfUser(user: User?, res: List<Store>?): Store? {
         return if (!res.isNullOrEmpty() && user != null) {
@@ -66,54 +115,57 @@ class UserDetailViewModel(
 
             }
         }
+        // SavedStateHandle
+        saved = item!!
+
         if (_formState.value == null) {
             _formState.value = UserViewFormState()
         }
         val formState = _formState.value as UserViewFormState
         var noError = true
-        if (item?.username != null && !item.username.isValidUserName()) {
+        if (item.username != null && !item.username.isValidUserName()) {
             formState.usernameError = R.string.invalid_user_username
             noError = false
         } else {
             formState.usernameError = null
         }
 
-        if (item?.password != null && !item.password.isValidPassword()) {
+        if (item.password != null && !item.password.isValidPassword()) {
             formState.passwordError = R.string.invalid_user_password
             noError = false
         } else {
             formState.passwordError = null
         }
 
-        if (item?.name != null && !item.name.isValidName()) {
+        if (item.name != null && !item.name.isValidPersonalName()) {
             formState.nameError = R.string.invalid_user_name
             noError = false
         } else {
             formState.nameError = null
         }
 
-        if (item?.birth != null && !item.birth.isValidBirth()) {
+        if (item.birth != null && !item.birth.isValidBirth()) {
             formState.birthError = R.string.invalid_user_birth
             noError = false
         } else {
             formState.birthError = null
         }
 
-        if (!item?.identityId.isNullOrBlank() && !item?.identityId.isValidIdentityId()) {
+        if (!item.identityId.isNullOrBlank() && !item.identityId.isValidIdentityId()) {
             formState.identityIdError = R.string.invalid_user_identityId
             noError = false
         } else {
             formState.identityIdError = null
         }
 
-        if (!item?.phone.isNullOrBlank() && !item?.phone.isValidPhoneNumber()) {
+        if (!item.phone.isNullOrBlank() && !item.phone.isValidPhoneNumber()) {
             formState.phoneError = R.string.invalid_user_phone
             noError = false
         } else {
             formState.phoneError = null
         }
 
-        if (!item?.address.isNullOrBlank() && !item?.address.isValidAddress()) {
+        if (!item.address.isNullOrBlank() && !item.address.isValidAddress()) {
             formState.addressError = R.string.invalid_user_address
             noError = false
         } else {
@@ -122,14 +174,14 @@ class UserDetailViewModel(
 
         if (currentItem.value != null) {
             when {
-                item?.username != currentItem.value!!.username -> formState.isChanged = true
-                item?.password != currentItem.value!!.password -> formState.isChanged = true
-                item?.name != currentItem.value!!.name -> formState.isChanged = true
-                item?.birth != currentItem.value!!.birth -> formState.isChanged = true
-                item?.identityId != currentItem.value!!.identityId -> formState.isChanged = true
-                item?.phone != currentItem.value!!.phone -> formState.isChanged = true
-                item?.address != currentItem.value!!.address -> formState.isChanged = true
-                item?.gender != currentItem.value!!.gender -> formState.isChanged = true
+                item.username != currentItem.value!!.username -> formState.isChanged = true
+                item.password != currentItem.value!!.password -> formState.isChanged = true
+                item.name != currentItem.value!!.name -> formState.isChanged = true
+                item.birth != currentItem.value!!.birth -> formState.isChanged = true
+                item.identityId != currentItem.value!!.identityId -> formState.isChanged = true
+                item.phone != currentItem.value!!.phone -> formState.isChanged = true
+                item.address != currentItem.value!!.address -> formState.isChanged = true
+                item.gender != currentItem.value!!.gender -> formState.isChanged = true
                 item.role != currentItem.value!!.role -> formState.isChanged = true
                 item.storeId != currentItem.value!!.storeId -> formState.isChanged = true
             }

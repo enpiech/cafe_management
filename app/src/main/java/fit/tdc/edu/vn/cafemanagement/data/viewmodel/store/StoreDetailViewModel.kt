@@ -1,12 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.store
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.isValidAddress
-import fit.tdc.edu.vn.cafemanagement.data.model.isValidName
+import fit.tdc.edu.vn.cafemanagement.data.model.isValidPersonalName
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.store.StoreViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
@@ -15,14 +16,28 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class StoreDetailViewModel(
+    private val handle: SavedStateHandle,
     private val storeRepository: StoreRepositoryAPI,
-    private val userRepository: UserRepositoryAPI
+    userRepository: UserRepositoryAPI
 ) : BaseDetailViewModel<Store>() {
+
+    override var saved: Store
+        get() = Store(
+            name = handle.get("name"),
+            address = handle.get("address"),
+            managerId = handle.get("managerId"),
+            managerName = handle.get("managerName")
+        )
+        set(value) {
+            handle.set("name", value.name)
+            handle.set("address", value.address)
+            handle.set("managerId", value.managerId)
+            handle.set("managerName", value.managerName)
+        }
+
     private val _userResponseList = userRepository.getAllUsers().map {
         if (it.status == Status.SUCCESS && !it.data.isNullOrEmpty()) {
-            it.data.filter { user ->
-                user.role == User.Role.STORE_MANAGER
-            }
+            it.data
         } else {
             listOf()
         }
@@ -32,7 +47,7 @@ class StoreDetailViewModel(
         _userResponseList
     ) { store, userList ->
         if (!userList.isNullOrEmpty() && store != null) {
-            userList.filter { user -> user.storeId.isNullOrBlank() }
+            userList.filter { user -> user.role == User.Role.STORE_MANAGER/*& user.storeId.isNullOrBlank()*/ }
         } else {
             listOf()
         }
@@ -40,16 +55,16 @@ class StoreDetailViewModel(
     val userList: LiveData<List<User>> = _userList
 
     val currentStoreManager =
-        CombinedLiveData<Store, List<User>, User?>(
-            currentItem,
+        CombinedLiveData(
+            currentItem.map { it.managerId },
             _userResponseList
         ) { store, userList ->
             getCurrentStoreManager(store, userList)
         }
 
-    private fun getCurrentStoreManager(store: Store?, userList: List<User>?): User? {
-        return if (!userList.isNullOrEmpty() && store != null) {
-            userList.find { it.storeId == store.id }
+    private fun getCurrentStoreManager(managerId: String?, userList: List<User>?): User? {
+        return if (!userList.isNullOrEmpty() && !managerId.isNullOrBlank()) {
+            userList.find { it.id == managerId }
         } else {
             null
         }
@@ -64,38 +79,37 @@ class StoreDetailViewModel(
     override fun validate(item: Store?) {
         when (item) {
             null -> {
-                _formState.value = StoreViewFormState(
-                    nameError = null
-                ).apply {
+                _formState.value = StoreViewFormState().apply {
                     isChanged = false
                     isDataValid = true
                 }
                 return
             }
             currentItem.value -> {
-                _formState.value = StoreViewFormState(
-                    nameError = null
-                ).apply {
+                _formState.value = StoreViewFormState().apply {
                     isChanged = false
                     isDataValid = false
                 }
 
             }
         }
+        // SavedStateHandle
+        saved = item!!
+
         if (_formState.value == null) {
             _formState.value = StoreViewFormState()
         }
         val formState = _formState.value as StoreViewFormState
         var noError = true
 
-        if (item?.name != null && !item.name.isValidName()) {
+        if (item.name != null && !item.name.isValidPersonalName()) {
             formState.nameError = R.string.invalid_user_name
             noError = false
         } else {
             formState.nameError = null
         }
 
-        if (!item?.address.isNullOrBlank() && !item?.address.isValidAddress()) {
+        if (!item.address.isNullOrBlank() && !item.address.isValidAddress()) {
             formState.addressError = R.string.invalid_user_address
             noError = false
         } else {
@@ -104,8 +118,11 @@ class StoreDetailViewModel(
 
         if (currentItem.value != null) {
             when {
-                item?.name != currentItem.value!!.name -> formState.isChanged = true
-                item?.address != currentItem.value!!.address -> formState.isChanged = true
+                item.name != currentItem.value!!.name -> formState.isChanged = true
+                item.address != currentItem.value!!.address -> formState.isChanged = true
+                item.managerId != currentItem.value!!.managerId -> formState.isChanged = true
+                item.managerName != currentItem.value!!.managerName -> formState.isChanged = true
+                else -> formState.isChanged = false
             }
         }
 

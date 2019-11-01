@@ -9,6 +9,7 @@ import androidx.lifecycle.get
 import androidx.recyclerview.widget.LinearLayoutManager
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.TableOrderWaiterAdapter
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter.TableOrderWaiterListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter.TableOrderWaiterViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,7 +21,7 @@ class TableOrderWaiterFragment : Fragment(R.layout.fragment_list) {
     private val viewModel by lazy {
         ViewModelProvider(
             this,
-            TableOrderWaiterViewModelFactory()
+            TableOrderWaiterViewModelFactory(FireBaseDataSource(), this)
         ).get<TableOrderWaiterListViewModel>()
     }
 

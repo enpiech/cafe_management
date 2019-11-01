@@ -35,7 +35,8 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -53,7 +54,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:imeOptions="flagNoPersonalizedLearning"
+                android:imeOptions="flagNoPersonalizedLearning|actionDone"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -157,6 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:editable="false"
+                android:singleLine="true"
                 tools:ignore="LabelFor" />
 
         </com.google.android.material.textfield.TextInputLayout>

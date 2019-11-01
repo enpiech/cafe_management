@@ -52,11 +52,11 @@ class TableWaiterAdapter : ListAdapter<Table, TableWaiterAdapter.TableWaiterHold
         @SuppressLint("ResourceAsColor")
         fun bind(item: Table) {
             itemView.btn_item_table.text = item.name
-            if(item.state == Table.Companion.TableState.FREE){
+            if (item.state == Table.State.FREE) {
                 itemView.btn_item_table.setBackgroundColor(R.color.green)
-            }else if(item.state == Table.Companion.TableState.ORDERING){
+            } else if (item.state == Table.State.ORDERING) {
                 itemView.btn_item_table.setBackgroundColor(R.color.red)
-            }else if(item.state == Table.Companion.TableState.BOOKED){
+            } else if (item.state == Table.State.BOOKED) {
                 itemView.btn_item_table.setBackgroundColor(R.color.yellow)
             }
             itemView.setOnClickListener {

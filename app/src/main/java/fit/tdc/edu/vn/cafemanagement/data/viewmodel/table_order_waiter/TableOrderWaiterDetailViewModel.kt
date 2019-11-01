@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter
 
+import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
@@ -8,8 +9,13 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class TableOrderWaiterDetailViewModel(
+    private val handle: SavedStateHandle,
     private val categoryRepository: CategoryRepositoryAPI
 ) : BaseDetailViewModel<Category>() {
+    override var saved: Category
+        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+        set(value) {}
+
     override fun getItem(id: String) = categoryRepository.getCategory(id)
 
     override fun insert(item: Category) = categoryRepository.insert(item)
