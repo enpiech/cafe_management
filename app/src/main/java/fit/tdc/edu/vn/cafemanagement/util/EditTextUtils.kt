@@ -34,6 +34,10 @@ fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
             }
             false
         }
+        it.afterTextChanged {
+            this.clearFocus()
+            dataChanged.invoke(it)
+        }
     }
 }
 

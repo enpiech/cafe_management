@@ -41,6 +41,10 @@ class OrderListFragment : BaseListFragment<Category>(
 
     }
 
+    override fun setupSwipeToDelete() {
+
+    }
+
     override val navController: NavController
         get() = findNavController()
 

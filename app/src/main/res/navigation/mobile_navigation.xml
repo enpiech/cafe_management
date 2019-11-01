@@ -155,7 +155,7 @@
     <fragment
         android:id="@+id/orderListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.order_list.OrderListFragment"
-        android:label="OrderListFragment" >
+        android:label="{title}">
         <argument
             android:name="tableId"
             app:argType="string"

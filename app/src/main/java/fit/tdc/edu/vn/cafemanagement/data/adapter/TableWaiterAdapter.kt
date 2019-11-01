@@ -15,7 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragme
 import kotlinx.android.synthetic.main.dropdown_menu_popup_item.view.*
 import kotlinx.android.synthetic.main.item_table.view.*
 
-class TableWaiterAdapter1 : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentTable: Table = getItem(position)
         (holder as TableWaiterHolder).bind(currentTable)
