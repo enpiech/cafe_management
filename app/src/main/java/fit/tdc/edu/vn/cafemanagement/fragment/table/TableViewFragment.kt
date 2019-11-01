@@ -15,12 +15,6 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
-import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableDetailViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneListViewModel
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragment
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import kotlinx.android.synthetic.main.form_table.*
 
