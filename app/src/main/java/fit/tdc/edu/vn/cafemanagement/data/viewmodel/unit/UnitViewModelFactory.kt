@@ -21,12 +21,16 @@ class UnitViewModelFactory(
     ): T {
         if (modelClass.isAssignableFrom(UnitListViewModel::class.java)) {
             return UnitListViewModel(
-                unitRepository = UnitRepository()
+                unitRepository = UnitRepository(
+                    dataSource = dataSource
+                )
             ) as T
         } else if (modelClass.isAssignableFrom(UnitDetailViewModel::class.java)) {
             return UnitDetailViewModel(
                 handle = handle,
-                itemRepository = UnitRepository()
+                unitRepository = UnitRepository(
+                        dataSource = dataSource
+                )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

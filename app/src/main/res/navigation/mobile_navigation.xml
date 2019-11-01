@@ -44,8 +44,7 @@
     <fragment
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
-        android:label="Đơn vị"
-        tools:layout="@layout/fragment_list">
+        android:label="Đơn vị">
         <action
             android:id="@+id/unitViewAction"
             app:destination="@id/unitViewFragment"

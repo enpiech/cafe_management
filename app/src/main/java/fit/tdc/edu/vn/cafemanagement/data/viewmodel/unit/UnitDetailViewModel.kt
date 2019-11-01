@@ -5,12 +5,13 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.isValidUnitName
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
+import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class UnitDetailViewModel (
     private val handle: SavedStateHandle,
-    private val itemRepository: UnitRepository
+    private val unitRepository: UnitRepositoryAPI
 ) : BaseDetailViewModel<Unit>() {
     override var saved: Unit
         get() = Unit(
@@ -20,11 +21,11 @@ class UnitDetailViewModel (
             handle.set("name", value.name)
         }
 
-    override fun getItem(id: String) = itemRepository.getUnit(id)
+    override fun getItem(id: String) = unitRepository.getUnit(id)
 
-    override fun insert(item: Unit) = itemRepository.insert(item)
+    override fun insert(unit: Unit) = unitRepository.insert(unit)
 
-    override fun update(item: Unit) = itemRepository.update(item)
+    override fun update(unit: Unit) = unitRepository.update(unit)
 
     override fun validate(item: Unit?) {
         when (item) {

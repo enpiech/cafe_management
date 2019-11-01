@@ -36,30 +36,35 @@ import kotlinx.android.synthetic.main.dropdown_menu_popup_item.*
 
 class UnitListFragment : BaseListFragment<Unit>(
     R.layout.fragment_list,
-    UnitAdapter()
+    viewAdapter = UnitAdapter()
 ) {
     override val viewModel: BaseListViewModel<Unit>
         get() = ViewModelProvider(
             this,
             UnitViewModelFactory(FireBaseDataSource(), this)
         ).get<UnitListViewModel>()
-    override val navController: NavController
-        get() = findNavController()
-
-    override fun setupFab(fab: FloatingActionButton) {
-        navController.navigate(
-            UnitListFragmentDirections.unitViewAction(
-                unitId = null,
-                title = "Tạo đơn vị tính"
-            )
-        )
-    }
 
     override fun showDeleteNotifySnackBar(item: Unit, view: View) {
         Snackbar.make(
             view,
-            "${this.name} đã bị xóa!",
+            "${item.name} đã bị xóa!",
             Snackbar.LENGTH_LONG
         ).show()
     }
+
+    override val navController: NavController
+        get() = findNavController()
+
+    override fun setupFab(fab: FloatingActionButton) {
+        fab.setOnClickListener {
+            navController.navigate(
+                UnitListFragmentDirections.unitViewAction(
+                    unitId = null,
+                    title = "Tạo Table"
+                )
+            )
+        }
+    }
+
+
 }
