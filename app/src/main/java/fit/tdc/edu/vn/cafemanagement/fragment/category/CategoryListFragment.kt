@@ -25,11 +25,11 @@ class CategoryListFragment : BaseListFragment<Category>(
         get() = findNavController()
 
     override fun setupFab(fab: FloatingActionButton) {
-        navController.navigate(
-            CategoryListFragmentDirections.categoryViewAction(
-                categoryId = null
+        fab.setOnClickListener {
+            navController.navigate(
+                CategoryListFragmentDirections.categoryViewAction(categoryId = null)
             )
-        )
+        }
     }
 
     override fun showDeleteNotifySnackBar(item: Category, view: View) {

@@ -2,12 +2,10 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit
 
 import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.isValidUnitName
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class UnitDetailViewModel (
@@ -61,12 +59,11 @@ class UnitDetailViewModel (
         if (currentItem.value != null) {
             when {
                 item.name != currentItem.value!!.name -> formState.isChanged = true
-                viewType.value!! == FormState.Type.ADD -> formState.isChanged = true
                 else -> formState.isChanged = false
             }
         }
 
-        formState.isDataValid = noError && formState.isChanged
+        formState.isDataValid = noError
         _formState.value = formState
     }
 }

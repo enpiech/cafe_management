@@ -152,4 +152,5 @@
     <string name="warning_message_delete_store_has_manager">Nếu xác nhận xóa, thông tin của quản lý cửa hàng này sẽ được cập nhật lại</string>
     <string name="warning_message_delete_user_in_store">Nếu xác nhận xóa, thông tin cửa hàng liên quan đến nhân viên này sẽ được cập nhật lại.</string>
     <string name="invalid_table_zone">Tên khu vực không được để trống</string>
+    <string name="user_type_key">fit.tdc.edu.vn.cafemanagement.USER_TYPE_KEY</string>
 </resources>

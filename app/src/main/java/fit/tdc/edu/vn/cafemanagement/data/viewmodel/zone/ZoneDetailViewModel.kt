@@ -63,7 +63,7 @@ class ZoneDetailViewModel(
             }
         }
 
-        formState.isDataValid = noError && formState.isChanged
+        formState.isDataValid = noError
         _formState.value = formState
     }
 }

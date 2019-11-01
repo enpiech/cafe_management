@@ -45,16 +45,20 @@ class LoginDataSource {
 
     fun employeeLogin(
         username: String,
-        password: String,
-        userType: User.Role
+        password: String
     ) {
-        firestore.collection("users").document(username)
+        firestore.collection("employees").whereEqualTo("username", username)
             .get()
             .addOnSuccessListener { userDocument ->
-                if (userDocument.exists()) {
-                    if (userDocument.getString("password").equals(password)) {
-                        val user = userDocument.toObject(User::class.java)?.apply {
-                            id = userDocument.id
+                if (userDocument.isEmpty) {
+                    _result.value = FirestoreResource.error(Exception("User is not exist"))
+                    return@addOnSuccessListener
+                }
+                val doc = userDocument.documents[0]
+                if (doc.exists()) {
+                    if (doc.getString("password").equals(password)) {
+                        val user = doc.toObject(User::class.java)?.apply {
+                            id = doc.id
                         }
                         _result.value = FirestoreResource.success(user)
                         return@addOnSuccessListener

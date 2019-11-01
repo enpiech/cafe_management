@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.addCallback
@@ -13,6 +14,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -41,6 +43,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavigation()
         setupFab()
+
+        when (getUserType()) {
+            resources.getInteger(R.integer.no_user_type) -> {
+                logout()
+                navController.navigate(R.id.loginFragment)
+            }
+        }
     }
 
 
@@ -48,7 +57,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
-
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
                 in setOf(
@@ -57,6 +65,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     supportActionBar?.hide()
                     fab.hide()
+                    logout()
                 }
                 in setOf(
                     R.id.zoneViewFragment,
@@ -110,5 +119,39 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private fun hideKeyboard() {
         currentFocus?.clearFocus()
+    }
+
+    private fun logout() {
+        val sharedPref = getSharedPreferences(
+            getString(R.string.user_type_key), Context.MODE_PRIVATE
+        ) ?: return
+        with(sharedPref.edit()) {
+            putInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
+            commit()
+        }
+    }
+
+    private fun getUserType(): Int {
+        return getPreferences(Context.MODE_PRIVATE).getInt(
+            getString(R.string.user_type_key),
+            resources.getInteger(R.integer.no_user_type)
+        )
+    }
+
+    fun changeUserRole(type: User.Role) {
+        nav_view.menu.clear()
+        when (type) {
+            User.Role.STORE_MANAGER -> {
+                nav_view.inflateMenu(R.menu.store_manager_menu)
+            }
+            User.Role.MANAGER -> {
+//                nav_view.inflateMenu(R.menu.manager_menu)
+                nav_view.inflateMenu(R.menu.activity_main_drawer)
+            }
+
+            User.Role.WAITER -> {
+                nav_view.inflateMenu(R.menu.waiter_menu)
+            }
+        }
     }
 }

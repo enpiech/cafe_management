@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,10 +73,14 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
 
         viewModel.formState.observe(viewLifecycleOwner, Observer {
             val state = it ?: return@Observer
-            Log.d("tst", state.isChanged.toString() + "" + state.isDataValid.toString())
-            Log.d("tst", viewModel.viewType.value.toString())
-            if (viewModel.viewType.value != FormState.Type.VIEW) {
+            if (viewModel.viewType.value == FormState.Type.MODIFY) {
                 if (state.isDataValid && state.isChanged) {
+                    fab.show()
+                } else {
+                    fab.hide()
+                }
+            } else if (viewModel.viewType.value == FormState.Type.ADD) {
+                if (state.isDataValid) {
                     fab.show()
                 } else {
                     fab.hide()
