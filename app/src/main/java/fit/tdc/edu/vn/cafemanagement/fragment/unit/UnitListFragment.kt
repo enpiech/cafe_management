@@ -60,7 +60,7 @@ class UnitListFragment : BaseListFragment<Unit>(
             navController.navigate(
                 UnitListFragmentDirections.unitViewAction(
                     unitId = null,
-                    title = "Tạo Table"
+                    title = "Tạo Unit"
                 )
             )
         }

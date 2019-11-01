@@ -19,7 +19,6 @@ fun TextInputLayout.asEditText(dataChanged: (String) -> Unit) {
         it.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
                 this.clearFocus()
-            } else {
                 dataChanged.invoke(it.text.toString())
             }
         }
