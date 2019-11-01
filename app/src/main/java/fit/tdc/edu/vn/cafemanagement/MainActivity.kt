@@ -64,11 +64,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     R.id.categoryViewFragment,
                     R.id.userViewFragment,
                     R.id.tableViewFragment,
-                    R.id.tableOrderFragment,
                     R.id.userViewFragment
                 ) -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     supportActionBar?.show()
+                }
+                R.id.tableListWaiterFragment -> {
+                    fab.hide()
+                }
+                R.id.orderListFragment -> {
+                    fab.setImageDrawable(getDrawable(R.drawable.ic_check))
+                    fab.show()
                 }
                 else -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)

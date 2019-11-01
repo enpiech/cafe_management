@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
-import fit.tdc.edu.vn.cafemanagement.fragment.table.TableListWaiterFragmentDirections
+import fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragmentDirections
+import kotlinx.android.synthetic.main.dropdown_menu_popup_item.view.*
 import kotlinx.android.synthetic.main.item_table.view.*
 
-class TableWaiterAdapter : ListAdapter<Table, TableWaiterAdapter.TableWaiterHolder>(DIFF_CALLBACK) {
-    override fun onBindViewHolder(holder: TableWaiterHolder, position: Int) {
+class TableWaiterAdapter1 : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentTable: Table = getItem(position)
-        holder.bind(currentTable)
+        (holder as TableWaiterHolder).bind(currentTable)
     }
 
     companion object {
@@ -44,8 +45,8 @@ class TableWaiterAdapter : ListAdapter<Table, TableWaiterAdapter.TableWaiterHold
             it: View
         ) {
             val direction =
-                TableListWaiterFragmentDirections.tableOrderViewAction(tableId = table.id, title = "Đặt món" )
-            Log.d("test", "Bồi bàn đã bấm vào bàn")
+                TableWaiterListFragmentDirections.tableWaiterAction(tableId = table.id, title = "Hãy đặt món" )
+            Log.d("test", "Bồi bàn đã bấm vào bàn "+table.name)
             it.findNavController().navigate(direction)
         }
 
@@ -60,8 +61,8 @@ class TableWaiterAdapter : ListAdapter<Table, TableWaiterAdapter.TableWaiterHold
                 itemView.btn_item_table.setBackgroundColor(R.color.yellow)
             }
             itemView.setOnClickListener {
-                Log.d("test", "ssss")
                 val position = adapterPosition
+                Log.d("test", "position: "+position)
                 if (position != RecyclerView.NO_POSITION) {
                     navigateToView(item, it)
                 }

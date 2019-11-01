@@ -130,23 +130,11 @@
     </fragment>
     <fragment
         android:id="@+id/tableListWaiterFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableListWaiterFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragment"
         android:label="Bàn">
         <action
-            android:id="@+id/tableOrderViewAction"
-            app:destination="@id/tableOrderFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/tableOrderFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table_order_waiter.TableOrderWaiterFragment"
-        android:label="{title}">
-        <argument
-            android:name="tableId?"
-            app:argType="string"
-            app:nullable="true" />
-        <argument
-            android:name="title"
-            app:argType="string" />
+            android:id="@+id/tableWaiterAction"
+            app:destination="@id/orderListFragment" />
     </fragment>
     <fragment
         android:id="@+id/storeListFragment"
@@ -164,5 +152,17 @@
             android:name="storeId"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.order_list.OrderListFragment"
+        android:label="OrderListFragment" >
+        <argument
+            android:name="tableId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 </navigation>

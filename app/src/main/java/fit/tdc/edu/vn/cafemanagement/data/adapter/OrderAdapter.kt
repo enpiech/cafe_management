@@ -14,35 +14,24 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragmentDirections
 import kotlinx.android.synthetic.main.item_table_order_waiter.view.*
-import kotlinx.android.synthetic.main.item_zone.view.*
 
-class TableOrderWaiterAdapter : ListAdapter<Category, TableOrderWaiterHolder>(DIFF_CALLBACK) {
+class OrderAdapter : ListAdapter<Category, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val currentCategory: Category = getItem(position)
+        (holder as OrderHolder).bind(currentCategory)
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): TableOrderWaiterHolder {
+    ): OrderHolder {
         val itemView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_table_order_waiter, parent, false)
-        return TableOrderWaiterHolder(itemView)
-    }
-
-    override fun onBindViewHolder(
-        holder: TableOrderWaiterHolder,
-        position: Int
-    ) {
-        val currentCategory: Category = getItem(position)
-        holder.bind(currentCategory)
-    }
-
-    fun getCategoryAt(
-        position: Int
-    ): Category {
-        return getItem(position)
+        return OrderHolder(itemView)
     }
 }
 
-class TableOrderWaiterHolder(
+class OrderHolder(
     itemView: View
 ) : RecyclerView.ViewHolder(itemView) {
     private fun navigateToView(

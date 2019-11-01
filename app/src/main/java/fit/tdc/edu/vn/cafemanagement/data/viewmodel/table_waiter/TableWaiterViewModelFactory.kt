@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter
+package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_waiter
 
 import android.os.Bundle
 import androidx.lifecycle.AbstractSavedStateViewModelFactory
@@ -6,9 +6,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
 
-class TableOrderWaiterViewModelFactory(
+class TableWaiterViewModelFactory(
     private val dataSource: FireBaseAPI,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
@@ -19,16 +20,19 @@ class TableOrderWaiterViewModelFactory(
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        if(modelClass.isAssignableFrom(TableOrderWaiterListViewModel::class.java)) {
-            return TableOrderWaiterListViewModel(
-                categoryRepository = CategoryRepository(
+        if (modelClass.isAssignableFrom(TableWaiterDetailViewModel::class.java)) {
+            return TableWaiterDetailViewModel(
+                handle = handle,
+                tableRepository = TableRepository(
                     dataSource = dataSource
+                ),
+                zoneRepository = ZoneRepository(
+                    dataSource
                 )
             ) as T
-        }else if (modelClass.isAssignableFrom(TableOrderWaiterDetailViewModel::class.java)) {
-            return TableOrderWaiterDetailViewModel(
-                handle = handle,
-                categoryRepository = CategoryRepository(
+        } else if (modelClass.isAssignableFrom(TableWaiterListViewModel::class.java)) {
+            return TableWaiterListViewModel(
+                tableRepository = TableRepository(
                     dataSource = dataSource
                 )
             ) as T

@@ -1,10 +1,10 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter
+package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
-class TableOrderWaiterListViewModel(
+class PaymentListViewModel(
     private val categoryRepository: CategoryRepositoryAPI
 ) : BaseListViewModel<Category>() {
     override fun getAllItems() = categoryRepository.getAllCategories()
