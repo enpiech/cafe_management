@@ -33,6 +33,11 @@
     <string name="summaryOrder">Tổng tiền:</string>
     <string name="nguyenLieu">Nguyên liệu</string>
 
+    <string name="txtMaterialName">Tên nguyên liệu</string>
+    <string name="txtMaterialPrice">Giá nguyên liệu</string>
+    <string name="txtUnitDropDown">Đơn vị</string>
+    <string name="txtTypeDropDown">Thể loại</string>
+    <string name="txtCategoryDropDown">Danh mục</string>
 
     <string name="titleChinhSuaThonTinBan">Chỉnh sửa thông tin bàn</string>
     <string name="titleChinhSuaDanhMucSP">Chỉnh sửa danh mục sản phẩm</string>
@@ -86,6 +91,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="invalid_zone_name">Tên khu vực không được để trống</string>
+    <string name="invalid_material_name">Tên nguyên liệu không được để trống</string>
     <string name="invalid_unit_name">Tên đơn vị không được để trống</string>
     <string name="invalid_category_name">Tên danh mục không được để trống</string>
     <string name="invalid_table_name">Tên bàn không được để trống</string>

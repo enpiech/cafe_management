@@ -4,7 +4,7 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
@@ -152,7 +152,8 @@ interface FireBaseAPI {
 
     fun createMaterial(
         storeId: String,
-        material: Material): TaskLiveData<DocumentReference>
+        material: Material
+    ): TaskLiveData<DocumentReference>
 
     fun createRevenue(
         storeId: String,
@@ -198,7 +199,8 @@ interface FireBaseAPI {
 
     fun modifyMaterial(
         storeId: String,
-        material: Material): TaskLiveData<Void>
+        material: Material
+    ): TaskLiveData<Void>
 
     fun modifyRevenue(
         storeId: String,

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/zoneListFragment">
+    app:startDestination="@id/materialListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragment"
@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_loginFragment_to_storeListFragment"
             app:destination="@id/storeListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_materialListFragment"
+            app:destination="@id/materialListFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitListFragment"
@@ -162,5 +165,22 @@
         <argument
             android:name="title"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/materialListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material_list.MaterialListFragment"
+        android:label="MaterialListFragment" >
+        <action
+            android:id="@+id/materialViewAction"
+            app:destination="@id/materialViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/materialViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material_list.MaterialDetailFragment"
+        android:label="MaterialViewFragment" >
+        <argument
+            android:name="materialId"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 </navigation>
