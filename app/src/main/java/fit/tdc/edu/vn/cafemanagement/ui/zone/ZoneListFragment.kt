@@ -16,6 +16,7 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_viewmodel.ZoneViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragmentDirections
 import kotlinx.android.synthetic.main.fragment_list.*
 
 class ZoneListFragment : Fragment(R.layout.fragment_list) {

@@ -6,7 +6,6 @@ import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Store
 import fit.tdc.edu.vn.cafemanagement.data.repository.StoreRepositoryAPI
 
 class StoreRepository(val dataSource: FireBaseAPI) : StoreRepositoryAPI{
-
     override fun getStoreList() = dataSource.getStoreList(DocumentType.ALL)
 
     override fun getStore(storeID: String) = dataSource.getStore(storeID,DocumentType.SINGLE)
@@ -15,6 +14,7 @@ class StoreRepository(val dataSource: FireBaseAPI) : StoreRepositoryAPI{
 
     override fun updateStore(store: Store) = dataSource.modifyStore(store)
 
-    override fun deleteStore(storeID: String) = dataSource.deleteStore(storeID)
-
+    override fun deleteStore(storeID: String) {
+        dataSource.deleteStore(storeID)
+    }
 }

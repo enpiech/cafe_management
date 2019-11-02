@@ -1,13 +1,17 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
 import android.app.Application
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
+import android.util.Log
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
-import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDAO
-import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDatabase
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import kotlinx.coroutines.withContext
+import java.lang.NullPointerException
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
@@ -15,7 +19,8 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
  */
 
 class LoginRepository(val dataSource: LoginDataSource, application: Application) {
-    private var userDAO : UserDAO
+//    private var userDAO : UserDAO
+    private var sharedPreferences: SharedPreferences? = null
 
     // in-memory cache of the loggedInUser object
     // TODO Local db or reference to make session
@@ -31,12 +36,22 @@ class LoginRepository(val dataSource: LoginDataSource, application: Application)
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
         //TODO: bỏ database vô đây
-        val database: UserDatabase = UserDatabase.getInstance(application.applicationContext)!!
-        userDAO = database.userDAO()
+//        val database: UserDatabase = UserDatabase.getInstance(application.applicationContext)!!
+//        userDAO = database.userDAO()
+//        try {
+//            loggedInUser = userDAO.getAllUsers().value!!.get(0)
+//        } catch (e:Exception) {
+//            loggedInUser = null
+//        }
+        var username: String? = ""
+        var password: String? = ""
+
         try {
-            loggedInUser = userDAO.getAllUsers().value!!.get(0)
-        } catch (e:Exception) {
-            loggedInUser = null
+            sharedPreferences = application.applicationContext.getSharedPreferences("logedInUser", MODE_PRIVATE)
+            username = sharedPreferences?.getString("username", "")
+            password = sharedPreferences?.getString("password", "")
+        } catch (e : NullPointerException) {
+            Log.d("LoginRepository: ", e.message)
         }
 
         loggedInUser = null

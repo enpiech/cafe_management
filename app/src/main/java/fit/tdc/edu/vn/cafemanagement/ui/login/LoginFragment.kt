@@ -2,6 +2,8 @@ package fit.tdc.edu.vn.cafemanagement.ui.login
 
 
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -66,9 +68,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (loginResult.data?.role) {
                 User.Type.BARTENDER -> null
                 User.Type.MANAGER -> null
-                User.Type.STORE_MANAGER -> {
-
-                }
+                User.Type.STORE_MANAGER -> {}
                 User.Type.WAITER -> null
             }
         })
@@ -104,6 +104,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 imm.hideSoftInputFromWindow(windowToken, 0)
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
+
             }
         }
 

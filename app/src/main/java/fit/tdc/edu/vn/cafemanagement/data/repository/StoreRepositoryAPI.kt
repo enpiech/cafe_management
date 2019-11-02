@@ -15,5 +15,5 @@ interface StoreRepositoryAPI {
 
     fun updateStore(store: Store) : TaskLiveData<Void>
 
-    fun deleteStore(storeID: String) : TaskLiveData<Void>
+    fun deleteStore(storeID: String)
 }
