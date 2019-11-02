@@ -4,27 +4,30 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
 
-class ZoneRepository ( val dataSource: FireBaseAPI):
-    ZoneRepositoryAPI {
+class ZoneRepository(
+    val dataSource: FireBaseAPI
+) : ZoneRepositoryAPI {
 
     private val filteredTableList = MediatorLiveData<List<Table>?>()
 
-    private var listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+    private var listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
-    private var currentZoneId:String = ""
+    private var currentZoneId: String = ""
+
     init {
         filteredTableList.addSource(listTable) {
             filterTable(currentZoneId)
         }
     }
 
-    override fun tablesInZone(id: String) : LiveData<List<Table>?> {
+    override fun tablesInZone(id: String): LiveData<List<Table>?> {
         this.currentZoneId = id
-        listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+        listTable = dataSource.getTableList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
         return filteredTableList
     }
 
@@ -40,10 +43,10 @@ class ZoneRepository ( val dataSource: FireBaseAPI):
         }
     }
 
-    override fun getAllZones() = dataSource.getZoneList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+    override fun getAllZones() = dataSource.getZoneList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
-    override fun getZone(id: String) = dataSource.getZone("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
-
+    override fun getZone(id: String) =
+        dataSource.getZone("EfzspceETNgWk56YDOOt", id, DocumentType.SINGLE)
 
     override fun insert(zone: Zone) =
         dataSource.createZone("EfzspceETNgWk56YDOOt", zone)
@@ -51,6 +54,8 @@ class ZoneRepository ( val dataSource: FireBaseAPI):
     override fun update(zone: Zone) =
         dataSource.modifyZone("EfzspceETNgWk56YDOOt", zone)
 
-    override fun delete(zone: Zone) =
-        dataSource.deleteZone("EfzspceETNgWk56YDOOt", zone.id)
+    override fun delete(zone: Zone): TaskLiveData<Void> {
+        return dataSource.deleteZone("EfzspceETNgWk56YDOOt", zone.id)
+    }
+
 }

@@ -126,7 +126,7 @@ class StoreDetailViewModel(
             }
         }
 
-        formState.isDataValid = noError && formState.isChanged
+        formState.isDataValid = noError
         _formState.value = formState
     }
 

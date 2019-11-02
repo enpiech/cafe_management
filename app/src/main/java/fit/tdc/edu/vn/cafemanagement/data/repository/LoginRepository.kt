@@ -10,7 +10,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
- * maintains an in-memory cache of login status and loggedInUser credentials information.
+ * maintains an in-memory cache of employeeLogin status and loggedInUser credentials information.
  */
 
 class LoginRepository(val dataSource: LoginDataSource, database: UserDatabase) {
@@ -58,9 +58,13 @@ class LoginRepository(val dataSource: LoginDataSource, database: UserDatabase) {
         dataSource.logout()
     }
 
-    fun login(username: String, password: String) {
+    fun employeeLogin(username: String, password: String) {
         _loginResult.value = FirestoreResource.loading()
-        // handle login
+        dataSource.employeeLogin(username, password)
+    }
+
+    fun managerLogin(username: String, password: String) {
+        _loginResult.value = FirestoreResource.loading()
         dataSource.managerLogin(username, password)
     }
 

@@ -2,6 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.fragment.login
 
 import android.app.Application
 import android.util.Log
+import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,11 +28,15 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
             return
         }
         if (loginRepository.isLoggedIn) {
-            _loginResult.value = FirestoreResource.error(Exception("Already login"))
+            _loginResult.value = FirestoreResource.error(Exception("Already employeeLogin"))
             return
         }
 
-        loginRepository.login(username, password)
+        if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
+            loginRepository.managerLogin(username, password)
+        } else {
+            loginRepository.employeeLogin(username, password)
+        }
     }
 
     fun loginDataChanged(username: String, password: String) {
@@ -45,5 +50,5 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
         }
     }
 
-
+    fun logout() = loginRepository.logout()
 }

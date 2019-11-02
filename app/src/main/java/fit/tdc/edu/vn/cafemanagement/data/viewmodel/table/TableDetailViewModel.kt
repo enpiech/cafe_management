@@ -53,9 +53,9 @@ class TableDetailViewModel(
 
     override fun getItem(id: String) = tableRepository.getTable(id)
 
-    override fun insert(table: Table) = tableRepository.insert(table)
+    override fun insert(item: Table) = tableRepository.insert(item)
 
-    override fun update(table: Table) = tableRepository.update(table)
+    override fun update(item: Table) = tableRepository.update(item)
 
     override fun validate(item: Table?) {
         when {
