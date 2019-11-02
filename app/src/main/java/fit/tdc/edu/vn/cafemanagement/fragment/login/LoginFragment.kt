@@ -16,7 +16,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import fit.tdc.edu.vn.cafemanagement.MainActivity
 import fit.tdc.edu.vn.cafemanagement.R
-//import fit.tdc.edu.vn.cafemanagement.data.data_source.user.UserDatabase
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
@@ -45,7 +44,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 username.error = getString(loginState.usernameError)
             }
             if (loginState.passwordError != null) {
-                edtPassword.error = getString(loginState.passwordError)
+                password.error = getString(loginState.passwordError)
+            }
+            if(loginState.isDataValid) {
+                username.error = null
+                password.error = null
             }
         })
 
@@ -89,26 +92,27 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         })
         username.afterTextChanged {
             loginViewModel.loginDataChanged(
-                username.text.toString(),
-                edtPassword.text.toString()
+                username.editText!!.text.toString(),
+                password.editText!!.text.toString()
             )
         }
 
-        edtPassword.apply {
+        password.editText!!.apply {
             afterTextChanged {
                 loginViewModel.loginDataChanged(
-                    username.text.toString(),
-                    edtPassword.text.toString()
+                    username.editText!!.text.toString(),
+                    password.editText!!.text.toString()
                 )
 
             }
 
             setOnEditorActionListener { _, actionId, _ ->
+                loading.visibility = View.VISIBLE
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
-                            username.text.toString(),
-                            edtPassword.text.toString(),
+                            username.editText!!.text.toString(),
+                            password.editText!!.text.toString(),
                             this.context
                         )
                 }
@@ -120,7 +124,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(windowToken, 0)
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), edtPassword.text.toString(), this.context)
+                loginViewModel.login(username.editText!!.text.toString(), password.editText!!.text.toString(), this.context)
             }
         }
 
@@ -132,10 +136,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val strPassword = sharedPreferences.getString("password", "aaa")
 
             if (!strUsername.equals("aaa") && !strPassword.equals("aaa")) {
-                username.setText(strUsername!!.toCharArray(),0,strUsername.length)
-                edtPassword.setText(strPassword!!.toCharArray(),0,strPassword.length)
+                username.editText!!.setText(strUsername!!.toCharArray(),0,strUsername.length)
+                password.editText!!.setText(strPassword!!.toCharArray(),0,strPassword.length)
 
                 login.callOnClick()
+                loading.width
             }
         } catch (e: Exception) {
             Log.d("LoginFragment: ",e.message!!)

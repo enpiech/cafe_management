@@ -46,10 +46,10 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
             edtUsername.isErrorEnabled = false
         }
         if (userFormState.passwordError != null) {
-            edtPassword.error = getString(userFormState.passwordError!!)
+            password.error = getString(userFormState.passwordError!!)
         } else {
-            edtPassword.error = null
-            edtPassword.isErrorEnabled = false
+            password.error = null
+            password.isErrorEnabled = false
         }
         if (userFormState.nameError != null) {
             edtName.error = getString(userFormState.nameError!!)
@@ -85,7 +85,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
 
     override fun getCurrentFormData() = User(
         username = edtUsername?.editText?.text.toString(),
-        password = edtPassword?.editText?.text.toString(),
+        password = password?.editText?.text.toString(),
         name = edtName?.editText?.text.toString(),
         identityId = edtIdentityId?.editText?.text.toString(),
         phone = edtPhoneNumber?.editText?.text.toString(),
@@ -142,7 +142,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
 
     private fun enableForm(isEnabled: Boolean) {
         edtUsername.editText?.isEnabled = isEnabled
-        edtPassword.editText?.isEnabled = isEnabled
+        password.editText?.isEnabled = isEnabled
         edtName.editText?.isEnabled = isEnabled
         edtBirth.editText?.isEnabled = isEnabled
         edtBirth.isEndIconVisible = isEnabled
@@ -165,7 +165,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
             )
         }
 
-        edtPassword.asEditText {
+        password.asEditText {
             viewModel.validate(
                 getCurrentFormData()
             )
@@ -267,7 +267,7 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
 
     override fun fillFormWith(item: User) {
         edtUsername.editText?.setText(item.username)
-        edtPassword.editText?.setText(item.password)
+        password.editText?.setText(item.password)
         edtName.editText?.setText(item.name)
         edtIdentityId.editText?.setText(item.identityId)
         edtPhoneNumber.editText?.setText(item.phone)

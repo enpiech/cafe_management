@@ -47,7 +47,7 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
             !isPasswordValid(password) -> _loginForm.value =
                 LoginFormState(passwordError = R.string.invalid_password)
             else -> _loginForm.value =
-                LoginFormState(isDataValid = true)
+                LoginFormState(usernameError = null, passwordError = null, isDataValid = true)
         }
     }
 
