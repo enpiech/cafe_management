@@ -12,15 +12,10 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
 
 
-class UnitRepository : UnitRepositoryAPI {
-
-    private val dataSource: FireBaseAPI =
-        FireBaseDataSource()
+class UnitRepository(val dataSource: FireBaseAPI) : UnitRepositoryAPI {
 
     private val filteredMaterialList = MediatorLiveData<List<Material>?>()
     private val filteredUnitList = MediatorLiveData<List<Unit>?>()
-
-
 
     private var listMaterial = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
     private var id:String = ""
@@ -61,11 +56,9 @@ class UnitRepository : UnitRepositoryAPI {
         return filteredUnitList
     }
 
-    override fun getAllUnits() : CollectionLiveData<Unit> =
-        dataSource.getUnitList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
+    override fun getAllUnits() = dataSource.getUnitList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
-    override fun getUnit(id: String) : DocumentLiveData<Unit> =
-        dataSource.getUnit("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
+    override fun getUnit(id: String) = dataSource.getUnit("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
 
     override fun insert(unit: Unit) =
         dataSource.createUnit("EfzspceETNgWk56YDOOt", unit)

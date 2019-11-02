@@ -7,7 +7,12 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.*
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
+import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
+import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
@@ -27,7 +32,7 @@ class FireBaseDataSource: FireBaseAPI {
         private const val UNITS_KEY         = "units"
         private const val ZONE_TYPES_KEY    = "zoneTypes"
         private const val ZONES_KEY         = "zones"
-        private const val USERS_KEY         = "users"
+        private const val USERS_KEY         = "employees"
         private const val PAYMENTS_KEY      = "payments"
     }
 
@@ -43,7 +48,7 @@ class FireBaseDataSource: FireBaseAPI {
             .collection(CATEGORIES_KEY)
             .get()
             .asLiveData()
-
+    
     override fun getCategoryList(
         storeId: String,
         documentType: DocumentType
@@ -159,7 +164,7 @@ class FireBaseDataSource: FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Table> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(tableId)
+            .collection(TABLES_KEY).document(tableId)
             .asLiveData(documentType)
 
     override fun createTable(
@@ -167,13 +172,13 @@ class FireBaseDataSource: FireBaseAPI {
         table: Table
     ): TaskLiveData<DocumentReference> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY)
+            .collection(TABLES_KEY)
             .add(table)
             .asLiveData()
 
     override fun modifyTable(storeId: String, table: Table): TaskLiveData<Void> {
         return db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(table.id)
+            .collection(TABLES_KEY).document(table.id)
             .set(table)
             .asLiveData()
     }
@@ -183,7 +188,7 @@ class FireBaseDataSource: FireBaseAPI {
         tableID: String
     ): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(tableID)
+            .collection(TABLES_KEY).document(tableID)
             .delete()
             .asLiveData()
 

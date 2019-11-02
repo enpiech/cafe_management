@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/edtProductCategoryName"
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:id="@+id/table_edit_name"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toTopOf="@+id/table_spinner_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent"
         android:hint="@string/txtTableName"
-        android:importantForAutofill="no"
-        android:inputType="text"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
-        app:layout_constraintBaseline_toBaselineOf="@+id/txtZoneName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:selectAllOnFocus="true" />
 
-    <Spinner
-        android:id="@+id/spinner"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/table_spinner_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-
-        app:layout_constraintBottom_toBottomOf="@+id/lblZone"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/lblZone"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        android:hint="@string/txtTableName"
+        app:errorEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/table_edit_name"
+        app:layout_constraintVertical_bias="0.0">
 
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        <AutoCompleteTextView
+            android:id="@+id/table_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            tools:ignore="LabelFor" />
 
-        app:layout_constraintBottom_toBottomOf="@+id/lblTableType"
-        app:layout_constraintEnd_toEndOf="@+id/edtProductCategoryName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/lblTableType" />
-
-    <TextView
-        android:id="@+id/txtZoneName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-
-        android:text="@string/txtTableName"
-        app:layout_constraintBottom_toTopOf="@+id/lblZone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/lblZone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/line_height_16dp"
-
-        android:text="@string/txtZone"
-        app:layout_constraintBottom_toTopOf="@+id/lblTableType"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtZoneName" />
-
-    <TextView
-        android:id="@+id/lblTableType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-
-        android:text="@string/txtTableType"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lblZone" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        app:layout_constraintGuide_begin="108dp" />
 
-        app:layout_constraintGuide_percent="0.3" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/txtName"
+        app:layout_constraintBottom_toBottomOf="@+id/table_edit_name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/table_edit_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/txtZone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_edit_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

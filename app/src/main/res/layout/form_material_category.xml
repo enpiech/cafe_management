@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/txtZoneName"
+        android:id="@+id/txtUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/label_name"
@@ -20,10 +20,10 @@
         android:hint="@string/txt_material_category_name"
         android:importantForAutofill="no"
         android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="@+id/txtZoneName"
+        app:layout_constraintBottom_toBottomOf="@+id/txtUserName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="@+id/txtZoneName" />
+        app:layout_constraintTop_toTopOf="@+id/txtUserName" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"

@@ -3,64 +3,61 @@ package fit.tdc.edu.vn.cafemanagement.data.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import kotlinx.android.synthetic.main.item_category.view.*
+import fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragmentDirections
+import kotlinx.android.synthetic.main.item_zone.view.*
 
-class CategoryAdapter : ListAdapter<Category, CategoryAdapter.CategoryHolder>(DIFF_CALLBACK) {
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
-            override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
-                return oldItem.name == newItem.name
-            }
-        }
-    }
-
-    private var listener: OnItemClickListener? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryHolder {
+class CategoryAdapter : ListAdapter<Category, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): CategoryHolder {
         val itemView: View =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
+                LayoutInflater.from(parent.context).inflate(R.layout.item_category, parent, false)
         return CategoryHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: CategoryHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentCategory: Category = getItem(position)
+        (holder as CategoryHolder).bind(currentCategory)
+    }
+}
 
-        holder.textCategory.text = currentCategory.name
+class CategoryHolder(
+    itemView: View
+) : RecyclerView.ViewHolder(itemView) {
+    private fun navigateToView(
+        category: Category,
+        it: View
+    ) {
+        val direction =
+            CategoryListFragmentDirections.categoryViewAction(category.id)
+        it.findNavController().navigate(direction)
     }
 
-    fun getCategoryAt(position: Int): Category {
-        return getItem(position)
-    }
+    fun bind(item: Category) {
+        itemView.txt_name.text = item.name
 
-    inner class CategoryHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
-            itemView.setOnClickListener {
-                val position = adapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    listener?.onItemClick(getItem(position))
-                }
+        itemView.setOnClickListener {
+            val position = adapterPosition
+            if (position != RecyclerView.NO_POSITION) {
+                navigateToView(item, it)
             }
         }
+    }
+}
 
-        val textCategory: TextView = itemView.txt_category
+private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Category>() {
+    override fun areItemsTheSame(oldItem: Category, newItem: Category): Boolean {
+        return oldItem.id == newItem.id
     }
 
-    interface OnItemClickListener {
-        fun onItemClick(category: Category)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
+    override fun areContentsTheSame(oldItem: Category, newItem: Category): Boolean {
+        return oldItem.name == newItem.name
     }
 }

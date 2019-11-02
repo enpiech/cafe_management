@@ -8,7 +8,7 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
 class CategoryRepository(val dataSource: FireBaseAPI) :
     CategoryRepositoryAPI {
 
-    override fun getAllCategory() = dataSource.getCategoryList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
+    override fun getAllCategories() = dataSource.getCategoryList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
     override fun getCategory(id: String) = dataSource.getCategory("EfzspceETNgWk56YDOOt", id,DocumentType.SINGLE)
 

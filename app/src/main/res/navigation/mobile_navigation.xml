@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/unitListFragment">
+    app:startDestination="@id/zoneListFragment">
     <fragment
         android:id="@+id/categoryListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_list.CategoryListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragment"
         android:label="@string/label_category_list"
         tools:layout="@layout/fragment_list" >
         <action
@@ -16,39 +16,50 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.login.LoginFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/getCategoryListAction"
+            android:id="@+id/action_loginFragment_to_categoryListFragment"
             app:destination="@id/categoryListFragment" />
         <action
-            android:id="@+id/getUnitListAction"
+            android:id="@+id/action_loginFragment_to_unitListFragment"
             app:destination="@id/unitListFragment" />
         <action
-            android:id="@+id/getZoneListAction"
+            android:id="@+id/action_loginFragment_to_zoneListFragment"
             app:destination="@id/zoneListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_userListFragment"
+            app:destination="@id/userListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_tableListWaiterFragment"
+            app:destination="@id/tableListWaiterFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_tableListFragment"
+            app:destination="@id/tableListFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_storeListFragment"
+            app:destination="@id/storeListFragment" />
     </fragment>
     <fragment
         android:id="@+id/unitListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_list.UnitListFragment"
-        android:label="Đơn vị"
-        tools:layout="@layout/fragment_list">
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
+        android:label="Đơn vị">
         <action
             android:id="@+id/unitViewAction"
             app:destination="@id/unitViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/zoneListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_list.ZoneListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragment"
         android:label="@string/label_zone_list" >
         <action
-            android:id="@+id/viewZoneAction"
+            android:id="@+id/zoneViewAction"
             app:destination="@id/zoneViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/zoneViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.zone_view.ZoneViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneViewFragment"
         android:label="ZoneViewFragment" >
         <argument
             android:name="zoneId"
@@ -59,7 +70,7 @@
         android:name="zoneId" />
     <fragment
         android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.unit_view.UnitViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitViewFragment"
         android:label="{title}">
         <argument
             android:name="unitId"
@@ -71,11 +82,85 @@
     </fragment>
     <fragment
         android:id="@+id/categoryViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.ui.category_view.CategoryViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryViewFragment"
         android:label="CategoryViewFragment" >
         <argument
             android:name="categoryId"
             app:argType="string"
             app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableListFragment"
+        android:label="Bàn">
+        <action
+            android:id="@+id/tableViewAction"
+            app:destination="@id/tableViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableViewFragment"
+        android:label="{title}" >
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="tableId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/userListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragment"
+        android:label="UserListFragment" >
+        <action
+            android:id="@+id/userViewAction"
+            app:destination="@id/userViewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userViewFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserViewFragment"
+        android:label="UserViewFragment" >
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/tableListWaiterFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragment"
+        android:label="Bàn">
+        <action
+            android:id="@+id/tableWaiterAction"
+            app:destination="@id/orderListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.store.StoreListFragment"
+        android:label="StoreListFragment">
+        <action
+            android:id="@+id/storeViewAction"
+            app:destination="@id/storeDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.store.StoreDetailFragment"
+        android:label="StoreDetailFragment">
+        <argument
+            android:name="storeId"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.order_list.OrderListFragment"
+        android:label="{title}">
+        <argument
+            android:name="tableId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string" />
     </fragment>
 </navigation>
