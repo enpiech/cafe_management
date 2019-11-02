@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.store
 
+import android.util.Log
 import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -55,13 +56,12 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
             }
             FormState.Type.ADD -> {
                 enableForm(true)
+                setupForm()
             }
             FormState.Type.VIEW -> {
                 enableForm(false)
             }
         }
-
-        setupForm()
     }
 
     private fun enableForm(isEnabled: Boolean) {
@@ -85,6 +85,7 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
         (viewModel as StoreDetailViewModel).userList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
+                Log.d("Test", "${it.size}")
                 if (it.isNotEmpty()) {
                     val list = it.map { user -> user.name }
                     manager.setAdapter(
@@ -95,11 +96,13 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
                         )
                     )
                 } else if (manager.text.isNullOrBlank()) {
-                    val storeManager = (viewModel as StoreDetailViewModel).currentStoreManager.value
-                    if (storeManager == null) {
+                    val currentItem = (viewModel as StoreDetailViewModel).currentItem.value
+                    if (currentItem != null && currentItem.managerId.isNullOrBlank()) {
                         manager.setText(getText(R.string.warning_store_missing_manager), false)
                     } else {
                         manager.setText(getText(R.string.warning_store_no_free_manager), false)
+                        tilManager.isEndIconVisible = false
+                        manager.isEnabled = false
                     }
                 }
                 manager.setOnItemClickListener { _, _, position, _ ->

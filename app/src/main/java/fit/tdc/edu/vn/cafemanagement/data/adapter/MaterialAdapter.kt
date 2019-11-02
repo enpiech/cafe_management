@@ -4,63 +4,51 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.fragment.material_list.MaterialListFragmentDirections
 import kotlinx.android.synthetic.main.item_material.view.*
 
-class MaterialAdapter : ListAdapter<Material, MaterialAdapter.MaterialHolder>(DIFF_CALLBACK) {
-
-    companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Material>() {
-            override fun areItemsTheSame(oldItem: Material, newItem: Material): Boolean {
-                return oldItem.id == newItem.id
-            }
-
-            override fun areContentsTheSame(oldItem: Material, newItem: Material): Boolean {
-                return oldItem.name == newItem.name
-            }
-        }
-    }
-
-    private var listener: OnItemClickListener? = null
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MaterialHolder {
+class MaterialAdapter : ListAdapter<Material, RecyclerView.ViewHolder>(Material.DIFF_CALLBACK) {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): MaterialHolder {
         val itemView: View =
             LayoutInflater.from(parent.context).inflate(R.layout.item_material, parent, false)
         return MaterialHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: MaterialHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentMaterial: Material = getItem(position)
-
-        holder.textMaterial.text = currentMaterial.name
+        (holder as MaterialHolder).bind(currentMaterial)
     }
 
-    fun getMaterialAt(position: Int): Material {
-        return getItem(position)
-    }
+    inner class MaterialHolder(
+        itemView: View
+    ) : RecyclerView.ViewHolder(itemView) {
+        private fun navigateToView(
+            material: Material,
+            it: View
+        ) {
+            val direction =
+                MaterialListFragmentDirections.materialViewAction(material.id)
+            it.findNavController().navigate(direction)
+        }
 
-    inner class MaterialHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        init {
+        fun bind(item: Material) {
+            itemView.txt_material.text = item.name
+
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
-                    listener?.onItemClick(getItem(position))
+                    navigateToView(item, it)
                 }
             }
         }
-
-        val textMaterial: TextView = itemView.txt_material
-    }
-
-    interface OnItemClickListener {
-        fun onItemClick(material: Material)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
     }
 }

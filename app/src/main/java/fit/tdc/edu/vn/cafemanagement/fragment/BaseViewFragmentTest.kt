@@ -130,7 +130,7 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
             FormState.Type.VIEW -> {
                 updateUIWithCurrentItem()
             }
-            FormState.Type.MODIFY -> {
+            FormState.Type.MODIFY, FormState.Type.ADD -> {
                 updateUIWithDraftItem()
             }
         }

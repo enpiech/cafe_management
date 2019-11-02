@@ -1,97 +1,44 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.material_list
 
-import android.os.Bundle
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.lifecycle.get
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.adapter.MaterialAdapter
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModel
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFactory
-import kotlinx.android.synthetic.main.fragment_list.*
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
-class MaterialListFragment : Fragment(R.layout.fragment_list) {
-
-    var adapter = MaterialAdapter()
-
-    companion object {
-
-        fun newInstance() = MaterialListFragment()
-
-        const val ADD_MATERIAL_REQUEST = 1
-        const val EDIT_MATERIAL_REQUEST = 2
+class MaterialListFragment : BaseListFragment<Material>(
+    R.layout.fragment_list,
+    viewAdapter = MaterialAdapter()
+) {
+    override fun setupFab(fab: FloatingActionButton) {
+        fab.setOnClickListener {
+            navController.navigate(MaterialListFragmentDirections.materialViewAction(materialId = null))
+        }
     }
 
-    private lateinit var viewModel: MaterialViewModel
+    override val viewModel: BaseListViewModel<Material>
+        get() = ViewModelProvider(
+            this,
+            MaterialViewModelFactory(FireBaseDataSource(), this)
+        ).get<MaterialListViewModel>()
+    override val navController: NavController
+        get() = findNavController()
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        // TODO setEvent when click on button add (change to material view)
-        /*btnAddMaterial.setOnClickListener {
-            activity?.let {
-
-            }
-        }*/
-
-        recycler_view.layoutManager = LinearLayoutManager(context)
-        recycler_view.setHasFixedSize(true)
-
-        recycler_view.adapter = adapter
-
-        viewModel = ViewModelProvider(this, MaterialViewModelFactory())
-            .get(MaterialViewModel::class.java)
-
-        viewModel.getAllMaterials().observe(this, Observer {
-            adapter.submitList(it.data)
-        })
-
-        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
-            0, ItemTouchHelper.LEFT.or(
-                ItemTouchHelper.RIGHT
-            )
-        ) {
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val builder = AlertDialog.Builder(requireContext())
-                with(builder) {
-                    setTitle("Xóa")
-                    setMessage("Bạn có muốn xóa thông tin này không?")
-                    setPositiveButton("OK") { p0, p1 ->
-                        viewModel.delete(adapter.getMaterialAt(viewHolder.adapterPosition))
-                        Toast.makeText(
-                            context,
-                            "Nguyên liệu bạn chọn đã bị xóa!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                    setNegativeButton("Hủy") { p0, p1 ->
-                        adapter.notifyDataSetChanged()
-                        Toast.makeText(context, "Hủy", Toast.LENGTH_SHORT).show()
-                    }
-                    show()
-                }
-            }
-        }
-        ).attachToRecyclerView(recycler_view)
-
-        // TODO setEvent when click on list item (send data to material view)
-        /*viewAdapter.setOnItemClickListener(object : MaterialAdapter.OnItemClickListener {
-            override fun onItemClick(material: Material) {
-
-            }
-        })*/
+    override fun showDeleteNotifySnackBar(item: Material, view: View) {
+        Snackbar.make(
+            view,
+            "${item.name} đã bị xóa!",
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 }

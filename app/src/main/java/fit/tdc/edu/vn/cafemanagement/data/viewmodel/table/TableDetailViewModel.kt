@@ -58,6 +58,9 @@ class TableDetailViewModel(
     override fun update(item: Table) = tableRepository.update(item)
 
     override fun validate(item: Table?) {
+        item?.let {
+            saved = it
+        }
         when {
             item == currentItem.value -> {
                 _formState.value = TableViewFormState(

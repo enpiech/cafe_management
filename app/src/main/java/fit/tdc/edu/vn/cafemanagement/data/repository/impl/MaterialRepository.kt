@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 import androidx.lifecycle.MediatorLiveData
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
-import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 
 class MaterialRepository ( val dataSource: FireBaseAPI) :
@@ -64,9 +64,8 @@ class MaterialRepository ( val dataSource: FireBaseAPI) :
     override fun insert(material: Material) =
         dataSource.createMaterial("EfzspceETNgWk56YDOOt", material)
 
-    override fun update(material: Material) {
+    override fun update(material: Material) =
         dataSource.modifyMaterial("EfzspceETNgWk56YDOOt", material)
-    }
 
     override fun delete(material: Material) =
         dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)

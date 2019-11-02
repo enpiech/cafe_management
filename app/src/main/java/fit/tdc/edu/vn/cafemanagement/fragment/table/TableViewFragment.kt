@@ -94,7 +94,7 @@ class TableViewFragment : BaseViewFragmentTest<Table>(R.layout.fragment_table_de
                 } else {
                     if ((viewModel as TableDetailViewModel).currentZone.value != null) {
                         // TODO notify no zone
-//                        table_spinner.setText(getText(R.string.warning_store_no_free_manager), false)
+                        //table_spinner.setText(getText(R.string.warning_store_no_free_manager), false)
                     } else {
                         // TODO notify not set zone
 //                        table_spinner.setText(getText(R.string.warning_store_missing_manager), false)
