@@ -92,6 +92,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="orderListFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="500" />
+                            <option name="y" value="1080" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="storeDetailFragment">
                     <value>
                       <LayoutPositions>
@@ -109,8 +121,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="500" />
-                            <option name="y" value="1080" />
+                            <option name="x" value="256" />
+                            <option name="y" value="724" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -157,7 +169,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="tableOrderViewAction">
+                            <entry key="tableWaiterAction">
                               <value>
                                 <LayoutPositions />
                               </value>

@@ -3,6 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.fragment.login
 
 import android.app.Activity
 import android.content.Context
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
 import kotlinx.android.synthetic.main.fragment_login.*
+import java.lang.Exception
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -28,8 +30,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loginViewModel = ViewModelProvider(
-            this
-//            LoginViewModelFactory(UserDatabase.getInstance(requireContext())!!)
+            this,
+            LoginViewModelFactory()
         )
             .get(LoginViewModel::class.java)
 
@@ -106,7 +108,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     EditorInfo.IME_ACTION_DONE ->
                         loginViewModel.login(
                             username.text.toString(),
-                            edtPassword.text.toString()
+                            edtPassword.text.toString(),
+                            this.context
                         )
                 }
                 false
@@ -117,11 +120,28 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(windowToken, 0)
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), edtPassword.text.toString())
+                loginViewModel.login(username.text.toString(), edtPassword.text.toString(), this.context)
             }
         }
 
         super.onViewCreated(view, savedInstanceState)
+
+        try {
+            val sharedPreferences = context!!.getSharedPreferences("savedUser", MODE_PRIVATE)
+            val strUsername = sharedPreferences.getString("username", "aaa")
+            val strPassword = sharedPreferences.getString("password", "aaa")
+
+            if (!strUsername.equals("aaa") && !strPassword.equals("aaa")) {
+                username.setText(strUsername!!.toCharArray(),0,strUsername.length)
+                edtPassword.setText(strPassword!!.toCharArray(),0,strPassword.length)
+
+                login.callOnClick()
+            }
+        } catch (e: Exception) {
+            Log.d("LoginFragment: ",e.message!!)
+        }
+
+
     }
 
     private fun rememberUserType(type: User.Role?) {

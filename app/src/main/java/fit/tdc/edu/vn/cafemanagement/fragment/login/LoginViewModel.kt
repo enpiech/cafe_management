@@ -1,6 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.login
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import android.util.Patterns
 import androidx.lifecycle.AndroidViewModel
@@ -22,7 +23,7 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
     private val _loginResult = loginRepository.loginResult
     val loginResult = _loginResult
 
-    fun login(username: String, password: String) {
+    fun login(username: String, password: String, context: Context) {
         if (_loginResult.value?.status == Status.LOADING) {
             Log.d("test", "is loading")
             return
@@ -33,7 +34,7 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
         }
 
         if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
-            loginRepository.managerLogin(username, password)
+            loginRepository.managerLogin(username, password, context)
         } else {
             loginRepository.employeeLogin(username, password)
         }

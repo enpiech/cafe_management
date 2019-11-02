@@ -2,6 +2,7 @@ package fit.tdc.edu.vn.cafemanagement
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -52,11 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //        }
     }
 
-
     private fun setupNavigation() {
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
+        nav_view.setNavigationItemSelectedListener(this)
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
                 in setOf(
@@ -65,6 +66,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     supportActionBar?.hide()
                     fab.hide()
+
+
+
                     logout()
                 }
                 in setOf(
@@ -109,6 +113,20 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         item.isChecked = true
         drawer_layout.closeDrawers()
+        if(item.itemId == R.id.loginFragment) {
+            val sharedPreferences = getSharedPreferences("savedUser", Context.MODE_PRIVATE)
+            Log.d("savedUsername:", sharedPreferences.getString("username", "lalalalaaalalalalalala"))
+            Log.d("savedPassword:", sharedPreferences.getString("password", "lalalalaaalalalalalala"))
+
+            val sharedPreferencesEditor = getSharedPreferences("savedUser", Context.MODE_PRIVATE).edit()
+            sharedPreferencesEditor.putString("username", "aaa")
+            sharedPreferencesEditor.putString("password", "aaa")
+            sharedPreferencesEditor.apply()
+
+            Log.d("savedUsername:", sharedPreferences.getString("username", "lalalalaaalalalalalala"))
+            Log.d("savedPassword:", sharedPreferences.getString("password", "lalalalaaalalalalalala"))
+            navController.navigate(item.itemId)
+        }
         navController.navigate(item.itemId)
         return true
     }

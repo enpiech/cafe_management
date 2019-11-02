@@ -1,5 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
+import android.content.Context
+import android.content.Context.MODE_PRIVATE
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
@@ -22,7 +25,7 @@ class LoginDataSource {
     private val _result = MutableLiveData<FirestoreResource<User>>(null)
     val result: LiveData<FirestoreResource<User>> = _result
 
-    fun managerLogin(username: String, password: String) {
+    fun managerLogin(username: String, password: String, context: Context) {
         auth.signInWithEmailAndPassword(username, password)
             .addOnSuccessListener {
                 if (it.user == null) {
@@ -35,6 +38,14 @@ class LoginDataSource {
                     username = firebaseUser.email
                 ).apply {
                     id = firebaseUser.uid
+                }
+                try {
+                    val sharedReferenceEditor = context.getSharedPreferences("savedUser", MODE_PRIVATE).edit()
+                    sharedReferenceEditor.putString("username", username)
+                    sharedReferenceEditor.putString("password", password)
+                    sharedReferenceEditor.apply()
+                } catch (e: Exception) {
+                    Log.d("LoginDataSrc.mgrLogin", e.message!!)
                 }
                 _result.value = FirestoreResource.success(user)
             }

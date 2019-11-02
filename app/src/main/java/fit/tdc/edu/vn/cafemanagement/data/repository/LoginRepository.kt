@@ -1,10 +1,12 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
+import android.content.Context
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import java.security.AccessControlContext
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
@@ -33,6 +35,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
 //            null
 //        }
 
+
         loggedInUser = null
         _loginResult.value = null
         _loginResult.addSource(dataSource.result) {
@@ -60,9 +63,9 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.employeeLogin(username, password)
     }
 
-    fun managerLogin(username: String, password: String) {
+    fun managerLogin(username: String, password: String, context: Context) {
         _loginResult.value = FirestoreResource.loading()
-        dataSource.managerLogin(username, password)
+        dataSource.managerLogin(username, password, context)
     }
 
     private fun setLoggedInUser(loggedInUser: User) {
