@@ -61,12 +61,12 @@ class UnitDetailViewModel (
         if (currentItem.value != null) {
             when {
                 item.name != currentItem.value!!.name -> formState.isChanged = true
-                viewType.value!! == FormState.Type.ADD -> formState.isChanged = true
+                viewType.value == FormState.Type.ADD -> formState.isChanged = true
                 else -> formState.isChanged = false
             }
         }
 
-        formState.isDataValid = noError && formState.isChanged
+        formState.isDataValid = noError
         _formState.value = formState
     }
 }
