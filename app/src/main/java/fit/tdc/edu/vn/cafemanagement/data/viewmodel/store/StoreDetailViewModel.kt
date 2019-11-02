@@ -46,8 +46,14 @@ class StoreDetailViewModel(
         currentItem,
         _userResponseList
     ) { store, userList ->
-        if (!userList.isNullOrEmpty() && store != null) {
-            userList.filter { user -> user.role == User.Role.STORE_MANAGER/*& user.storeId.isNullOrBlank()*/ }
+        if (!userList.isNullOrEmpty()) {
+            var list = userList.filter { user -> user.role == User.Role.STORE_MANAGER }
+            list = if (store != null) {
+                list.filter { user -> user.storeId.isNullOrBlank() || user.storeId == store.id }
+            } else {
+                list.filter { user -> user.storeId.isNullOrBlank() }
+            }
+            list
         } else {
             listOf()
         }

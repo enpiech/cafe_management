@@ -64,7 +64,9 @@ inline fun <reified T : FirestoreModel> CollectionReference.asLiveData(documentT
  * @param T The return type of the [Task]
  * @return A [TaskLiveData] representing the [Task] state as a [TaskResult]
  */
-fun <T> Task<T>.asLiveData(): TaskLiveData<T> = TaskLiveData(this)
+fun <T> Task<T>.asLiveData(
+    onComplete: ((task: Task<T>) -> Unit)? = null
+): TaskLiveData<T> = TaskLiveData(this, onComplete)
 
 /**
  * An observable [LiveData] representing the currently signed-in loggedInUser, as a [FirebaseUser]
