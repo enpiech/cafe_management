@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
@@ -71,14 +70,6 @@ interface FireBaseAPI {
         storeId: String,
         documentType: DocumentType
     ): CollectionLiveData<Payment>
-
-    /**
-     * ========== FETCH ============
-     */
-    fun fetchCategoryList(
-        storeId: String
-    ): TaskLiveData<QuerySnapshot>
-
 
     /**
      * =========== GET SPECIFIC DOCUMENT ============
@@ -228,11 +219,12 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun modifyUser(
-        user: User
+        oldUser: User,
+        newUser: User
     ): TaskLiveData<Void>
 
     fun modifyStore(
-        store: Store
+        oldStore: Store, newStore: Store
     ): TaskLiveData<Void>
     
     
@@ -275,7 +267,7 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun deleteUser(
-        userId: String
+        user: User
     ): TaskLiveData<Void>
 
     fun deleteStore(

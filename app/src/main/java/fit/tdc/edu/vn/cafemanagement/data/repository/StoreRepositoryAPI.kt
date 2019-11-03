@@ -13,7 +13,7 @@ interface StoreRepositoryAPI {
 
     fun createStore(store: Store) : TaskLiveData<DocumentReference>
 
-    fun updateStore(store: Store) : TaskLiveData<Void>
+    fun updateStore(oldStore: Store, newStore: Store) : TaskLiveData<Void>
 
     fun deleteStore(storeID: String) : TaskLiveData<Void>
 }

@@ -17,7 +17,7 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 class TableWaiterDetailViewModel(
     private val handle: SavedStateHandle,
     private val tableRepository: TableRepositoryAPI,
-    private val zoneRepository: ZoneRepositoryAPI
+    zoneRepository: ZoneRepositoryAPI
 ) : BaseDetailViewModel<Table>() {
     override var saved: Table
         get() = Table(

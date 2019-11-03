@@ -1,12 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.user
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
@@ -31,6 +29,7 @@ class UserDetailViewModel(
             address = handle.get<String>("address"),
             role = handle.get<User.Role>("role"),
             storeId = handle.get<String>("storeId"),
+            storeName = handle.get<String>("storeName"),
             username = handle.get<String>("username"),
             password = handle.get<String>("password")
         )
@@ -43,17 +42,10 @@ class UserDetailViewModel(
             handle.set("address", value.address)
             handle.set("role", value.role)
             handle.set("storeId", value.storeId)
+            handle.set("storeName", value.storeName)
             handle.set("username", value.username)
             handle.set("password", value.password)
         }
-
-    var currentStoreSelection: LiveData<String>
-        get() = getCurrentStoreSelection
-        set(value) {}
-
-    fun setCurrentStoreSelection(name: String?) {
-        handle.set("storeName", name)
-    }
 
     private val _storeResponseList = storeRepository.getStoreList()
     val storeList: LiveData<List<Store>> = _storeResponseList.map {
@@ -64,35 +56,14 @@ class UserDetailViewModel(
         }
     }
 
-    val currentStore =
-        CombinedLiveData<User, List<Store>, Store?>(currentItem, storeList) { user, storeList ->
-            getCurrentStoreOfUser(user, storeList)
-        }
-
-    private val getCurrentStoreSelection = MediatorLiveData<String>().apply {
-        addSource(currentStore) {
-            //            Log.d("test", it.toString())
-            it?.let { store ->
-                value = store.name
-            }
-        }
-        addSource(handle.getLiveData<String>("storeName")) {
-            value = it
-        }
-    }
-
-    private fun getCurrentStoreOfUser(user: User?, res: List<Store>?): Store? {
-        return if (!res.isNullOrEmpty() && user != null) {
-            res.find { store -> store.id == user.storeId }
-        } else
-            null
-    }
-
     override fun getItem(id: String) = userRepository.getUser(id)
 
     override fun insert(item: User) = userRepository.insert(item)
 
-    override fun update(item: User) = userRepository.update(item)
+    override fun update(item: User) = userRepository.update(
+        oldUser = currentItem.value!!,
+        newUser = item
+    )
 
     override fun validate(item: User?) {
         when (item) {
@@ -183,7 +154,7 @@ class UserDetailViewModel(
                 item.address != currentItem.value!!.address -> formState.isChanged = true
                 item.gender != currentItem.value!!.gender -> formState.isChanged = true
                 item.role != currentItem.value!!.role -> formState.isChanged = true
-                item.storeId != currentItem.value!!.storeId -> formState.isChanged = true
+                item.storeId != currentItem.value!!.storeId && item.storeName != currentItem.value!!.storeName -> formState.isChanged = true
             }
         } else {
             formState.isChanged = true

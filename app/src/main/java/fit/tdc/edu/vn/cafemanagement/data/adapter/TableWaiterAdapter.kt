@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.graphics.convertTo
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragmentDirections
-import kotlinx.android.synthetic.main.dropdown_menu_popup_item.view.*
 import kotlinx.android.synthetic.main.item_table.view.*
 
 class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
@@ -80,9 +78,6 @@ class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALL
             } else if (item.state == Table.State.BOOKED) {
                 itemView.btn_item_table.setBackgroundColor(Color.YELLOW)
                 itemView.btn_item_table.setTextColor(Color.BLACK)
-            }else{
-                itemView.btn_item_table.setBackgroundColor(Color.GRAY)
-                itemView.btn_item_table.setTextColor(Color.WHITE)
             }
             itemView.setOnClickListener {
                 val position = adapterPosition

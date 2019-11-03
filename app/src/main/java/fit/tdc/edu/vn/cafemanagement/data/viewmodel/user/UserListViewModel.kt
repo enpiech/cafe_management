@@ -6,7 +6,7 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
 class UserListViewModel(
     private val userRepository: UserRepositoryAPI
-): BaseListViewModel<User>() {
+) : BaseListViewModel<User>() {
 
     override fun getAllItems() = userRepository.getAllUsers()
 

@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_order_waiter
+package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category

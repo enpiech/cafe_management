@@ -3,8 +3,24 @@ package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
+import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORIES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MATERIALS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENTS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.REVENUES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNITS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.USERS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_TYPES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
@@ -19,36 +35,17 @@ import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import javax.inject.Singleton
 
 @Singleton
-class FireBaseDataSource: FireBaseAPI {
+class FireBaseDataSource : FireBaseAPI {
     private val db: FirebaseFirestore by lazy {
         Firebase.firestore
     }
-    companion object {
-        private const val STORES_KEY        = "stores"
-        private const val CATEGORIES_KEY    = "categories"
-        private const val MATERIALS_KEY     = "materials"
-        private const val TABLES_KEY        = "tables"
-        private const val REVENUES_KEY      = "revenues"
-        private const val UNITS_KEY         = "units"
-        private const val ZONE_TYPES_KEY    = "zoneTypes"
-        private const val ZONES_KEY         = "zones"
-        private const val USERS_KEY         = "employees"
-        private const val PAYMENTS_KEY      = "payments"
-    }
+
 
     /**
-    *
-    * ==========  CATEGORY  ============
-    */
+     *
+     * ==========  CATEGORY  ============
+     */
 
-    override fun fetchCategoryList(
-        storeId: String
-    ) =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY)
-            .get()
-            .asLiveData()
-    
     override fun getCategoryList(
         storeId: String,
         documentType: DocumentType
@@ -113,7 +110,7 @@ class FireBaseDataSource: FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Material> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(materialId)
+            .collection(MATERIALS_KEY).document(materialId)
             .asLiveData(documentType)
 
     override fun createMaterial(
@@ -121,7 +118,7 @@ class FireBaseDataSource: FireBaseAPI {
         material: Material
     ): TaskLiveData<DocumentReference> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY)
+            .collection(MATERIALS_KEY)
             .add(material)
             .asLiveData()
 
@@ -130,7 +127,7 @@ class FireBaseDataSource: FireBaseAPI {
         material: Material
     ): TaskLiveData<Void> {
         return db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(material.id)
+            .collection(MATERIALS_KEY).document(material.id)
             .set(material)
             .asLiveData()
     }
@@ -140,7 +137,7 @@ class FireBaseDataSource: FireBaseAPI {
         materialID: String
     ): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(materialID)
+            .collection(MATERIALS_KEY).document(materialID)
             .delete()
             .asLiveData()
 
@@ -209,7 +206,7 @@ class FireBaseDataSource: FireBaseAPI {
         storeId: String,
         revenueId: String,
         documentType: DocumentType
-    ): DocumentLiveData<Revenue>  =
+    ): DocumentLiveData<Revenue> =
         db.collection(STORES_KEY).document(storeId)
             .collection(CATEGORIES_KEY).document(revenueId)
             .asLiveData(documentType)
@@ -418,20 +415,49 @@ class FireBaseDataSource: FireBaseAPI {
             .asLiveData()
 
     override fun modifyUser(
-        user: User
+        oldUser: User,
+        newUser: User
     ): TaskLiveData<Void> {
-        return db.collection(USERS_KEY).document(user.id)
-            .set(user)
-            .asLiveData()
+        return db.runBatch { batch ->
+            if (newUser.role == User.Role.STORE_MANAGER) {
+                var oldStoreRef: DocumentReference? = null
+                oldUser.storeId?.let {
+                    oldStoreRef = db.collection(STORES_KEY).document(it)
+                }
+                var newStoreRef: DocumentReference? = null
+                newUser.storeId?.let {
+                    newStoreRef = db.collection(STORES_KEY).document(it)
+                }
+                if (oldUser.storeId.isNullOrBlank() && !newUser.storeId.isNullOrBlank()) {
+                    newStoreRef?.let {
+                        batch.update(it, MANAGER_ID_KEY, newUser.id)
+                    }
+                } else if (!oldUser.storeId.isNullOrBlank() && newUser.storeId.isNullOrBlank()) {
+                    oldStoreRef?.let {
+                        batch.update(it, MANAGER_ID_KEY, null)
+                    }
+                } else if (!oldUser.storeId.isNullOrBlank() && !newUser.storeId.isNullOrBlank()) {
+                    batch.update(oldStoreRef!!, MANAGER_ID_KEY, null)
+                    batch.update(oldStoreRef!!, MANAGER_NAME_KEY, null)
+                    batch.update(newStoreRef!!, MANAGER_ID_KEY, newUser.id)
+                    batch.update(newStoreRef!!, MANAGER_NAME_KEY, newUser.name)
+                }
+                val userRef = db.collection(USERS_KEY).document(oldUser.id)
+                batch.set(userRef, newUser)
+            }
+        }.asLiveData()
     }
 
     override fun deleteUser(
-        userId: String
-    ): TaskLiveData<Void> =
-        db.collection(USERS_KEY).document(userId)
-            .delete()
-            .asLiveData()
-
+        user: User
+    ): TaskLiveData<Void> {
+        db.runBatch {batch ->
+            if (user.role == User.Role.STORE_MANAGER && !user.storeId.isNullOrBlank()) {
+                batch.update(db.collection(STORES_KEY).document(user.storeId!!), MANAGER_ID_KEY, null)
+            }
+        }
+        return db.collection(USERS_KEY).document(user.id).delete().asLiveData()
+    }
 
     /**
      *
@@ -452,25 +478,77 @@ class FireBaseDataSource: FireBaseAPI {
 
     override fun createStore(
         store: Store
-    ): TaskLiveData<DocumentReference> =
-        db.collection(STORES_KEY)
+    ): TaskLiveData<DocumentReference> {
+        return db.collection(STORES_KEY)
             .add(store)
+            .addOnSuccessListener { ref ->
+                store.managerId?.let { managerId ->
+                    db.runBatch { batch ->
+                        val managerRef = db.collection(USERS_KEY).document(managerId)
+                        val field = STORE_ID_KEY
+                        val data = ref.id
+                        batch.update(managerRef, field, data)
+                    }
+                }
+            }
             .asLiveData()
+    }
+
 
     override fun modifyStore(
-        store: Store
+        oldStore: Store, newStore: Store
     ): TaskLiveData<Void> {
-        return db.collection(STORES_KEY).document(store.id)
-            .set(store)
-            .asLiveData()
+        return db.runBatch { writeBatch: WriteBatch ->
+            var oldManagerRef: DocumentReference? = null
+            oldStore.managerId?.let {
+                oldManagerRef = db.collection(USERS_KEY).document(it)
+            }
+            var newManagerRef: DocumentReference? = null
+            newStore.managerId?.let {
+                newManagerRef = db.collection(USERS_KEY).document(it)
+            }
+            if (oldStore.managerId.isNullOrBlank() && !newStore.managerId.isNullOrBlank()) {
+                newManagerRef?.let {
+                    writeBatch.update(it, STORE_ID_KEY, newStore.id)
+                    writeBatch.update(it, STORE_NAME_KEY, newStore.id)
+                }
+            } else if (!oldStore.managerId.isNullOrBlank() && newStore.managerId.isNullOrBlank()) {
+                oldManagerRef?.let {
+                    writeBatch.update(it, STORE_ID_KEY, null)
+                    writeBatch.update(it, STORE_NAME_KEY, null)
+                }
+            } else if (!oldStore.managerId.isNullOrBlank() && !newStore.managerId.isNullOrBlank()) {
+                writeBatch.update(oldManagerRef!!, STORE_ID_KEY, null)
+                writeBatch.update(oldManagerRef!!, STORE_NAME_KEY, null)
+                writeBatch.update(newManagerRef!!, STORE_ID_KEY, newStore.id)
+                writeBatch.update(newManagerRef!!, STORE_NAME_KEY, newStore.name)
+            }
+            writeBatch.set(db.collection(STORES_KEY).document(newStore.id), newStore)
+        }.asLiveData()
     }
 
     override fun deleteStore(
         storeId: String
-    ): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
-            .delete()
-            .asLiveData()
+    ): TaskLiveData<Void> {
+        val refs: ArrayList<DocumentReference> = arrayListOf()
+        db.collection(USERS_KEY)
+            .whereEqualTo(STORE_ID_KEY, storeId)
+            .get(Source.CACHE)
+
+
+            .addOnSuccessListener { querySnap ->
+                querySnap.documents.forEach { docSnap ->
+                    val ref = docSnap.reference
+                    refs.add(ref)
+                }
+                db.runBatch { batch ->
+                    refs.forEach {
+                        batch.update(it, STORE_ID_KEY, null)
+                    }
+                }
+            }
+        return db.collection(STORES_KEY).document(storeId).delete().asLiveData()
+    }
 
 
     /**
@@ -486,29 +564,6 @@ class FireBaseDataSource: FireBaseAPI {
             .collection(PAYMENTS_KEY)
             .whereEqualTo("state", state)
             .asLiveData()
-
-//    fun getPaymentWithInfo(
-//        storeId: String,
-//        paymentId: String,
-//        documentType: DocumentType
-//    ): LiveData<List<Payment>> {
-//        db.collection(STORES_KEY).document(storeId)
-//            .collection(PAYMENTS_KEY)
-//            .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                if (querySnapshot != null && !querySnapshot.isEmpty) {
-//                    querySnapshot.forEach { payment ->
-//                        payment.reference.collection("order")
-//                            .addSnapshotListener { orderSnapshot, firebaseFirestoreException ->
-//                                if (orderSnapshot != null && !orderSnapshot.isEmpty) {
-//                                    orderSnapshot.forEach { order ->
-//
-//                                    }
-//                                }
-//                            }
-//                    }
-//                }
-//            }
-//    }
 
     override fun getAllPaymentList(
         storeId: String,

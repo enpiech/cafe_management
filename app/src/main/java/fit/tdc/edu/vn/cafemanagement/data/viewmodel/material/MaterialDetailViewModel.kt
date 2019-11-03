@@ -4,10 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
+import fit.tdc.edu.vn.cafemanagement.data.model.isValidMaterialName
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.material.MaterialViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
@@ -19,28 +18,32 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 class MaterialDetailViewModel(
     private val handle: SavedStateHandle,
     private val materialRepository: MaterialRepositoryAPI,
-    private val unitRepository: UnitRepositoryAPI,
-    private val categoryRepository: CategoryRepositoryAPI
+    unitRepository: UnitRepositoryAPI,
+    categoryRepository: CategoryRepositoryAPI
 ): BaseDetailViewModel<Material>() {
 
     override var saved: Material
         get() = Material(
-            name = handle.get("name"),
-            price = handle.get("price"),
-            unitId = handle.get("unitId"),
-            categoryId = handle.get("categoryId")
-            // sellable = handle.get("sellable")
+            name = handle.get<String>("name"),
+            price = handle.get<Long>("price"),
+            unitId = handle.get<String>("unitId"),
+            unitName = handle.get<String>("unitName"),
+            categoryId = handle.get<String>("categoryId"),
+            categoryName = handle.get<String>("categoryName"),
+            type = handle.get<Material.Type>("type") ?: Material.Type.INGREDIENT
         )
         set(value) {
             handle.set("name", value.name)
             handle.set("price", value.price)
             handle.set("unitId", value.unitId)
+            handle.set("unitName", value.unitName)
             handle.set("categoryId", value.categoryId)
-            // handle.set("sellable", value.sellable)
+            handle.set("categoryName", value.categoryName)
+            handle.set("type", value.type)
         }
 
-    private val _unitReponseList = unitRepository.getAllUnits()
-    val unitList: LiveData<List<Unit>> = _unitReponseList.map {
+    private val _unitResponseList = unitRepository.getAllUnits()
+    val unitList: LiveData<List<Unit>> = _unitResponseList.map {
         if (it.status == Status.SUCCESS && it.data != null) {
             it.data
         } else {
@@ -48,37 +51,13 @@ class MaterialDetailViewModel(
         }
     }
 
-    val currentUnit =
-        CombinedLiveData<Material, List<Unit>, Unit?>(currentItem, unitList) { unit, unitList ->
-            getCurrentUnitOfMaterial(unit, unitList)
-        }
-
-    private fun getCurrentUnitOfMaterial(material: Material?, res: List<Unit>?): Unit? {
-        if (!res.isNullOrEmpty() && material != null) {
-            return res.find { unit -> unit.id == material.unitId }
-        }
-        return null
-    }
-
-    private val _categoryReponseList = categoryRepository.getAllCategories()
-    val categoryList: LiveData<List<Category>> = _categoryReponseList.map {
+    private val _categoryResponseList = categoryRepository.getAllCategories()
+    val categoryList: LiveData<List<Category>> = _categoryResponseList.map {
         if (it.status == Status.SUCCESS && it.data != null) {
             it.data
         } else {
             listOf()
         }
-    }
-
-    val currentCategory =
-        CombinedLiveData<Material, List<Category>, Category?>(currentItem, categoryList) { category, categoryList ->
-            getCurrentCategoryOfMaterial(category, categoryList)
-        }
-
-    private fun getCurrentCategoryOfMaterial(material: Material?, res: List<Category>?): Category? {
-        if (!res.isNullOrEmpty() && material != null) {
-            return res.find { category -> category.id == material.categoryId }
-        }
-        return null
     }
 
     override fun getItem(id: String) = materialRepository.getMaterial(id)
@@ -96,6 +75,7 @@ class MaterialDetailViewModel(
                     isChanged = false
                     isDataValid = true
                 }
+                return
             }
             item == currentItem.value -> {
                 _formState.value = MaterialViewFormState(
@@ -105,22 +85,43 @@ class MaterialDetailViewModel(
                     isDataValid = false
                 }
             }
-            !isNameValid(item.name) -> {
-                _formState.value = MaterialViewFormState(
-                    nameError = R.string.invalid_material_name
-                ).apply {
-                    isChanged = false
-                    isDataValid = false
-                }
-            }
-            isNameValid(item.name) && item != currentItem.value -> {
-                _formState.value = MaterialViewFormState(
-                    nameError = null
-                ).apply {
-                    isChanged = true
-                    isDataValid = true
-                }
-            }
         }
+        // SavedStateHandle
+        saved = item!!
+
+        if (_formState.value == null) {
+            _formState.value = MaterialViewFormState()
+        }
+        val formState = _formState.value as MaterialViewFormState
+        var noError = true
+        if (item.name != null && !item.name.isValidMaterialName()) {
+            formState.nameError = R.string.invalid_material_name
+            noError = false
+        } else {
+            formState.nameError = null
+        }
+
+        //TODO(Validate price)
+//        if (item.price != null /* && !item.price.isValidMaterialPrice()*/) {
+//            formState.nameError = R.string.invalid_user_name
+//            noError = false
+//        } else {
+//            formState.nameError = null
+//        }
+
+        if (currentItem.value != null) {
+            when {
+                item.name != currentItem.value!!.name -> formState.isChanged = true
+                item.price != currentItem.value!!.price -> formState.isChanged = true
+                item.unitId != currentItem.value!!.unitId && item.unitName != currentItem.value!!.unitName -> formState.isChanged = true
+                item.type != currentItem.value!!.type -> formState.isChanged = true
+                item.categoryId != currentItem.value!!.categoryId && item.categoryName != currentItem.value!!.categoryName -> formState.isChanged = true
+            }
+        } else {
+            formState.isChanged = true
+        }
+
+        formState.isDataValid = noError
+        _formState.value = formState
     }
 }

@@ -130,6 +130,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("test2", item.itemId.toString())
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupFab() {
         fab.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.fab)
     }

@@ -10,6 +10,6 @@ interface UserRepositoryAPI {
     fun getAllUsers(): CollectionLiveData<User>
     fun getUser(id: String): DocumentLiveData<User>
     fun insert(user: User): TaskLiveData<DocumentReference>
-    fun update(user: User): TaskLiveData<Void>
+    fun update(oldUser: User, newUser: User): TaskLiveData<Void>
     fun delete(user: User): TaskLiveData<Void>
 }

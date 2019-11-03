@@ -1,37 +1,10 @@
 <resources>
     <string name="app_name">CafeManagement</string>
-    <string name="txtTenDangNhap">Tên đăng nhập</string>
-    <string name="txtMatKhau">Mật khẩu</string>
     <string name="txtTableName">Tên bàn</string>
     <string name="txtZone">Khu</string>
-    <string name="txtTableType">Loại bàn</string>
-    <string name="label_name">Tên</string>
-    <string name="txt_material_category_name">Tên danh mục sản phẩm</string>
-
-    <string name="txtNgayBatDau">Ngày bắt đầu</string>
-    <string name="txtNgayKetThuc">Ngày kết thúc</string>
 
 
-    <string name="btnLogin">Đăng nhập</string>
-    <string name="btnModify">Chỉnh sửa</string>
-    <string name="btnAdd">Tạo</string>
-    <string name="btnDelete">Xóa</string>
-    <string name="btnUpdate">Cập nhật</string>
-    <string name="btnComplete">Đã xong</string>
-    <string name="btnPlus">+</string>
-    <string name="btnNgay">Ngày</string>
-    <string name="btnTuan">Tuần</string>
-    <string name="btnThang">Tháng</string>
-    <string name="btnConfirm">Xác nhận thanh toán</string>
-
-    <string name="donVi">Đơn vị</string>
-    <string name="txtTenDonVi">Tên</string>
-    <string name="edtTenDonVi">Tên đơn vị</string>
-    <string name="kg">KG</string>
     <string name="txtName">Name</string>
-    <string name="danhMuc">Danh mục</string>
-    <string name="summaryOrder">Tổng tiền:</string>
-    <string name="nguyenLieu">Nguyên liệu</string>
 
     <string name="txtMaterialName">Tên nguyên liệu</string>
     <string name="txtMaterialPrice">Giá nguyên liệu</string>
@@ -39,53 +12,18 @@
     <string name="txtTypeDropDown">Thể loại</string>
     <string name="txtCategoryDropDown">Danh mục</string>
 
-    <string name="titleChinhSuaThonTinBan">Chỉnh sửa thông tin bàn</string>
-    <string name="titleChinhSuaDanhMucSP">Chỉnh sửa danh mục sản phẩm</string>
-    <string name="titleDanhSachDanhMucSP">Danh sách danh mục sản phẩm</string>
-    <string name="titleDanhMucSP">Danh mục sản phẩm</string>
-    <string name="titleXemThongTinBan">Xem thông tin bàn</string>
-    <string name="btn_create">Tạo</string>
-    <string name="btn_modify">Chỉnh sửa</string>
-    <string name="btn_update">Cập nhật</string>
     <string name="img_store">Store Image</string>
-    <string name="btn_delete">Delete</string>
     <string name="img_product_category">Product Category Image</string>
     <string name="lbl_app_logo">App logo</string>
     <string name="lbl_user_id">Mã đăng nhập</string>
     <string name="lbl_user_password">Mật khẩu</string>
-    <string name="lbl_menu_name">Tên menu</string>
-    <string name="lbl_menu_description">Mô tả</string>
-    <string name="lbl_menu_item">Các món trong menu</string>
-    <string name="lbl_total_price">Tổng tiền: 15,000 đ</string>
-    <string name="lbl_menu_image">Menu Image</string>
-    <string name="lbl_item_image">Item name</string>
-    <string name="btn_complete">Hoàn thành</string>
-    <string name="title_activity_login">Đăng nhập</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_manager_drawer_navigation">ManagerDrawerNavigation</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="menu_tools">Tools</string>
-    <string name="menu_share">Share</string>
-    <string name="menu_send">Send</string>
-    <string name="title_activity_head_drawer_navigation">HeadDrawerNavigation</string>
-    <string name="title_activity_waiter_drawer_navigation">WaiterDrawerNavigation</string>
-    <string name="title_activity_bartender_drawer_navigation">BartenderDrawerNavigation</string>
     <string name="menu_item_logout">Đăng xuất</string>
     <string name="label_category_list">Danh sách danh mục</string>
 
@@ -96,15 +34,9 @@
     <string name="invalid_category_name">Tên danh mục không được để trống</string>
     <string name="invalid_table_name">Tên bàn không được để trống</string>
     <string name="label_zone_list">Danh sách khu vực</string>
-    <string name="updateComplete">Cập nhật thành công</string>
-    <string name="updateFailed">Cập nhật thất bại</string>
-    <string name="addComplete">Tạo mới thành công</string>
-    <string name="addFailed">Tạo mới thất bại</string>
     <string name="lbl_user_gender">Giới tính</string>
     <string name="lbl_zone_name">Tên khu vực</string>
     <string name="lbl_user_birth">Ngày sinh</string>
-    <string name="modify_zone">Chỉnh sửa khu vực</string>
-    <string name="insert_zone">Thêm khu vực</string>
 
     <string name="dialog_title_warning">Chú ý!</string>
     <string name="warning_message_unsaved_changed">Dữ liệu bạn vừa nhập sẽ không được lưu lại!</string>
@@ -121,7 +53,6 @@
     <string name="warning_message_modifying_removed_item">Có vẻ như ai đó đã xóa dữ liệu này. Bạn có muốn tạo mới dựa trên dữ liệu hiện tại hay không?</string>
     <string name="invalid_user_name">Tên nhân viên không được để trống</string>
     <string name="title_user">Nhân viên</string>
-    <string name="hiddenPassword">******</string>
     <string name="desc_date_picker">Chọn ngày tháng</string>
     <string name="title_table">Bàn</string>
     <string name="lbl_user_role">Chức vụ</string>
@@ -138,10 +69,6 @@
     <string name="lbl_female">Nữ</string>
     <string name="lbl_gender_other">Khác</string>
     <string name="lbl_gender_unknown">Không tiết lộ</string>
-    <string name="txtZoneName">Khu A</string>
-    <string name="btnCong">+</string>
-    <string name="btnMinus">-</string>
-    <string name="so_khong">0</string>
     <string name="so_luong">0</string>
     <string name="invalid_user_username">Tên đăng nhập không được bỏ trống</string>
     <string name="invalid_user_password">Mật khẩu phải dài hơn 5 kí tự</string>
@@ -152,11 +79,19 @@
     <string name="lbl_user_store">Cửa hàng</string>
     <string name="lbl_store">Cửa hàng</string>
     <string name="lbl_store_name">Tên cửa hàng</string>
-    <string name="warning_store_no_free_manager">Không có quản lý quán nào sẵn sàng</string>
     <string name="warning_user_no_store">Không có cửa hàng trong danh sách.</string>
     <string name="warning_store_missing_manager">Chưa chọn quản lý quán</string>
     <string name="warning_message_delete_store_has_manager">Nếu xác nhận xóa, thông tin của quản lý cửa hàng này sẽ được cập nhật lại</string>
     <string name="warning_message_delete_user_in_store">Nếu xác nhận xóa, thông tin cửa hàng liên quan đến nhân viên này sẽ được cập nhật lại.</string>
-    <string name="invalid_table_zone">Tên khu vực không được để trống</string>
     <string name="user_type_key">fit.tdc.edu.vn.cafemanagement.USER_TYPE_KEY</string>
+    <string name="warning_store_no_free_manager">Không có quản lý nào sẵn sàng</string>
+    <string name="warning_user_missing_store">Chưa chọn cửa hàng!</string>
+    <string name="title_material">Hàng</string>
+    <string name="material_type_drink">Đồ uống</string>
+    <string name="material_type_food">Món ăn</string>
+    <string name="material_type_ingredient">Nguyên liệu</string>
+    <string name="warning_material_missing_unit">Chưa chọn đơn vị cho loại hàng này!</string>
+    <string name="warning_material_missing_category">Chưa chọn danh mục cho loại hàng này!</string>
+    <string name="warning_material_no_unit">Không có unit nào trong dữ liệu!</string>
+    <string name="warning_material_no_category">Không có danh mục nào trong dữ liệu</string>
 </resources>

@@ -1,23 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:orientation="vertical">
+    style="@style/BaseListItem">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_32dp"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/layout_margin">
 
         <ImageView
+            style="@style/Image"
             android:id="@+id/imgStoreImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:contentDescription="@string/img_store"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,15 +22,9 @@
 
         <TextView
             android:id="@+id/txtName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_32dp"
-            android:ellipsize="end"
-            android:lines="1"
-            android:scrollHorizontally="true"
-
+            style="@style/BaseListTextView"
+            android:layout_marginStart="@dimen/layout_margin"
             app:layout_constraintBottom_toTopOf="@+id/txtAddress"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imgStoreImage"
@@ -44,15 +33,11 @@
 
         <TextView
             android:id="@+id/txtAddress"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:lines="1"
-            android:scrollHorizontally="true"
-
+            style="@style/BaseListTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintBottom_toBottomOf="parent"
-
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/txtName"
             app:layout_constraintTop_toBottomOf="@+id/txtName"
             tools:text="Đường 442, Tăng Nhơn Phú A, Quận 9" />

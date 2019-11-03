@@ -2,6 +2,7 @@ package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepositoryAPI
 
@@ -14,9 +15,8 @@ class UserRepository(val dataSource: FireBaseAPI) : UserRepositoryAPI{
     override fun insert(user: User) =
         dataSource.createUser(user)
 
-    override fun update(user: User) =
-        dataSource.modifyUser(user)
+    override fun update(oldUser: User, newUser: User): TaskLiveData<Void> =
+        dataSource.modifyUser(oldUser, newUser)
 
-    override fun delete(user: User) =
-        dataSource.deleteCategory("EfzspceETNgWk56YDOOt", user.id)
+    override fun delete(user: User) = dataSource.deleteUser(user)
 }
