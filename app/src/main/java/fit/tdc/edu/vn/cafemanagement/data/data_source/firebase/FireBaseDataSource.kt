@@ -1,6 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -8,6 +7,8 @@ import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORIES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORY_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORY_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MATERIALS_KEY
@@ -17,16 +18,21 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLE_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNITS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.USERS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONES_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_TYPES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
@@ -39,7 +45,6 @@ class FireBaseDataSource : FireBaseAPI {
     private val db: FirebaseFirestore by lazy {
         Firebase.firestore
     }
-
 
     /**
      *
@@ -77,20 +82,54 @@ class FireBaseDataSource : FireBaseAPI {
         storeId: String,
         category: Category
     ): TaskLiveData<Void> {
-        return db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(category.id)
-            .set(category)
-            .asLiveData()
+        val categoryCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
+        val materialCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY)
+        materialCollectionReference.whereEqualTo(CATEGORY_ID_KEY, category.id)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(
+                                documentReference,
+                                CATEGORY_NAME_KEY,
+                                category.name
+                            )
+                        }
+                }
+            }
+        val categoryRef = categoryCollectionReference.document(category.id)
+        return categoryRef.delete().asLiveData()
     }
 
     override fun deleteCategory(
         storeId: String,
         categoryId: String
-    ): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(CATEGORIES_KEY).document(categoryId)
-            .delete()
-            .asLiveData()
+    ): TaskLiveData<Void> {
+        val categoryCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(CATEGORIES_KEY)
+        val materialCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY)
+        materialCollectionReference.whereEqualTo(CATEGORY_ID_KEY, categoryId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(
+                                documentReference,
+                                CATEGORY_NAME_KEY,
+                                null
+                            )
+                        }
+                }
+            }
+        return categoryCollectionReference.document(categoryId).delete().asLiveData()
+    }
 
     /**
      *
@@ -274,21 +313,52 @@ class FireBaseDataSource : FireBaseAPI {
         storeId: String,
         unit: Unit
     ): TaskLiveData<Void> {
-        Log.d("test", unit.id)
-        return db.collection(STORES_KEY).document(storeId)
-            .collection(UNITS_KEY).document(unit.id)
-            .set(unit)
-            .asLiveData()
+        val unitCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY)
+        val materialCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY)
+        materialCollectionReference.whereEqualTo(UNIT_ID_KEY, unit.id)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(
+                                documentReference,
+                                UNIT_NAME_KEY,
+                                unit.name
+                            )
+                        }
+                }
+
+            }
+        val unitDocumentReference = unitCollectionReference.document(unit.id)
+        return unitDocumentReference.delete().asLiveData()
     }
 
     override fun deleteUnit(
         storeId: String,
         unitId: String
-    ): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(UNITS_KEY).document(unitId)
-            .delete()
-            .asLiveData()
+    ): TaskLiveData<Void> {
+        val unitCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(UNITS_KEY)
+        val materialCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(MATERIALS_KEY)
+        materialCollectionReference.whereEqualTo(UNIT_ID_KEY, unitId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(documentReference, UNIT_NAME_KEY, null)
+                            batch.update(documentReference, UNIT_ID_KEY, null)
+                        }
+                }
+            }
+        return unitCollectionReference.document(unitId).delete().asLiveData()
+    }
 
 
     /**
@@ -374,21 +444,55 @@ class FireBaseDataSource : FireBaseAPI {
         storeId: String,
         zone: Zone
     ): TaskLiveData<Void> {
-        return db.collection(STORES_KEY).document(storeId)
-            .collection(ZONES_KEY).document(zone.id)
-            .set(zone)
-            .asLiveData()
+        val zoneCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY)
+        val tableCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY)
+        tableCollectionReference.whereEqualTo(ZONE_ID_KEY, zone.id)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(
+                                documentReference,
+                                ZONE_NAME_KEY,
+                                zone.name
+                            )
+                        }
+                }
+            }
+        val zoneDocumentReference = zoneCollectionReference.document(zone.id)
+        return zoneDocumentReference.delete().asLiveData()
     }
 
     override fun deleteZone(
         storeId: String,
         zoneId: String
-    ): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(ZONES_KEY).document(zoneId)
-            .delete()
-            .asLiveData()
+    ): TaskLiveData<Void> {
+        val zoneDocumentReference =
+            db.collection(STORES_KEY).document(storeId).collection(ZONES_KEY).document(zoneId)
+        val tableCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY)
+        tableCollectionReference.whereEqualTo(ZONE_ID_KEY, zoneId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                db.runBatch { batch ->
+                    querySnapshot.documents
+                        .map { documentSnapshot -> documentSnapshot.reference }
+                        .forEach { documentReference: DocumentReference ->
+                            batch.update(
+                                documentReference,
+                                ZONE_NAME_KEY,
+                                null
+                            )
+                        }
+                }
+            }
 
+        return zoneDocumentReference.delete().asLiveData()
+    }
 
     /**
      *
@@ -418,23 +522,26 @@ class FireBaseDataSource : FireBaseAPI {
         oldUser: User,
         newUser: User
     ): TaskLiveData<Void> {
+        var oldStoreRef: DocumentReference? = null
+        oldUser.storeId?.let {
+            oldStoreRef = db.collection(STORES_KEY).document(it)
+        }
+        var newStoreRef: DocumentReference? = null
+        newUser.storeId?.let {
+            newStoreRef = db.collection(STORES_KEY).document(it)
+        }
+
         return db.runBatch { batch ->
             if (newUser.role == User.Role.STORE_MANAGER) {
-                var oldStoreRef: DocumentReference? = null
-                oldUser.storeId?.let {
-                    oldStoreRef = db.collection(STORES_KEY).document(it)
-                }
-                var newStoreRef: DocumentReference? = null
-                newUser.storeId?.let {
-                    newStoreRef = db.collection(STORES_KEY).document(it)
-                }
                 if (oldUser.storeId.isNullOrBlank() && !newUser.storeId.isNullOrBlank()) {
                     newStoreRef?.let {
                         batch.update(it, MANAGER_ID_KEY, newUser.id)
+                        batch.update(newStoreRef!!, MANAGER_NAME_KEY, newUser.name)
                     }
                 } else if (!oldUser.storeId.isNullOrBlank() && newUser.storeId.isNullOrBlank()) {
                     oldStoreRef?.let {
                         batch.update(it, MANAGER_ID_KEY, null)
+                        batch.update(oldStoreRef!!, MANAGER_NAME_KEY, null)
                     }
                 } else if (!oldUser.storeId.isNullOrBlank() && !newUser.storeId.isNullOrBlank()) {
                     batch.update(oldStoreRef!!, MANAGER_ID_KEY, null)
@@ -442,21 +549,23 @@ class FireBaseDataSource : FireBaseAPI {
                     batch.update(newStoreRef!!, MANAGER_ID_KEY, newUser.id)
                     batch.update(newStoreRef!!, MANAGER_NAME_KEY, newUser.name)
                 }
-                val userRef = db.collection(USERS_KEY).document(oldUser.id)
-                batch.set(userRef, newUser)
             }
+            val userRef = db.collection(USERS_KEY).document(oldUser.id)
+            batch.set(userRef, newUser)
         }.asLiveData()
     }
 
     override fun deleteUser(
         user: User
     ): TaskLiveData<Void> {
-        db.runBatch {batch ->
+        return db.runBatch { batch ->
             if (user.role == User.Role.STORE_MANAGER && !user.storeId.isNullOrBlank()) {
-                batch.update(db.collection(STORES_KEY).document(user.storeId!!), MANAGER_ID_KEY, null)
+                val storeReference = db.collection(STORES_KEY).document(user.storeId!!)
+                batch.update(storeReference, MANAGER_ID_KEY, null)
+                batch.update(storeReference, MANAGER_NAME_KEY, null)
             }
-        }
-        return db.collection(USERS_KEY).document(user.id).delete().asLiveData()
+            batch.delete(db.collection(USERS_KEY).document(user.id))
+        }.asLiveData()
     }
 
     /**
@@ -498,15 +607,15 @@ class FireBaseDataSource : FireBaseAPI {
     override fun modifyStore(
         oldStore: Store, newStore: Store
     ): TaskLiveData<Void> {
+        var oldManagerRef: DocumentReference? = null
+        oldStore.managerId?.let {
+            oldManagerRef = db.collection(USERS_KEY).document(it)
+        }
+        var newManagerRef: DocumentReference? = null
+        newStore.managerId?.let {
+            newManagerRef = db.collection(USERS_KEY).document(it)
+        }
         return db.runBatch { writeBatch: WriteBatch ->
-            var oldManagerRef: DocumentReference? = null
-            oldStore.managerId?.let {
-                oldManagerRef = db.collection(USERS_KEY).document(it)
-            }
-            var newManagerRef: DocumentReference? = null
-            newStore.managerId?.let {
-                newManagerRef = db.collection(USERS_KEY).document(it)
-            }
             if (oldStore.managerId.isNullOrBlank() && !newStore.managerId.isNullOrBlank()) {
                 newManagerRef?.let {
                     writeBatch.update(it, STORE_ID_KEY, newStore.id)
@@ -534,14 +643,12 @@ class FireBaseDataSource : FireBaseAPI {
         db.collection(USERS_KEY)
             .whereEqualTo(STORE_ID_KEY, storeId)
             .get(Source.CACHE)
-
-
             .addOnSuccessListener { querySnap ->
-                querySnap.documents.forEach { docSnap ->
-                    val ref = docSnap.reference
-                    refs.add(ref)
-                }
                 db.runBatch { batch ->
+                    querySnap.documents.forEach { docSnap ->
+                        val ref = docSnap.reference
+                        refs.add(ref)
+                    }
                     refs.forEach {
                         batch.update(it, STORE_ID_KEY, null)
                     }
@@ -581,4 +688,16 @@ class FireBaseDataSource : FireBaseAPI {
         db.collection(STORES_KEY).document(storeId)
             .collection(PAYMENTS_KEY).document(paymentId)
             .asLiveData()
+
+    fun getCurrentPaymentOfTable(
+        storeId: String,
+        tableId: String
+    ): QueryLiveData<Payment> {
+        val paymentCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(PAYMENTS_KEY)
+        return paymentCollectionReference.whereEqualTo(TABLE_ID_KEY, tableId)
+            .asLiveData()
+    }
+
+
 }

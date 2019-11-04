@@ -6,19 +6,16 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/table_edit_name"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:hint="@string/txtTableName"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toTopOf="@+id/table_spinner_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="@string/txtTableName"
-        app:errorEnabled="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -31,17 +28,16 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/table_spinner_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:hint="@string/txtTableName"
+        app:errorEnabled="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        android:hint="@string/txtTableName"
-        app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@+id/table_edit_name"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/table_edit_name">
 
         <AutoCompleteTextView
             android:id="@+id/table_spinner"
@@ -52,29 +48,5 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="108dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/txtName"
-        app:layout_constraintBottom_toBottomOf="@+id/table_edit_name"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/table_edit_name" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="@string/txtZone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/table_edit_name" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

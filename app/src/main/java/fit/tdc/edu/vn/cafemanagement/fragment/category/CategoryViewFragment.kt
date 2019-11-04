@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_category_view.*
 class CategoryViewFragment : BaseViewFragmentTest<Category>(R.layout.fragment_category_view) {
     override val args by navArgs<CategoryViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Category>
-        get() = ViewModelProvider(this, CategoryViewModelFactory()).get<CategoryDetailViewModel>()
+        get() = ViewModelProvider(this, CategoryViewModelFactory(FireBaseDataSource(), this)).get<CategoryDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?
@@ -29,6 +30,9 @@ class CategoryViewFragment : BaseViewFragmentTest<Category>(R.layout.fragment_ca
         val categoryFormState = state as CategoryViewFormState
         if (categoryFormState.nameError != null) {
             edtName.error = getString(categoryFormState.nameError)
+        } else {
+            edtName.error = null
+            edtName.isEndIconVisible = false
         }
     }
 

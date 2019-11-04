@@ -1,10 +1,11 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.user
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.map
 import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
@@ -45,16 +46,41 @@ class UserDetailViewModel(
             handle.set("storeName", value.storeName)
             handle.set("username", value.username)
             handle.set("password", value.password)
+
+            _currentRole.value = value.role
         }
 
-    private val _storeResponseList = storeRepository.getStoreList()
-    val storeList: LiveData<List<Store>> = _storeResponseList.map {
-        if (it.status == Status.SUCCESS && !it.data.isNullOrEmpty()) {
-            it.data
-        } else {
-            listOf()
-        }
-    }
+    private val _currentRole = MutableLiveData<User.Role?>(null)
+
+    private val _storeResponseList =
+        CombinedLiveData(
+            source1 = _currentRole,
+            source2 = storeRepository.getStoreList(),
+            combine = { role, listResponse ->
+                if (listResponse?.status == Status.SUCCESS && !listResponse.data.isNullOrEmpty()) {
+                    if (role == User.Role.STORE_MANAGER) {
+                        listResponse.data.filter { store -> store.managerId.isNullOrBlank() }
+                    } else {
+                        listResponse.data
+                    }
+                } else {
+                    listOf()
+                }
+            }
+        )
+//    private val _storeResponseList = storeRepository.getStoreList().map {
+//        if (it.status == Status.SUCCESS && !it.data.isNullOrEmpty()) {
+//            if (saved.role == User.Role.STORE_MANAGER) {
+//                it.data.filter { store -> store.managerId.isNullOrBlank() }
+//            } else {
+//                it.data
+//            }
+//        } else {
+//            listOf()
+//        }
+//    }
+
+    val storeList: LiveData<List<Store>> = _storeResponseList
 
     override fun getItem(id: String) = userRepository.getUser(id)
 
@@ -154,7 +180,8 @@ class UserDetailViewModel(
                 item.address != currentItem.value!!.address -> formState.isChanged = true
                 item.gender != currentItem.value!!.gender -> formState.isChanged = true
                 item.role != currentItem.value!!.role -> formState.isChanged = true
-                item.storeId != currentItem.value!!.storeId && item.storeName != currentItem.value!!.storeName -> formState.isChanged = true
+                item.storeId != currentItem.value!!.storeId && item.storeName != currentItem.value!!.storeName -> formState.isChanged =
+                    true
             }
         } else {
             formState.isChanged = true

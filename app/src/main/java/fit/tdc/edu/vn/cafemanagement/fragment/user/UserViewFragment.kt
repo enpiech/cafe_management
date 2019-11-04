@@ -179,11 +179,11 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
             dataset = User.Role.values()
                 .filterNot { role -> role == User.Role.MANAGER }
                 .map { getString(it.nameResId) },
-            dataChanged = {
+            dataChanged = { position ->
                 viewModel.validate(
                     getCurrentFormData().apply {
                         role = User.Role.values()
-                            .filterNot { role -> role == User.Role.MANAGER }[it]
+                            .filterNot { role -> role == User.Role.MANAGER }[position]
                     }
                 )
             }
@@ -199,13 +199,20 @@ class UserViewFragment : BaseViewFragmentTest<User>(R.layout.fragment_user_detai
                     missingString = R.string.warning_user_missing_store,
                     emptySetString = R.string.warning_user_no_store,
                     dataset = it.map { store -> store.name }
-                ) {position ->
+                ) { position ->
                     viewModel.validate(
                         getCurrentFormData().apply {
                             storeId = it[position].id
                             storeName = it[position].name
                         }
                     )
+                }
+                if (viewModel.viewType.value == FormState.Type.VIEW) {
+                    if (store.text.toString() == getString(R.string.warning_user_no_store)) {
+                        store.setText(getString(R.string.warning_user_missing_store), false)
+                    }
+                    store.isEnabled = false
+                    tilStore.isEndIconVisible = false
                 }
             })
 
