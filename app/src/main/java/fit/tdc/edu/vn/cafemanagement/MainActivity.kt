@@ -9,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -45,6 +48,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavigation()
         setupFab()
+
+        FireBaseDataSource().getCurrentPaymentOfTable("EfzspceETNgWk56YDOOt", "hd6U75t1MFneAXKoeMrz").observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                   it?.data?.forEach { payment ->
+                       Log.d("test", payment.toString())
+                   }
+                }
+                Status.LOADING -> {
+
+                }
+                Status.ERROR -> {
+
+                }
+            }
+        })
 
 //        when (getUserType()) {
 //            resources.getInteger(R.integer.no_user_type) -> {

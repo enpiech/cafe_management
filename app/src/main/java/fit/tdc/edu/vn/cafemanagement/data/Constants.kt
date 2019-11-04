@@ -17,5 +17,13 @@ sealed class Constants {
         const val STORE_NAME_KEY    = "storeName"
         const val MANAGER_ID_KEY    = "managerId"
         const val MANAGER_NAME_KEY  = "managerName"
+        const val CATEGORY_ID_KEY   = "categoryId"
+        const val CATEGORY_NAME_KEY = "categoryName"
+        const val UNIT_ID_KEY       = "unitId"
+        const val UNIT_NAME_KEY     = "unitName"
+        const val ZONE_ID_KEY       = "unitId"
+        const val ZONE_NAME_KEY     = "unitName"
+        const val TABLE_ID_KEY      = "tableId"
+        const val PAYMENT_STATE_KEY = "state"
     }
 }
