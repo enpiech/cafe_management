@@ -94,4 +94,10 @@
     <string name="warning_material_missing_category">Chưa chọn danh mục cho loại hàng này!</string>
     <string name="warning_material_no_unit">Không có unit nào trong dữ liệu!</string>
     <string name="warning_material_no_category">Không có danh mục nào trong dữ liệu</string>
+    <string name="txtAmount">Số lượng</string>
+    <string name="btnDone">Đã xong</string>
+    <string name="txtGia">Giá</string>
+    <string name="txtUnitName">Đơn vị</string>
+    <string name="txtCafe">Cafe sữa</string>
+    <string name="txtLy">Ly</string>
 </resources>

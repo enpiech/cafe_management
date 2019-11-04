@@ -1,4 +1,4 @@
-package fit.tdc.edu.vn.cafemanagement.fragment.order_list
+package fit.tdc.edu.vn.cafemanagement.fragment.order
 
 import android.util.Log
 import android.view.View
