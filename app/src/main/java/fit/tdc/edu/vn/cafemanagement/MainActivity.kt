@@ -193,9 +193,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                nav_view.inflateMenu(R.menu.manager_menu)
                 nav_view.inflateMenu(R.menu.activity_main_drawer)
             }
-
             User.Role.WAITER -> {
                 nav_view.inflateMenu(R.menu.waiter_menu)
+            }
+            User.Role.BARTENDER -> {
+                nav_view.inflateMenu(R.menu.bartender_menu)
             }
         }
     }

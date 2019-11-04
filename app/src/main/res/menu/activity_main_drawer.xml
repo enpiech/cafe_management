@@ -37,7 +37,7 @@
             android:title="@string/title_table" />
     </group>
     <group
-        android:id="@+id/chef"
+        android:id="@+id/bartender"
         android:checkableBehavior="single">
         <item
             android:id="@+id/chefListFragment"
