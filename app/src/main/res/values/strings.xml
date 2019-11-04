@@ -100,4 +100,5 @@
     <string name="txtUnitName">Đơn vị</string>
     <string name="txtCafe">Cafe sữa</string>
     <string name="txtLy">Ly</string>
+    <string name="title_chef">Bếp</string>
 </resources>

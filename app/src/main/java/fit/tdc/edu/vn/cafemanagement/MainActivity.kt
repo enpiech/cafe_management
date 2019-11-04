@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.tableListFragment,
                 R.id.tableListWaiterFragment,
                 R.id.storeListFragment,
-                R.id.materialListFragment
+                R.id.materialListFragment,
+                R.id.chefListFragment
             ), drawer_layout)
     }
 
@@ -106,6 +107,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.orderListFragment -> {
                     fab.setImageDrawable(getDrawable(R.drawable.ic_check))
                     fab.show()
+                }
+                R.id.chefListFragment -> {
+                    fab.hide()
                 }
                 else -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)

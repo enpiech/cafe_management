@@ -2,4 +2,5 @@
 <resources>
     <string name="txtAmount">Số lượng</string>
     <string name="txtLy">Ly</string>
+    <string name="title_chef">Bếp</string>
 </resources>

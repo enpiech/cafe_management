@@ -6,6 +6,7 @@ sealed class Constants {
         const val CATEGORIES_KEY    = "categories"
         const val MATERIALS_KEY     = "materials"
         const val TABLES_KEY        = "tables"
+        const val ORDERS_KEY        = "orders"
         const val REVENUES_KEY      = "revenues"
         const val UNITS_KEY         = "units"
         const val ZONE_TYPES_KEY    = "zoneTypes"
@@ -24,6 +25,7 @@ sealed class Constants {
         const val ZONE_ID_KEY       = "unitId"
         const val ZONE_NAME_KEY     = "unitName"
         const val TABLE_ID_KEY      = "tableId"
+        const val ORDER_ID_KEY      = "orderId"
         const val PAYMENT_STATE_KEY = "state"
     }
 }

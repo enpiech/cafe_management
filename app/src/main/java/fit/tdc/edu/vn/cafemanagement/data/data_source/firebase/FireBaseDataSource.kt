@@ -12,6 +12,7 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORY_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MATERIALS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDERS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENTS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.REVENUES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
@@ -29,6 +30,7 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_TYPES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
+import fit.tdc.edu.vn.cafemanagement.data.model.chef.Chef
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
@@ -42,6 +44,40 @@ import javax.inject.Singleton
 
 @Singleton
 class FireBaseDataSource : FireBaseAPI {
+
+    /**
+     *
+     * ==========  Chef  ============
+     */
+    override fun getChefList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Chef> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY)
+            .asLiveData(documentType)
+
+    override fun getChef(
+        storeId: String,
+        chefId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<Chef> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).document(chefId)
+            .asLiveData(documentType)
+
+    override fun createChef(storeId: String, chef: Chef): TaskLiveData<DocumentReference> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY)
+            .add(chef)
+            .asLiveData()
+
+    override fun deleteChef(storeId: String, chefId: String): TaskLiveData<Void> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).document(chefId)
+            .delete()
+            .asLiveData()
+
     private val db: FirebaseFirestore by lazy {
         Firebase.firestore
     }
