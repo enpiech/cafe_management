@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,12 +29,19 @@ class ChefAdapter : ListAdapter<Chef, RecyclerView.ViewHolder>(DIFF_CALLBACK){
             itemView.chef_name.text = chef.name
             itemView.chef_amount.text = chef.amount.toString()
 //            if(chef.state!!.equals(Chef.State.DONE)){
+//                Log.d("test", "Done " + chef.state)
 //                itemView.chef_name.text = chef.name
 //                itemView.chef_amount.text = chef.amount.toString()+"(Đã xong)"
 //            }else if(chef.state!!.equals(Chef.State.DOING)){
 //                itemView.chef_name.text = chef.name
 //                itemView.chef_amount.text = chef.amount.toString()+"(Chưa xong)"
 //            }
+            itemView.btn_done.setOnClickListener {
+                Snackbar.make(it, "Bạn đã bấm vào btn món " + chef.state,
+                    Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show()
+                //TODO : Hiện thông báo: Bạn đã làm món này hay chưa ( Nguyên liệu của món)
+            }
             itemView.setOnClickListener {
                 //val position = adapterPosition
                 Snackbar.make(it, "Bạn đã bấm vào món " + chef.name,
