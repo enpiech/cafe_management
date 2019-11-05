@@ -24,6 +24,7 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNITS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.USERS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.WAREHOUSES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_NAME_KEY
@@ -39,11 +40,52 @@ import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import javax.inject.Singleton
 
 @Singleton
 class FireBaseDataSource : FireBaseAPI {
+    override fun modifyWareHouse(storeId: String, WwreHouse: WareHouse): TaskLiveData<Void> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        //TODO: Chỉnh sửa warehouse chưa được sử dụng
+    }
+
+    /**
+     *
+     * ==========  WareHouse  ============
+     */
+    override fun getWareHouseList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<WareHouse> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(WAREHOUSES_KEY)
+            .asLiveData()
+
+    override fun getWareHouse(
+        storeId: String,
+        wareHouseId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<WareHouse> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(WAREHOUSES_KEY).document(wareHouseId)
+            .asLiveData()
+
+    override fun createWareHouse(
+        storeId: String,
+        wareHouse: WareHouse
+    ): TaskLiveData<DocumentReference> =
+        db.collection(STORES_KEY).document(storeId)
+    .collection(WAREHOUSES_KEY)
+    .add(wareHouse)
+    .asLiveData()
+
+    override fun deleteWareHouse(storeId: String, wareHouseId: String): TaskLiveData<Void> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(WAREHOUSES_KEY).document(wareHouseId)
+            .delete()
+            .asLiveData()
 
     /**
      *

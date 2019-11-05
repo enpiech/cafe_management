@@ -79,6 +79,7 @@ interface FireBaseAPI {
     ): CollectionLiveData<Chef>
 
     fun getWareHouseList(
+        storeId: String,
         documentType: DocumentType
     ): CollectionLiveData<WareHouse>
 
@@ -150,7 +151,8 @@ interface FireBaseAPI {
     ): DocumentLiveData<Chef>
 
     fun getWareHouse(
-        userId: String,
+        storeId: String,
+        wareHouseId: String,
         documentType: DocumentType
     ): DocumentLiveData<WareHouse>
 
@@ -206,6 +208,7 @@ interface FireBaseAPI {
     ): TaskLiveData<DocumentReference>
 
     fun createWareHouse(
+        storeId: String,
         wareHouse: WareHouse
     ): TaskLiveData<DocumentReference>
     /**
@@ -256,8 +259,8 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun modifyWareHouse(
-        oldWareHouse: WareHouse,
-        newWareHouse: WareHouse
+        storeId: String,
+        WwreHouse: WareHouse
     ): TaskLiveData<Void>
     /**
      * =========== DELETE DOCUMENT ==============
@@ -311,6 +314,7 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun deleteWareHouse(
-        wareHouse: WareHouse
+        storeId: String,
+        wareHouseId: String
     ): TaskLiveData<Void>
 }

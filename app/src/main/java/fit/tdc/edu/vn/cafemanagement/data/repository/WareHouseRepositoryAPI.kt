@@ -10,6 +10,6 @@ interface WareHouseRepositoryAPI {
     fun getAllWareHouses(): CollectionLiveData<WareHouse>
     fun getWareHouse(id: String): DocumentLiveData<WareHouse>
     fun insert(wareHouse: WareHouse): TaskLiveData<DocumentReference>
-    fun update(oldWareHouse: WareHouse, newWareHouse: WareHouse): TaskLiveData<Void>
+    fun update(wareHouse: WareHouse): TaskLiveData<Void>
     fun delete(wareHouse: WareHouse): TaskLiveData<Void>
 }

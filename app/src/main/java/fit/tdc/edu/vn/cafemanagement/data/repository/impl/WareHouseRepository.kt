@@ -7,13 +7,14 @@ import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.repository.WareHouseRepositoryAPI
 
 class WareHouseRepository (val dataSource: FireBaseAPI) : WareHouseRepositoryAPI {
-    override fun getAllWareHouses()= dataSource.getWareHouseList(DocumentType.ALL)
+    override fun update(wareHouse: WareHouse) =
+        dataSource.modifyWareHouse("EfzspceETNgWk56YDOOt", wareHouse)
 
-    override fun getWareHouse(id: String) = dataSource.getWareHouse(id, DocumentType.SINGLE)
+    override fun getAllWareHouses()= dataSource.getWareHouseList("EfzspceETNgWk56YDOOt", DocumentType.ALL)
 
-    override fun insert(wareHouse: WareHouse) = dataSource.createWareHouse(wareHouse)
+    override fun getWareHouse(id: String) = dataSource.getWareHouse("EfzspceETNgWk56YDOOt",id, DocumentType.SINGLE)
 
-    override fun update(oldWareHouse: WareHouse, newWareHouse: WareHouse): TaskLiveData<Void> = dataSource.modifyWareHouse(oldWareHouse, newWareHouse)
+    override fun insert(wareHouse: WareHouse) = dataSource.createWareHouse("EfzspceETNgWk56YDOOt",wareHouse)
 
-    override fun delete(wareHouse: WareHouse) = dataSource.deleteWareHouse(wareHouse)
+    override fun delete(wareHouse: WareHouse) = dataSource.deleteWareHouse("EfzspceETNgWk56YDOOt",wareHouse.id)
 }

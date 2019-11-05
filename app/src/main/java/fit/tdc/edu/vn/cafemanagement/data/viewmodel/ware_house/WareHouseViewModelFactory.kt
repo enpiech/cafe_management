@@ -27,9 +27,6 @@ class WareHouseViewModelFactory(
                 ),
                 unitRepository = UnitRepository(
                     dataSource = dataSource
-                ),
-                materialRepository = MaterialRepository(
-                    dataSource = dataSource
                 )
             ) as T
         } else if (modelClass.isAssignableFrom(WareHouseListViewModel::class.java)) {
