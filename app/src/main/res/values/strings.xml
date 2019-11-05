@@ -3,6 +3,8 @@
     <string name="txtTableName">Tên bàn</string>
     <string name="txtZone">Khu</string>
 
+    <string name="txtAmout">Số lượng</string>
+    <string name="txtInDate">Ngày nhập</string>
 
     <string name="txtName">Name</string>
 
@@ -11,6 +13,9 @@
     <string name="txtUnitDropDown">Đơn vị</string>
     <string name="txtTypeDropDown">Thể loại</string>
     <string name="txtCategoryDropDown">Danh mục</string>
+
+    <string name="txtWarehouseName">Tên món hàng</string>
+    <string name="txtWarehouseMaterial">Mã hàng nguyên liệu</string>
 
     <string name="img_store">Store Image</string>
     <string name="img_product_category">Product Category Image</string>
