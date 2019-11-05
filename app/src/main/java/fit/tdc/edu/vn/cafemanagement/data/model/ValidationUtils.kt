@@ -64,3 +64,11 @@ fun String?.isValidUnitName(): Boolean {
 fun String?.isValidZoneName(): Boolean {
     return !isNullOrBlank()
 }
+
+fun String?.isValidMaterialName(): Boolean {
+    return !isNullOrBlank()
+}
+
+fun String?.isValidMaterialPrice(): Boolean {
+    return !isNullOrBlank() /* TODO(only number pattern check) */
+}

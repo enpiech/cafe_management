@@ -9,12 +9,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -31,7 +34,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.tableListFragment,
                 R.id.tableListWaiterFragment,
                 R.id.storeListFragment,
-                R.id.materialListFragment
+                R.id.materialListFragment,
+                R.id.chefListFragment
             ), drawer_layout)
     }
 
@@ -45,6 +49,22 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         setupNavigation()
         setupFab()
+
+        FireBaseDataSource().getCurrentPaymentOfTable("EfzspceETNgWk56YDOOt", "hd6U75t1MFneAXKoeMrz").observe(this, Observer {
+            when (it.status) {
+                Status.SUCCESS -> {
+                   it?.data?.forEach { payment ->
+                       Log.d("test", payment.toString())
+                   }
+                }
+                Status.LOADING -> {
+
+                }
+                Status.ERROR -> {
+
+                }
+            }
+        })
 
 //        when (getUserType()) {
 //            resources.getInteger(R.integer.no_user_type) -> {
@@ -88,6 +108,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     fab.setImageDrawable(getDrawable(R.drawable.ic_check))
                     fab.show()
                 }
+                R.id.chefListFragment -> {
+                    fab.hide()
+                }
                 else -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     supportActionBar?.show()
@@ -130,6 +153,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("test2", item.itemId.toString())
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupFab() {
         fab.backgroundTintList = ContextCompat.getColorStateList(applicationContext, R.color.fab)
     }
@@ -165,9 +193,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                nav_view.inflateMenu(R.menu.manager_menu)
                 nav_view.inflateMenu(R.menu.activity_main_drawer)
             }
-
             User.Role.WAITER -> {
                 nav_view.inflateMenu(R.menu.waiter_menu)
+            }
+            User.Role.BARTENDER -> {
+                nav_view.inflateMenu(R.menu.bartender_menu)
             }
         }
     }

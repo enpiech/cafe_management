@@ -2,14 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/bartender"
+        android:checkableBehavior="single">
         <item
-            android:id="@+id/storeListFragment"
-            android:title="@string/lbl_store" />
-        <item
-            android:id="@+id/userListFragment"
-            android:title="@string/title_user" />
+            android:id="@+id/chefListFragment"
+            android:title="@string/title_chef" />
     </group>
+
     <item
         android:id="@+id/loginFragment"
         android:icon="@drawable/ic_logout"

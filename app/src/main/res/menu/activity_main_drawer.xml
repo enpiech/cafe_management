@@ -25,6 +25,9 @@
         <item
             android:id="@+id/tableListFragment"
             android:title="@string/title_table" />
+        <item
+            android:id="@+id/materialListFragment"
+            android:title="@string/title_material" />
     </group>
     <group
         android:id="@+id/waiter"
@@ -32,6 +35,13 @@
         <item
             android:id="@+id/tableListWaiterFragment"
             android:title="@string/title_table" />
+    </group>
+    <group
+        android:id="@+id/bartender"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/chefListFragment"
+            android:title="@string/title_chef" />
     </group>
 
     <item

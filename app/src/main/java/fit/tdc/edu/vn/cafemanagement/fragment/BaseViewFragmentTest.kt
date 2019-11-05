@@ -103,7 +103,7 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
                 }
                 FormState.Type.MODIFY -> {
                     viewModel.update(
-                        getCurrentFormData().also { it.id = itemId!! }
+                        getCurrentFormData().apply { id = itemId!! }
                     )
                     navController.navigateUp()
                 }
@@ -143,7 +143,6 @@ abstract class BaseViewFragmentTest<T : FirestoreModel>(
             if (it != null) {
                 viewModel.validate(null)
                 fillFormWith(it)
-                viewModel.draftItem.value = it
                 viewModel.saved = it
             } else {
                 MaterialAlertDialogBuilder(context)

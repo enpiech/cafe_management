@@ -15,7 +15,6 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
-import kotlinx.android.synthetic.main.dropdown_menu_popup_item.*
 
 //class UnitListFragment : BaseListFragment<Unit>(R.layout.fragment_list) {
 //    override val viewAdapter: ListAdapter<Unit, RecyclerView.ViewHolder>

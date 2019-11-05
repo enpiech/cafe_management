@@ -1,73 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp">
+    style="@style/BaseListItem">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/layout_margin">
 
-        <LinearLayout
-            android:layout_width="@dimen/layout_width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="4">
-            <TextView
-                android:id="@+id/txt_name_table_order_waiter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_margin="@dimen/layout_margin"
-                android:ellipsize="end"
-                android:maxLines="1"
-                tools:text="Cà phê"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <TextView
+            android:id="@+id/txt_name_table_order_waiter"
+            style="@style/BaseListTextView"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Cà phê" />
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="@dimen/layout_width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6">
-            <Button
-                android:id="@+id/btnMinus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btnMinus"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnMinus"
+            style="@style/BaseNumberPickerButton"
+            app:icon="@drawable/ic_remove"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/txt_so_luong"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="@dimen/layout_width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6"
-            >
-            <TextView
-                android:gravity="center"
-                android:id="@+id/txt_so_luong"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_margin="@dimen/layout_margin"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@string/so_luong"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        <TextView
+            android:id="@+id/txt_so_luong"
+            style="@style/BaseListTextView"
+            android:layout_width="0dp"
+            android:layout_marginEnd="@dimen/btn_number_picker_margin"
+            android:gravity="center"
+            android:text="@string/so_luong"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="@dimen/layout_width_0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.6">
-            <Button
-                android:id="@+id/btnPlus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/btnPlus"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPlus"
+            style="@style/BaseNumberPickerButton"
+            app:icon="@drawable/ic_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

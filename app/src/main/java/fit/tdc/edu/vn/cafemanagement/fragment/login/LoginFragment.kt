@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.login
 
 
-import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
@@ -53,6 +53,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 username.error = null
                 password.error = null
             }
+
+            if (loginState.isDataValid) {
+                username.error = null
+            }
         })
 
         loginViewModel.loginResult.observe(this@LoginFragment, Observer {
@@ -93,7 +97,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                 }
             }
-            activity?.setResult(Activity.RESULT_OK)
+            activity?.setResult(AppCompatActivity.RESULT_OK)
 
         })
         username.afterTextChanged {
@@ -157,7 +161,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun rememberUserType(type: User.Role?) {
         val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.user_type_key), Context.MODE_PRIVATE
+            getString(R.string.user_type_key), MODE_PRIVATE
         ) ?: return
         Log.d("test", "${type?.ordinal ?: resources.getInteger(R.integer.no_user_type)}")
         with(sharedPref.edit()) {

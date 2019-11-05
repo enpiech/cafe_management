@@ -1,7 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.material_list
 
-import android.widget.ArrayAdapter
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavController
@@ -17,6 +15,8 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFa
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
+import fit.tdc.edu.vn.cafemanagement.util.setupForEnum
+import fit.tdc.edu.vn.cafemanagement.util.setupForLiveList
 import kotlinx.android.synthetic.main.fragment_material_detail.*
 
 class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_material_detail) {
@@ -39,6 +39,13 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         } else {
             material_edit_name.error = null
             material_edit_name.isErrorEnabled = false
+        }
+
+        if (materialFormState.priceError != null) {
+            material_edit_price.error = getString(materialFormState.priceError!!)
+        } else {
+            material_edit_price.error = null
+            material_edit_price.isErrorEnabled = false
         }
     }
 
@@ -70,37 +77,27 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         categorys_dropdown.isEnabled = isEnabled
     }
 
-    override fun getCurrentFormData() = Material(
-        name = material_edit_name?.editText?.text.toString(),
-        price = material_edit_price?.editText?.text.toString().toLong()
-    ).also {
-        it.unitId = (viewModel as MaterialDetailViewModel).currentUnit.value?.id
-        it.categoryId = (viewModel as MaterialDetailViewModel).currentCategory.value?.id
+    override fun getCurrentFormData() = viewModel.saved.apply {
+        name = material_edit_name?.editText?.text.toString()
+        var inputPrice = material_edit_price?.editText?.text.toString()
+        if (inputPrice.isBlank()) {
+            inputPrice = "0"
+        }
+        price = inputPrice.toLong()
     }
 
     override fun fillFormWith(item: Material) {
         material_edit_name.editText?.setText(item.name)
-//        material_edit_price.editText?.setText(item.price!!.toLong())
-        (viewModel as MaterialDetailViewModel).currentUnit.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer { cunit ->
-                cunit?.name?.let { name ->
-                    units_dropdown.setText(name, false)
-                    (viewModel as MaterialDetailViewModel).currentUnit.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            })
-        (viewModel as MaterialDetailViewModel).currentCategory.observe(
-            viewLifecycleOwner,
-            androidx.lifecycle.Observer { ccategory ->
-                ccategory?.name?.let { name ->
-                    categorys_dropdown.setText(name, false)
-                    (viewModel as MaterialDetailViewModel).currentCategory.removeObservers(
-                        viewLifecycleOwner
-                    )
-                }
-            })
+        material_edit_price.editText?.setText(item.price.toString())
+        units_dropdown.setText(when {
+            item.unitId != null -> item.unitName
+            else -> getString(R.string.warning_material_missing_unit)
+        })
+        categorys_dropdown.setText(when {
+            item.categoryId != null -> item.categoryName
+            else -> getString(R.string.warning_material_missing_category)
+        })
+        types_dropdown.setText(getString(item.type.resId), false)
     }
 
     override fun setupForm() {
@@ -114,17 +111,37 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
                 getCurrentFormData()
             )
         }
+        types_dropdown.setupForEnum(
+            context = requireContext(),
+            dataset = Material.Type.values().map { type -> getString(type.resId) },
+            resId = R.layout.dropdown_menu_popup_item
+        ) {position ->
+            viewModel.validate(
+                getCurrentFormData().apply {
+                    type = Material.Type.values()[position]
+                    sellable = when (type) {
+                        Material.Type.INGREDIENT -> false
+                        else -> true
+                    }
+                }
+            )
+        }
         (viewModel as MaterialDetailViewModel).unitList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-                if (it.isNotEmpty()) {
-                    val list = it.map { unit -> unit.name }
-                    units_dropdown.setAdapter(
-                        ArrayAdapter(
-                            requireContext(),
-                            R.layout.dropdown_menu_popup_item,
-                            list
-                        )
+                units_dropdown.setupForLiveList(
+                    context = requireContext(),
+                    resId = R.layout.dropdown_menu_popup_item,
+                    layout = units,
+                    emptySetString = R.string.warning_material_no_unit,
+                    missingString = R.string.warning_material_missing_unit,
+                    dataset = it.map { unit -> unit.name }
+                ) {position ->
+                    viewModel.validate(
+                        getCurrentFormData().apply {
+                            unitId = it[position].id
+                            unitName = it[position].name
+                        }
                     )
                 }
             }
@@ -132,41 +149,22 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         (viewModel as MaterialDetailViewModel).categoryList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-                if (it.isNotEmpty()) {
-                    val list = it.map { category ->
-                        category.name
-                    }
-                    categorys_dropdown.setAdapter(
-                        ArrayAdapter(
-                            requireContext(),
-                            R.layout.dropdown_menu_popup_item,
-                            list
-                        )
+                categorys_dropdown.setupForLiveList(
+                    context = requireContext(),
+                    resId = R.layout.dropdown_menu_popup_item,
+                    layout = categorys,
+                    emptySetString = R.string.warning_material_no_category,
+                    missingString = R.string.warning_material_missing_category,
+                    dataset = it.map { unit -> unit.name }
+                ) {position ->
+                    viewModel.validate(
+                        getCurrentFormData().apply {
+                            categoryId = it[position].id
+                            categoryName = it[position].name
+                        }
                     )
                 }
             }
         )
-
-        units_dropdown.setOnItemClickListener { parent, view, position, id ->
-            viewModel.validate(
-                getCurrentFormData().apply {
-                    unitId =
-                        (viewModel as MaterialDetailViewModel).unitList.value?.get(position)?.id
-                }
-            )
-            (viewModel as MaterialDetailViewModel).currentUnit.value =
-                (viewModel as MaterialDetailViewModel).unitList.value?.get(position)
-        }
-
-        categorys_dropdown.setOnItemClickListener { parent, view, position, id ->
-            viewModel.validate(
-                getCurrentFormData().apply {
-                    categoryId =
-                        (viewModel as MaterialDetailViewModel).categoryList.value?.get(position)?.id
-                }
-            )
-            (viewModel as MaterialDetailViewModel).currentCategory.value =
-                (viewModel as MaterialDetailViewModel).categoryList.value?.get(position)
-        }
     }
 }

@@ -1,1 +1,1 @@
-package fit.tdc.edu.vn.cafemanagement.fragment.store_revenueimport android.os.Bundleimport androidx.fragment.app.Fragmentimport androidx.lifecycle.ViewModelProviderimport fit.tdc.edu.vn.cafemanagement.Rclass StoreRevenue : Fragment() {    //TODO: Doanh thu cừa hàng}
+package fit.tdc.edu.vn.cafemanagement.fragment.store_revenueimport androidx.fragment.app.Fragmentclass StoreRevenue : Fragment() {    //TODO: Doanh thu cừa hàng}

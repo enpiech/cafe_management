@@ -1,7 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.store
 
-import android.util.Log
-import android.widget.ArrayAdapter
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavController
@@ -17,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
+import fit.tdc.edu.vn.cafemanagement.util.setupForLiveList
 import kotlinx.android.synthetic.main.fragment_store_detail.*
 
 class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_detail) {
@@ -85,30 +84,18 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
         (viewModel as StoreDetailViewModel).userList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-                Log.d("Test", "${it.size}")
-                if (it.isNotEmpty()) {
-                    val list = it.map { user -> user.name }
-                    manager.setAdapter(
-                        ArrayAdapter(
-                            requireContext(),
-                            R.layout.dropdown_menu_popup_item,
-                            list
-                        )
-                    )
-                } else if (manager.text.isNullOrBlank()) {
-                    val currentItem = (viewModel as StoreDetailViewModel).currentItem.value
-                    if (currentItem != null && currentItem.managerId.isNullOrBlank()) {
-                        manager.setText(getText(R.string.warning_store_missing_manager), false)
-                    } else {
-                        manager.setText(getText(R.string.warning_store_no_free_manager), false)
-                        tilManager.isEndIconVisible = false
-                        manager.isEnabled = false
-                    }
-                }
-                manager.setOnItemClickListener { _, _, position, _ ->
+                manager.setupForLiveList(
+                    context = requireContext(),
+                    dataset = it.map { user -> user.name },
+                    resId = R.layout.dropdown_menu_popup_item,
+                    layout = tilManager,
+                    emptySetString = R.string.warning_store_no_free_manager,
+                    missingString = R.string.warning_store_missing_manager
+                ) {position ->
                     viewModel.validate(
-                        getCurrentFormData().also { store ->
-                            store.managerId = it[position].id
+                        getCurrentFormData().apply {
+                            managerId = it[position].id
+                            managerName = it[position].name
                         }
                     )
                 }
@@ -127,7 +114,7 @@ class StoreDetailFragment : BaseViewFragmentTest<Store>(R.layout.fragment_store_
         edtAddress.editText?.setText(item.address)
         when {
             item.managerId != null -> manager.setText(item.managerName, false)
-            else -> manager.setText(getText(R.string.warning_store_missing_manager), false)
+            else -> manager.setText(getString(R.string.warning_store_missing_manager), false)
         }
     }
 }

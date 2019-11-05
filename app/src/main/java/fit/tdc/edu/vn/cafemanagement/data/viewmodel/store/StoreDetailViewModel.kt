@@ -6,6 +6,7 @@ import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.isValidAddress
 import fit.tdc.edu.vn.cafemanagement.data.model.isValidPersonalName
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
@@ -80,7 +81,12 @@ class StoreDetailViewModel(
 
     override fun insert(item: Store) = storeRepository.createStore(item)
 
-    override fun update(item: Store) = storeRepository.updateStore(item)
+    override fun update(item: Store): TaskLiveData<Void> {
+        return storeRepository.updateStore(
+            oldStore = currentItem.value!!,
+            newStore = item
+        )
+    }
 
     override fun validate(item: Store?) {
         when (item) {

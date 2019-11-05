@@ -9,8 +9,7 @@ import com.google.android.gms.tasks.Task
  * @param task The task to represent the status of
  */
 class TaskLiveData<T>(
-    private val task: Task<T>,
-    private val onComplete: ((task: Task<T>) -> Unit)? = null
+    private val task: Task<T>
 ) : LiveData<TaskResult<T?>>() {
 
     /**
@@ -24,10 +23,7 @@ class TaskLiveData<T>(
             when {
                 it.exception != null -> postValue(TaskResult.failure(it.exception))
                 it.isCanceled -> postValue(TaskResult.cancelled())
-                it.isSuccessful -> {
-                    onComplete?.invoke(it)
-                    postValue(TaskResult.success(it.result))
-                }
+                it.isSuccessful -> postValue(TaskResult.success(it.result))
             }
         }
     }

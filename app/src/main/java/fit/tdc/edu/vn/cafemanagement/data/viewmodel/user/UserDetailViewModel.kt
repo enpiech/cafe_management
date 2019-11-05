@@ -1,9 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.user
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.map
 import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
@@ -31,6 +30,7 @@ class UserDetailViewModel(
             address = handle.get<String>("address"),
             role = handle.get<User.Role>("role"),
             storeId = handle.get<String>("storeId"),
+            storeName = handle.get<String>("storeName"),
             username = handle.get<String>("username"),
             password = handle.get<String>("password")
         )
@@ -43,56 +43,53 @@ class UserDetailViewModel(
             handle.set("address", value.address)
             handle.set("role", value.role)
             handle.set("storeId", value.storeId)
+            handle.set("storeName", value.storeName)
             handle.set("username", value.username)
             handle.set("password", value.password)
+
+            _currentRole.value = value.role
         }
 
-    var currentStoreSelection: LiveData<String>
-        get() = getCurrentStoreSelection
-        set(value) {}
+    private val _currentRole = MutableLiveData<User.Role?>(null)
 
-    fun setCurrentStoreSelection(name: String?) {
-        handle.set("storeName", name)
-    }
-
-    private val _storeResponseList = storeRepository.getStoreList()
-    val storeList: LiveData<List<Store>> = _storeResponseList.map {
-        if (it.status == Status.SUCCESS && !it.data.isNullOrEmpty()) {
-            it.data
-        } else {
-            listOf()
-        }
-    }
-
-    val currentStore =
-        CombinedLiveData<User, List<Store>, Store?>(currentItem, storeList) { user, storeList ->
-            getCurrentStoreOfUser(user, storeList)
-        }
-
-    private val getCurrentStoreSelection = MediatorLiveData<String>().apply {
-        addSource(currentStore) {
-            //            Log.d("test", it.toString())
-            it?.let { store ->
-                value = store.name
+    private val _storeResponseList =
+        CombinedLiveData(
+            source1 = _currentRole,
+            source2 = storeRepository.getStoreList(),
+            combine = { role, listResponse ->
+                if (listResponse?.status == Status.SUCCESS && !listResponse.data.isNullOrEmpty()) {
+                    if (role == User.Role.STORE_MANAGER) {
+                        listResponse.data.filter { store -> store.managerId.isNullOrBlank() }
+                    } else {
+                        listResponse.data
+                    }
+                } else {
+                    listOf()
+                }
             }
-        }
-        addSource(handle.getLiveData<String>("storeName")) {
-            value = it
-        }
-    }
+        )
+//    private val _storeResponseList = storeRepository.getStoreList().map {
+//        if (it.status == Status.SUCCESS && !it.data.isNullOrEmpty()) {
+//            if (saved.role == User.Role.STORE_MANAGER) {
+//                it.data.filter { store -> store.managerId.isNullOrBlank() }
+//            } else {
+//                it.data
+//            }
+//        } else {
+//            listOf()
+//        }
+//    }
 
-    private fun getCurrentStoreOfUser(user: User?, res: List<Store>?): Store? {
-        return if (!res.isNullOrEmpty() && user != null) {
-            res.find { store -> store.id == user.storeId }
-        } else
-            null
-    }
+    val storeList: LiveData<List<Store>> = _storeResponseList
 
     override fun getItem(id: String) = userRepository.getUser(id)
 
     override fun insert(item: User) = userRepository.insert(item)
 
-    override fun update(item: User) = userRepository.update(item)
+    override fun update(item: User) = userRepository.update(
+        oldUser = currentItem.value!!,
+        newUser = item
+    )
 
     override fun validate(item: User?) {
         when (item) {
@@ -183,7 +180,8 @@ class UserDetailViewModel(
                 item.address != currentItem.value!!.address -> formState.isChanged = true
                 item.gender != currentItem.value!!.gender -> formState.isChanged = true
                 item.role != currentItem.value!!.role -> formState.isChanged = true
-                item.storeId != currentItem.value!!.storeId -> formState.isChanged = true
+                item.storeId != currentItem.value!!.storeId && item.storeName != currentItem.value!!.storeName -> formState.isChanged =
+                    true
             }
         } else {
             formState.isChanged = true

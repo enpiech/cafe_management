@@ -6,7 +6,6 @@ import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
-import java.security.AccessControlContext
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and

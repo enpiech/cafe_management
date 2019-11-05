@@ -18,6 +18,7 @@ data class User(
     var address: String? = null,
     @Ignore var role: Role? = null,
     var storeId: String? = null,
+    var storeName: String? = null,
     var username: String? = null,
     var password: String? = null
 ) : FirestoreModel() {

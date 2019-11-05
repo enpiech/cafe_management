@@ -17,6 +17,9 @@
         <item
             android:id="@+id/tableListFragment"
             android:title="@string/title_table" />
+        <item
+            android:id="@+id/materialListFragment"
+            android:title="@string/title_material" />
     </group>
     <item
         android:id="@+id/loginFragment"

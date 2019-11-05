@@ -1,13 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
 import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.QuerySnapshot
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.chef.Chef
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
+import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
@@ -72,13 +72,10 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): CollectionLiveData<Payment>
 
-    /**
-     * ========== FETCH ============
-     */
-    fun fetchCategoryList(
-        storeId: String
-    ): TaskLiveData<QuerySnapshot>
-
+    fun getChefList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<Chef>
 
     /**
      * =========== GET SPECIFIC DOCUMENT ============
@@ -141,6 +138,11 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Payment>
 
+    fun getChef(
+        storeId: String,
+        chefId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<Chef>
 
     /**
      * ========== CREATE DOCUMENT ===========
@@ -188,6 +190,10 @@ interface FireBaseAPI {
         store: Store
     ): TaskLiveData<DocumentReference>
 
+    fun createChef(
+        storeId: String,
+        chef: Chef
+    ): TaskLiveData<DocumentReference>
 
     /**
      * ========== CREATE DOCUMENT ===========
@@ -228,11 +234,12 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun modifyUser(
-        user: User
+        oldUser: User,
+        newUser: User
     ): TaskLiveData<Void>
 
     fun modifyStore(
-        store: Store
+        oldStore: Store, newStore: Store
     ): TaskLiveData<Void>
     
     
@@ -275,10 +282,15 @@ interface FireBaseAPI {
     ): TaskLiveData<Void>
 
     fun deleteUser(
-        userId: String
+        user: User
     ): TaskLiveData<Void>
 
     fun deleteStore(
         storeId: String
+    ): TaskLiveData<Void>
+
+    fun deleteChef(
+        storeId: String,
+        chefId: String
     ): TaskLiveData<Void>
 }

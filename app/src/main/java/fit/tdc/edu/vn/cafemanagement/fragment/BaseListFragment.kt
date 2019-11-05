@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -42,7 +43,17 @@ abstract class BaseListFragment<T: FirestoreModel>(
         }
 
         viewModel.itemList.observe(viewLifecycleOwner, Observer {
-            viewAdapter.submitList(it)
+            when (it.status) {
+                Status.ERROR -> {
+                    //TODO("Show error")
+                }
+                Status.LOADING -> {
+                    //TODO("Show progress indicator")
+                }
+                Status.SUCCESS -> {
+                    viewAdapter.submitList(it.data)
+                }
+            }
         })
 
     }

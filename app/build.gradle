@@ -45,6 +45,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room
@@ -128,7 +129,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui:$jetpack_version"
 
     implementation 'com.google.dagger:dagger:2.25.2'
-    implementation 'com.google.dagger:dagger-android-support:2.25.2' // if you use the support libraries
+    implementation 'com.google.dagger:dagger-android-support:2.25.2'
+    // if you use the support libraries
     kapt 'com.google.dagger:dagger-android-processor:2.25.2'
 
 

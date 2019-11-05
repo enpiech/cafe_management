@@ -12,7 +12,7 @@ class StoreRepository(val dataSource: FireBaseAPI) : StoreRepositoryAPI{
 
     override fun createStore(store: Store) = dataSource.createStore(store)
 
-    override fun updateStore(store: Store) = dataSource.modifyStore(store)
+    override fun updateStore(oldStore: Store, newStore: Store) = dataSource.modifyStore(oldStore, newStore)
 
     override fun deleteStore(storeID: String) = dataSource.deleteStore(storeID)
 }
