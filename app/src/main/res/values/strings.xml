@@ -6,6 +6,10 @@
     <string name="txtAmout">Số lượng</string>
     <string name="txtInDate">Ngày nhập</string>
 
+    <string name="amoutLeft">Còn lại: </string>
+    <string name="inputAmout">Nhập vào: </string>
+    <string name="warehouseUnit">Đơn vị: </string>
+
     <string name="txtName">Name</string>
 
     <string name="txtMaterialName">Tên nguyên liệu</string>
