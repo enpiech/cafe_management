@@ -36,7 +36,7 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
         if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
             loginRepository.managerLogin(username, password, context)
         } else {
-            loginRepository.employeeLogin(username, password)
+            loginRepository.employeeLogin(username, password, context)
         }
     }
 
