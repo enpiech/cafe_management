@@ -28,6 +28,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("store ID: === ", getStoreId()!!)
+        Log.d("user type: === ", ""+getUserType())
+
         loginViewModel = ViewModelProvider(
             this,
             LoginViewModelFactory()
@@ -68,6 +71,9 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             displayName = loginResult.data?.name ?: "Noname"
                         )
                     )
+                    loginResult.data?.storeId?.let {id ->
+                        rememberStoreId(id)
+                    }
                     loginResult.data?.role?.let { role ->
                         (requireActivity() as MainActivity).changeUserRole(role)
                         rememberUserType(role)
@@ -167,6 +173,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
     }
 
+    private fun rememberStoreId(storeId: String?) {
+        val sharedPreferences = activity?.getSharedPreferences("storeId", MODE_PRIVATE) ?: return
+        with(sharedPreferences.edit()) {
+            if (storeId!=null) {
+                putString("storeId", storeId)
+            }
+            apply()
+        }
+    }
+
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
@@ -183,8 +199,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun getUserType(): Int {
-        return requireActivity().getPreferences(Context.MODE_PRIVATE)
+        return requireActivity().getPreferences(MODE_PRIVATE)
             .getInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
+    }
+
+    private fun getStoreId(): String? {
+        return requireActivity().getPreferences(MODE_PRIVATE)
+            .getString("storeId", "")
     }
 }
 

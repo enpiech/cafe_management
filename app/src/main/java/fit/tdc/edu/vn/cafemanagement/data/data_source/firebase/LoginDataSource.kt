@@ -56,7 +56,8 @@ class LoginDataSource {
 
     fun employeeLogin(
         username: String,
-        password: String
+        password: String,
+        context: Context
     ) {
         firestore.collection("employees").whereEqualTo("username", username)
             .get()
@@ -70,6 +71,16 @@ class LoginDataSource {
                     if (doc.getString("password").equals(password)) {
                         val user = doc.toObject(User::class.java)?.apply {
                             id = doc.id
+                        }
+                        try {
+                            val sharedReferenceEditor = context.getSharedPreferences("savedUser", MODE_PRIVATE).edit()
+                            sharedReferenceEditor.putString("username", username)
+                            sharedReferenceEditor.putString("password", password)
+                            sharedReferenceEditor.apply()
+
+                            Log.d("employee login: ====", username + password)
+                        } catch (e: Exception) {
+                            Log.d("LoginDataSrc.mgrLogin", e.message!!)
                         }
                         _result.value = FirestoreResource.success(user)
                         return@addOnSuccessListener

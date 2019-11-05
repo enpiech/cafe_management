@@ -28,14 +28,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
     init {
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
-        //TODO: bỏ database vô đây
-//        loggedInUser = try {
-//            userDAO.getAllUsers().value!![0]
-//        } catch (e:Exception) {
-//            null
-//        }
-
-
         loggedInUser = null
         _loginResult.value = null
         _loginResult.addSource(dataSource.result) {
@@ -58,9 +50,9 @@ class LoginRepository(val dataSource: LoginDataSource) {
         dataSource.logout()
     }
 
-    fun employeeLogin(username: String, password: String) {
+    fun employeeLogin(username: String, password: String, context: Context) {
         _loginResult.value = FirestoreResource.loading()
-        dataSource.employeeLogin(username, password)
+        dataSource.employeeLogin(username, password, context)
     }
 
     fun managerLogin(username: String, password: String, context: Context) {
