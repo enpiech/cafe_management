@@ -42,10 +42,12 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
 
     fun loginDataChanged(username: String, password: String) {
         when {
-            !isUserNameValid(username) -> _loginForm.value =
-                LoginFormState(usernameError = R.string.invalid_username)
-            !isPasswordValid(password) -> _loginForm.value =
-                LoginFormState(passwordError = R.string.invalid_password)
+            !isUserNameValid(username) && !isPasswordValid(password) -> _loginForm.value =
+                LoginFormState(usernameError = R.string.invalid_username, passwordError = R.string.invalid_password, isDataValid = false)
+            !isUserNameValid(username) && isPasswordValid(password) -> _loginForm.value =
+                LoginFormState(usernameError = R.string.invalid_username, passwordError = null, isDataValid = false)
+            isUserNameValid(username) && !isPasswordValid(password) -> _loginForm.value =
+                LoginFormState(usernameError = null, passwordError = R.string.invalid_password, isDataValid = false)
             else -> _loginForm.value =
                 LoginFormState(usernameError = null, passwordError = null, isDataValid = true)
         }

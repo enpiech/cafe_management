@@ -1,6 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
@@ -11,8 +13,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
  * Class that requests authentication and loggedInUser information from the remote data source and
  * maintains an in-memory cache of employeeLogin status and loggedInUser credentials information.
  */
-
 class LoginRepository(val dataSource: LoginDataSource) {
+
+    private var context: Context? = null
 
     // in-memory cache of the loggedInUser object
     // TODO Local db or reference to make session
@@ -50,18 +53,31 @@ class LoginRepository(val dataSource: LoginDataSource) {
     }
 
     fun employeeLogin(username: String, password: String, context: Context) {
+        this.context = context
         _loginResult.value = FirestoreResource.loading()
         dataSource.employeeLogin(username, password, context)
     }
 
     fun managerLogin(username: String, password: String, context: Context) {
+        this.context = context
         _loginResult.value = FirestoreResource.loading()
         dataSource.managerLogin(username, password, context)
+    }
+
+    private fun getUserType(): Int {
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        return sharedPreferences.getInt("userType", -1)
+    }
+
+    private fun getStoreId(): String? {
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", Context.MODE_PRIVATE)
+        return sharedPreferences.getString("storeId", "ko tim thay")
     }
 
     private fun setLoggedInUser(loggedInUser: User) {
         this.loggedInUser = loggedInUser
         _loginResult.value = FirestoreResource.success(this.loggedInUser)
+        Log.d("user info: ",loginResult.value?.data.toString())
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }

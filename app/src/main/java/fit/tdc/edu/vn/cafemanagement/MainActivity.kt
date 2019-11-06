@@ -24,6 +24,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var storeId: String? = ""
+    public fun getStoreId(): String? {
+        return storeId
+    }
+
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
             setOf(

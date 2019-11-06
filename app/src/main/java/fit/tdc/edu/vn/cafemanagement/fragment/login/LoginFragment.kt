@@ -19,6 +19,7 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
 import kotlinx.android.synthetic.main.fragment_login.*
 import java.lang.Exception
@@ -28,9 +29,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var loginViewModel: LoginViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d("store ID: === ", getStoreId()!!)
-        Log.d("user type: === ", ""+getUserType())
-
         loginViewModel = ViewModelProvider(
             this,
             LoginViewModelFactory()
@@ -75,12 +73,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                             displayName = loginResult.data?.name ?: "Noname"
                         )
                     )
-                    loginResult.data?.storeId?.let {id ->
+                    loginResult.data?.storeId?.let { id ->
                         rememberStoreId(id)
+                        UserInfor.getInstance().storeId = getStoreId()
                     }
                     loginResult.data?.role?.let { role ->
                         (requireActivity() as MainActivity).changeUserRole(role)
                         rememberUserType(role)
+                        UserInfor.getInstance().userType = getUserType()
+
                         when (role) {
                             User.Role.STORE_MANAGER -> {
                                 this.findNavController().navigate(R.id.zoneListFragment)
@@ -160,31 +161,36 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun rememberUserType(type: User.Role?) {
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.user_type_key), MODE_PRIVATE
-        ) ?: return
-        Log.d("test", "${type?.ordinal ?: resources.getInteger(R.integer.no_user_type)}")
-        with(sharedPref.edit()) {
-            if (type == null) {
-                putInt(
-                    getString(R.string.user_type_key),
-                    resources.getInteger(R.integer.no_user_type)
-                )
-            } else {
-                putInt(getString(R.string.user_type_key), type.ordinal)
-            }
-            apply()
-        }
+//        val sharedPref = activity?.getSharedPreferences(
+//            getString(R.string.user_type_key), MODE_PRIVATE
+//        ) ?: return
+//        Log.d("test", "${type?.ordinal ?: resources.getInteger(R.integer.no_user_type)}")
+//        with(sharedPref.edit()) {
+//            if (type == null) {
+//                putInt(
+//                    getString(R.string.user_type_key),
+//                    resources.getInteger(R.integer.no_user_type)
+//                )
+//            } else {
+//                putInt(getString(R.string.user_type_key), type.ordinal)
+//            }
+//            apply()
+//        }
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
+        sharedPreferences.putInt("userType", type!!.ordinal)
+        sharedPreferences.apply()
     }
 
     private fun rememberStoreId(storeId: String?) {
-        val sharedPreferences = activity?.getSharedPreferences("storeId", MODE_PRIVATE) ?: return
-        with(sharedPreferences.edit()) {
-            if (storeId!=null) {
-                putString("storeId", storeId)
-            }
-            apply()
-        }
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
+        sharedPreferences.putString("storeId", storeId)
+        sharedPreferences.apply()
+//        with(sharedPreferences.edit()) {
+//            if (storeId!=null) {
+//                putString("storeId", storeId)
+//            }
+//            apply()
+//        }
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
@@ -203,13 +209,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun getUserType(): Int {
-        return requireActivity().getPreferences(MODE_PRIVATE)
-            .getInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
+//        return requireActivity().getPreferences(MODE_PRIVATE)
+//            .getInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE)
+        return sharedPreferences.getInt("userType", -1)
     }
 
     private fun getStoreId(): String? {
-        return requireActivity().getPreferences(MODE_PRIVATE)
-            .getString("storeId", "")
+        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE)
+        return sharedPreferences.getString("storeId", "ko tim thay")
     }
 }
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 
 class MaterialRepository ( val dataSource: FireBaseAPI) :
@@ -57,16 +58,16 @@ class MaterialRepository ( val dataSource: FireBaseAPI) :
 
 
 
-    override fun getAllMaterials() = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+    override fun getAllMaterials() = dataSource.getMaterialList(UserInfor.getInstance().storeId!!,DocumentType.ALL)
 
-    override fun getMaterial(id: String) = dataSource.getMaterial("EfzspceETNgWk56YDOOt",id,DocumentType.SINGLE)
+    override fun getMaterial(id: String) = dataSource.getMaterial(UserInfor.getInstance().storeId!!,id,DocumentType.SINGLE)
 
     override fun insert(material: Material) =
-        dataSource.createMaterial("EfzspceETNgWk56YDOOt", material)
+        dataSource.createMaterial(UserInfor.getInstance().storeId!!, material)
 
     override fun update(material: Material) =
-        dataSource.modifyMaterial("EfzspceETNgWk56YDOOt", material)
+        dataSource.modifyMaterial(UserInfor.getInstance().storeId!!, material)
 
     override fun delete(material: Material) =
-        dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)
+        dataSource.deleteMaterial(UserInfor.getInstance().storeId!!, material.id)
 }
