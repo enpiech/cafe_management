@@ -1,6 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository
 
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.LiveData
 import com.google.firebase.firestore.DocumentReference
 import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
@@ -13,10 +13,8 @@ interface MaterialRepositoryAPI {
     fun insert(material: Material): TaskLiveData<DocumentReference>
     fun update(material: Material): TaskLiveData<Void>
     fun delete(material: Material): TaskLiveData<Void>
-    fun getMaterialsListASCName() : MediatorLiveData<List<Material>?>
-    fun getMaterialsListASCPrice() : MediatorLiveData<List<Material>?>
-    fun getSellableMaterialsList() : MediatorLiveData<List<Material>?>
-    fun getMaterialsListDESCName() : MediatorLiveData<List<Material>?>
-    fun getMaterialsListDESCPrice() : MediatorLiveData<List<Material>?>
-    fun getUnSellableMaterialsList() : MediatorLiveData<List<Material>?>
+    fun getMaterialsListASCName() : LiveData<List<Material>>
+    fun getMaterialsListASCPrice() : LiveData<List<Material>>
+    fun getSellableMaterials() : LiveData<List<Material>>
+    fun getUnsellableMaterialsList() : LiveData<List<Material>>
 }

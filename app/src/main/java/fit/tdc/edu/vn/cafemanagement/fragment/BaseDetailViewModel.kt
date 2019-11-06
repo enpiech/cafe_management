@@ -29,7 +29,6 @@ abstract class BaseDetailViewModel<T: FirestoreModel> : ViewModel() {
         }
     }
 
-    var draftItem = MutableLiveData<T>()
     abstract var saved: T
 
     fun setViewType(type: FormState.Type) {

@@ -6,7 +6,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.PaymentRepository
 
 class PaymentViewModelFactory (
     private val dataSource: FireBaseAPI,
@@ -19,17 +21,23 @@ class PaymentViewModelFactory (
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-        if (modelClass.isAssignableFrom(PaymentDetailViewModel::class.java)) {
-            return PaymentDetailViewModel(
-                categoryRepository = CategoryRepository(
-                    dataSource = dataSource
-                )
-            ) as T
-        } else if (modelClass.isAssignableFrom(PaymentListViewModel::class.java)) {
+//        if (modelClass.isAssignableFrom(PaymentDetailViewModel::class.java)) {
+//            return PaymentDetailViewModel(
+//                paymentRepository = PaymentRepository(
+//                    dataSource = dataSource
+//                )
+//            ) as T
+//        } else
+            if (modelClass.isAssignableFrom(PaymentListViewModel::class.java)) {
             return PaymentListViewModel(
-                categoryRepository = CategoryRepository(
+                paymentRepository = PaymentRepository(
                     dataSource = dataSource
-                )
+                ),
+                materialRepository = MaterialRepository(
+                    dataSource
+                ),
+                orderRepository = OrderRepository(dataSource),
+                handle = handle
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

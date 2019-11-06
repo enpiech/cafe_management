@@ -1,73 +1,61 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.impl
 
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 
-class MaterialRepository ( val dataSource: FireBaseAPI) :
-    MaterialRepositoryAPI {
+class MaterialRepository(
+    val dataSource: FireBaseAPI
+) : MaterialRepositoryAPI {
 
-    private var filteredMeterialsList = MediatorLiveData<List<Material>?>()
-
-    init {
-        filteredMeterialsList.addSource(getAllMaterials()){}
-    }
-
-    override fun getMaterialsListASCName() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedBy { it.name }
-        return filteredMeterialsList
-    }
-
-    override fun getMaterialsListASCPrice() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedBy { it.price }
-        return filteredMeterialsList
-    }
-
-    override fun getSellableMaterialsList() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.filter {
-            it.sellable
+    private var _materials = MediatorLiveData<List<Material>>().apply {
+        addSource(getAllMaterials()){
+            value = if (it.status == Status.SUCCESS) {
+                it.data
+            } else {
+                listOf()
+            }
         }
-        return filteredMeterialsList
     }
 
-    override fun getMaterialsListDESCName() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedByDescending { it.name }
-        return filteredMeterialsList
-    }
-
-    override fun getMaterialsListDESCPrice() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.sortedByDescending { it.price }
-        return filteredMeterialsList
-    }
-
-    override fun getUnSellableMaterialsList() : MediatorLiveData<List<Material>?>{
-        filteredMeterialsList.addSource(getAllMaterials()){}
-        filteredMeterialsList.value = filteredMeterialsList.value!!.filter {
-            !it.sellable
+    override fun getMaterialsListASCName() = _materials.map {list ->
+        list.sortedBy {material ->
+            material.name
         }
-        return filteredMeterialsList
     }
 
+    override fun getMaterialsListASCPrice() = _materials.map {list ->
+        list.sortedBy {material ->
+            material.price
+        }
+    }
 
+    override fun getSellableMaterials()  = _materials.map {list ->
+        list.filter {material ->
+            material.type != Material.Type.INGREDIENT
+        }
+    }
 
-    override fun getAllMaterials() = dataSource.getMaterialList(UserInfor.getInstance().storeId!!,DocumentType.ALL)
+    override fun getUnsellableMaterialsList() = _materials.map {list ->
+        list.filter {material ->
+            material.type == Material.Type.INGREDIENT
+        }
+    }
 
-    override fun getMaterial(id: String) = dataSource.getMaterial(UserInfor.getInstance().storeId!!,id,DocumentType.SINGLE)
+    override fun getAllMaterials() = dataSource.getMaterialList("EfzspceETNgWk56YDOOt",DocumentType.ALL)
+
+    override fun getMaterial(id: String) = dataSource.getMaterial("EfzspceETNgWk56YDOOt",id,DocumentType.SINGLE)
 
     override fun insert(material: Material) =
-        dataSource.createMaterial(UserInfor.getInstance().storeId!!, material)
+        dataSource.createMaterial("EfzspceETNgWk56YDOOt", material)
 
     override fun update(material: Material) =
-        dataSource.modifyMaterial(UserInfor.getInstance().storeId!!, material)
+        dataSource.modifyMaterial("EfzspceETNgWk56YDOOt", material)
 
     override fun delete(material: Material) =
-        dataSource.deleteMaterial(UserInfor.getInstance().storeId!!, material.id)
+        dataSource.deleteMaterial("EfzspceETNgWk56YDOOt", material.id)
 }

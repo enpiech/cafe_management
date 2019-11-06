@@ -64,10 +64,8 @@
     <string name="title_category">Danh mục sản phẩm</string>
     <string name="title_zone">Khu vực bàn</string>
     <string name="title_unit">Đơn vị tính</string>
-    <string name="title_chef">Bếp</string>
     <string name="title_user">Nhân viên</string>
     <string name="title_table">Bàn</string>
-    <string name="title_material">Hàng</string>
 <!--
 *
 *End Title
@@ -112,6 +110,7 @@
     <string name="user_type_key">fit.tdc.edu.vn.cafemanagement.USER_TYPE_KEY</string>
     <string name="warning_store_no_free_manager">Không có quản lý nào sẵn sàng</string>
     <string name="warning_user_missing_store">Chưa chọn cửa hàng!</string>
+    <string name="title_material">Hàng hóa</string>
     <string name="material_type_drink">Đồ uống</string>
     <string name="material_type_food">Món ăn</string>
     <string name="material_type_ingredient">Nguyên liệu</string>
@@ -125,4 +124,14 @@
     <string name="txtUnitName">Đơn vị</string>
     <string name="txtCafe">Cafe sữa</string>
     <string name="txtLy">Ly</string>
+    <string name="title_current_order">Đã đặt</string>
+    <string name="title_list_order">Đặt món</string>
+    <string name="title_new_order">Đặt món</string>
+    <string name="title_ordered">Đã đặt</string>
+    <string name="title_chef">Bếp</string>
+    <string name="label_orders">món trong danh sách</string>
+    <string name="label_total">TỔNG CỘNG</string>
+    <string name="label_add">Thêm món</string>
+    <string name="label_checkout">Thanh toán</string>
+    <string name="dialog_title_confirm">Xác nhận đặt món</string>
 </resources>

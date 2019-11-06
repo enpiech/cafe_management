@@ -1,7 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.fragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 
@@ -10,6 +11,6 @@ abstract class BaseListViewModel<T: FirestoreModel> : ViewModel() {
         getAllItems()
     }
 
-    abstract fun getAllItems(): CollectionLiveData<T>
+    abstract fun getAllItems(): LiveData<FirestoreResource<List<T>>>
     abstract fun delete(item: T): TaskLiveData<Void>
 }

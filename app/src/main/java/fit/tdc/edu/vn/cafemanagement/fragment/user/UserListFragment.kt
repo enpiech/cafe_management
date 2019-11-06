@@ -114,7 +114,7 @@ class UserListFragment : BaseListFragment<User>(
 //                    .setPositiveButton(R.string.btnOK) { _, _ ->
 //                        run {
 //                            viewAdapter.currentList[viewHolder.adapterPosition].apply {
-//                                viewModel.delete(this)
+//                                viewModel.complete(this)
 //                                Snackbar.make(
 //                                    viewHolder.itemView,
 //                                    "${this.name} đã bị xóa!",

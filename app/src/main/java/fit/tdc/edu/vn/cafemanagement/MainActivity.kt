@@ -8,21 +8,21 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity :
+    AppCompatActivity(),
+    NavigationView.OnNavigationItemSelectedListener {
 
     private var storeId: String? = ""
     public fun getStoreId(): String? {
@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 R.id.zoneListFragment,
                 R.id.userListFragment,
                 R.id.tableListFragment,
-                R.id.tableListWaiterFragment,
                 R.id.storeListFragment,
                 R.id.materialListFragment,
                 R.id.chefListFragment
@@ -55,28 +54,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupNavigation()
         setupFab()
 
-        FireBaseDataSource().getCurrentPaymentOfTable("EfzspceETNgWk56YDOOt", "hd6U75t1MFneAXKoeMrz").observe(this, Observer {
-            when (it.status) {
-                Status.SUCCESS -> {
-                   it?.data?.forEach { payment ->
-                       Log.d("test", payment.toString())
-                   }
-                }
-                Status.LOADING -> {
-
-                }
-                Status.ERROR -> {
-
-                }
-            }
-        })
-
-//        when (getUserType()) {
-//            resources.getInteger(R.integer.no_user_type) -> {
-//                logout()
-//                navController.navigate(R.id.loginFragment)
-//            }
-//        }
     }
 
     private fun setupNavigation() {
@@ -84,12 +61,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
         nav_view.setNavigationItemSelectedListener(this)
+        bottom_navigation.setupWithNavController(navController)
         navController.addOnDestinationChangedListener { controller, destination, _ ->
             when (destination.id) {
                 in setOf(
                     R.id.loginFragment
                 ) -> {
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    bottom_navigation.isVisible = false
                     supportActionBar?.hide()
                     fab.hide()
                     logout()
@@ -106,12 +85,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     supportActionBar?.show()
                 }
-                R.id.tableListWaiterFragment -> {
-                    fab.hide()
+//                R.id.orderListFragment -> {
+//                    fab.setImageDrawable(getDrawable(R.drawable.ic_check))
+//                    fab.show()
+//                }
+                in setOf(
+                    R.id.orderDetailFragment,
+                    R.id.orderListFragment
+                ) -> {
+                    supportActionBar?.show()
+                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    bottom_navigation.isVisible = false
                 }
-                R.id.orderListFragment -> {
-                    fab.setImageDrawable(getDrawable(R.drawable.ic_check))
-                    fab.show()
+                R.id.tableListWaiterFragment -> {
+                    supportActionBar?.show()
+                    toolbar.navigationIcon = null
+                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+                    bottom_navigation.isVisible = true
                 }
                 R.id.chefListFragment -> {
                     fab.hide()
@@ -126,10 +116,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                             drawer_layout.closeDrawer(GravityCompat.START)
                         }
                     }
+                    callback.isEnabled = true
                     toolbar.setNavigationOnClickListener {
                         controller.navigateUp(appBarConfiguration)
                     }
-                    callback.isEnabled = true
+
                 }
             }
             hideKeyboard()
@@ -156,11 +147,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
         navController.navigate(item.itemId)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("test2", item.itemId.toString())
-        return super.onOptionsItemSelected(item)
     }
 
     private fun setupFab() {
@@ -198,8 +184,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 //                nav_view.inflateMenu(R.menu.manager_menu)
                 nav_view.inflateMenu(R.menu.activity_main_drawer)
             }
+
             User.Role.WAITER -> {
-                nav_view.inflateMenu(R.menu.waiter_menu)
+                bottom_navigation.isVisible = true
+                bottom_navigation.menu.clear()
+                bottom_navigation.inflateMenu(R.menu.waiter_menu)
             }
             User.Role.BARTENDER -> {
                 nav_view.inflateMenu(R.menu.bartender_menu)

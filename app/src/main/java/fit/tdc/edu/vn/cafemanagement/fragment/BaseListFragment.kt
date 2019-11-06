@@ -36,7 +36,7 @@ abstract class BaseListFragment<T: FirestoreModel>(
     protected abstract fun setupFab(fab: FloatingActionButton)
 
     open fun setupRecyclerView(recyclerView: RecyclerView, viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>) {
-        recycler_view.apply {
+        recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
@@ -95,5 +95,7 @@ abstract class BaseListFragment<T: FirestoreModel>(
             .show()
     }
 
-    protected abstract fun showDeleteNotifySnackBar(item: T, view: View)
+    protected open fun showDeleteNotifySnackBar(item: T, view: View) {
+
+    }
 }

@@ -29,11 +29,11 @@ class DocumentLiveData<T: FirestoreModel>(
     override fun onActive() {
         super.onActive()
         postValue(FirestoreResource.loading())
-        reference.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
-            if (firebaseFirestoreException != null) {
-                postValue(FirestoreResource.error(firebaseFirestoreException))
-                Log.w("DocumentLiveData", firebaseFirestoreException.localizedMessage)
-                firebaseFirestoreException.printStackTrace()
+        reference.addSnapshotListener { documentSnapshot, exception ->
+            if (exception != null) {
+                postValue(FirestoreResource.error(exception))
+                Log.w("DocumentLiveData", exception.localizedMessage)
+                exception.printStackTrace()
             } else {
                 postValue(FirestoreResource.success(documentSnapshot?.toObject(modelClass)?.apply {
                     id = documentSnapshot.id

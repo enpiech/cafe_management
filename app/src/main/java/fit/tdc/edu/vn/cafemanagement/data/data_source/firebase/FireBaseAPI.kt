@@ -3,11 +3,11 @@ package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 import com.google.firebase.firestore.DocumentReference
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.chef.Chef
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
@@ -73,10 +73,16 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): CollectionLiveData<Payment>
 
-    fun getChefList(
+    fun getChefOrders(
         storeId: String,
         documentType: DocumentType
-    ): CollectionLiveData<Chef>
+    ): QueryLiveData<Order>
+
+    fun getWaiterOrders(
+        storeId: String,
+        paymentId: String,
+        documentType: DocumentType
+    ): QueryLiveData<Order>
 
     fun getWareHouseList(
         storeId: String,
@@ -144,11 +150,11 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Payment>
 
-    fun getChef(
+    fun getOrder(
         storeId: String,
-        chefId: String,
+        orderId: String,
         documentType: DocumentType
-    ): DocumentLiveData<Chef>
+    ): DocumentLiveData<Order>
 
     fun getWareHouse(
         storeId: String,
@@ -202,15 +208,21 @@ interface FireBaseAPI {
         store: Store
     ): TaskLiveData<DocumentReference>
 
-    fun createChef(
+    fun createOrder(
         storeId: String,
-        chef: Chef
+        order: Order
     ): TaskLiveData<DocumentReference>
 
     fun createWareHouse(
         storeId: String,
         wareHouse: WareHouse
     ): TaskLiveData<DocumentReference>
+
+    fun createPayment(
+        storeId: String,
+        payment: Payment
+    )
+
     /**
      * ========== CREATE DOCUMENT ===========
      */
@@ -262,6 +274,13 @@ interface FireBaseAPI {
         storeId: String,
         WwreHouse: WareHouse
     ): TaskLiveData<Void>
+
+    fun completeOrder(
+        storeId: String,
+        chefId: String
+    ): TaskLiveData<Void>
+
+
     /**
      * =========== DELETE DOCUMENT ==============
      */
@@ -306,11 +325,6 @@ interface FireBaseAPI {
 
     fun deleteStore(
         storeId: String
-    ): TaskLiveData<Void>
-
-    fun deleteChef(
-        storeId: String,
-        chefId: String
     ): TaskLiveData<Void>
 
     fun deleteWareHouse(

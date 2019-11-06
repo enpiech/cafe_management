@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/orderDetailFragment"
+        android:title="@string/title_current_order" />
+    <item
+        android:id="@+id/orderListFragment"
+        android:title="@string/title_list_order" />
+</menu>

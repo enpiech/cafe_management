@@ -24,6 +24,6 @@ class RevenueRepository ( val dataSource: FireBaseAPI):
         dataSource.deleteRevenue(UserInfor.getInstance().storeId!!, revenue.id)
 
     override fun deleteAllRevenues() {
-        //TODO: get delete all function
+        //TODO: get complete all function
     }
 }

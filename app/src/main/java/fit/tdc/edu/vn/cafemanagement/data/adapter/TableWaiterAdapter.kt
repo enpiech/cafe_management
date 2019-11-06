@@ -1,11 +1,10 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
-import android.annotation.SuppressLint
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -16,13 +15,6 @@ import fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragme
 import kotlinx.android.synthetic.main.item_table.view.*
 
 class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
-    var mSelectedItem = 0
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentTable: Table = getItem(position)
-        mSelectedItem = position
-        (holder as TableWaiterHolder).bind(currentTable)
-    }
-
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Table>() {
             override fun areItemsTheSame(oldItem: Table, newItem: Table): Boolean {
@@ -41,51 +33,59 @@ class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALL
         return TableWaiterHolder(itemView)
     }
 
-    override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder,
-        position: Int,
-        payloads: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentTable: Table = getItem(position)
-        if(currentTable.state == Table.State.FREE){
-            Log.d("test", "OKOKOKOKOKOKO")
-
-            //holder.itemView.btn_item_table.setBackgroundResource(R.color.green)
-        }
-        super.onBindViewHolder(holder, position, payloads)
+        (holder as TableWaiterHolder).bind(currentTable)
     }
 
     inner class TableWaiterHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private fun navigateToView(
-            table: Table,
-            it: View
-        ) {
-            val direction =
-                TableWaiterListFragmentDirections.tableWaiterAction(tableId = table.id, title = "Hãy đặt món" )
-            Log.d("test", "Bồi bàn đã bấm vào bàn "+table.name)
-            it.findNavController().navigate(direction)
-        }
-
-        @SuppressLint("ResourceAsColor")
         fun bind(item: Table) {
             itemView.btn_item_table.text = item.name
-            if (item.state == Table.State.FREE) {
-                itemView.btn_item_table.setBackgroundColor(Color.GREEN)
-                itemView.btn_item_table.setTextColor(Color.BLACK)
-            } else if (item.state == Table.State.ORDERING) {
-                itemView.btn_item_table.setBackgroundColor(Color.RED)
-                itemView.btn_item_table.setTextColor(Color.BLACK)
-            } else if (item.state == Table.State.BOOKED) {
-                itemView.btn_item_table.setBackgroundColor(Color.YELLOW)
-                itemView.btn_item_table.setTextColor(Color.BLACK)
+            when {
+                item.state == Table.State.FREE -> {
+                    itemView.btn_item_table.setBackgroundColor(Color.GREEN)
+                    itemView.btn_item_table.setTextColor(Color.BLACK)
+                }
+                item.state == Table.State.ORDERING -> {
+                    itemView.btn_item_table.setBackgroundColor(Color.RED)
+                    itemView.btn_item_table.setTextColor(Color.BLACK)
+                }
+                item.state == Table.State.BOOKED -> {
+                    itemView.btn_item_table.setBackgroundColor(Color.YELLOW)
+                    itemView.btn_item_table.setTextColor(Color.BLACK)
+                }
             }
             itemView.setOnClickListener {
                 val position = adapterPosition
-                Log.d("test", "position: "+position)
                 if (position != RecyclerView.NO_POSITION) {
                     navigateToView(item, it)
                 }
             }
+        }
+
+        private fun navigateToView(
+            table: Table,
+            it: View
+        ) {
+            val direction: NavDirections
+            when (table.state) {
+                Table.State.FREE, null -> {
+                    direction =
+                        TableWaiterListFragmentDirections.viewCurrentOrderAction(
+                            tableId = table.id,
+                            paymentId = null,
+                            title = "" )
+                }
+                else -> {
+                    direction =
+                        TableWaiterListFragmentDirections.viewCurrentOrderAction(
+                            tableId = table.id,
+                            paymentId = table.paymentId,
+                            title = "Thanh toán"
+                        )
+                }
+            }
+            it.findNavController().navigate(direction)
         }
     }
 }

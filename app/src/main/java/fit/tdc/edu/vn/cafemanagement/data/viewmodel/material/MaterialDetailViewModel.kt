@@ -25,7 +25,7 @@ class MaterialDetailViewModel(
     override var saved: Material
         get() = Material(
             name = handle.get<String>("name"),
-            price = handle.get<Long>("price"),
+            price = handle.get<Long>("price") ?: 0,
             unitId = handle.get<String>("unitId"),
             unitName = handle.get<String>("unitName"),
             categoryId = handle.get<String>("categoryId"),

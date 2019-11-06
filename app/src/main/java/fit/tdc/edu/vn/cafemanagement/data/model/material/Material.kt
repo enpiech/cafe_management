@@ -7,7 +7,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 
 data class Material(
     var name: String? = null,
-    var price: Long? = null,
+    var price: Long = 0,
     var unitId: String? = null,
     var unitName: String? = null,
     var categoryId: String? = null,

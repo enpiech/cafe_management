@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
+import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -13,13 +14,15 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MATERIALS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDERS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDER_STATE_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENTS_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENT_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.REVENUES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLE_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLE_STATE_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNITS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_ID_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_NAME_KEY
@@ -31,11 +34,11 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_NAME_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_TYPES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.chef.Chef
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
+import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
@@ -84,39 +87,6 @@ class FireBaseDataSource : FireBaseAPI {
     override fun deleteWareHouse(storeId: String, wareHouseId: String): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
             .collection(WAREHOUSES_KEY).document(wareHouseId)
-            .delete()
-            .asLiveData()
-
-    /**
-     *
-     * ==========  Chef  ============
-     */
-    override fun getChefList(
-        storeId: String,
-        documentType: DocumentType
-    ): CollectionLiveData<Chef> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(ORDERS_KEY)
-            .asLiveData(documentType)
-
-    override fun getChef(
-        storeId: String,
-        chefId: String,
-        documentType: DocumentType
-    ): DocumentLiveData<Chef> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(ORDERS_KEY).document(chefId)
-            .asLiveData(documentType)
-
-    override fun createChef(storeId: String, chef: Chef): TaskLiveData<DocumentReference> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(ORDERS_KEY)
-            .add(chef)
-            .asLiveData()
-
-    override fun deleteChef(storeId: String, chefId: String): TaskLiveData<Void> =
-        db.collection(STORES_KEY).document(storeId)
-            .collection(ORDERS_KEY).document(chefId)
             .delete()
             .asLiveData()
 
@@ -767,15 +737,70 @@ class FireBaseDataSource : FireBaseAPI {
             .collection(PAYMENTS_KEY).document(paymentId)
             .asLiveData()
 
-    fun getCurrentPaymentOfTable(
+    override fun getWaiterOrders(
         storeId: String,
-        tableId: String
-    ): QueryLiveData<Payment> {
-        val paymentCollectionReference =
-            db.collection(STORES_KEY).document(storeId).collection(PAYMENTS_KEY)
-        return paymentCollectionReference.whereEqualTo(TABLE_ID_KEY, tableId)
+        paymentId: String,
+        documentType: DocumentType
+    ): QueryLiveData<Order> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).whereEqualTo(PAYMENT_ID_KEY, paymentId)
             .asLiveData()
     }
 
+    override fun getOrder(
+        storeId: String,
+        orderId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<Order> {
+        return db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).document(orderId)
+            .asLiveData()
+    }
 
+    override fun getChefOrders(
+        storeId: String,
+        documentType: DocumentType
+    ): QueryLiveData<Order> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).whereEqualTo(ORDER_STATE_KEY, Order.State.DOING)
+            .asLiveData()
+
+    override fun createOrder(
+        storeId: String,
+        order: Order
+    ): TaskLiveData<DocumentReference> {
+        val orderCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(ORDERS_KEY)
+        return orderCollectionReference.add(order).asLiveData()
+    }
+
+    override fun completeOrder(storeId: String, orderId: String): TaskLiveData<Void> =
+        db.collection(STORES_KEY).document(storeId)
+            .collection(ORDERS_KEY).document(orderId)
+            .update(ORDER_STATE_KEY, Order.State.DONE)
+            .asLiveData()
+
+    override fun createPayment(storeId: String, payment: Payment) {
+        db.collection(STORES_KEY).document(storeId)
+            .collection(PAYMENTS_KEY)
+            .add(payment)
+            .addOnSuccessListener { docRef ->
+                Log.d("test", docRef.id)
+                Log.d("test", payment.orderList.toString())
+                payment.orderList.forEach { order ->
+                    val orderRef = db.collection(STORES_KEY).document(storeId).collection(
+                        ORDERS_KEY
+                    )
+                    orderRef.add(order.apply {
+                        paymentId = docRef.id
+                    })
+                }
+                val tableRef = db.collection(STORES_KEY).document(storeId)
+                    .collection(TABLES_KEY).document(payment.tableId!!)
+                db.runBatch {
+                    it.update(tableRef, PAYMENT_ID_KEY, docRef.id)
+                    it.update(tableRef, TABLE_STATE_KEY, Table.State.BOOKED)
+                }
+            }
+    }
 }

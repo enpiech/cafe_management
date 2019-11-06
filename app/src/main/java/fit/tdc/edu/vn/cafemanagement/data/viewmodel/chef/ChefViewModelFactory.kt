@@ -6,9 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ChefRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.OrderRepository
 
 class ChefViewModelFactory(
     private val dataSource: FireBaseAPI,
@@ -23,7 +21,7 @@ class ChefViewModelFactory(
     ): T {
         if (modelClass.isAssignableFrom(ChefListViewModel::class.java)) {
             return ChefListViewModel(
-                chefRepository = ChefRepository(
+                orderRepository = OrderRepository(
                     dataSource = dataSource
                 )
             ) as T

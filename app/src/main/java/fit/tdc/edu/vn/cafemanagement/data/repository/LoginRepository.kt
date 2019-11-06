@@ -8,11 +8,14 @@ import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import javax.inject.Singleton
 
 /**
  * Class that requests authentication and loggedInUser information from the remote data source and
  * maintains an in-memory cache of employeeLogin status and loggedInUser credentials information.
  */
+
+@Singleton
 class LoginRepository(val dataSource: LoginDataSource) {
 
     private var context: Context? = null
@@ -77,7 +80,6 @@ class LoginRepository(val dataSource: LoginDataSource) {
     private fun setLoggedInUser(loggedInUser: User) {
         this.loggedInUser = loggedInUser
         _loginResult.value = FirestoreResource.success(this.loggedInUser)
-        Log.d("user info: ",loginResult.value?.data.toString())
         // If loggedInUser credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }

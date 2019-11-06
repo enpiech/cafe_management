@@ -2,16 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-    <group
-        android:id="@+id/waiter"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/tableListWaiterFragment"
-            android:title="@string/title_table" />
-    </group>
+    <item
+        android:id="@+id/newOrder"
+        android:title="@string/title_new_order"
+        android:icon="@drawable/ic_order"/>
 
     <item
-        android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_logout"
-        android:title="@string/menu_item_logout" />
+        android:id="@+id/checkout"
+        android:title="@string/title_ordered"
+        android:icon="@drawable/ic_ordered"/>
 </menu>

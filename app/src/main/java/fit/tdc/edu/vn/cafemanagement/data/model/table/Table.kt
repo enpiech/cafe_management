@@ -5,7 +5,9 @@ import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 data class Table(
     var name: String? = null,
     var zoneId: String? = null,
-    var state: State = State.FREE
+    var zoneName: String? = null,
+    var state: State? = null,
+    var paymentId: String? = null
 ) : FirestoreModel() {
     enum class State {
         ORDERING,
