@@ -12,6 +12,7 @@ import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 
 interface FireBaseAPI {
@@ -76,6 +77,11 @@ interface FireBaseAPI {
         storeId: String,
         documentType: DocumentType
     ): CollectionLiveData<Chef>
+
+    fun getWareHouseList(
+        storeId: String,
+        documentType: DocumentType
+    ): CollectionLiveData<WareHouse>
 
     /**
      * =========== GET SPECIFIC DOCUMENT ============
@@ -144,6 +150,12 @@ interface FireBaseAPI {
         documentType: DocumentType
     ): DocumentLiveData<Chef>
 
+    fun getWareHouse(
+        storeId: String,
+        wareHouseId: String,
+        documentType: DocumentType
+    ): DocumentLiveData<WareHouse>
+
     /**
      * ========== CREATE DOCUMENT ===========
      */
@@ -195,6 +207,10 @@ interface FireBaseAPI {
         chef: Chef
     ): TaskLiveData<DocumentReference>
 
+    fun createWareHouse(
+        storeId: String,
+        wareHouse: WareHouse
+    ): TaskLiveData<DocumentReference>
     /**
      * ========== CREATE DOCUMENT ===========
      */
@@ -241,8 +257,11 @@ interface FireBaseAPI {
     fun modifyStore(
         oldStore: Store, newStore: Store
     ): TaskLiveData<Void>
-    
-    
+
+    fun modifyWareHouse(
+        storeId: String,
+        WwreHouse: WareHouse
+    ): TaskLiveData<Void>
     /**
      * =========== DELETE DOCUMENT ==============
      */
@@ -292,5 +311,10 @@ interface FireBaseAPI {
     fun deleteChef(
         storeId: String,
         chefId: String
+    ): TaskLiveData<Void>
+
+    fun deleteWareHouse(
+        storeId: String,
+        wareHouseId: String
     ): TaskLiveData<Void>
 }

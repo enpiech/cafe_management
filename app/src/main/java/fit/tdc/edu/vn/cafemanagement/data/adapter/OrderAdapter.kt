@@ -45,26 +45,26 @@ class OrderHolder(
         var soluong = 0
         if (soluong == 0){
             soluong = 0
-            itemView.txt_so_luong.setText(soluong.toString())
+            itemView.txt_so_luong.text = soluong.toString()
             itemView.btnMinus.isEnabled = false
         }else{
-            itemView.txt_so_luong.setText(soluong.toString())
+            itemView.txt_so_luong.text = soluong.toString()
             itemView.btnMinus.isEnabled = true
         }
         itemView.txt_name_table_order_waiter.text = item.name
         itemView.btnPlus.setOnClickListener {
             soluong+=1
             itemView.btnMinus.isEnabled = true
-            itemView.txt_so_luong.setText(soluong.toString())
+            itemView.txt_so_luong.text = soluong.toString()
         }
         itemView.btnMinus.setOnClickListener {
             soluong-=1
             if (soluong == 0){
                 soluong = 0
-                itemView.txt_so_luong.setText(soluong.toString())
+                itemView.txt_so_luong.text = soluong.toString()
                 itemView.btnMinus.isEnabled = false
             }else{
-                itemView.txt_so_luong.setText(soluong.toString())
+                itemView.txt_so_luong.text = soluong.toString()
                 itemView.btnMinus.isEnabled = true
             }
         }

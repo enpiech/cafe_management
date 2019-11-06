@@ -13,6 +13,7 @@ sealed class Constants {
         const val ZONES_KEY         = "zones"
         const val USERS_KEY         = "employees"
         const val PAYMENTS_KEY      = "payments"
+        const val WAREHOUSES_KEY      = "warehouses"
 
         const val STORE_ID_KEY      = "storeId"
         const val STORE_NAME_KEY    = "storeName"

@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.Chef
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -14,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.chef.ChefListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.chef.ChefViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.item_chef.*
 
 class ChefListFragment : BaseListFragment<Chef>(
     R.layout.fragment_list,

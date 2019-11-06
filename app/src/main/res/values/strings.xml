@@ -3,6 +3,12 @@
     <string name="txtTableName">Tên bàn</string>
     <string name="txtZone">Khu</string>
 
+    <string name="txtAmout">Số lượng</string>
+    <string name="txtInDate">Ngày nhập</string>
+
+    <string name="amoutLeft">Còn lại: </string>
+    <string name="inputAmout">Nhập vào: </string>
+    <string name="warehouseUnit">Đơn vị: </string>
 
     <string name="txtName">Name</string>
 
@@ -11,6 +17,9 @@
     <string name="txtUnitDropDown">Đơn vị</string>
     <string name="txtTypeDropDown">Thể loại</string>
     <string name="txtCategoryDropDown">Danh mục</string>
+
+    <string name="txtWarehouseName">Tên món hàng</string>
+    <string name="txtWarehouseMaterial">Mã hàng nguyên liệu</string>
 
     <string name="img_store">Store Image</string>
     <string name="img_product_category">Product Category Image</string>
@@ -46,15 +55,32 @@
     <string name="dialog_title_delete">Xác nhận xóa</string>
     <string name="lbl_unit_name">Tên đơn vị</string>
     <string name="lbl_category_name">Tên danh mục</string>
+
+<!--
+*
+*Start Title
+*
+-->
     <string name="title_category">Danh mục sản phẩm</string>
     <string name="title_zone">Khu vực bàn</string>
     <string name="title_unit">Đơn vị tính</string>
+    <string name="title_chef">Bếp</string>
+    <string name="title_user">Nhân viên</string>
+    <string name="title_table">Bàn</string>
+    <string name="title_material">Hàng</string>
+<!--
+*
+*End Title
+*
+-->
     <string name="dialog_title_modifying_removed_item">Dữ liệu không còn tồn tại</string>
     <string name="warning_message_modifying_removed_item">Có vẻ như ai đó đã xóa dữ liệu này. Bạn có muốn tạo mới dựa trên dữ liệu hiện tại hay không?</string>
     <string name="invalid_user_name">Tên nhân viên không được để trống</string>
-    <string name="title_user">Nhân viên</string>
+    <string name="invalid_warehouse_name">Tên sản phẩm không được để trống</string>
+    <string name="invalid_warehouse_stock">Mã không được để trống</string>
+
     <string name="desc_date_picker">Chọn ngày tháng</string>
-    <string name="title_table">Bàn</string>
+
     <string name="lbl_user_role">Chức vụ</string>
     <string name="lbl_user_name">Họ và tên</string>
     <string name="lbl_user_uid">Chứng minh nhân dân</string>
@@ -86,7 +112,6 @@
     <string name="user_type_key">fit.tdc.edu.vn.cafemanagement.USER_TYPE_KEY</string>
     <string name="warning_store_no_free_manager">Không có quản lý nào sẵn sàng</string>
     <string name="warning_user_missing_store">Chưa chọn cửa hàng!</string>
-    <string name="title_material">Hàng</string>
     <string name="material_type_drink">Đồ uống</string>
     <string name="material_type_food">Món ăn</string>
     <string name="material_type_ingredient">Nguyên liệu</string>
@@ -100,5 +125,4 @@
     <string name="txtUnitName">Đơn vị</string>
     <string name="txtCafe">Cafe sữa</string>
     <string name="txtLy">Ly</string>
-    <string name="title_chef">Bếp</string>
 </resources>
