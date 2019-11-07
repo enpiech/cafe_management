@@ -15,9 +15,9 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryViewModelFa
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
-import kotlinx.android.synthetic.main.fragment_category_view.*
+import kotlinx.android.synthetic.main.fragment_detail_category.*
 
-class CategoryViewFragment : BaseViewFragmentTest<Category>(R.layout.fragment_category_view) {
+class CategoryViewFragment : BaseViewFragmentTest<Category>(R.layout.fragment_detail_category) {
     override val args by navArgs<CategoryViewFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Category>
         get() = ViewModelProvider(this, CategoryViewModelFactory(FireBaseDataSource(), this)).get<CategoryDetailViewModel>()

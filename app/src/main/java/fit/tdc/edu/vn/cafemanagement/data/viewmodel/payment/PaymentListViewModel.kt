@@ -1,17 +1,21 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.google.firebase.firestore.DocumentReference
 import com.hadilq.liveevent.LiveEvent
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
+import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.OrderRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.data.repository.PaymentRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
 
 class PaymentListViewModel(
     private val handle: SavedStateHandle,
+    private val tableRepository: TableRepositoryAPI,
     private val paymentRepository: PaymentRepositoryAPI,
     private val orderRepository: OrderRepositoryAPI,
     materialRepository: MaterialRepositoryAPI
@@ -24,8 +28,25 @@ class PaymentListViewModel(
         }
     }
 
+    fun getCurrentTable(id: String?) {
+        if (_currentTableId.value.isNullOrBlank()) {
+            _currentTableId.value = id
+        } else {
+            Log.d("test2", _currentTableId.value.toString())
+        }
+    }
+
+    private var _currentTableId = LiveEvent<String>()
+    val currentTable = _currentTableId.switchMap {
+        tableRepository.getTable(it)
+    }
+
     fun getCurrentPayment(id: String?) {
-        _currentPaymentId.value = id
+        if (_currentPaymentId.value.isNullOrBlank()) {
+            _currentPaymentId.value = id
+        } else {
+            Log.d("test2", _currentPaymentId.value.toString())
+        }
     }
 
     var saved: Map<String, Order>
@@ -61,25 +82,41 @@ class PaymentListViewModel(
 
     private val isChanged = MutableLiveData<Boolean>(false)
 
-    private val _currentPaymentId = LiveEvent<String>()
-    private val _currentPayment = MediatorLiveData<Payment>().apply {
+    private var _currentPaymentId = LiveEvent<String?>()
+    private val _currentPayment = MediatorLiveData<Payment?>().apply {
         addSource(_currentPaymentId.switchMap {
-            getCurrentPayment(it)
+            if (it.isNullOrBlank()) {
+                MutableLiveData<FirestoreResource<Payment>>(FirestoreResource.success(null))
+            } else {
+                getCurrentPayment(it)
+            }
+
         }) {
-            value = it.data ?: Payment()
+            value = it.data
         }
     }
 
-    val currentPayment: LiveData<Payment> = _currentPayment
+    //    val currentPayment = _currentPayment
+    val currentPayment = _currentPaymentId.switchMap {
+        if (it.isNullOrBlank()) {
+            MutableLiveData<FirestoreResource<Payment>>(FirestoreResource.error(null))
+        } else {
+            getCurrentPayment(it)
+        }
+    }
 
     private fun getCurrentPayment(id: String) = paymentRepository.get(id)
 
-    private val _currentOrder = MediatorLiveData<List<Order>>().apply {
+    private val _currentOrder = MediatorLiveData<List<Order>?>().apply {
         addSource(_currentPaymentId.switchMap {
-            orderRepository.getWaiterOrders(it)
+            if (it.isNullOrBlank()) {
+                MutableLiveData<FirestoreResource<List<Order>>>(FirestoreResource.success(null))
+            } else {
+                orderRepository.getWaiterOrders(it)
+            }
         }) {
-            if (value.isNullOrEmpty()) {
-                value = it.data ?: listOf()
+            if (it.status == Status.SUCCESS) {
+                value = it.data
             }
         }
     }
@@ -109,22 +146,36 @@ class PaymentListViewModel(
 
     val orders: LiveData<List<Order>> = _orders
 
+    val completeOrder = MutableLiveData<TaskResult<DocumentReference>>()
+
     fun delete(item: Payment) = paymentRepository.complete(item)
-    fun createOrders(tableId: String?) {
+    fun createOrders(tableId: String?, paymentId: String?) {
         var orders = currentOrder.value ?: listOf()
-        if (_currentPaymentId.value.isNullOrBlank()) {
+        if (paymentId.isNullOrBlank()) {
             paymentRepository.insert(
                 Payment(
                     tableId = tableId,
                     orderList = saved.values.toList(),
                     state = Payment.State.ORDERED
                 )
-            )
+            ).observeUntil(Observer {
+                if (it.status == TaskStatus.SUCCESS) {
+                    completeOrder.value = TaskResult.success(it.data!!)
+                }
+            }) {
+                it?.status != TaskStatus.RUNNING
+            }
         } else {
-            orders.forEach {
+            saved.values.toList().forEach {
                 orderRepository.insert(it.apply {
-                    paymentId = _currentPaymentId.value
-                })
+                    this.paymentId = paymentId
+                }).observeUntil(Observer {task ->
+                    if (task.status == TaskStatus.SUCCESS) {
+                        completeOrder.value = TaskResult.success(task.data!!)
+                    }
+                }) {task ->
+                    task?.status != TaskStatus.RUNNING
+                }
             }
         }
         orders.forEach {
@@ -140,8 +191,18 @@ class PaymentListViewModel(
 
     fun clearSaveState() {
 //        handle.remove<String>("currentOrder")
-        _currentOrder.value = listOf()
+        _currentOrder.value = null
         _currentPayment.value = null
-        _currentPaymentId.value = ""
+        _currentPaymentId.value = null
+    }
+
+    val completeCheckout = MutableLiveData<TaskStatus>()
+
+    fun checkout(payment: Payment) {
+        paymentRepository.complete(payment).observeUntil(Observer {
+            completeCheckout.value = it.status
+        }) {
+            it?.status == TaskStatus.SUCCESS
+        }
     }
 }

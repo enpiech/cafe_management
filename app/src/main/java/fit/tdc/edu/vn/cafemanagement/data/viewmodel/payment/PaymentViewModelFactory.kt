@@ -6,9 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.OrderRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.PaymentRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.impl.*
 
 class PaymentViewModelFactory (
     private val dataSource: FireBaseAPI,
@@ -21,13 +19,19 @@ class PaymentViewModelFactory (
         modelClass: Class<T>,
         handle: SavedStateHandle
     ): T {
-//        if (modelClass.isAssignableFrom(PaymentDetailViewModel::class.java)) {
-//            return PaymentDetailViewModel(
-//                paymentRepository = PaymentRepository(
-//                    dataSource = dataSource
-//                )
-//            ) as T
-//        } else
+        if (modelClass.isAssignableFrom(OrderListViewModel::class.java)) {
+            return OrderListViewModel(
+                paymentRepository = PaymentRepository(
+                    dataSource = dataSource
+                ),
+                materialRepository = MaterialRepository(
+                    dataSource
+                ),
+                categoryRepository = CategoryRepository(dataSource),
+                orderRepository = OrderRepository(dataSource),
+                handle = handle
+            ) as T
+        } else
             if (modelClass.isAssignableFrom(PaymentListViewModel::class.java)) {
             return PaymentListViewModel(
                 paymentRepository = PaymentRepository(
@@ -36,6 +40,7 @@ class PaymentViewModelFactory (
                 materialRepository = MaterialRepository(
                     dataSource
                 ),
+                tableRepository = TableRepository(dataSource),
                 orderRepository = OrderRepository(dataSource),
                 handle = handle
             ) as T

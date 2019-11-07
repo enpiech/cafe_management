@@ -169,4 +169,5 @@
     <string name="label_add">Thêm món</string>
     <string name="label_checkout">Thanh toán</string>
     <string name="dialog_title_confirm">Xác nhận đặt món</string>
+    <string name="currency">đ</string>
 </resources>

@@ -12,6 +12,7 @@ data class Table(
     enum class State {
         ORDERING,
         FREE,
-        BOOKED
+        BOOKED,
+        BUSY
     }
 }

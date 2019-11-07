@@ -18,6 +18,8 @@ import java.util.*
 inline fun TextInputLayout.asEditText(crossinline dataChanged: (String) -> Unit) {
     editText?.let {
         it.setOnFocusChangeListener { _, hasFocus ->
+            this.endIconMode = if (hasFocus) TextInputLayout.END_ICON_CLEAR_TEXT else TextInputLayout.END_ICON_NONE
+            this.isEndIconVisible = hasFocus
             if (!hasFocus) {
                 this.clearFocus()
                 dataChanged.invoke(it.text.toString())

@@ -10,7 +10,7 @@
         android:layout_margin="@dimen/layout_margin">
         <ImageView
             android:id="@+id/imgImage"
-            style="@style/Image"
+            style="@style/ListImage"
             android:contentDescription="@string/img_product_category"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

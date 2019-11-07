@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/BaseListItem"
+    android:layout_width="wrap_content"
+    android:layout_margin="@dimen/layout_margin">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_name"
+        style="@style/BaseListTextView"
+        tools:text="Cà phê"
+        android:padding="@dimen/layout_margin"/>
+
+</androidx.cardview.widget.CardView>

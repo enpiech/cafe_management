@@ -51,7 +51,11 @@ abstract class BaseListFragment<T: FirestoreModel>(
                     //TODO("Show progress indicator")
                 }
                 Status.SUCCESS -> {
-                    viewAdapter.submitList(it.data)
+                    if (it.data.isNullOrEmpty()) {
+
+                    } else {
+                        viewAdapter.submitList(it.data)
+                    }
                 }
             }
         })

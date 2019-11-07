@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -39,7 +40,8 @@ class MainActivity :
                 R.id.tableListFragment,
                 R.id.storeListFragment,
                 R.id.materialListFragment,
-                R.id.chefListFragment
+                R.id.chefListFragment,
+                R.id.tableListWaiterFragment
             ), drawer_layout)
     }
 
@@ -99,14 +101,22 @@ class MainActivity :
                 }
                 R.id.tableListWaiterFragment -> {
                     supportActionBar?.show()
-                    toolbar.navigationIcon = null
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+//                    toolbar.navigationIcon = null
+//                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     bottom_navigation.isVisible = true
-                }
-                R.id.chefListFragment -> {
-                    fab.hide()
+                    val callback = onBackPressedDispatcher.addCallback(this) {
+                        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                            drawer_layout.closeDrawer(GravityCompat.START)
+                        }
+                    }
+                    callback.isEnabled = true
+                    toolbar.setNavigationOnClickListener {
+                        controller.navigateUp(appBarConfiguration)
+                    }
+                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                 }
                 else -> {
+                    bottom_navigation.isVisible = false
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
                     supportActionBar?.show()
                     fab.setImageDrawable(getDrawable(R.drawable.ic_add))
@@ -122,6 +132,10 @@ class MainActivity :
                     }
 
                 }
+            }
+            if (destination.id == R.id.chefListFragment) {
+                fab.hide()
+                bottom_navigation.visibility = View.GONE
             }
             hideKeyboard()
         }
@@ -189,6 +203,7 @@ class MainActivity :
                 bottom_navigation.isVisible = true
                 bottom_navigation.menu.clear()
                 bottom_navigation.inflateMenu(R.menu.waiter_menu)
+                nav_view.inflateMenu(R.menu.waiter_menu)
             }
             User.Role.BARTENDER -> {
                 nav_view.inflateMenu(R.menu.bartender_menu)

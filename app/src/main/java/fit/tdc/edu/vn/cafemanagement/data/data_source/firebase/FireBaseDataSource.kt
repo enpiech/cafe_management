@@ -17,6 +17,7 @@ import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDERS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDER_STATE_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENTS_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENT_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENT_STATE_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.REVENUES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_ID_KEY
@@ -780,8 +781,19 @@ class FireBaseDataSource : FireBaseAPI {
             .update(ORDER_STATE_KEY, Order.State.DONE)
             .asLiveData()
 
-    override fun createPayment(storeId: String, payment: Payment) {
-        db.collection(STORES_KEY).document(storeId)
+    override fun checkout(storeId: String, payment: Payment): TaskLiveData<Void> {
+        val paymentRef = db.collection(STORES_KEY).document(storeId).collection(PAYMENTS_KEY).document(payment.id)
+        val tableRef = db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY).document(payment.tableId!!)
+        return db.runBatch {
+            it.update(paymentRef, PAYMENT_STATE_KEY, Payment.State.PAID)
+            it.update(tableRef, TABLE_STATE_KEY, Table.State.FREE)
+            it.update(tableRef, PAYMENT_ID_KEY, null)
+        }.asLiveData()
+    }
+
+
+    override fun createPayment(storeId: String, payment: Payment): TaskLiveData<DocumentReference> {
+        return db.collection(STORES_KEY).document(storeId)
             .collection(PAYMENTS_KEY)
             .add(payment)
             .addOnSuccessListener { docRef ->
@@ -801,6 +813,6 @@ class FireBaseDataSource : FireBaseAPI {
                     it.update(tableRef, PAYMENT_ID_KEY, docRef.id)
                     it.update(tableRef, TABLE_STATE_KEY, Table.State.BOOKED)
                 }
-            }
+            }.asLiveData()
     }
 }

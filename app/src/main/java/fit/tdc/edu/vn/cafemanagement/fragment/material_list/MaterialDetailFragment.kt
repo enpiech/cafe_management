@@ -17,9 +17,9 @@ import fit.tdc.edu.vn.cafemanagement.fragment.BaseViewFragmentTest
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import fit.tdc.edu.vn.cafemanagement.util.setupForEnum
 import fit.tdc.edu.vn.cafemanagement.util.setupForLiveList
-import kotlinx.android.synthetic.main.fragment_material_detail.*
+import kotlinx.android.synthetic.main.fragment_detail_material.*
 
-class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_material_detail) {
+class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_detail_material) {
     override val viewModel: BaseDetailViewModel<Material>
         get() = ViewModelProvider(
             this,
@@ -35,17 +35,17 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         val materialFormState = state as MaterialViewFormState
 
         if (materialFormState.nameError != null) {
-            material_edit_name.error = getString(materialFormState.nameError!!)
+            input_name.error = getString(materialFormState.nameError!!)
         } else {
-            material_edit_name.error = null
-            material_edit_name.isErrorEnabled = false
+            input_name.error = null
+            input_name.isErrorEnabled = false
         }
 
         if (materialFormState.priceError != null) {
-            material_edit_price.error = getString(materialFormState.priceError!!)
+            input_price.error = getString(materialFormState.priceError!!)
         } else {
-            material_edit_price.error = null
-            material_edit_price.isErrorEnabled = false
+            input_price.error = null
+            input_price.isErrorEnabled = false
         }
     }
 
@@ -67,19 +67,19 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
     }
 
     private fun enableForm(isEnabled: Boolean) {
-        material_edit_name.editText?.isEnabled = isEnabled
-        material_edit_price.editText?.isEnabled = isEnabled
-        units.isEndIconVisible = isEnabled
-        units_dropdown.isEnabled = isEnabled
-        types.isEndIconVisible = isEnabled
-        types_dropdown.isEnabled = isEnabled
-        categorys.isEndIconVisible = isEnabled
-        categorys_dropdown.isEnabled = isEnabled
+        input_name.editText?.isEnabled = isEnabled
+        input_price.editText?.isEnabled = isEnabled
+        unit_spinner_layout.isEndIconVisible = isEnabled
+        unit_spinner.isEnabled = isEnabled
+        type_spinner_layout.isEndIconVisible = isEnabled
+        type_spinner.isEnabled = isEnabled
+        categories_spinner_layout.isEndIconVisible = isEnabled
+        category_spinner_layout.isEnabled = isEnabled
     }
 
     override fun getCurrentFormData() = viewModel.saved.apply {
-        name = material_edit_name?.editText?.text.toString()
-        var inputPrice = material_edit_price?.editText?.text.toString()
+        name = input_name?.editText?.text.toString()
+        var inputPrice = input_price?.editText?.text.toString()
         if (inputPrice.isBlank()) {
             inputPrice = "0"
         }
@@ -87,31 +87,31 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
     }
 
     override fun fillFormWith(item: Material) {
-        material_edit_name.editText?.setText(item.name)
-        material_edit_price.editText?.setText(item.price.toString())
-        units_dropdown.setText(when {
+        input_name.editText?.setText(item.name)
+        input_price.editText?.setText(item.price.toString())
+        unit_spinner.setText(when {
             item.unitId != null -> item.unitName
             else -> getString(R.string.warning_material_missing_unit)
-        })
-        categorys_dropdown.setText(when {
+        }, false)
+        category_spinner_layout.setText(when {
             item.categoryId != null -> item.categoryName
             else -> getString(R.string.warning_material_missing_category)
-        })
-        types_dropdown.setText(getString(item.type.resId), false)
+        }, false)
+        type_spinner.setText(getString(item.type.resId), false)
     }
 
     override fun setupForm() {
-        material_edit_name.asEditText {
+        input_name.asEditText {
             viewModel.validate(
                 getCurrentFormData()
             )
         }
-        material_edit_price.asEditText {
+        input_price.asEditText {
             viewModel.validate(
                 getCurrentFormData()
             )
         }
-        types_dropdown.setupForEnum(
+        type_spinner.setupForEnum(
             context = requireContext(),
             dataset = Material.Type.values().map { type -> getString(type.resId) },
             resId = R.layout.dropdown_menu_popup_item
@@ -129,10 +129,10 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         (viewModel as MaterialDetailViewModel).unitList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-                units_dropdown.setupForLiveList(
+                unit_spinner.setupForLiveList(
                     context = requireContext(),
                     resId = R.layout.dropdown_menu_popup_item,
-                    layout = units,
+                    layout = unit_spinner_layout,
                     emptySetString = R.string.warning_material_no_unit,
                     missingString = R.string.warning_material_missing_unit,
                     dataset = it.map { unit -> unit.name }
@@ -149,10 +149,10 @@ class MaterialDetailFragment : BaseViewFragmentTest<Material>(R.layout.fragment_
         (viewModel as MaterialDetailViewModel).categoryList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
-                categorys_dropdown.setupForLiveList(
+                category_spinner_layout.setupForLiveList(
                     context = requireContext(),
                     resId = R.layout.dropdown_menu_popup_item,
-                    layout = categorys,
+                    layout = categories_spinner_layout,
                     emptySetString = R.string.warning_material_no_category,
                     missingString = R.string.warning_material_missing_category,
                     dataset = it.map { unit -> unit.name }

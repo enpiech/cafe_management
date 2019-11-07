@@ -65,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/units_dropdown"
+            android:id="@+id/unit_spinner"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:editable="false"

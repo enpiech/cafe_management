@@ -182,11 +182,14 @@
         <argument
             android:name="title"
             app:argType="string" />
+        <argument
+            android:name="paymentId"
+            app:argType="string"
+            app:nullable="true" />
         <action
-            android:id="@+id/cancelOrderAction"
-            app:destination="@id/tableListWaiterFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/tableListWaiterFragment"
+            android:id="@+id/action_orderListFragment_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment"
+            app:popUpTo="@+id/orderDetailFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment

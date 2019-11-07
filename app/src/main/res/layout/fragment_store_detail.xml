@@ -6,26 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout style="@style/BaseDetailFragment">
 
         <ImageButton
             android:id="@+id/imgImage"
-            style="@style/Image"
+            style="@style/DetailImage"
             android:layout_marginTop="64dp"
+            android:contentDescription="@string/img_store"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/placeholder"
+            app:srcCompat="@drawable/ic_placeholder"
             tools:src="@tools:sample/avatars" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            style="@style/BaseEditTextLayout"
             android:hint="@string/lbl_store_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,10 +37,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtAddress"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            style="@style/BaseEditTextLayout"
             android:hint="@string/lbl_user_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,10 +53,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilManager"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            style="@style/BaseSpinnerLayout"
             android:hint="@string/lbl_store_manager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -72,10 +62,7 @@
 
             <AutoCompleteTextView
                 android:id="@+id/manager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:editable="false"
-                tools:ignore="LabelFor" />
+                style="@style/BaseSpinner" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -14,7 +14,7 @@
 
         <ImageButton
             android:id="@+id/imgImage"
-            style="@style/Image"
+            style="@style/ListImage"
             android:layout_marginTop="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

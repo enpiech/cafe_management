@@ -34,10 +34,10 @@ class TableWaiterListFragment : Fragment(
                 viewModel.filterList(null)
             }
             R.id.checkout -> {
-                viewModel.filterList(Table.State.ORDERING)
+                viewModel.filterList(Table.State.BOOKED)
             }
         }
-        return true
+        return false
     }
 
     val navController: NavController
@@ -71,7 +71,7 @@ class TableWaiterListFragment : Fragment(
         viewAdapter: ListAdapter<Table, RecyclerView.ViewHolder>
     ) {
         recyclerView.apply {
-            setHasFixedSize(true)
+            setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
         }

@@ -11,7 +11,7 @@
         android:layout_margin="@dimen/layout_margin">
 
         <ImageView
-            style="@style/Image"
+            style="@style/ListImage"
             android:id="@+id/imgStoreImage"
             android:contentDescription="@string/img_store"
             app:layout_constraintBottom_toBottomOf="parent"

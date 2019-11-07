@@ -221,7 +221,7 @@ interface FireBaseAPI {
     fun createPayment(
         storeId: String,
         payment: Payment
-    )
+    ): TaskLiveData<DocumentReference>
 
     /**
      * ========== CREATE DOCUMENT ===========
@@ -277,9 +277,13 @@ interface FireBaseAPI {
 
     fun completeOrder(
         storeId: String,
-        chefId: String
+        orderId: String
     ): TaskLiveData<Void>
 
+    fun checkout(
+        storeId: String,
+        payment: Payment
+    ): TaskLiveData<Void>
 
     /**
      * =========== DELETE DOCUMENT ==============

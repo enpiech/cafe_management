@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/BaseDetailFragment">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_name"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/txtMaterialName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_price"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/txtMaterialPrice"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_name"
+            app:suffixText="@string/currency">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:inputType="numberSigned" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/unit_spinner_layout"
+            style="@style/BaseSpinnerLayout"
+            android:hint="@string/txtUnitDropDown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/input_price">
+
+            <AutoCompleteTextView
+                android:id="@+id/unit_spinner"
+                style="@style/BaseSpinner"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/type_spinner_layout"
+            style="@style/BaseSpinnerLayout"
+            android:hint="@string/txtTypeDropDown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/unit_spinner_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/type_spinner"
+                style="@style/BaseSpinner" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/categories_spinner_layout"
+            style="@style/BaseSpinnerLayout"
+            android:hint="@string/txtCategoryDropDown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/type_spinner_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/category_spinner_layout"
+                style="@style/BaseSpinner"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

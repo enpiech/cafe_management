@@ -10,7 +10,7 @@ class TableRepository(val dataSource: FireBaseAPI): TableRepositoryAPI {
 
     override fun getAllTables() = dataSource.getTableList(UserInfor.getInstance().storeId!!,DocumentType.ALL)
 
-    override fun getTable(id: String) = dataSource.getTable(UserInfor.getInstance().storeId!!, id,DocumentType.SINGLE)
+    override fun getTable(id: String) = dataSource.getTable(UserInfor.getInstance().storeId!!, id, DocumentType.ALL)
 
     override fun insert(table: Table) =
         dataSource.createTable(UserInfor.getInstance().storeId!!, table)

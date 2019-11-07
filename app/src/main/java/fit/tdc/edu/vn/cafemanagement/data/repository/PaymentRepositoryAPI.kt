@@ -11,7 +11,7 @@ interface PaymentRepositoryAPI {
     fun getListPaymentByState(state: Payment.State) : QueryLiveData<Payment>
     fun getList(): CollectionLiveData<Payment>
     fun get(id:String) : DocumentLiveData<Payment>
-    fun insert(payment: Payment)
+    fun insert(payment: Payment): TaskLiveData<DocumentReference>
     fun update(oldPayment: Payment, newPayment: Payment): TaskLiveData<Void>
     fun complete(payment: Payment): TaskLiveData<Void>
 }

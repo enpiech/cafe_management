@@ -74,7 +74,7 @@ class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALL
                         TableWaiterListFragmentDirections.viewCurrentOrderAction(
                             tableId = table.id,
                             paymentId = null,
-                            title = "" )
+                            title = "Đặt món" )
                 }
                 else -> {
                     direction =

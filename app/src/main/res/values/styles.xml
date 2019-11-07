@@ -14,9 +14,15 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Image">
-        <item name="android:layout_width">@dimen/image_size</item>
-        <item name="android:layout_height">@dimen/image_size</item>
+    <style name="ListImage">
+        <item name="android:layout_width">@dimen/list_image_size</item>
+        <item name="android:layout_height">@dimen/list_image_size</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="DetailImage">
+        <item name="android:layout_width">@dimen/detail_image_size</item>
+        <item name="android:layout_height">@dimen/detail_image_size</item>
         <item name="android:background">@android:color/transparent</item>
     </style>
 
@@ -44,7 +50,40 @@
         <item name="android:insetBottom">0dp</item>
     </style>
 
-<!--    <style name="UnsavedChangeDialog" parent="ThemeOverlay.MaterialComponents.Dialog">-->
+    <style name="BaseDetailFragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/layout_margin</item>
+        <item name="android:layout_marginEnd">@dimen/layout_margin</item>
+    </style>
+
+    <style name="BaseEditTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+    </style>
+
+    <style name="BaseEditText" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">text</item>
+        <item name="android:imeOptions">actionDone</item>
+    </style>
+
+    <style name="BaseSpinnerLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/layout_margin</item>
+    </style>
+
+    <style name="BaseSpinner">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:inputType">none</item>
+    </style>
+
+    <!--    <style name="UnsavedChangeDialog" parent="ThemeOverlay.MaterialComponents.Dialog">-->
 <!--        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>-->
 <!--        <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Neutral</item>-->
 <!--        <item name="buttonBarNeutralButtonStyle">@style/Alert.Button.Neutral</item>-->
