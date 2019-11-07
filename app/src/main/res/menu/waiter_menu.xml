@@ -4,7 +4,7 @@
     tools:showIn="navigation_view">
     <item
         android:id="@+id/newOrder"
-        android:title="@string/title_new_order"
+        android:title="@string/title_all"
         android:icon="@drawable/ic_order"/>
 
     <item

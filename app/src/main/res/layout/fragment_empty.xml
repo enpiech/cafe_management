@@ -12,7 +12,7 @@
         android:gravity="center|bottom">
         <ImageView
             android:id="@+id/image_empty"
-            style="@style/Image"
+            style="@style/DetailImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/empty_order"

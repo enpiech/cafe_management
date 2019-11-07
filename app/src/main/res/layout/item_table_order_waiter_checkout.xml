@@ -4,44 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/BaseListItem">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin">
+        android:layout_margin="@dimen/layout_margin"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/txt_name_table_order_waiter"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
             style="@style/BaseListTextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Cà phê" />
 
         <TextView
             android:id="@+id/txt_so_luong"
-            style="@style/BaseListTextView"
             android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            style="@style/BaseListTextView"
             android:layout_marginEnd="@dimen/layout_margin"
             android:gravity="center"
-            android:text="@string/so_luong"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/txt_price"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/so_luong" />
 
         <TextView
             android:id="@+id/txt_price"
-            style="@style/BaseListTextView"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
+            style="@style/BaseListTextView"
             android:gravity="center"
-            android:text="adfasd"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:text="adfasd" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </androidx.cardview.widget.CardView>

@@ -172,4 +172,5 @@
     <string name="currency">đ</string>
     <string name="empty_order">Danh sách món đang trống!</string>
     <string name="add_new">Thêm mới ngay</string>
+    <string name="title_all">Tất cả</string>
 </resources>
