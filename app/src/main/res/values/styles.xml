@@ -10,7 +10,10 @@
         <item name="colorError">@color/colorError</item>
     </style>
 
-    <style name="AppTheme.NoActionBar" />
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
     <style name="ListImage">
         <item name="android:layout_width">@dimen/list_image_size</item>
