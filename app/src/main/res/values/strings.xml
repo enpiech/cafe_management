@@ -170,4 +170,6 @@
     <string name="label_checkout">Thanh toán</string>
     <string name="dialog_title_confirm">Xác nhận đặt món</string>
     <string name="currency">đ</string>
+    <string name="empty_order">Danh sách món đang trống!</string>
+    <string name="add_new">Thêm mới ngay</string>
 </resources>
