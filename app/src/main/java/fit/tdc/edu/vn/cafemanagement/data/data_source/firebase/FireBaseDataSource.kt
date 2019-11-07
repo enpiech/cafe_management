@@ -1,6 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.data.data_source.firebase
 
-import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
@@ -775,6 +774,17 @@ class FireBaseDataSource : FireBaseAPI {
         return orderCollectionReference.add(order).asLiveData()
     }
 
+    override fun addOrderToPayment(
+        storeId: String,
+        orders: List<Order>
+    ) {
+        val orderCollectionReference =
+            db.collection(STORES_KEY).document(storeId).collection(ORDERS_KEY)
+        orders.forEachIndexed { index, order ->
+            orderCollectionReference.add(order)
+        }
+    }
+
     override fun completeOrder(storeId: String, orderId: String): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
             .collection(ORDERS_KEY).document(orderId)
@@ -793,7 +803,6 @@ class FireBaseDataSource : FireBaseAPI {
             .addOnSuccessListener { query ->
                 db.runTransaction {
                     query.documents.forEach { doc ->
-                        Log.d("test", doc.reference.toString())
                         it.update(doc.reference, ORDER_STATE_KEY, Order.State.CLOSE)
                     }
                 }
@@ -811,8 +820,6 @@ class FireBaseDataSource : FireBaseAPI {
             .collection(PAYMENTS_KEY)
             .add(payment)
             .addOnSuccessListener { docRef ->
-                Log.d("test", docRef.id)
-                Log.d("test", payment.orderList.toString())
                 payment.orderList.forEach { order ->
                     val orderRef = db.collection(STORES_KEY).document(storeId).collection(
                         ORDERS_KEY

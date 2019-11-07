@@ -335,4 +335,9 @@ interface FireBaseAPI {
         storeId: String,
         wareHouseId: String
     ): TaskLiveData<Void>
+
+    fun addOrderToPayment(
+        storeId: String,
+        orders: List<Order>
+    )
 }

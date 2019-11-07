@@ -1,6 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.order
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -81,6 +82,8 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
                 })
             }
         })
+        Log.d("test", paymentId.toString())
+        //TODO(Show progress indicator when data is loading)
 
         recycler_view.apply {
             setHasFixedSize(false)

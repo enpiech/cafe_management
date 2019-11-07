@@ -5,6 +5,7 @@ import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
+import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.repository.PaymentRepositoryAPI
 
 class PaymentRepository(
@@ -16,6 +17,10 @@ class PaymentRepository(
 
     override fun update(oldPayment: Payment, newPayment: Payment): TaskLiveData<Void> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun addOrder(orders: List<Order>) {
+        return dataSource.addOrderToPayment("EfzspceETNgWk56YDOOt", orders)
     }
 
     override fun complete(payment: Payment): TaskLiveData<Void> {

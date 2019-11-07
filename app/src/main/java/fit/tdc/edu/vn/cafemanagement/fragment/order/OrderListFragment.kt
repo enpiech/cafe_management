@@ -113,7 +113,7 @@ class OrderListFragment : Fragment(R.layout.fragment_order_new) {
                     viewModel.completeOrder.observeUntil(viewLifecycleOwner, Observer {
                         if (it?.status == TaskStatus.SUCCESS) navController.navigate(
                             OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(
-                                paymentId = paymentId ?: it.data!!.id,
+                                paymentId = paymentId ?: it.data!!,
                                 tableId = tableId!!,
                                 title = "Thanh toán"
                             )

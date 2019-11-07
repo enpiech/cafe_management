@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import androidx.lifecycle.*
-import com.google.firebase.firestore.DocumentReference
 import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
@@ -94,7 +93,7 @@ class OrderListViewModel(
         }
     }
 
-    val completeOrder = MutableLiveData<TaskResult<DocumentReference>>()
+    val completeOrder = MutableLiveData<TaskResult<String>>()
 
     fun createOrders(tableId: String?, paymentId: String?) {
         var orders = _currentOrder.value ?: listOf()
@@ -107,23 +106,17 @@ class OrderListViewModel(
                 )
             ).observeUntil(Observer {
                 if (it.status == TaskStatus.SUCCESS) {
-                    completeOrder.value = TaskResult.success(it.data!!)
+                    completeOrder.value = TaskResult.success(it.data!!.id)
                 }
             }) {
                 it?.status != TaskStatus.RUNNING
             }
         } else {
-            saved.values.toList().forEach {
-                orderRepository.insert(it.apply {
-                    this.paymentId = paymentId
-                }).observeUntil(Observer { task ->
-                    if (task.status == TaskStatus.SUCCESS) {
-                        completeOrder.value = TaskResult.success(task.data!!)
-                    }
-                }) { task ->
-                    task?.status != TaskStatus.RUNNING
-                }
+            saved.values.forEach {
+                it.paymentId = paymentId
             }
+            paymentRepository.addOrder(saved.values.toList())
+            completeOrder.value = TaskResult.success(paymentId)
         }
         orders.forEach {
             if (saved.containsKey(it.materialId)) {
