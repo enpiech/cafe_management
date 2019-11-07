@@ -1,6 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
@@ -15,7 +16,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
+import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_empty.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
 abstract class BaseListFragment<T: FirestoreModel>(
@@ -27,7 +30,6 @@ abstract class BaseListFragment<T: FirestoreModel>(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupFab(requireActivity().fab)
         setupRecyclerView(recycler_view, viewAdapter)
         setupSwipeToDelete()
@@ -41,7 +43,6 @@ abstract class BaseListFragment<T: FirestoreModel>(
             layoutManager = LinearLayoutManager(context)
             adapter = viewAdapter
         }
-
         viewModel.itemList.observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Status.ERROR -> {
@@ -51,7 +52,11 @@ abstract class BaseListFragment<T: FirestoreModel>(
                     //TODO("Show progress indicator")
                 }
                 Status.SUCCESS -> {
-                    viewAdapter.submitList(it.data)
+                    if(it.data.isNullOrEmpty()){
+                        Log.d("test", "Trống kìa")
+                    }else{
+                        viewAdapter.submitList(it.data)
+                    }
                 }
             }
         })

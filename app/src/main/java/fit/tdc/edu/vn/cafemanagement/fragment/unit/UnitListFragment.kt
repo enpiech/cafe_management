@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.unit
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -15,24 +16,6 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
-
-//class UnitListFragment : BaseListFragment<Unit>(R.layout.fragment_list) {
-//    override val viewAdapter: ListAdapter<Unit, RecyclerView.ViewHolder>
-//        get() = UnitAdapter()
-//    override val viewModel: BaseListViewModel<Unit>
-//        get() = ViewModelProvider(this, UnitViewModelFactory()).get<UnitListViewModel>()
-//    override val navController: NavController
-//        get() = findNavController()
-//
-//    override fun showDeleteNotifySnackBar(item: Unit, view: View) {
-//        Snackbar.make(
-//            view,
-//            "Đơn vị ${item.name} đã bị xóa!",
-//            Snackbar.LENGTH_LONG
-//        ).show()
-//    }
-//}
-
 class UnitListFragment : BaseListFragment<Unit>(
     R.layout.fragment_list,
     viewAdapter = UnitAdapter()
