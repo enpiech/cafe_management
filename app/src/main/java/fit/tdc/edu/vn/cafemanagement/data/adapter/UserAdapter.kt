@@ -36,7 +36,8 @@ class UserHolder(
     ) {
         val direction =
             UserListFragmentDirections.userViewAction(
-                userId = user.id
+                userId = user.id,
+                title = "Chỉnh sửa nhân viên"
             )
         it.findNavController().navigate(direction)
     }

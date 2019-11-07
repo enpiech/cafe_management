@@ -22,7 +22,7 @@ class MaterialListFragment : BaseListFragment<Material>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(MaterialListFragmentDirections.materialViewAction(materialId = null))
+            navController.navigate(MaterialListFragmentDirections.materialViewAction(materialId = null, title = getString(R.string.title_material_create)))
         }
     }
 

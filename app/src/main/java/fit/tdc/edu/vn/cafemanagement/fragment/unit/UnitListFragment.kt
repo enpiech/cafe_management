@@ -59,7 +59,7 @@ class UnitListFragment : BaseListFragment<Unit>(
             navController.navigate(
                 UnitListFragmentDirections.unitViewAction(
                     unitId = null,
-                    title = "Tạo Unit"
+                    title = getString(R.string.title_unit_create)
                 )
             )
         }

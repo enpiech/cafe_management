@@ -28,7 +28,7 @@ class TableListFragment : BaseListFragment<Table>(
             navController.navigate(
                 TableListFragmentDirections.tableViewAction(
                     tableId = null,
-                    title = "Tạo Table"
+                    title = getString(R.string.title_table_create)
                 )
             )
         }

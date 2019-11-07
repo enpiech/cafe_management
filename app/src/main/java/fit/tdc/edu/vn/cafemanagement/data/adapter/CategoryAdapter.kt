@@ -36,7 +36,7 @@ class CategoryHolder(
         it: View
     ) {
         val direction =
-            CategoryListFragmentDirections.categoryViewAction(category.id)
+            CategoryListFragmentDirections.categoryViewAction(category.id, "Chỉnh sửa danh mục")
         it.findNavController().navigate(direction)
     }
 

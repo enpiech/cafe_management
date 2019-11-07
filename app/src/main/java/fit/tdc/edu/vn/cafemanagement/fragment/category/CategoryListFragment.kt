@@ -28,7 +28,7 @@ class CategoryListFragment : BaseListFragment<Category>(
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(
-                CategoryListFragmentDirections.categoryViewAction(categoryId = null)
+                CategoryListFragmentDirections.categoryViewAction(categoryId = null, title = getString(R.string.title_category_create))
             )
         }
     }

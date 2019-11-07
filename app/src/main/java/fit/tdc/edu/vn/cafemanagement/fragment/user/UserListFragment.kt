@@ -23,7 +23,7 @@ class UserListFragment : BaseListFragment<User>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(UserListFragmentDirections.userViewAction(userId = null))
+            navController.navigate(UserListFragmentDirections.userViewAction(userId = null, title = getString(R.string.title_user_create)))
         }
     }
 

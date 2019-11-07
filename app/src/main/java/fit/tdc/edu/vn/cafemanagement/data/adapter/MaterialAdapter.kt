@@ -34,7 +34,7 @@ class MaterialAdapter : ListAdapter<Material, RecyclerView.ViewHolder>(Material.
             it: View
         ) {
             val direction =
-                MaterialListFragmentDirections.materialViewAction(material.id)
+                MaterialListFragmentDirections.materialViewAction(material.id, "Chỉnh sửa hàng hóa")
             it.findNavController().navigate(direction)
         }
 

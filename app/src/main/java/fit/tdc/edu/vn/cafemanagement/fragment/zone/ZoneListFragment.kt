@@ -22,7 +22,7 @@ class ZoneListFragment : BaseListFragment<Zone>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(ZoneListFragmentDirections.zoneViewAction(null))
+            navController.navigate(ZoneListFragmentDirections.zoneViewAction(null, getString(R.string.title_zone_create)))
         }
     }
 

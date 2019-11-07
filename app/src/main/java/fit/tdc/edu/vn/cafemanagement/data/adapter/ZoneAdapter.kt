@@ -35,7 +35,7 @@ class ZoneHolder(
         it: View
     ) {
         val direction =
-            ZoneListFragmentDirections.zoneViewAction(zone.id)
+            ZoneListFragmentDirections.zoneViewAction(zone.id, "Chỉnh sửa khu vực")
         it.findNavController().navigate(direction)
     }
 

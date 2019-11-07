@@ -23,7 +23,7 @@ class StoreListFragment : BaseListFragment<Store>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(StoreListFragmentDirections.storeViewAction(null))
+            navController.navigate(StoreListFragmentDirections.storeViewAction(null, getString(R.string.title_store_create)))
         }
     }
 

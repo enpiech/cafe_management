@@ -61,6 +61,41 @@
 *Start Title
 *
 -->
+
+    <string name="title_store_view">Cửa hàng</string>
+    <string name="title_store_detail">Thông tin cửa hàng</string>
+    <string name="title_store_create">Tạo cửa hàng</string>
+
+    <string name="title_user_view">Nhân viên</string>
+    <string name="title_user_detail">Thông tin nhân viên</string>
+    <string name="title_user_create">Tạo nhân viên</string>
+
+    <string name="title_zone_view">Khu vực</string>
+    <string name="title_zone_detail">Thông tin khu vực</string>
+    <string name="title_zone_create">Tạo khu vực</string>
+
+    <string name="title_category_view">Danh mục</string>
+    <string name="title_category_detail">Thông tin danh mục</string>
+    <string name="title_category_create">Tạo danh mục</string>
+
+    <string name="title_table_view">Bàn</string>
+    <string name="title_table_detail">Thông tin bàn</string>
+    <string name="title_table_create">Tạo bàn</string>
+
+    <string name="title_unit_view">Đơn vị</string>
+    <string name="title_unit_detail">Thông tin đơn vị</string>
+    <string name="title_unit_create">Tạo đơn vị</string>
+
+    <string name="title_material_view">Hàng hóa</string>
+    <string name="title_material_detail">Thông tin hàng hóa</string>
+    <string name="title_material_create">Tạo hàng hóa</string>
+
+    <string name="title_table_waiter_view">Bàn</string>
+    <string name="title_table_waiter_detail">Danh sách món đã đặt</string>
+    <string name="title_table_waiter_create">Thêm món</string>
+
+    <string name="title_chef_view">Danh sách món cần làm</string>
+
     <string name="title_category">Danh mục sản phẩm</string>
     <string name="title_zone">Khu vực bàn</string>
     <string name="title_unit">Đơn vị tính</string>
@@ -129,7 +164,7 @@
     <string name="title_new_order">Đặt món</string>
     <string name="title_ordered">Đã đặt</string>
     <string name="title_chef">Bếp</string>
-    <string name="label_orders">món trong danh sách</string>
+    <string name="label_orders">Các món đã đặt: </string>
     <string name="label_total">TỔNG CỘNG</string>
     <string name="label_add">Thêm món</string>
     <string name="label_checkout">Thanh toán</string>

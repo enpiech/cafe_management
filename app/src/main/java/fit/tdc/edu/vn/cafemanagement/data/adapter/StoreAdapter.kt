@@ -48,9 +48,7 @@ class StoreHolder(
         it: View
     ) {
         val direction =
-            StoreListFragmentDirections.storeViewAction(
-                storeId = store.id
-            )
+            StoreListFragmentDirections.storeViewAction(storeId = store.id, title = "Chỉnh sửa cửa hàng")
         it.findNavController().navigate(direction)
     }
 
