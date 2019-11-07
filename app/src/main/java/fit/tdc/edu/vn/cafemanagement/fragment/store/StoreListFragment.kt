@@ -9,7 +9,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.StoreAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreListViewModel
@@ -23,7 +22,7 @@ class StoreListFragment : BaseListFragment<Store>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(StoreListFragmentDirections.storeViewAction(null, getString(R.string.title_store_create)))
+            navController.navigate(StoreListFragmentDirections.actionViewStore(null, getString(R.string.title_store_create)))
         }
     }
 

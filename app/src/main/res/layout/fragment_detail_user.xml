@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        style="@style/BaseDetailFragment">
+
+        <ImageButton
+            android:id="@+id/user_image"
+            style="@style/DetailImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_placeholder"
+            tools:src="@tools:sample/avatars"
+            android:contentDescription="@string/img_user" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/username"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_id"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:imeOptions="flagNoPersonalizedLearning|actionDone"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_full_name"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:inputType="textPersonName" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_birth"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_birth"
+            app:endIconContentDescription="@string/desc_date_picker"
+            app:endIconDrawable="@drawable/ic_calendar"
+            app:endIconMode="custom"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_image">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseSpinner" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_gender_layout"
+            style="@style/BaseSpinnerLayout"
+            android:hint="@string/lbl_user_gender"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_birth">
+
+            <AutoCompleteTextView
+                android:id="@+id/user_gender"
+                style="@style/BaseSpinner" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_role_layout"
+            style="@style/BaseSpinnerLayout"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/lbl_user_role"
+            app:layout_constraintEnd_toStartOf="@+id/user_store_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_gender_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/user_role"
+                style="@style/BaseSpinner" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_store_layout"
+            style="@style/BaseSpinnerLayout"
+            android:hint="@string/lbl_user_store"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/user_role_layout"
+            app:layout_constraintTop_toBottomOf="@+id/user_gender_layout">
+
+            <AutoCompleteTextView
+                android:id="@+id/user_store"
+                style="@style/BaseSpinner"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_uid"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_uid"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_role_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:inputType="numberSigned" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_phone"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_phone_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_uid">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:inputType="phone" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/user_address"
+            style="@style/BaseEditTextLayout"
+            android:hint="@string/lbl_user_address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/user_phone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                style="@style/BaseEditText"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+

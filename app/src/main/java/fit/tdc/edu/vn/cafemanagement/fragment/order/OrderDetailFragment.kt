@@ -1,9 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.OrderAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
@@ -42,10 +39,6 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
         requireActivity().fab
     }
 
-    private val toolbar: Toolbar by lazy {
-        requireActivity().toolbar
-    }
-
     private val args by navArgs<OrderDetailFragmentArgs>()
 
     val paymentId: String? by lazy {
@@ -56,7 +49,8 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
         args.tableId
     }
 
-    val viewAdapter = OrderAdapter(OrderAdapter.LayoutType.CHECKOUT)
+    val viewAdapter =
+        OrderAdapter(OrderAdapter.LayoutType.CHECKOUT)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -68,21 +62,19 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
                 viewModel.currentOrder.observe(viewLifecycleOwner, Observer { list ->
                     if (!list.isNullOrEmpty()) {
                         viewAdapter.submitList(list)
-                        input_price.text = "${list.map { it.amount * it.price }.sum()}"
+                        material_price.text = "${list.map { it.amount * it.price }.sum()}"
                         no_item.visibility = View.GONE
                         lbl_list.visibility = View.VISIBLE
-                        list_layout.visibility = View.VISIBLE
                         checkout_panel.visibility = View.VISIBLE
                     } else {
                         no_item.visibility = View.VISIBLE
                         lbl_list.visibility = View.GONE
-                        list_layout.visibility = View.GONE
                         checkout_panel.visibility = View.GONE
                     }
                 })
             }
         })
-        Log.d("test", paymentId.toString())
+
         //TODO(Show progress indicator when data is loading)
 
         recycler_view.apply {
@@ -121,7 +113,7 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
 
         btn_add.setOnClickListener {
             navController.navigate(
-                OrderDetailFragmentDirections.addOrderAction(
+                OrderDetailFragmentDirections.actionAddOrder(
                     tableId = tableId!!,
                     paymentId = paymentId,
                     title = "Thêm món"
@@ -129,9 +121,9 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
             )
         }
 
-        disabled_material_button.setOnClickListener {
+        btn_add_new.setOnClickListener {
             navController.navigate(
-                OrderDetailFragmentDirections.addOrderAction(
+                OrderDetailFragmentDirections.actionAddOrder(
                     tableId = tableId!!,
                     paymentId = paymentId,
                     title = "Thêm món"

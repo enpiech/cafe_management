@@ -10,39 +10,39 @@
             android:id="@+id/userListFragment"
             android:title="@string/title_user" />
     </group>
-    <group
-        android:id="@+id/store_manager"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/zoneListFragment"
-            android:title="@string/title_zone" />
-        <item
-            android:id="@+id/categoryListFragment"
-            android:title="@string/title_category" />
-        <item
-            android:id="@+id/unitListFragment"
-            android:title="@string/title_unit" />
-        <item
-            android:id="@+id/tableListFragment"
-            android:title="@string/title_table" />
-        <item
-            android:id="@+id/materialListFragment"
-            android:title="@string/title_material" />
-    </group>
-    <group
-        android:id="@+id/waiter"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/tableListWaiterFragment"
-            android:title="@string/title_table" />
-    </group>
-    <group
-        android:id="@+id/bartender"
-        android:checkableBehavior="single">
-        <item
-            android:id="@+id/chefListFragment"
-            android:title="@string/title_chef" />
-    </group>
+<!--    <group-->
+<!--        android:id="@+id/store_manager"-->
+<!--        android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/zoneListFragment"-->
+<!--            android:title="@string/title_zone" />-->
+<!--        <item-->
+<!--            android:id="@+id/categoryListFragment"-->
+<!--            android:title="@string/title_category" />-->
+<!--        <item-->
+<!--            android:id="@+id/unitListFragment"-->
+<!--            android:title="@string/title_unit" />-->
+<!--        <item-->
+<!--            android:id="@+id/tableListFragment"-->
+<!--            android:title="@string/title_table" />-->
+<!--        <item-->
+<!--            android:id="@+id/materialListFragment"-->
+<!--            android:title="@string/title_material" />-->
+<!--    </group>-->
+<!--    <group-->
+<!--        android:id="@+id/waiter"-->
+<!--        android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/tableListWaiterFragment"-->
+<!--            android:title="@string/title_table" />-->
+<!--    </group>-->
+<!--    <group-->
+<!--        android:id="@+id/bartender"-->
+<!--        android:checkableBehavior="single">-->
+<!--        <item-->
+<!--            android:id="@+id/chefListFragment"-->
+<!--            android:title="@string/title_chef" />-->
+<!--    </group>-->
 
     <item
         android:id="@+id/loginFragment"

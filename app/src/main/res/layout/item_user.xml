@@ -2,44 +2,41 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/BaseListItem">
+    style="@style/BaseListItem"
+    android:layout_margin="@dimen/layout_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin">
+        style="@style/BaseListItem">
         <ImageView
-            android:id="@+id/imgImage"
+            android:id="@+id/user_image"
             style="@style/ListImage"
             android:contentDescription="@string/img_product_category"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/placeholder"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txtUserName"
+            android:id="@+id/txt_user_full_name"
             style="@style/BaseListTextView"
             android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/txtUserRole"
+            app:layout_constraintBottom_toTopOf="@+id/txt_user_role"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imgImage"
+            app:layout_constraintStart_toEndOf="@+id/user_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="@tools:sample/full_names" />
 
         <TextView
-            android:id="@+id/txtUserRole"
+            android:id="@+id/txt_user_role"
             style="@style/BaseListTextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtUserName"
-            app:layout_constraintTop_toBottomOf="@+id/txtUserName"
+            app:layout_constraintStart_toStartOf="@+id/txt_user_full_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_user_full_name"
             tools:text="Chức vụ" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

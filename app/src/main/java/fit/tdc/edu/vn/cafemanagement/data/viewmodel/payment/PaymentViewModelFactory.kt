@@ -6,7 +6,11 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.*
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 
 class PaymentViewModelFactory (
     private val dataSource: FireBaseAPI,
@@ -27,8 +31,12 @@ class PaymentViewModelFactory (
                 materialRepository = MaterialRepository(
                     dataSource
                 ),
-                categoryRepository = CategoryRepository(dataSource),
-                orderRepository = OrderRepository(dataSource),
+                categoryRepository = CategoryRepository(
+                    dataSource
+                ),
+                orderRepository = OrderRepository(
+                    dataSource
+                ),
                 handle = handle
             ) as T
         } else
@@ -37,8 +45,12 @@ class PaymentViewModelFactory (
                 paymentRepository = PaymentRepository(
                     dataSource = dataSource
                 ),
-                tableRepository = TableRepository(dataSource),
-                orderRepository = OrderRepository(dataSource)
+                tableRepository = TableRepository(
+                    dataSource
+                ),
+                orderRepository = OrderRepository(
+                    dataSource
+                )
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

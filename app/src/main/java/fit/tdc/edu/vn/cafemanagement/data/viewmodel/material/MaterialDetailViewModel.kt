@@ -6,13 +6,13 @@ import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.isValidMaterialName
+import fit.tdc.edu.vn.cafemanagement.util.isValidMaterialName
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.material.MaterialViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class MaterialDetailViewModel(
@@ -67,8 +67,8 @@ class MaterialDetailViewModel(
     override fun update(item: Material) = materialRepository.update(item)
 
     override fun validate(item: Material?) {
-        when {
-            item == null -> {
+        when (item) {
+            null -> {
                 _formState.value = MaterialViewFormState(
                     nameError = null
                 ).apply {
@@ -77,7 +77,7 @@ class MaterialDetailViewModel(
                 }
                 return
             }
-            item == currentItem.value -> {
+            currentItem.value -> {
                 _formState.value = MaterialViewFormState(
                     nameError = null
                 ).apply {

@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
 
 class ChefViewModelFactory(
     private val dataSource: FireBaseAPI,

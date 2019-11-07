@@ -1,6 +1,5 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.unit
 
-import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
@@ -9,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.UnitAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitListViewModel
@@ -40,7 +38,7 @@ class UnitListFragment : BaseListFragment<Unit>(
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(
-                UnitListFragmentDirections.unitViewAction(
+                UnitListFragmentDirections.actionViewUnit(
                     unitId = null,
                     title = getString(R.string.title_unit_create)
                 )

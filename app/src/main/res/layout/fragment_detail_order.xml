@@ -7,12 +7,8 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lbl_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/layout_margin"
+        style="@style/BaseListTextView"
         android:labelFor="@+id/recycler_view"
-        android:padding="@dimen/layout_margin"
-        android:paddingBottom="0dp"
         android:text="@string/label_orders"
         android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
         android:textStyle="bold"
@@ -22,11 +18,9 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <include
-        android:id="@+id/list_layout"
         layout="@layout/fragment_list"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/layout_margin"
         app:layout_constraintBottom_toTopOf="@+id/checkout_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,8 +30,7 @@
         android:id="@+id/checkout_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-16dp">
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <View
             android:id="@+id/divider"
@@ -49,17 +42,16 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/lbl_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:labelFor="@id/input_price"
+            android:labelFor="@id/material_price"
             android:text="@string/label_total"
-            app:layout_constraintBaseline_toBaselineOf="@+id/input_price"
+            app:layout_constraintBaseline_toBaselineOf="@+id/material_price"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/input_price"
+            android:id="@+id/material_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -92,12 +84,5 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <include
-        android:id="@+id/no_item"
-        layout="@layout/fragment_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

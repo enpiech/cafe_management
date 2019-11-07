@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.TableAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableListViewModel
@@ -26,7 +25,7 @@ class TableListFragment : BaseListFragment<Table>(
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(
-                TableListFragmentDirections.tableViewAction(
+                TableListFragmentDirections.actionViewTable(
                     tableId = null,
                     title = getString(R.string.title_table_create)
                 )

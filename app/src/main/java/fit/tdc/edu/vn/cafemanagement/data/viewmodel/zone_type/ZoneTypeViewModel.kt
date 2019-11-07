@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_type
 
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.ZoneType
-import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneTypeRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone_type.ZoneTypeRepositoryAPI
 
 class ZoneTypeViewModel (private val zoneTypeRepository: ZoneTypeRepositoryAPI) {
 

@@ -4,71 +4,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/chefListFragment">
+    app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/categoryListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryListFragment"
         android:label="@string/title_category_view"
         tools:layout="@layout/fragment_list" >
         <action
-            android:id="@+id/categoryViewAction"
-            app:destination="@id/categoryViewFragment" />
+            android:id="@+id/actionViewCategory"
+            app:destination="@id/categoryDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_categoryListFragment"
-            app:destination="@id/categoryListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_unitListFragment"
-            app:destination="@id/unitListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_zoneListFragment"
-            app:destination="@id/zoneListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_userListFragment"
-            app:destination="@id/userListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_tableListWaiterFragment"
-            app:destination="@id/tableListWaiterFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_tableListFragment"
-            app:destination="@id/tableListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_storeListFragment"
-            app:destination="@id/storeListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_materialListFragment"
-            app:destination="@id/materialListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_chefListFragment"
-            app:destination="@id/chefListFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_wareHouseListFragment"
-            app:destination="@id/wareHouseListFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/unitListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
-        android:label="@string/title_unit_view">
-        <action
-            android:id="@+id/unitViewAction"
-            app:destination="@id/unitViewFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login" />
     <fragment
         android:id="@+id/zoneListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneListFragment"
         android:label="@string/title_zone_view" >
         <action
-            android:id="@+id/zoneViewAction"
-            app:destination="@id/zoneViewFragment" />
+            android:id="@+id/actionViewZone"
+            app:destination="@id/zoneDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/zoneViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneViewFragment"
+        android:id="@+id/zoneDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.zone.ZoneDetailFragment"
         android:label="{title}">
         <argument
             android:name="zoneId"
@@ -81,8 +42,8 @@
     <argument android:defaultValue='""'
         android:name="zoneId" />
     <fragment
-        android:id="@+id/unitViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitViewFragment"
+        android:id="@+id/unitDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitDetailFragment"
         android:label="{title}">
         <argument
             android:name="unitId"
@@ -93,8 +54,8 @@
             app:argType="string" />
     </fragment>
     <fragment
-        android:id="@+id/categoryViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryViewFragment"
+        android:id="@+id/categoryDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryDetailFragment"
         android:label="{title}">
         <argument
             android:name="categoryId"
@@ -109,12 +70,12 @@
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableListFragment"
         android:label="@string/title_table_view">
         <action
-            android:id="@+id/tableViewAction"
-            app:destination="@id/tableViewFragment" />
+            android:id="@+id/actionViewTable"
+            app:destination="@id/tableDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/tableViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableViewFragment"
+        android:id="@+id/tableDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.table.TableDetailFragment"
         android:label="{title}" >
         <argument
             android:name="title"
@@ -129,12 +90,12 @@
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserListFragment"
         android:label="@string/title_user_view" >
         <action
-            android:id="@+id/userViewAction"
-            app:destination="@id/userViewFragment" />
+            android:id="@+id/actionViewUser"
+            app:destination="@id/userDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/userViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserViewFragment"
+        android:id="@+id/userDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.user.UserDetailFragment"
         android:label="{title}">
         <argument
             android:name="userId"
@@ -149,7 +110,7 @@
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.table_waiter.TableWaiterListFragment"
         android:label="@string/title_table_waiter_view">
         <action
-            android:id="@+id/viewCurrentOrderAction"
+            android:id="@+id/actionViewPayment"
             app:destination="@id/orderDetailFragment" />
     </fragment>
     <fragment
@@ -157,7 +118,7 @@
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.store.StoreListFragment"
         android:label="@string/title_store_view">
         <action
-            android:id="@+id/storeViewAction"
+            android:id="@+id/actionViewStore"
             app:destination="@id/storeDetailFragment" />
     </fragment>
     <fragment
@@ -187,22 +148,22 @@
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/action_orderListFragment_to_orderDetailFragment"
+            android:id="@+id/actionCompleteOrder"
             app:destination="@id/orderDetailFragment"
             app:popUpTo="@+id/orderDetailFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/materialListFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material_list.MaterialListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material.MaterialListFragment"
         android:label="@string/title_material_view" >
         <action
-            android:id="@+id/materialViewAction"
-            app:destination="@id/materialViewFragment" />
+            android:id="@+id/actionViewMaterial"
+            app:destination="@id/materialDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/materialViewFragment"
-        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material_list.MaterialDetailFragment"
+        android:id="@+id/materialDetailFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.material.MaterialDetailFragment"
         android:label="{title}">
         <argument
             android:name="materialId"
@@ -221,7 +182,7 @@
             app:argType="string"
             app:nullable="true" />
         <action
-            android:id="@+id/addOrderAction"
+            android:id="@+id/actionAddOrder"
             app:destination="@id/orderListFragment" />
         <argument
             android:name="tableId"
@@ -239,4 +200,12 @@
         android:id="@+id/wareHouseListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.ware_house.WareHouseListFragment"
         android:label="WareHouseListFragment" />
+    <fragment
+        android:id="@+id/unitListFragment"
+        android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
+        android:label="title_unit_view">
+        <action
+            android:id="@+id/actionViewUnit"
+            app:destination="@id/unitDetailFragment" />
+    </fragment>
 </navigation>

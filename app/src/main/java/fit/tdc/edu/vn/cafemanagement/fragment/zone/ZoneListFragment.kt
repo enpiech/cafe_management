@@ -8,7 +8,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.ZoneAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneListViewModel
@@ -22,7 +21,7 @@ class ZoneListFragment : BaseListFragment<Zone>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(ZoneListFragmentDirections.zoneViewAction(null, getString(R.string.title_zone_create)))
+            navController.navigate(ZoneListFragmentDirections.actionViewZone(null, getString(R.string.title_zone_create)))
         }
     }
 

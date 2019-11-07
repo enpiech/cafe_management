@@ -14,8 +14,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
-import fit.tdc.edu.vn.cafemanagement.data.adapter.OrderAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
@@ -23,11 +21,12 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.observeUntil
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment.OrderListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment.PaymentViewModelFactory
+import fit.tdc.edu.vn.cafemanagement.fragment.category.CategoryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_add_order.*
 import kotlinx.android.synthetic.main.fragment_list.*
-import kotlinx.android.synthetic.main.fragment_order_new.*
 
-class OrderListFragment : Fragment(R.layout.fragment_order_new) {
+class OrderListFragment : Fragment(R.layout.fragment_add_order) {
 
     val viewModel: OrderListViewModel by lazy {
         ViewModelProvider(
@@ -112,7 +111,7 @@ class OrderListFragment : Fragment(R.layout.fragment_order_new) {
                     viewModel.createOrders(tableId, paymentId)
                     viewModel.completeOrder.observeUntil(viewLifecycleOwner, Observer {
                         if (it?.status == TaskStatus.SUCCESS) navController.navigate(
-                            OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(
+                            OrderListFragmentDirections.actionCompleteOrder(
                                 paymentId = paymentId ?: it.data!!,
                                 tableId = tableId!!,
                                 title = "Thanh toán"

@@ -7,9 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.MaterialRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepository
 
 class MaterialViewModelFactory(
     private val dataSource: FireBaseAPI,

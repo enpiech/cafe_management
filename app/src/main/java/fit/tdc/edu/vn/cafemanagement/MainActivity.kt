@@ -2,15 +2,15 @@ package fit.tdc.edu.vn.cafemanagement
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -23,13 +23,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity :
     AppCompatActivity(),
-    NavigationView.OnNavigationItemSelectedListener {
-
-    private var storeId: String? = ""
-    public fun getStoreId(): String? {
-        return storeId
-    }
-
+    NavigationView.OnNavigationItemSelectedListener,
+    NavController.OnDestinationChangedListener {
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
             setOf(
@@ -42,7 +37,8 @@ class MainActivity :
                 R.id.materialListFragment,
                 R.id.chefListFragment,
                 R.id.tableListWaiterFragment
-            ), drawer_layout)
+            ), drawer_layout
+        )
     }
 
     private val navController by lazy {
@@ -60,114 +56,100 @@ class MainActivity :
 
     private fun setupNavigation() {
         setSupportActionBar(toolbar)
-        setupActionBarWithNavController(navController, appBarConfiguration)
         nav_view.setupWithNavController(navController)
         nav_view.setNavigationItemSelectedListener(this)
-        bottom_navigation.setupWithNavController(navController)
-        navController.addOnDestinationChangedListener { controller, destination, _ ->
-            when (destination.id) {
-                in setOf(
-                    R.id.loginFragment
-                ) -> {
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottom_navigation.isVisible = false
-                    supportActionBar?.hide()
-                    fab.hide()
-                    logout()
-                }
-                in setOf(
-                    R.id.zoneViewFragment,
-                    R.id.unitViewFragment,
-                    R.id.categoryViewFragment,
-                    R.id.userViewFragment,
-                    R.id.tableViewFragment,
-                    R.id.userViewFragment,
-                    R.id.materialViewFragment
-                ) -> {
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    supportActionBar?.show()
-                }
-//                R.id.orderListFragment -> {
-//                    fab.setImageDrawable(getDrawable(R.drawable.ic_check))
-//                    fab.show()
-//                }
-                in setOf(
-                    R.id.orderDetailFragment,
-                    R.id.orderListFragment
-                ) -> {
-                    fab.hide()
-                    supportActionBar?.show()
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottom_navigation.isVisible = false
-                }
-                R.id.tableListWaiterFragment -> {
-                    supportActionBar?.show()
-//                    toolbar.navigationIcon = null
-//                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-                    bottom_navigation.isVisible = true
-                    val callback = onBackPressedDispatcher.addCallback(this) {
-                        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                            drawer_layout.closeDrawer(GravityCompat.START)
-                        }
-                    }
-                    callback.isEnabled = true
-                    toolbar.setNavigationOnClickListener {
-                        controller.navigateUp(appBarConfiguration)
-                    }
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                }
-                else -> {
-                    bottom_navigation.isVisible = false
-                    drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                    supportActionBar?.show()
-                    fab.setImageDrawable(getDrawable(R.drawable.ic_add))
-                    fab.show()
-                    val callback = onBackPressedDispatcher.addCallback(this) {
-                        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-                            drawer_layout.closeDrawer(GravityCompat.START)
-                        }
-                    }
-                    callback.isEnabled = true
-                    toolbar.setNavigationOnClickListener {
-                        controller.navigateUp(appBarConfiguration)
-                    }
+        navController.addOnDestinationChangedListener(this)
+    }
 
-                }
-            }
-            if (destination.id == R.id.chefListFragment) {
-                fab.hide()
-                bottom_navigation.visibility = View.GONE
-            }
-            if (destination.id == R.id.orderDetailFragment) {
-                toolbar.setNavigationOnClickListener {
-                    controller.navigateUp(appBarConfiguration)
-                }
-                val callback = onBackPressedDispatcher.addCallback(this) {
-                    controller.navigateUp(appBarConfiguration)
-                }
-                callback.isEnabled = true
-            }
-            hideKeyboard()
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        // Toggle fab
+        if (destination.id in setOf(
+                R.id.chefListFragment,
+                R.id.orderDetailFragment,
+                R.id.orderListFragment,
+                R.id.loginFragment
+            )
+        ) {
+            fab.hide()
+        } else {
+            fab.show()
         }
 
+        // Toggle supportActionBar
+        if (destination.id == R.id.loginFragment) {
+            supportActionBar?.hide()
+        } else {
+            supportActionBar?.show()
+        }
+
+        // Toggle drawer
+        if (destination.id in setOf(
+                R.id.loginFragment,
+                R.id.zoneDetailFragment,
+                R.id.unitDetailFragment,
+                R.id.categoryDetailFragment,
+                R.id.unitDetailFragment,
+                R.id.tableDetailFragment,
+                R.id.unitDetailFragment,
+                R.id.materialDetailFragment,
+                R.id.orderDetailFragment,
+                R.id.orderListFragment
+            )
+        ) {
+            drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        } else {
+            drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            val callback = onBackPressedDispatcher.addCallback(this) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                }
+            }
+            callback.isEnabled = true
+        }
+
+        // Toggle bottom navigation
+        bottom_navigation.isVisible = destination.id in setOf(
+            R.id.tableListWaiterFragment
+        )
+
+        // Reset backPressed listener and toolbar navigation up
+        if (destination.id in setOf(
+                R.id.categoryListFragment,
+                R.id.unitListFragment,
+                R.id.zoneListFragment,
+                R.id.userListFragment,
+                R.id.tableListFragment,
+                R.id.storeListFragment,
+                R.id.materialListFragment,
+                R.id.chefListFragment,
+                R.id.tableListWaiterFragment,
+                R.id.orderDetailFragment
+            )) {
+            toolbar.setNavigationOnClickListener {
+                controller.navigateUp(appBarConfiguration)
+                hideKeyboard()
+            }
+            val callback = onBackPressedDispatcher.addCallback(this) {
+                if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                    drawer_layout.closeDrawer(GravityCompat.START)
+                }
+                controller.navigateUp(appBarConfiguration)
+                hideKeyboard()
+            }
+            callback.isEnabled = true
+        }
+        hideKeyboard()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         item.isChecked = true
         drawer_layout.closeDrawers()
-        if(item.itemId == R.id.loginFragment) {
-            val sharedPreferences = getSharedPreferences("savedUser", Context.MODE_PRIVATE)
-            Log.d("savedUsername:", sharedPreferences.getString("username", "lalalalaaalalalalalala"))
-            Log.d("savedPassword:", sharedPreferences.getString("password", "lalalalaaalalalalalala"))
-
-            val sharedPreferencesEditor = getSharedPreferences("savedUser", Context.MODE_PRIVATE).edit()
-            sharedPreferencesEditor.putString("username", "aaa")
-            sharedPreferencesEditor.putString("password", "aaa")
-            sharedPreferencesEditor.apply()
-
-            Log.d("savedUsername:", sharedPreferences.getString("username", "lalalalaaalalalalalala"))
-            Log.d("savedPassword:", sharedPreferences.getString("password", "lalalalaaalalalalalala"))
-            navController.navigate(item.itemId)
+        if (item.itemId == R.id.loginFragment) {
+            logout()
         }
         navController.navigate(item.itemId)
         return true
@@ -183,19 +165,15 @@ class MainActivity :
 
     private fun logout() {
         val sharedPref = getSharedPreferences(
-            getString(R.string.user_type_key), Context.MODE_PRIVATE
+            getString(R.string.session_user),
+            Context.MODE_PRIVATE
         ) ?: return
         with(sharedPref.edit()) {
+            putString(getString(R.string.user_name_key), null)
+            putString(getString(R.string.user_password_key), null)
             putInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
             commit()
         }
-    }
-
-    private fun getUserType(): Int {
-        return getPreferences(Context.MODE_PRIVATE).getInt(
-            getString(R.string.user_type_key),
-            resources.getInteger(R.integer.no_user_type)
-        )
     }
 
     fun changeUserRole(type: User.Role) {
@@ -203,20 +181,22 @@ class MainActivity :
         when (type) {
             User.Role.STORE_MANAGER -> {
                 nav_view.inflateMenu(R.menu.store_manager_menu)
+                setupActionBarWithNavController(navController, appBarConfiguration)
             }
             User.Role.MANAGER -> {
-//                nav_view.inflateMenu(R.menu.manager_menu)
                 nav_view.inflateMenu(R.menu.activity_main_drawer)
+                setupActionBarWithNavController(navController, appBarConfiguration)
             }
-
             User.Role.WAITER -> {
-                bottom_navigation.isVisible = true
+                setupActionBarWithNavController(navController, appBarConfiguration)
+                nav_view.inflateMenu(R.menu.waiter_drawer_menu)
+                bottom_navigation.setupWithNavController(navController)
                 bottom_navigation.menu.clear()
                 bottom_navigation.inflateMenu(R.menu.waiter_menu)
-                nav_view.inflateMenu(R.menu.waiter_menu)
             }
-            User.Role.BARTENDER -> {
-                nav_view.inflateMenu(R.menu.bartender_menu)
+            User.Role.CHEF -> {
+                setupActionBarWithNavController(navController, appBarConfiguration)
+                nav_view.inflateMenu(R.menu.chef_menu)
             }
         }
     }

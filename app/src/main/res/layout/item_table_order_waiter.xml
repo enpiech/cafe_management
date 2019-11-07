@@ -2,17 +2,15 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/BaseListItem">
+    style="@style/BaseListItem"
+    android:layout_margin="@dimen/layout_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin">
+        style="@style/BaseListItem">
 
         <TextView
-            android:id="@+id/txt_name_table_order_waiter"
+            android:id="@+id/txt_order_name"
             style="@style/BaseListTextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -20,28 +18,28 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnMinus"
+            android:id="@+id/btn_decrease"
             style="@style/BaseNumberPickerButton"
             app:icon="@drawable/ic_remove"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/txt_so_luong"
+            app:layout_constraintEnd_toStartOf="@+id/txt_order_amount"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txt_so_luong"
+            android:id="@+id/txt_order_amount"
             style="@style/BaseListTextView"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/btn_number_picker_margin"
             android:gravity="center"
-            android:text="@string/so_luong"
+            tools:text="@string/so_luong"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@+id/btnPlus"
+            app:layout_constraintEnd_toStartOf="@+id/btn_increase"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnPlus"
+            android:id="@+id/btn_increase"
             style="@style/BaseNumberPickerButton"
             app:icon="@drawable/ic_add"
             app:layout_constraintBottom_toBottomOf="parent"

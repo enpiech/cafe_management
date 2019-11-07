@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:layout_marginTop="10dp">
-    <Button
-        android:id="@+id/btn_item_table"
+    style="@style/BaseListItem"
+    android:layout_margin="@dimen/layout_margin">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txt_table_name"
+        style="@style/BaseListTextView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clickable="false"
-        android:maxLines="3"
         tools:text="Bàn 1"/>
 </androidx.cardview.widget.CardView>

@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.revenue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.RevenueRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.revenue.RevenueRepository
 
 class RevenueViewModelFactory : ViewModelProvider.Factory {
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.model.isNameValid
-import fit.tdc.edu.vn.cafemanagement.data.repository.CategoryRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.util.isNameValid
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class CategoryDetailViewModel(

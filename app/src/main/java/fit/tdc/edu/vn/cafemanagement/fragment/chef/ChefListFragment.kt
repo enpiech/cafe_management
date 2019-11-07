@@ -10,7 +10,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.ChefAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.chef.ChefListViewModel
@@ -42,7 +41,7 @@ class ChefListFragment : BaseListFragment<Order>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        (viewAdapter as ChefAdapter).onComplete = {order ->
+        (viewAdapter as ChefAdapter).onComplete = { order ->
             (viewModel as ChefListViewModel).delete(order)
         }
         return super.onCreateView(inflater, container, savedInstanceState)

@@ -14,4 +14,11 @@
         tools:itemCount="5"
         tools:listitem="@layout/item_category" />
 
+    <include
+        android:id="@+id/no_item"
+        layout="@layout/fragment_empty"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

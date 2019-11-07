@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.revenue
 
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Revenue
-import fit.tdc.edu.vn.cafemanagement.data.repository.RevenueRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.revenue.RevenueRepositoryAPI
 
 class RevenueViewModel (private val revenueRepository: RevenueRepositoryAPI) {
 

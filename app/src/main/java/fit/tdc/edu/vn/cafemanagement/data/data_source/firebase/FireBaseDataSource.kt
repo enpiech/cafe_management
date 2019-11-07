@@ -6,32 +6,6 @@ import com.google.firebase.firestore.Source
 import com.google.firebase.firestore.WriteBatch
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORIES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORY_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.CATEGORY_NAME_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MANAGER_NAME_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.MATERIALS_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDERS_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ORDER_STATE_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENTS_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENT_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.PAYMENT_STATE_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.REVENUES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.STORE_NAME_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.TABLE_STATE_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNITS_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.UNIT_NAME_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.USERS_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.WAREHOUSES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONES_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_ID_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_NAME_KEY
-import fit.tdc.edu.vn.cafemanagement.data.Constants.Companion.ZONE_TYPES_KEY
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
@@ -45,6 +19,32 @@ import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.CATEGORIES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.CATEGORY_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.CATEGORY_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.MANAGER_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.MANAGER_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.MATERIALS_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ORDERS_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ORDER_STATE_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.PAYMENTS_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.PAYMENT_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.PAYMENT_STATE_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.REVENUES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.STORES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.STORE_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.STORE_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.TABLES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.TABLE_STATE_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.UNITS_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.UNIT_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.UNIT_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.USERS_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.WAREHOUSES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ZONES_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ZONE_ID_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ZONE_NAME_KEY
+import fit.tdc.edu.vn.cafemanagement.util.Constants.Companion.ZONE_TYPES_KEY
 import javax.inject.Singleton
 
 @Singleton
@@ -780,7 +780,7 @@ class FireBaseDataSource : FireBaseAPI {
     ) {
         val orderCollectionReference =
             db.collection(STORES_KEY).document(storeId).collection(ORDERS_KEY)
-        orders.forEachIndexed { index, order ->
+        orders.forEachIndexed { _, order ->
             orderCollectionReference.add(order)
         }
     }

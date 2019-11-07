@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.store
 
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
-import fit.tdc.edu.vn.cafemanagement.data.repository.StoreRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
 class StoreListViewModel(

@@ -2,10 +2,10 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit
 
 import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.isValidUnitName
+import fit.tdc.edu.vn.cafemanagement.util.isValidUnitName
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.UnitViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class UnitDetailViewModel (

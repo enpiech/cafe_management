@@ -6,8 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 
 class TableWaiterViewModelFactory(
     private val dataSource: FireBaseAPI,
@@ -25,9 +24,6 @@ class TableWaiterViewModelFactory(
                 handle = handle,
                 tableRepository = TableRepository(
                     dataSource = dataSource
-                ),
-                zoneRepository = ZoneRepository(
-                    dataSource
                 )
             ) as T
         } else if (modelClass.isAssignableFrom(TableWaiterListViewModel::class.java)) {

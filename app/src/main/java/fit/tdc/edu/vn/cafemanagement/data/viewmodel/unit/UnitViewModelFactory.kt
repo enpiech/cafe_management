@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.UnitRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepository
 
 class UnitViewModelFactory(
     private val dataSource: FireBaseAPI,
@@ -29,7 +29,7 @@ class UnitViewModelFactory(
             return UnitDetailViewModel(
                 handle = handle,
                 unitRepository = UnitRepository(
-                        dataSource = dataSource
+                    dataSource = dataSource
                 )
             ) as T
         }

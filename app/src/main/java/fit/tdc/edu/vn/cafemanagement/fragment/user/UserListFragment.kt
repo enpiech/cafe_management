@@ -9,7 +9,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.UserAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserListViewModel
@@ -23,7 +22,7 @@ class UserListFragment : BaseListFragment<User>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(UserListFragmentDirections.userViewAction(userId = null, title = getString(R.string.title_user_create)))
+            navController.navigate(UserListFragmentDirections.actionViewUser(userId = null, title = getString(R.string.title_user_create)))
         }
     }
 

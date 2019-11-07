@@ -3,16 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/BaseListItem">
+    style="@style/BaseListItem"
+    android:layout_margin="@dimen/layout_margin">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/layout_margin">
+        style="@style/BaseListItem">
 
         <ImageView
             style="@style/ListImage"
-            android:id="@+id/imgStoreImage"
+            android:id="@+id/store_image"
             android:contentDescription="@string/img_store"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -21,25 +20,25 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/txtName"
+            android:id="@+id/txt_store_name"
             style="@style/BaseListTextView"
             android:layout_marginStart="@dimen/layout_margin"
-            app:layout_constraintBottom_toTopOf="@+id/txtAddress"
+            app:layout_constraintBottom_toTopOf="@+id/txt_store_address"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imgStoreImage"
+            app:layout_constraintStart_toEndOf="@+id/store_image"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Cà phê số 8" />
 
         <TextView
-            android:id="@+id/txtAddress"
+            android:id="@+id/txt_store_address"
             style="@style/BaseListTextView"
             android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtName"
-            app:layout_constraintTop_toBottomOf="@+id/txtName"
+            app:layout_constraintStart_toStartOf="@+id/txt_store_name"
+            app:layout_constraintTop_toBottomOf="@+id/txt_store_name"
             tools:text="Đường 442, Tăng Nhơn Phú A, Quận 9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

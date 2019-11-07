@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.CategoryAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryListViewModel
@@ -21,9 +20,9 @@ class CategoryListFragment : BaseListFragment<Category>(
     R.layout.fragment_list,
     CategoryAdapter(
         resId = R.layout.item_category,
-        onItemClick = {category: Category, it: View ->
+        onItemClick = { category: Category, it: View ->
             val direction =
-                CategoryListFragmentDirections.categoryViewAction(category.id, "Chỉnh sửa danh mục")
+                CategoryListFragmentDirections.actionViewCategory(category.id, "Chỉnh sửa danh mục")
             it.findNavController().navigate(direction)
         }
     )
@@ -36,7 +35,7 @@ class CategoryListFragment : BaseListFragment<Category>(
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(
-                CategoryListFragmentDirections.categoryViewAction(categoryId = null, title = getString(R.string.title_category_create))
+                CategoryListFragmentDirections.actionViewCategory(categoryId = null, title = getString(R.string.title_category_create))
             )
         }
     }

@@ -3,7 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone_type
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneTypeRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone_type.ZoneTypeRepository
 
 class ZoneTypeViewModelFactory : ViewModelProvider.Factory {
 

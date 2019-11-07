@@ -10,10 +10,10 @@ import androidx.lifecycle.MutableLiveData
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.isPasswordValid
-import fit.tdc.edu.vn.cafemanagement.data.model.isUserNameValid
+import fit.tdc.edu.vn.cafemanagement.util.isPasswordValid
+import fit.tdc.edu.vn.cafemanagement.util.isUserNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.LoginRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.login.LoginRepository
 
 class LoginViewModel(private val loginRepository: LoginRepository, application: Application) : AndroidViewModel(application) {
 
@@ -42,11 +42,17 @@ class LoginViewModel(private val loginRepository: LoginRepository, application: 
 
     fun loginDataChanged(username: String, password: String) {
         when {
-            !isUserNameValid(username) && !isPasswordValid(password) -> _loginForm.value =
+            !isUserNameValid(username) && !isPasswordValid(
+                password
+            ) -> _loginForm.value =
                 LoginFormState(usernameError = R.string.invalid_username, passwordError = R.string.invalid_password, isDataValid = false)
-            !isUserNameValid(username) && isPasswordValid(password) -> _loginForm.value =
+            !isUserNameValid(username) && isPasswordValid(
+                password
+            ) -> _loginForm.value =
                 LoginFormState(usernameError = R.string.invalid_username, passwordError = null, isDataValid = false)
-            isUserNameValid(username) && !isPasswordValid(password) -> _loginForm.value =
+            isUserNameValid(username) && !isPasswordValid(
+                password
+            ) -> _loginForm.value =
                 LoginFormState(usernameError = null, passwordError = R.string.invalid_password, isDataValid = false)
             else -> _loginForm.value =
                 LoginFormState(usernameError = null, passwordError = null, isDataValid = true)

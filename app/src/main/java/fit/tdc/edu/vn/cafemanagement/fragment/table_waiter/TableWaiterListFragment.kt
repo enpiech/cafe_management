@@ -10,13 +10,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.adapter.TableWaiterAdapter
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_waiter.TableWaiterListViewModel
@@ -30,11 +29,13 @@ class TableWaiterListFragment : Fragment(
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.newOrder -> {
+            R.id.all -> {
                 viewModel.filterList(null)
+                return true
             }
             R.id.checkout -> {
                 viewModel.filterList(Table.State.BOOKED)
+                return true
             }
         }
         return false
@@ -53,7 +54,8 @@ class TableWaiterListFragment : Fragment(
             TableWaiterViewModelFactory(FireBaseDataSource(), this)
         ).get<TableWaiterListViewModel>()
     }
-    private val viewAdapter = TableWaiterAdapter()
+    private val viewAdapter =
+        TableWaiterAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,13 +73,14 @@ class TableWaiterListFragment : Fragment(
         viewAdapter: ListAdapter<Table, RecyclerView.ViewHolder>
     ) {
         recyclerView.apply {
-            setHasFixedSize(false)
-            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = viewAdapter
         }
 
         viewModel.items.observe(viewLifecycleOwner, Observer {
             viewAdapter.submitList(it)
+            no_item.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         })
     }
 }

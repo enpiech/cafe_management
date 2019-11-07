@@ -6,7 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepository
 
 class ZoneViewModelFactory(
     private val dataSource: FireBaseAPI,

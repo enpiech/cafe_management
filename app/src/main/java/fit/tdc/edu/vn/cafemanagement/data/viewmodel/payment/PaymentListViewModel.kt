@@ -8,9 +8,9 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
 import fit.tdc.edu.vn.cafemanagement.data.extension.observeUntil
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
-import fit.tdc.edu.vn.cafemanagement.data.repository.OrderRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.PaymentRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.TableRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryAPI
 
 class PaymentListViewModel(
     private val tableRepository: TableRepositoryAPI,

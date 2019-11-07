@@ -6,8 +6,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
 
 class CategoryViewModelFactory (
     private val dataSource: FireBaseAPI,
@@ -21,17 +20,13 @@ class CategoryViewModelFactory (
     ): T {
         if (modelClass.isAssignableFrom(CategoryListViewModel::class.java)) {
             return CategoryListViewModel(
-                categoryRepository = CategoryRepository(
-                    dataSource = FireBaseDataSource()
-                )
+                categoryRepository = CategoryRepository(dataSource)
             ) as T
         }
         else if(modelClass.isAssignableFrom(CategoryDetailViewModel::class.java)) {
             return CategoryDetailViewModel(
                 handle = handle,
-                categoryRepository = CategoryRepository(
-                    dataSource = FireBaseDataSource()
-                )
+                categoryRepository = CategoryRepository(dataSource)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

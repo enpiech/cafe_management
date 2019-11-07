@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.material
 
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
-import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
 class MaterialListViewModel(

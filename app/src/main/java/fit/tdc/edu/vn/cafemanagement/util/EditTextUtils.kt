@@ -37,9 +37,8 @@ inline fun TextInputLayout.asEditText(crossinline dataChanged: (String) -> Unit)
             }
             false
         }
-        it.afterTextChanged {
-            this.clearFocus()
-            dataChanged.invoke(it)
+        it.afterTextChanged {text ->
+            dataChanged.invoke(text)
         }
     }
 }

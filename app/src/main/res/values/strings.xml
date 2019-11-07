@@ -1,25 +1,12 @@
 <resources>
     <string name="app_name">CafeManagement</string>
     <string name="txtTableName">Tên bàn</string>
-    <string name="txtZone">Khu</string>
-
-    <string name="txtAmout">Số lượng</string>
-    <string name="txtInDate">Ngày nhập</string>
-
-    <string name="amoutLeft">Còn lại: </string>
-    <string name="inputAmout">Nhập vào: </string>
-    <string name="warehouseUnit">Đơn vị: </string>
-
-    <string name="txtName">Name</string>
 
     <string name="txtMaterialName">Tên nguyên liệu</string>
     <string name="txtMaterialPrice">Giá nguyên liệu</string>
     <string name="txtUnitDropDown">Đơn vị</string>
     <string name="txtTypeDropDown">Thể loại</string>
     <string name="txtCategoryDropDown">Danh mục</string>
-
-    <string name="txtWarehouseName">Tên món hàng</string>
-    <string name="txtWarehouseMaterial">Mã hàng nguyên liệu</string>
 
     <string name="img_store">Store Image</string>
     <string name="img_product_category">Product Category Image</string>
@@ -34,15 +21,12 @@
     <string name="invalid_password">Password must be >5 characters</string>
 
     <string name="menu_item_logout">Đăng xuất</string>
-    <string name="label_category_list">Danh sách danh mục</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="invalid_zone_name">Tên khu vực không được để trống</string>
     <string name="invalid_material_name">Tên nguyên liệu không được để trống</string>
-    <string name="invalid_unit_name">Tên đơn vị không được để trống</string>
     <string name="invalid_category_name">Tên danh mục không được để trống</string>
     <string name="invalid_table_name">Tên bàn không được để trống</string>
-    <string name="label_zone_list">Danh sách khu vực</string>
     <string name="lbl_user_gender">Giới tính</string>
     <string name="lbl_zone_name">Tên khu vực</string>
     <string name="lbl_user_birth">Ngày sinh</string>
@@ -63,36 +47,27 @@
 -->
 
     <string name="title_store_view">Cửa hàng</string>
-    <string name="title_store_detail">Thông tin cửa hàng</string>
     <string name="title_store_create">Tạo cửa hàng</string>
 
     <string name="title_user_view">Nhân viên</string>
-    <string name="title_user_detail">Thông tin nhân viên</string>
     <string name="title_user_create">Tạo nhân viên</string>
 
     <string name="title_zone_view">Khu vực</string>
-    <string name="title_zone_detail">Thông tin khu vực</string>
     <string name="title_zone_create">Tạo khu vực</string>
 
     <string name="title_category_view">Danh mục</string>
-    <string name="title_category_detail">Thông tin danh mục</string>
     <string name="title_category_create">Tạo danh mục</string>
 
     <string name="title_table_view">Bàn</string>
-    <string name="title_table_detail">Thông tin bàn</string>
     <string name="title_table_create">Tạo bàn</string>
 
     <string name="title_unit_view">Đơn vị</string>
-    <string name="title_unit_detail">Thông tin đơn vị</string>
     <string name="title_unit_create">Tạo đơn vị</string>
 
     <string name="title_material_view">Hàng hóa</string>
-    <string name="title_material_detail">Thông tin hàng hóa</string>
     <string name="title_material_create">Tạo hàng hóa</string>
 
     <string name="title_table_waiter_view">Bàn</string>
-    <string name="title_table_waiter_detail">Danh sách món đã đặt</string>
-    <string name="title_table_waiter_create">Thêm món</string>
 
     <string name="title_chef_view">Danh sách món cần làm</string>
 
@@ -153,15 +128,8 @@
     <string name="warning_material_missing_category">Chưa chọn danh mục cho loại hàng này!</string>
     <string name="warning_material_no_unit">Không có unit nào trong dữ liệu!</string>
     <string name="warning_material_no_category">Không có danh mục nào trong dữ liệu</string>
-    <string name="txtAmount">Số lượng</string>
     <string name="btnDone">Đã xong</string>
-    <string name="txtGia">Giá</string>
-    <string name="txtUnitName">Đơn vị</string>
     <string name="txtCafe">Cafe sữa</string>
-    <string name="txtLy">Ly</string>
-    <string name="title_current_order">Đã đặt</string>
-    <string name="title_list_order">Đặt món</string>
-    <string name="title_new_order">Đặt món</string>
     <string name="title_ordered">Đã đặt</string>
     <string name="title_chef">Bếp</string>
     <string name="label_orders">Các món đã đặt: </string>
@@ -173,4 +141,8 @@
     <string name="empty_order">Danh sách món đang trống!</string>
     <string name="add_new">Thêm mới ngay</string>
     <string name="title_all">Tất cả</string>
+    <string name="img_user">Hình ảnh người dùng</string>
+    <string name="session_user">savedUser</string>
+    <string name="user_name_key">username</string>
+    <string name="user_password_key">password</string>
 </resources>

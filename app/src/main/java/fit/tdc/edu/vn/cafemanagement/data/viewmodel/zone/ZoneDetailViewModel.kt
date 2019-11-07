@@ -2,10 +2,10 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone
 
 import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.model.isValidZoneName
+import fit.tdc.edu.vn.cafemanagement.util.isValidZoneName
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.ZoneRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class ZoneDetailViewModel(

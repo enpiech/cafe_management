@@ -1,7 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.table
 
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
 class TableListViewModel(

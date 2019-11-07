@@ -7,13 +7,13 @@ import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.model.*
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.StoreRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.UserRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.user.UserRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.*
 
 class UserDetailViewModel(
     private val handle: SavedStateHandle,

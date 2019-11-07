@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.login
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
@@ -10,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -22,7 +22,6 @@ import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
 import kotlinx.android.synthetic.main.fragment_login.*
-import java.lang.Exception
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -32,8 +31,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         loginViewModel = ViewModelProvider(
             this,
             LoginViewModelFactory()
-        )
-            .get(LoginViewModel::class.java)
+        ).get(LoginViewModel::class.java)
 
         loginViewModel.loginFormState.observe(viewLifecycleOwner, Observer {
             val loginState = it ?: return@Observer
@@ -43,17 +41,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
+            } else {
+                username.error = null
+                username.isEndIconVisible = false
             }
             if (loginState.passwordError != null) {
                 password.error = getString(loginState.passwordError)
-            }
-            if(loginState.isDataValid) {
-                username.error = null
+            } else {
                 password.error = null
-            }
-
-            if (loginState.isDataValid) {
-                username.error = null
+                password.isEndIconVisible = false
             }
         })
 
@@ -84,15 +80,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
                         when (role) {
                             User.Role.STORE_MANAGER -> {
-                                this.findNavController().navigate(R.id.zoneListFragment)
+                                findNavController().navigate(R.id.zoneListFragment)
                             }
                             User.Role.WAITER -> {
-                                this.findNavController().navigate(R.id.tableListWaiterFragment)
+                                findNavController().navigate(R.id.tableListWaiterFragment)
                             }
                             User.Role.MANAGER -> {
-                                this.findNavController().navigate(R.id.storeListFragment)
+                                findNavController().navigate(R.id.storeListFragment)
                             }
-                            User.Role.BARTENDER -> TODO()
+                            User.Role.CHEF -> {
+                                findNavController().navigate(R.id.chefListFragment)
+                            }
                         }
                     }
 
@@ -135,7 +133,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(windowToken, 0)
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.editText!!.text.toString(), password.editText!!.text.toString(), this.context)
+                loginViewModel.login(
+                    username.editText!!.text.toString(),
+                    password.editText!!.text.toString(),
+                    this.context
+                )
             }
         }
 
@@ -147,35 +149,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val strPassword = sharedPreferences.getString("password", "aaa")
 
             if (!strUsername.equals("aaa") && !strPassword.equals("aaa")) {
-                username.editText!!.setText(strUsername!!.toCharArray(),0,strUsername.length)
-                password.editText!!.setText(strPassword!!.toCharArray(),0,strPassword.length)
+                username.editText!!.setText(strUsername!!.toCharArray(), 0, strUsername.length)
+                password.editText!!.setText(strPassword!!.toCharArray(), 0, strPassword.length)
 
                 login.callOnClick()
                 loading.width
             }
         } catch (e: Exception) {
-            Log.d("LoginFragment: ",e.message!!)
+            Log.d("LoginFragment: ", e.message!!)
         }
 
 
     }
 
     private fun rememberUserType(type: User.Role?) {
-//        val sharedPref = activity?.getSharedPreferences(
-//            getString(R.string.user_type_key), MODE_PRIVATE
-//        ) ?: return
-//        Log.d("test", "${type?.ordinal ?: resources.getInteger(R.integer.no_user_type)}")
-//        with(sharedPref.edit()) {
-//            if (type == null) {
-//                putInt(
-//                    getString(R.string.user_type_key),
-//                    resources.getInteger(R.integer.no_user_type)
-//                )
-//            } else {
-//                putInt(getString(R.string.user_type_key), type.ordinal)
-//            }
-//            apply()
-//        }
         val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
         sharedPreferences.putInt("userType", type!!.ordinal)
         sharedPreferences.apply()
@@ -185,12 +172,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
         sharedPreferences.putString("storeId", storeId)
         sharedPreferences.apply()
-//        with(sharedPreferences.edit()) {
-//            if (storeId!=null) {
-//                putString("storeId", storeId)
-//            }
-//            apply()
-//        }
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

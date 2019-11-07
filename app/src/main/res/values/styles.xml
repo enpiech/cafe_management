@@ -10,10 +10,7 @@
         <item name="colorError">@color/colorError</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <style name="AppTheme.NoActionBar" />
 
     <style name="ListImage">
         <item name="android:layout_width">@dimen/list_image_size</item>
@@ -30,16 +27,16 @@
     <style name="BaseListItem">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginTop">@dimen/layout_margin</item>
-        <item name="android:layout_marginStart">1dp</item>
-        <item name="android:layout_marginEnd">1dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_marginBottom">@dimen/layout_margin</item>
     </style>
 
     <style name="BaseListTextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">@dimen/layout_margin</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
         <item name="android:scrollHorizontally">true</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
@@ -56,10 +53,12 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">@dimen/layout_margin</item>
         <item name="android:layout_marginEnd">@dimen/layout_margin</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingBottom">128dp</item>
     </style>
 
     <style name="BaseEditTextLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/layout_margin</item>
     </style>
@@ -72,7 +71,7 @@
     </style>
 
     <style name="BaseSpinnerLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
-        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/layout_margin</item>
     </style>

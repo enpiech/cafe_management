@@ -6,9 +6,8 @@
     android:layout_margin="@dimen/layout_margin">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txt_name"
+        android:id="@+id/txt_category_name"
         style="@style/BaseListTextView"
-        tools:text="Cà phê"
-        android:padding="@dimen/layout_margin"/>
+        tools:text="Cà phê"/>
 
 </androidx.cardview.widget.CardView>

@@ -10,7 +10,6 @@
         android:layout_weight="1"
         android:gravity="center|bottom">
         <ImageView
-            android:id="@+id/image_empty"
             style="@style/DetailImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,7 +23,6 @@
         android:layout_weight="0.2"
         android:gravity="center|top">
         <TextView
-            android:id="@+id/txt_notification_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_order" />
@@ -36,7 +34,7 @@
         android:layout_weight="1"
         android:gravity="center|top">
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/disabled_material_button"
+            android:id="@+id/btn_add_new"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="@string/add_new"/>

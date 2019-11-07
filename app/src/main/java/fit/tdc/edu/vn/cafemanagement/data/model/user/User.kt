@@ -26,7 +26,7 @@ data class User(
         MANAGER(R.string.lbl_manager),
         STORE_MANAGER(R.string.lbl_store_manager),
         WAITER(R.string.lbl_waiter),
-        BARTENDER(R.string.lbl_bartender);
+        CHEF(R.string.lbl_bartender);
 
 
     }

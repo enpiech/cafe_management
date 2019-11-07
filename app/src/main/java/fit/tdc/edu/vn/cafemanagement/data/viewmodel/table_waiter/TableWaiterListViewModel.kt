@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
-import fit.tdc.edu.vn.cafemanagement.data.repository.impl.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
 
 class TableWaiterListViewModel(

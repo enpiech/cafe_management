@@ -1,20 +1,13 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.ware_house
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import com.google.firebase.Timestamp
-import com.google.firebase.firestore.DocumentReference
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
-import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
-import fit.tdc.edu.vn.cafemanagement.data.model.isValidPersonalName
+import fit.tdc.edu.vn.cafemanagement.util.isValidPersonalName
 import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouseViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.MaterialRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.UnitRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.WareHouseRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.ware_house.WareHouseRepositoryAPI
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 
 class WareHouseDetailViewModel (

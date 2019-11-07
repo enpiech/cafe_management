@@ -17,7 +17,6 @@ data class Payment(
     var total: Long = 0
 ) : FirestoreModel() {
     enum class State {
-        ORDERING,
         ORDERED,
         PAID
     }
