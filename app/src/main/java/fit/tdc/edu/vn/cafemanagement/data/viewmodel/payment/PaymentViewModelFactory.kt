@@ -37,12 +37,8 @@ class PaymentViewModelFactory (
                 paymentRepository = PaymentRepository(
                     dataSource = dataSource
                 ),
-                materialRepository = MaterialRepository(
-                    dataSource
-                ),
                 tableRepository = TableRepository(dataSource),
-                orderRepository = OrderRepository(dataSource),
-                handle = handle
+                orderRepository = OrderRepository(dataSource)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

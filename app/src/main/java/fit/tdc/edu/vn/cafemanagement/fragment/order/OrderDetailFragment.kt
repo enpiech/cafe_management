@@ -1,9 +1,7 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -24,8 +22,9 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.observeUntil
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment.PaymentListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment.PaymentViewModelFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_detail_order.*
+import kotlinx.android.synthetic.main.fragment_empty.*
+import kotlinx.android.synthetic.main.fragment_list.*
 
 class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
 
@@ -66,11 +65,15 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
             if (table.status == Status.SUCCESS) {
                 viewModel.getCurrentPayment(table.data?.paymentId)
                 viewModel.currentOrder.observe(viewLifecycleOwner, Observer { list ->
-                    Log.d("test", list.toString())
                     if (!list.isNullOrEmpty()) {
                         viewAdapter.submitList(list)
                         input_price.text = "${list.map { it.amount * it.price }.sum()}"
+                        no_item.visibility = View.GONE
+                        lbl_list.visibility = View.VISIBLE
+                        list_layout.visibility = View.VISIBLE
+                        checkout_panel.visibility = View.VISIBLE
                     } else {
+                        no_item.visibility = View.VISIBLE
                         lbl_list.visibility = View.GONE
                         list_layout.visibility = View.GONE
                         checkout_panel.visibility = View.GONE
@@ -79,21 +82,6 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
             }
         })
 
-        fab.setOnClickListener {
-            navController.navigateUp()
-        }
-        fab.hide()
-
-        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
-            viewModel.clearSaveState()
-            navController.navigateUp()
-        }
-        callback.isEnabled
-        toolbar.setNavigationOnClickListener {
-            navController.navigateUp()
-//            viewModel.clearSaveState()
-        }
-
         recycler_view.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
@@ -101,8 +89,6 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
         }
 
         viewModel.currentPayment.observe(viewLifecycleOwner, Observer { payment ->
-            //            viewAdapter.submitList(payment.orderList)
-//            price.text = payment.total.toString()
             btn_checkout.isEnabled = payment.data != null
             if (payment.data != null) {
                 btn_checkout.setOnClickListener {
@@ -110,7 +96,6 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
                         .setTitle(R.string.dialog_title_delete)
                         .setMessage(R.string.warning_message_delete)
                         .setPositiveButton(R.string.btnOK) { _, _ ->
-                            viewModel.saved = mapOf()
                             viewModel.checkout(payment.data)
 
                         }
@@ -132,7 +117,16 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
         }
 
         btn_add.setOnClickListener {
-            viewModel.saved = mapOf()
+            navController.navigate(
+                OrderDetailFragmentDirections.addOrderAction(
+                    tableId = tableId!!,
+                    paymentId = paymentId,
+                    title = "Thêm món"
+                )
+            )
+        }
+
+        disabled_material_button.setOnClickListener {
             navController.navigate(
                 OrderDetailFragmentDirections.addOrderAction(
                     tableId = tableId!!,

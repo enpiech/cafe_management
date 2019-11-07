@@ -81,9 +81,9 @@ class FireBaseDataSource : FireBaseAPI {
         wareHouse: WareHouse
     ): TaskLiveData<DocumentReference> =
         db.collection(STORES_KEY).document(storeId)
-    .collection(WAREHOUSES_KEY)
-    .add(wareHouse)
-    .asLiveData()
+            .collection(WAREHOUSES_KEY)
+            .add(wareHouse)
+            .asLiveData()
 
     override fun deleteWareHouse(storeId: String, wareHouseId: String): TaskLiveData<Void> =
         db.collection(STORES_KEY).document(storeId)
@@ -782,8 +782,22 @@ class FireBaseDataSource : FireBaseAPI {
             .asLiveData()
 
     override fun checkout(storeId: String, payment: Payment): TaskLiveData<Void> {
-        val paymentRef = db.collection(STORES_KEY).document(storeId).collection(PAYMENTS_KEY).document(payment.id)
-        val tableRef = db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY).document(payment.tableId!!)
+        val paymentRef = db.collection(STORES_KEY).document(storeId).collection(PAYMENTS_KEY)
+            .document(payment.id)
+        val tableRef = db.collection(STORES_KEY).document(storeId).collection(TABLES_KEY)
+            .document(payment.tableId!!)
+        db.collection(STORES_KEY).document(storeId).collection(ORDERS_KEY)
+            .whereEqualTo(PAYMENT_ID_KEY, payment.id)
+            .whereGreaterThan(ORDER_STATE_KEY, Order.State.CLOSE)
+            .get()
+            .addOnSuccessListener { query ->
+                db.runTransaction {
+                    query.documents.forEach { doc ->
+                        Log.d("test", doc.reference.toString())
+                        it.update(doc.reference, ORDER_STATE_KEY, Order.State.CLOSE)
+                    }
+                }
+            }
         return db.runBatch {
             it.update(paymentRef, PAYMENT_STATE_KEY, Payment.State.PAID)
             it.update(tableRef, TABLE_STATE_KEY, Table.State.FREE)

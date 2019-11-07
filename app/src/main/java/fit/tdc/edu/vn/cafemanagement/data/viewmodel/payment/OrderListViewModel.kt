@@ -15,7 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.repository.PaymentRepositoryAPI
 
 class OrderListViewModel(
     private val handle: SavedStateHandle,
-    private val categoryRepository: CategoryRepositoryAPI,
+    categoryRepository: CategoryRepositoryAPI,
     private val paymentRepository: PaymentRepositoryAPI,
     private val orderRepository: OrderRepositoryAPI,
     materialRepository: MaterialRepositoryAPI

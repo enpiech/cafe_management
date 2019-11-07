@@ -14,6 +14,7 @@ data class Order(
 ): FirestoreModel() {
     enum class State {
         DOING,
-        DONE
+        DONE,
+        CLOSE
     }
 }

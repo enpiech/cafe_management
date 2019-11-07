@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.fragment.order
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.addCallback
 import androidx.appcompat.widget.Toolbar
@@ -50,8 +49,7 @@ class OrderListFragment : Fragment(R.layout.fragment_order_new) {
 
     private val categoryAdapter = CategoryAdapter(
         resId = R.layout.item_category_filter
-    ) { category: Category, it: View ->
-        Log.d("test", category.id)
+    ) { category: Category, _: View ->
         viewModel.filterCategory(category.id)
     }
 
@@ -113,11 +111,13 @@ class OrderListFragment : Fragment(R.layout.fragment_order_new) {
                 .setPositiveButton(R.string.btnOK) { _, _ ->
                     viewModel.createOrders(tableId, paymentId)
                     viewModel.completeOrder.observeUntil(viewLifecycleOwner, Observer {
-                        if (it?.status == TaskStatus.SUCCESS) navController.navigate(OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(
-                            paymentId = it.data!!.id,
-                            tableId = tableId!!,
-                            title = "Thanh toán"
-                        ))
+                        if (it?.status == TaskStatus.SUCCESS) navController.navigate(
+                            OrderListFragmentDirections.actionOrderListFragmentToOrderDetailFragment(
+                                paymentId = paymentId ?: it.data!!.id,
+                                tableId = tableId!!,
+                                title = "Thanh toán"
+                            )
+                        )
                     }) {
                         it?.status != TaskStatus.FAILED
                     }

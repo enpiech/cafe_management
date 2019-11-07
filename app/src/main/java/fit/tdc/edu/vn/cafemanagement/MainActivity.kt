@@ -95,6 +95,7 @@ class MainActivity :
                     R.id.orderDetailFragment,
                     R.id.orderListFragment
                 ) -> {
+                    fab.hide()
                     supportActionBar?.show()
                     drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
                     bottom_navigation.isVisible = false
@@ -136,6 +137,15 @@ class MainActivity :
             if (destination.id == R.id.chefListFragment) {
                 fab.hide()
                 bottom_navigation.visibility = View.GONE
+            }
+            if (destination.id == R.id.orderDetailFragment) {
+                toolbar.setNavigationOnClickListener {
+                    controller.navigateUp(appBarConfiguration)
+                }
+                val callback = onBackPressedDispatcher.addCallback(this) {
+                    controller.navigateUp(appBarConfiguration)
+                }
+                callback.isEnabled = true
             }
             hideKeyboard()
         }
