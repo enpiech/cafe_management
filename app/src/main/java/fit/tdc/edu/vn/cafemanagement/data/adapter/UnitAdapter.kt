@@ -1,5 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,6 @@ class UnitAdapter : ListAdapter<Unit, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
         fun bind(item: Unit) {
             itemView.txt_name.text = item.name
-
             itemView.setOnClickListener {
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
