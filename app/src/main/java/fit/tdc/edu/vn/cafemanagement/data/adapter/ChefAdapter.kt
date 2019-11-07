@@ -39,9 +39,6 @@ class ChefAdapter(
 //            }
             itemView.btn_done.setOnClickListener {
                 onComplete?.invoke(item)
-                Snackbar.make(it, "Bạn đã bấm vào btn món " + item.state,
-                    Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
                 //TODO : Hiện thông báo: Bạn đã làm món này hay chưa ( Nguyên liệu của món)
             }
             itemView.setOnClickListener {

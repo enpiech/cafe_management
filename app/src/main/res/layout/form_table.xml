@@ -8,6 +8,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/table_edit_name"
         android:layout_width="0dp"
+        style="@style/BaseEditTextLayout"
         android:layout_height="match_parent"
         android:hint="@string/txtTableName"
         app:errorEnabled="true"
@@ -27,7 +28,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/table_spinner_layout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        style="@style/BaseSpinnerLayout"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginTop="8dp"

@@ -5,5 +5,5 @@
         android:title="@string/title_current_order" />
     <item
         android:id="@+id/orderListFragment"
-        android:title="@string/title_list_order" />
+        android:title="@string/title_all" />
 </menu>

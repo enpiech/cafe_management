@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#A4705B</color>
-    <color name="colorBackground">#724131</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-
+    <color name="colorPrimary">#00968A</color>
+    <color name="colorPrimaryDark">#014D42</color>
+    <color name="colorAccent">#80CBC6</color>
+    <color name="colorForcus">#de5856</color>
+    <color name="colorError">#EF5350</color>
+    <color name="colorButtonStateFREE">#00C853</color>
+    <color name="colorButtonStateBOOKED">#EF5350</color>
+    <color name="colorButtonStateORDERING">#FFEA00</color>
+    <color name="colorButtonStateBUSY">#78909C</color>
 </resources>

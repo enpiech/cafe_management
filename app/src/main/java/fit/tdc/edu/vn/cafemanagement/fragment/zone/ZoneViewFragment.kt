@@ -33,32 +33,32 @@ class ZoneViewFragment : BaseViewFragmentTest<Zone>(R.layout.fragment_zone_detai
     override fun showError(state: FormState) {
         val zoneFormState = state as ZoneViewFormState
         if (zoneFormState.nameError != null) {
-            edtName.error = getString(zoneFormState.nameError!!)
+            editZoneName.error = getString(zoneFormState.nameError!!)
         }
     }
 
     override fun getCurrentFormData() = Zone(
-        name = edtName.editText?.text.toString()
+        name = editZoneName.editText?.text.toString()
     )
 
     override fun updateUI(type: FormState.Type) {
         when (type) {
             FormState.Type.MODIFY, FormState.Type.ADD -> {
-                edtName.editText?.isEnabled = true
+                editZoneName.editText?.isEnabled = true
             }
             FormState.Type.VIEW -> {
-                edtName.editText?.isEnabled = false
+                editZoneName.editText?.isEnabled = false
             }
         }
         setupForm()
     }
 
     override fun fillFormWith(item: Zone) {
-        edtName.editText?.setText(item.name)
+        editZoneName.editText?.setText(item.name)
     }
 
     override fun setupForm() {
-        edtName.asEditText {
+        editZoneName.asEditText {
             viewModel.validate(
                 Zone(
                     name = it

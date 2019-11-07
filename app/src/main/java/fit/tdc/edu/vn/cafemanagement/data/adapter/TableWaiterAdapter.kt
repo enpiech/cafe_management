@@ -1,6 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.data.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,16 +45,20 @@ class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALL
             itemView.btn_item_table.text = item.name
             when {
                 item.state == Table.State.FREE -> {
-                    itemView.btn_item_table.setBackgroundColor(Color.GREEN)
+                    itemView.btn_item_table.setBackgroundColor(Color.parseColor("#00C853"))
                     itemView.btn_item_table.setTextColor(Color.BLACK)
                 }
                 item.state == Table.State.ORDERING -> {
-                    itemView.btn_item_table.setBackgroundColor(Color.RED)
+                    itemView.btn_item_table.setBackgroundColor(Color.parseColor("#FFEA00"))
                     itemView.btn_item_table.setTextColor(Color.BLACK)
                 }
                 item.state == Table.State.BOOKED -> {
-                    itemView.btn_item_table.setBackgroundColor(Color.YELLOW)
+                    itemView.btn_item_table.setBackgroundColor(Color.parseColor("#EF5350"))
                     itemView.btn_item_table.setTextColor(Color.BLACK)
+                }
+                item.state == Table.State.BUSY -> {
+                    itemView.btn_item_table.setBackgroundColor(Color.parseColor("#78909C"))
+                    itemView.btn_item_table.setTextColor(Color.WHITE)
                 }
             }
             itemView.setOnClickListener {

@@ -50,7 +50,7 @@ class ZoneDetailViewModel(
         var noError = true
 
         if (item.name != null && !item.name.isValidZoneName()) {
-            formState.nameError = R.string.invalid_user_name
+            formState.nameError = R.string.invalid_zone_name
             noError = false
         } else {
             formState.nameError = null
