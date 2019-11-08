@@ -14,6 +14,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone.ZoneViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class ZoneListFragment : BaseListFragment<Zone>(
     R.layout.fragment_list,
@@ -21,7 +22,20 @@ class ZoneListFragment : BaseListFragment<Zone>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(ZoneListFragmentDirections.actionViewZone(null, getString(R.string.title_zone_create)))
+            navController.navigate(
+                ZoneListFragmentDirections.actionViewZone(
+                    null,
+                    getString(R.string.title_zone_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
+            navController.navigate(
+                ZoneListFragmentDirections.actionViewZone(
+                    null,
+                    getString(R.string.title_zone_create)
+                )
+            )
         }
     }
 

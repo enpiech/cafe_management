@@ -23,9 +23,9 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_waiter.TableWaiterView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
-class TableWaiterListFragment : Fragment(
-    R.layout.fragment_list
-), BottomNavigationView.OnNavigationItemSelectedListener {
+class TableWaiterListFragment :
+    Fragment(R.layout.fragment_list),
+    BottomNavigationView.OnNavigationItemSelectedListener {
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

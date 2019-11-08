@@ -71,7 +71,7 @@
             app:endIconMode="custom"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/user_image">
+            app:layout_constraintTop_toBottomOf="@+id/user_full_name">
 
             <com.google.android.material.textfield.TextInputEditText
                 style="@style/BaseSpinner" />
