@@ -15,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class StoreListFragment : BaseListFragment<Store>(
     R.layout.fragment_list,
@@ -22,7 +23,20 @@ class StoreListFragment : BaseListFragment<Store>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(StoreListFragmentDirections.actionViewStore(null, getString(R.string.title_store_create)))
+            navController.navigate(
+                StoreListFragmentDirections.actionViewStore(
+                    null,
+                    getString(R.string.title_store_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
+            navController.navigate(
+                StoreListFragmentDirections.actionViewStore(
+                    null,
+                    getString(R.string.title_store_create)
+                )
+            )
         }
     }
 
