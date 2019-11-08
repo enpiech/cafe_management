@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
@@ -25,17 +24,11 @@ abstract class BaseListFragment<T: FirestoreModel>(
 ) : Fragment(resId) {
     abstract val viewModel: BaseListViewModel<T>
     abstract val navController: NavController
-    private val fab: FloatingActionButton by lazy {
-        requireActivity().fab
-    }
-    private val loading: CircularRevealCoordinatorLayout by lazy {
-        requireActivity().loading
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupFab(fab)
+        setupFab(requireActivity().fab)
         setupRecyclerView(recycler_view, viewAdapter)
         setupSwipeToDelete()
     }
@@ -53,18 +46,15 @@ abstract class BaseListFragment<T: FirestoreModel>(
             when (it.status) {
                 Status.ERROR -> {
                     //TODO("Show error")
-                    loading.visibility = View.GONE
                 }
                 Status.LOADING -> {
-                    loading.visibility = View.VISIBLE
+                    //TODO("Show progress indicator")
                 }
                 Status.SUCCESS -> {
-                    loading.visibility = View.GONE
                     if(!it.data.isNullOrEmpty()){
                         viewAdapter.submitList(it.data)
                     }
                     no_item.visibility = if (it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
-                    fab.visibility = if (!it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
                 }
             }
         })

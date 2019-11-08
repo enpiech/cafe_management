@@ -102,6 +102,7 @@ class MainActivity :
         ) {
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         } else {
+            fab.setImageDrawable(getDrawable(R.drawable.ic_add))
             drawer_layout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
             val callback = onBackPressedDispatcher.addCallback(this) {
                 if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
