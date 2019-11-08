@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
 import fit.tdc.edu.vn.cafemanagement.MainActivity
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
@@ -21,11 +22,16 @@ import fit.tdc.edu.vn.cafemanagement.data.model.login.LoggedInUserView
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 import fit.tdc.edu.vn.cafemanagement.util.afterTextChanged
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_login.*
 
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var loginViewModel: LoginViewModel
+
+    private val loading: CircularRevealCoordinatorLayout by lazy {
+        requireActivity().loading
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         loginViewModel = ViewModelProvider(
