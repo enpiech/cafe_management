@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
@@ -24,6 +25,10 @@ abstract class BaseListFragment<T: FirestoreModel>(
 ) : Fragment(resId) {
     abstract val viewModel: BaseListViewModel<T>
     abstract val navController: NavController
+
+    private val loading: CircularRevealCoordinatorLayout by lazy {
+        requireActivity().loading
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,15 +51,17 @@ abstract class BaseListFragment<T: FirestoreModel>(
             when (it.status) {
                 Status.ERROR -> {
                     //TODO("Show error")
+                    loading.visibility = View.GONE
                 }
                 Status.LOADING -> {
-                    //TODO("Show progress indicator")
+                    loading.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
                     if(!it.data.isNullOrEmpty()){
                         viewAdapter.submitList(it.data)
                     }
                     no_item.visibility = if (it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
+                    loading.visibility = View.GONE
                 }
             }
         })
