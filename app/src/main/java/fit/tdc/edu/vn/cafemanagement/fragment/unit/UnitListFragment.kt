@@ -14,6 +14,8 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
+
 class UnitListFragment : BaseListFragment<Unit>(
     R.layout.fragment_list,
     viewAdapter = UnitAdapter()
@@ -37,6 +39,14 @@ class UnitListFragment : BaseListFragment<Unit>(
 
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
+            navController.navigate(
+                UnitListFragmentDirections.actionViewUnit(
+                    unitId = null,
+                    title = getString(R.string.title_unit_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
             navController.navigate(
                 UnitListFragmentDirections.actionViewUnit(
                     unitId = null,

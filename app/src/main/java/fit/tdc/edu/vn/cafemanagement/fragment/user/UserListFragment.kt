@@ -15,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class UserListFragment : BaseListFragment<User>(
     R.layout.fragment_list,
@@ -22,7 +23,20 @@ class UserListFragment : BaseListFragment<User>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(UserListFragmentDirections.actionViewUser(userId = null, title = getString(R.string.title_user_create)))
+            navController.navigate(
+                UserListFragmentDirections.actionViewUser(
+                    userId = null,
+                    title = getString(R.string.title_user_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
+            navController.navigate(
+                UserListFragmentDirections.actionViewUser(
+                    userId = null,
+                    title = getString(R.string.title_user_create)
+                )
+            )
         }
     }
 

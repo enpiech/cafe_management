@@ -14,6 +14,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class TableListFragment : BaseListFragment<Table>(
     R.layout.fragment_list,
@@ -24,6 +25,14 @@ class TableListFragment : BaseListFragment<Table>(
 
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
+            navController.navigate(
+                TableListFragmentDirections.actionViewTable(
+                    tableId = null,
+                    title = getString(R.string.title_table_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
             navController.navigate(
                 TableListFragmentDirections.actionViewTable(
                     tableId = null,

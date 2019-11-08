@@ -29,5 +29,7 @@ sealed class Constants {
         const val ORDER_STATE_KEY   = "state"
         const val PAYMENT_STATE_KEY = "state"
         const val PAYMENT_ID_KEY    = "paymentId"
+        const val USER_NAME_KEY     = "username"
+        const val USER_PASSWORD_KEY = "password"
     }
 }

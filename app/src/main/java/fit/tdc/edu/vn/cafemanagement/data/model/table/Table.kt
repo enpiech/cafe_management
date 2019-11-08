@@ -6,7 +6,7 @@ data class Table(
     var name: String? = null,
     var zoneId: String? = null,
     var zoneName: String? = null,
-    var state: State? = null,
+    var state: State? = State.FREE,
     var paymentId: String? = null
 ) : FirestoreModel() {
     enum class State {

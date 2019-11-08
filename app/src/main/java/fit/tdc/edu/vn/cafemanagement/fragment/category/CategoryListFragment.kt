@@ -15,6 +15,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryListViewMod
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class CategoryListFragment : BaseListFragment<Category>(
     R.layout.fragment_list,
@@ -28,14 +29,28 @@ class CategoryListFragment : BaseListFragment<Category>(
     )
 ) {
     override val viewModel: BaseListViewModel<Category>
-        get() = ViewModelProvider(this, CategoryViewModelFactory(FireBaseDataSource(), this)).get<CategoryListViewModel>()
+        get() = ViewModelProvider(
+            this,
+            CategoryViewModelFactory(FireBaseDataSource(), this)
+        ).get<CategoryListViewModel>()
     override val navController: NavController
         get() = findNavController()
 
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(
-                CategoryListFragmentDirections.actionViewCategory(categoryId = null, title = getString(R.string.title_category_create))
+                CategoryListFragmentDirections.actionViewCategory(
+                    categoryId = null,
+                    title = getString(R.string.title_category_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
+            navController.navigate(
+                CategoryListFragmentDirections.actionViewCategory(
+                    categoryId = null,
+                    title = getString(R.string.title_category_create)
+                )
             )
         }
     }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CafeManagement</string>
+    <string name="app_name">Cafe App</string>
     <string name="txtTableName">Tên bàn</string>
 
     <string name="txtMaterialName">Tên nguyên liệu</string>

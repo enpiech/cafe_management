@@ -14,6 +14,7 @@ import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialListViewMod
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import kotlinx.android.synthetic.main.fragment_empty.*
 
 class MaterialListFragment : BaseListFragment<Material>(
     R.layout.fragment_list,
@@ -21,7 +22,20 @@ class MaterialListFragment : BaseListFragment<Material>(
 ) {
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
-            navController.navigate(MaterialListFragmentDirections.actionViewMaterial(materialId = null, title = getString(R.string.title_material_create)))
+            navController.navigate(
+                MaterialListFragmentDirections.actionViewMaterial(
+                    materialId = null,
+                    title = getString(R.string.title_material_create)
+                )
+            )
+        }
+        btn_add_new.setOnClickListener {
+            navController.navigate(
+                MaterialListFragmentDirections.actionViewMaterial(
+                    materialId = null,
+                    title = getString(R.string.title_material_create)
+                )
+            )
         }
     }
 
