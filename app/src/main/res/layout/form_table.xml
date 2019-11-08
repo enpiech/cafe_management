@@ -22,7 +22,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/table_zone_layout"
         style="@style/BaseSpinnerLayout"
-        android:hint="@string/txtTableName"
+        android:hint="@string/title_zone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
