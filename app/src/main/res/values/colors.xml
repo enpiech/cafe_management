@@ -5,4 +5,9 @@
     <color name="colorAccent">#80CBC6</color>
     <color name="colorFocus">#de5856</color>
     <color name="colorError">#EF5350</color>
+<!-- Màu button dưới đây chỉ để tham khảo, chỉnh sửa không thay đổi màu của bàn nhé!!!-->
+    <color name="colorButtonStateFREE">#64DD17</color>
+    <color name="colorButtonStateBOOKED">#D50000</color>
+    <color name="colorButtonStateORDERING">#FFD600</color>
+    <color name="colorButtonStateBUSY">#212121</color>
 </resources>

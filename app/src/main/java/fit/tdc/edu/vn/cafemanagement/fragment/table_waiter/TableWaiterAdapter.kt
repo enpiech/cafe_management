@@ -42,19 +42,19 @@ class TableWaiterAdapter : ListAdapter<Table, RecyclerView.ViewHolder>(DIFF_CALL
             itemView.txt_table_name.text = item.name
             when {
                 item.state == Table.State.FREE -> {
-                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#00C853"))
+                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#64DD17"))
                     itemView.txt_table_name.setTextColor(Color.BLACK)
                 }
                 item.state == Table.State.ORDERING -> {
-                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#FFEA00"))
+                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#FFD600"))
                     itemView.txt_table_name.setTextColor(Color.BLACK)
                 }
                 item.state == Table.State.BOOKED -> {
-                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#EF5350"))
-                    itemView.txt_table_name.setTextColor(Color.BLACK)
+                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#D50000"))
+                    itemView.txt_table_name.setTextColor(Color.WHITE)
                 }
                 item.state == Table.State.BUSY -> {
-                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#78909C"))
+                    itemView.txt_table_name.setBackgroundColor(Color.parseColor("#212121"))
                     itemView.txt_table_name.setTextColor(Color.WHITE)
                 }
             }

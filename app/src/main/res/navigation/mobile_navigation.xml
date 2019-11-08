@@ -203,7 +203,7 @@
     <fragment
         android:id="@+id/unitListFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.unit.UnitListFragment"
-        android:label="title_unit_view">
+        android:label="@string/title_unit_view">
         <action
             android:id="@+id/actionViewUnit"
             app:destination="@id/unitDetailFragment" />

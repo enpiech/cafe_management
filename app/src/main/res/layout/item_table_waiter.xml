@@ -9,5 +9,6 @@
         style="@style/BaseListTextView"
         android:layout_width="match_parent"
         tools:text="Bàn 1"
+        android:padding="50dp"
         android:textAlignment="center"/>
 </androidx.cardview.widget.CardView>
