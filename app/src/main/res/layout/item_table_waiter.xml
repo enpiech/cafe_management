@@ -5,10 +5,12 @@
     android:layout_margin="@dimen/layout_margin">
 
     <com.google.android.material.textview.MaterialTextView
+        android:gravity="center"
         android:id="@+id/txt_table_name"
         style="@style/BaseListTextView"
         android:layout_width="match_parent"
+        android:layout_height="130dp"
         tools:text="Bàn 1"
-        android:padding="50dp"
+        android:layout_margin="2dp"
         android:textAlignment="center"/>
 </androidx.cardview.widget.CardView>

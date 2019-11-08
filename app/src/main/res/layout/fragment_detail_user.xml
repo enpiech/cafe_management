@@ -114,8 +114,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/user_role_layout"
             app:layout_constraintTop_toBottomOf="@+id/user_gender_layout">
-
             <AutoCompleteTextView
+                android:maxLines="1"
                 android:id="@+id/user_store"
                 style="@style/BaseSpinner"/>
 

@@ -7,4 +7,5 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="btn_number_picker_margin">5dp</dimen>
+    <dimen name="layout_margin_50dp">50dp</dimen>
 </resources>

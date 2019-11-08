@@ -33,6 +33,10 @@ abstract class BaseListFragment<T : FirestoreModel>(
         requireActivity().loading
     }
 
+    private val fab: FloatingActionButton by lazy {
+        requireActivity().fab
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -67,6 +71,7 @@ abstract class BaseListFragment<T : FirestoreModel>(
                         viewAdapter.submitList(it.data)
                     }
                     no_item.visibility = if (it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
+                    fab.visibility = if (!it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
                     emptyWarning?.let { text -> empty_text.setText(text) }
                     loading.visibility = View.GONE
                 }
