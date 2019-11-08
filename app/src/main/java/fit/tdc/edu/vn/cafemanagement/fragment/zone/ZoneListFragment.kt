@@ -20,6 +20,9 @@ class ZoneListFragment : BaseListFragment<Zone>(
     R.layout.fragment_list,
     viewAdapter = ZoneAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_zone
+
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(

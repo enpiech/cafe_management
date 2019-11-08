@@ -20,6 +20,8 @@ class TableListFragment : BaseListFragment<Table>(
     R.layout.fragment_list,
     viewAdapter = TableAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_table
     override val navController: NavController
         get() = findNavController()
 

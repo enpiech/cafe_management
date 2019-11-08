@@ -20,6 +20,8 @@ class UnitListFragment : BaseListFragment<Unit>(
     R.layout.fragment_list,
     viewAdapter = UnitAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_unit
     override val viewModel: BaseListViewModel<Unit>
         get() = ViewModelProvider(
             this,

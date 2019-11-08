@@ -21,6 +21,8 @@ class ChefListFragment : BaseListFragment<Order>(
     R.layout.fragment_list,
     viewAdapter = ChefAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = null
     override val viewModel: BaseListViewModel<Order>
         get() = ViewModelProvider(
             this,

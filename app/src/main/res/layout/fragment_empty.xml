@@ -22,7 +22,9 @@
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:gravity="center|top">
+
         <TextView
+            android:id="@+id/empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/empty_order" />

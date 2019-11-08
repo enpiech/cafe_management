@@ -150,7 +150,7 @@ class FireBaseDataSource : FireBaseAPI {
                 }
             }
         val categoryRef = categoryCollectionReference.document(category.id)
-        return categoryRef.delete().asLiveData()
+        return categoryRef.set(category).asLiveData()
     }
 
     override fun deleteCategory(
@@ -382,7 +382,7 @@ class FireBaseDataSource : FireBaseAPI {
 
             }
         val unitDocumentReference = unitCollectionReference.document(unit.id)
-        return unitDocumentReference.delete().asLiveData()
+        return unitDocumentReference.set(unit).asLiveData()
     }
 
     override fun deleteUnit(
@@ -512,7 +512,7 @@ class FireBaseDataSource : FireBaseAPI {
                 }
             }
         val zoneDocumentReference = zoneCollectionReference.document(zone.id)
-        return zoneDocumentReference.delete().asLiveData()
+        return zoneDocumentReference.set(zone).asLiveData()
     }
 
     override fun deleteZone(

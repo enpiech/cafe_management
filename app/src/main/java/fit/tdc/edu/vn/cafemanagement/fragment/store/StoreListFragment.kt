@@ -21,6 +21,9 @@ class StoreListFragment : BaseListFragment<Store>(
     R.layout.fragment_list,
     viewAdapter = StoreAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_store
+
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(

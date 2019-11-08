@@ -21,6 +21,9 @@ class UserListFragment : BaseListFragment<User>(
     R.layout.fragment_list,
     UserAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_user
+
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(

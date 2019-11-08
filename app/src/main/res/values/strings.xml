@@ -145,4 +145,12 @@
     <string name="session_user">savedUser</string>
     <string name="user_name_key">username</string>
     <string name="user_password_key">password</string>
+    <string name="empty_category">Danh sách danh mục đang trống</string>
+    <string name="empty_unit">Danh sách đơn vị đang trống</string>
+    <string name="empty_zone">Danh sách khu vực đang trống</string>
+    <string name="empty_user">Danh sách nhân viên đang trống</string>
+    <string name="empty_table">Danh sách bàn đang trống</string>
+    <string name="empty_store">Danh sách cửa hàng đang trống</string>
+    <string name="empty_material">Danh sách hàng hóa đang trống</string>
+    <string name="user_store_key">storeId</string>
 </resources>

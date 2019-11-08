@@ -3,6 +3,7 @@ package fit.tdc.edu.vn.cafemanagement.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
@@ -17,14 +18,16 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.FirestoreModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_empty.*
 import kotlinx.android.synthetic.main.fragment_list.*
 
-abstract class BaseListFragment<T: FirestoreModel>(
+abstract class BaseListFragment<T : FirestoreModel>(
     @LayoutRes resId: Int,
     val viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>
 ) : Fragment(resId) {
     abstract val viewModel: BaseListViewModel<T>
     abstract val navController: NavController
+    abstract val emptyWarning: Int?
 
     private val loading: CircularRevealCoordinatorLayout by lazy {
         requireActivity().loading
@@ -40,7 +43,10 @@ abstract class BaseListFragment<T: FirestoreModel>(
 
     protected abstract fun setupFab(fab: FloatingActionButton)
 
-    open fun setupRecyclerView(recyclerView: RecyclerView, viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>) {
+    open fun setupRecyclerView(
+        recyclerView: RecyclerView,
+        viewAdapter: ListAdapter<T, RecyclerView.ViewHolder>
+    ) {
         recyclerView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -57,10 +63,11 @@ abstract class BaseListFragment<T: FirestoreModel>(
                     loading.visibility = View.VISIBLE
                 }
                 Status.SUCCESS -> {
-                    if(!it.data.isNullOrEmpty()){
+                    if (!it.data.isNullOrEmpty()) {
                         viewAdapter.submitList(it.data)
                     }
                     no_item.visibility = if (it.data.isNullOrEmpty()) View.VISIBLE else View.GONE
+                    emptyWarning?.let { text -> empty_text.setText(text) }
                     loading.visibility = View.GONE
                 }
             }

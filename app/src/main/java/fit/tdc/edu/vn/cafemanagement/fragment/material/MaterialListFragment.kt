@@ -20,6 +20,9 @@ class MaterialListFragment : BaseListFragment<Material>(
     R.layout.fragment_list,
     viewAdapter = MaterialAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_material
+
     override fun setupFab(fab: FloatingActionButton) {
         fab.setOnClickListener {
             navController.navigate(

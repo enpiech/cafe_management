@@ -12,6 +12,8 @@ class WareHouseListFragment : BaseListFragment<WareHouse>(
     R.layout.fragment_list,
     WareHouseAdapter()
 ) {
+    override val emptyWarning: Int?
+        get() = null
     override val viewModel: BaseListViewModel<WareHouse>
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
     override val navController: NavController

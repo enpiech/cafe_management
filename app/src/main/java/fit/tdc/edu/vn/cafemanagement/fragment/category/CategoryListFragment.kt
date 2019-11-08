@@ -28,6 +28,8 @@ class CategoryListFragment : BaseListFragment<Category>(
         }
     )
 ) {
+    override val emptyWarning: Int?
+        get() = R.string.empty_category
     override val viewModel: BaseListViewModel<Category>
         get() = ViewModelProvider(
             this,

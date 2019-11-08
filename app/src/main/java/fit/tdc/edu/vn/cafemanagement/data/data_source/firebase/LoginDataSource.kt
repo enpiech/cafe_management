@@ -93,6 +93,7 @@ class LoginDataSource {
                             with(sharedPref.edit()) {
                                 putString(context.getString(R.string.user_name_key), username)
                                 putString(context.getString(R.string.user_password_key), password)
+                                putString(context.getString(R.string.user_store_key), password)
                                 putInt(context.getString(R.string.user_type_key), user?.role?.ordinal ?: User.Role.WAITER.ordinal)
                                 commit()
                             }
