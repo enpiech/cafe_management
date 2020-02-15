@@ -10,7 +10,7 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    buildToolsVersion "29.0.3"
     dataBinding {
         enabled = false
     }
@@ -44,7 +44,6 @@ dependencies {
     def jetpack_version = '2.2.1'
     def firebaseui_version = "6.0.2"
     def lifecycle_version = "2.2.0"
-    def arch_version = "2.1.0"
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
