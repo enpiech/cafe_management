@@ -1,0 +1,104 @@
+{
+  "project_info": {
+    "project_number": "740697608052",
+    "firebase_url": "https://cafe-management-b9839.firebaseio.com",
+    "project_id": "cafe-management-b9839",
+    "storage_bucket": "cafe-management-b9839.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740697608052:android:cc158180954d7c6f632621",
+        "android_client_info": {
+          "package_name": "fit.tdc.edu.vn.cafemanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "740697608052-g72tfnpv59esupdng8oe1lua2v2i88ja.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "c2097cb5723bd752956b171709a1ef055d8c8a32"
+          }
+        },
+        {
+          "client_id": "740697608052-qhpv6ccf8gq6ssuv5gn9vgmr8odvrllr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "1b9cdcd08aaf0023a88887f519ae4c748e37ac83"
+          }
+        },
+        {
+          "client_id": "740697608052-95muqb51ig1f9gjv3enl2jupchcudd2o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "081db6a04a8ce7c67c5189781f0ab79fc0ca627b"
+          }
+        },
+        {
+          "client_id": "740697608052-bukuvas43hhla5ceklskh34bviln09mv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "5b3defa1a85b4eb025055c6f090e8f31b735defc"
+          }
+        },
+        {
+          "client_id": "740697608052-9m7kigr0aje6kf1996e5a4ofbcuannht.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "695050affeea6c9c1a03548a9a8c89252542018a"
+          }
+        },
+        {
+          "client_id": "740697608052-5el5r1bq55rahof4evbbniccrkkomlf3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "58912003dd2f0e919a81ca64097d97c54091d9b4"
+          }
+        },
+        {
+          "client_id": "740697608052-h7o8kpkg14l2tk43mcjpnadko202nsq6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "de16d8570190f9afdef575d4da4af0da9e678925"
+          }
+        },
+        {
+          "client_id": "740697608052-n41hu15q7mdfe4rditdku0iapto36hho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "f259f651cb686fbe626b0dbff759986947ebce59"
+          }
+        },
+        {
+          "client_id": "740697608052-eq1mi9mtu1smnfbjpp9okjh0go66fsvd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXpQbJhHkbMKHfDhoCF1y59_15MZCAlRQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "740697608052-eq1mi9mtu1smnfbjpp9okjh0go66fsvd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
