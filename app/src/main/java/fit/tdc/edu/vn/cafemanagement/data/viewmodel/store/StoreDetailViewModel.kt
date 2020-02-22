@@ -43,7 +43,7 @@ class StoreDetailViewModel(
             listOf()
         }
     }
-    private val _userList = CombinedLiveData<Store, List<User>, List<User>>(
+    private val _userList = CombinedLiveData(
         currentItem,
         _userResponseList
     ) { store, userList ->
@@ -63,7 +63,7 @@ class StoreDetailViewModel(
 
     val currentStoreManager =
         CombinedLiveData(
-            currentItem.map { it.managerId },
+            currentItem.map { it?.managerId },
             _userResponseList
         ) { store, userList ->
             getCurrentStoreManager(store, userList)

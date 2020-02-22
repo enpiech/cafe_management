@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
@@ -24,7 +23,7 @@ class PaymentListViewModel(
         }
     }
 
-    private var _currentTableId = LiveEvent<String>()
+    private var _currentTableId = MediatorLiveData<String>()
     val currentTable = _currentTableId.switchMap {
         tableRepository.getTable(it)
     }
@@ -35,7 +34,7 @@ class PaymentListViewModel(
         }
     }
 
-    private var _currentPaymentId = LiveEvent<String?>()
+    private var _currentPaymentId = MediatorLiveData<String?>()
 
     val currentPayment = _currentPaymentId.switchMap {
         if (it.isNullOrBlank()) {

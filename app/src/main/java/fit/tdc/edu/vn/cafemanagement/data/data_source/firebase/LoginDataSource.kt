@@ -21,9 +21,11 @@ class LoginDataSource {
     private val auth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
     }
-    private val firestore: FirebaseFirestore by lazy {
+
+    private val fireStore: FirebaseFirestore by lazy {
         FirebaseFirestore.getInstance()
     }
+
     private val _result = MutableLiveData<FirestoreResource<User>>(null)
     val result: LiveData<FirestoreResource<User>> = _result
 
@@ -70,7 +72,7 @@ class LoginDataSource {
         password: String,
         context: Context
     ) {
-        firestore
+        fireStore
             .collection(Constants.USERS_KEY)
             .whereEqualTo(Constants.USER_NAME_KEY, username)
             .get()

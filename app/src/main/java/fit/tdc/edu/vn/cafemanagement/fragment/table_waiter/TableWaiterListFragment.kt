@@ -59,6 +59,9 @@ class TableWaiterListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().loading.visibility = View.GONE
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
 
         }

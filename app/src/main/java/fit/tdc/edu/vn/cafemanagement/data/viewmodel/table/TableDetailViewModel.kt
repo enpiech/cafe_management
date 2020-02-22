@@ -40,7 +40,7 @@ class TableDetailViewModel(
         }
     }
     val currentZone =
-        CombinedLiveData<Table, List<Zone>, Zone?>(currentItem, zoneList) { zone, zoneList ->
+        CombinedLiveData(currentItem, zoneList) { zone, zoneList ->
             getCurrentStoreOfUser(zone, zoneList)
         }
 

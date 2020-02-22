@@ -1,7 +1,6 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.*
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
@@ -30,7 +29,7 @@ class OrderListViewModel(
     private val isChanged = MutableLiveData<Boolean>(false)
 
     private val _sellableMaterial = materialRepository.getSellableMaterials()
-    private var _currentCategoryId = LiveEvent<String?>()
+    private var _currentCategoryId = MediatorLiveData<String?>()
     fun filterCategory(categoryId: String) {
         _currentCategoryId.value = categoryId
     }
@@ -77,7 +76,7 @@ class OrderListViewModel(
         isChanged.value = true
     }
 
-    private var _currentPaymentId = LiveEvent<String?>()
+    private var _currentPaymentId = MediatorLiveData<String?>()
 
     private val _currentOrder = MediatorLiveData<List<Order>?>().apply {
         addSource(_currentPaymentId.switchMap {

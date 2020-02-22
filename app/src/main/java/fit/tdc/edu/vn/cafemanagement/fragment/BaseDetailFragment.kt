@@ -1,6 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.fragment
 
 import android.os.Bundle
+import android.os.Debug
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -140,23 +142,24 @@ abstract class BaseDetailFragment<T : FirestoreModel>(
 
     private fun updateUIWithCurrentItem() {
         viewModel.currentItem.observe(viewLifecycleOwner, Observer {
+
             if (it != null) {
                 viewModel.validate(null)
                 fillFormWith(it)
                 viewModel.saved = it
             } else {
-                MaterialAlertDialogBuilder(context)
-                    .setTitle(R.string.dialog_title_modifying_removed_item)
-                    .setMessage(R.string.warning_message_modifying_removed_item)
-                    .setPositiveButton(R.string.btnOK) { _, _ ->
-                        viewModel.setViewType(FormState.Type.ADD)
-                        viewModel.currentItem.value = getCurrentFormData()
-                        fab.show()
-                    }
-                    .setNegativeButton(R.string.btnCancel) { _, _ ->
-                        navController.navigateUp()
-                    }
-                    .show()
+//                MaterialAlertDialogBuilder(context)
+//                    .setTitle(R.string.dialog_title_modifying_removed_item)
+//                    .setMessage(R.string.warning_message_modifying_removed_item)
+//                    .setPositiveButton(R.string.btnOK) { _, _ ->
+//                        viewModel.setViewType(FormState.Type.ADD)
+//                        viewModel.currentItem.value = getCurrentFormData()
+//                        fab.show()
+//                    }
+//                    .setNegativeButton(R.string.btnCancel) { _, _ ->
+//                        navController.navigateUp()
+//                    }
+//                    .show()
             }
         })
     }

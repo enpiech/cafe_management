@@ -1,7 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.login
 
 import android.content.Context
-import com.hadilq.liveevent.LiveEvent
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
@@ -25,7 +26,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
     val isLoggedIn: Boolean
         get() = loggedInUser != null
 
-    private var _loginResult = LiveEvent<FirestoreResource<User>>()
+    private var _loginResult = MediatorLiveData<FirestoreResource<User>>()
     var loginResult = _loginResult
 
     init {

@@ -59,7 +59,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
+        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
 
             when (loginResult.status) {
@@ -69,7 +69,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     loginResult.errorMessage?.let { msg -> showLoginFailed(msg) }
                 }
                 Status.SUCCESS -> {
-                    loading.visibility = View.GONE
                     updateUiWithUser(
                         LoggedInUserView(
                             displayName = loginResult.data?.name ?: "Noname"
@@ -98,6 +97,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                 findNavController().navigate(R.id.chefListFragment)
                             }
                         }
+
                     }
 
                 }
