@@ -48,6 +48,7 @@ dependencies {
     // Room
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
     // optional - Kotlin Extensions and Coroutines support for Room

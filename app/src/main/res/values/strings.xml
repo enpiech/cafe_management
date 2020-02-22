@@ -40,7 +40,7 @@
     <string name="lbl_unit_name">Tên đơn vị</string>
     <string name="lbl_category_name">Tên danh mục</string>
 
-<!--
+    <!--
 *
 *Start Title
 *
@@ -76,7 +76,7 @@
     <string name="title_unit">Đơn vị tính</string>
     <string name="title_user">Nhân viên</string>
     <string name="title_table">Bàn</string>
-<!--
+    <!--
 *
 *End Title
 *
@@ -153,4 +153,9 @@
     <string name="empty_store">Danh sách cửa hàng đang trống</string>
     <string name="empty_material">Danh sách hàng hóa đang trống</string>
     <string name="user_store_key">storeId</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="txt_warehouse_name">Cà phê sữa</string>
+    <string name="txt_warehouse_amount">10</string>
 </resources>
