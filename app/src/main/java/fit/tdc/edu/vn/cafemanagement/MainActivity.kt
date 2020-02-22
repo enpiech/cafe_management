@@ -26,6 +26,8 @@ class MainActivity :
     AppCompatActivity(),
     NavigationView.OnNavigationItemSelectedListener,
     NavController.OnDestinationChangedListener {
+
+    //TODO: Move to utils
     private val appBarConfiguration by lazy {
         AppBarConfiguration(
             setOf(
@@ -41,6 +43,7 @@ class MainActivity :
             ), drawer_layout
         )
     }
+
 
     private val navController by lazy {
         findNavController(R.id.nav_host_fragment)
@@ -62,6 +65,7 @@ class MainActivity :
         navController.addOnDestinationChangedListener(this)
     }
 
+    // TODO: This is god function
     override fun onDestinationChanged(
         controller: NavController,
         destination: NavDestination,
