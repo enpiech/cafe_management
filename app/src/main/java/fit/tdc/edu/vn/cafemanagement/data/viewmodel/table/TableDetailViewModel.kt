@@ -6,18 +6,18 @@ import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
-import fit.tdc.edu.vn.cafemanagement.util.isNameValid
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
-import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isNameValid
 
 class TableDetailViewModel(
     private val handle: SavedStateHandle,
-    private val tableRepository: TableRepositoryAPI,
-    zoneRepository: ZoneRepositoryAPI
+    private val tableRepository: TableRepository,
+    zoneRepository: ZoneRepository
 ) : BaseDetailViewModel<Table>() {
     override var saved: Table
         get() = Table(

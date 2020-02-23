@@ -2,15 +2,15 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.zone
 
 import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.util.isValidZoneName
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isValidZoneName
 
 class ZoneDetailViewModel(
     private val handle: SavedStateHandle,
-    private val zoneRepository: ZoneRepositoryAPI
+    private val zoneRepository: ZoneRepository
 ) : BaseDetailViewModel<Zone>() {
     override var saved: Zone
         get() = Zone(

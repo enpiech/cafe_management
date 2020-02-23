@@ -9,7 +9,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.user.UserRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.user.UserViewModelFactory
@@ -46,7 +46,7 @@ class UserListFragment : BaseListFragment<User>(
     override val viewModel: BaseListViewModel<User>
         get() = ViewModelProvider(
             this,
-            UserViewModelFactory(FireBaseDataSource(), this)
+            UserViewModelFactory(UserRemoteDataSourceImpl(), this)
         ).get<UserListViewModel>()
     override val navController: NavController
         get() = findNavController()

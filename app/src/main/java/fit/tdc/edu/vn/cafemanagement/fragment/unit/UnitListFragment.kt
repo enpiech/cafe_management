@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.unit.UnitRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.unit.UnitViewModelFactory
@@ -25,7 +25,7 @@ class UnitListFragment : BaseListFragment<Unit>(
     override val viewModel: BaseListViewModel<Unit>
         get() = ViewModelProvider(
             this,
-            UnitViewModelFactory(FireBaseDataSource(), this)
+            UnitViewModelFactory(UnitRemoteDataSourceImpl(), this)
         ).get<UnitListViewModel>()
 
     override fun showDeleteNotifySnackBar(item: Unit, view: View) {

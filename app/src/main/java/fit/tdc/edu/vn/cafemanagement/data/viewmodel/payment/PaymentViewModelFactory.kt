@@ -5,15 +5,18 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.category.CategoryRemoteDatasourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.material.MaterialRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.order.OrderRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.payment.PaymentRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepositoryImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepositoryImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepositoryImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryImpl
 
 class PaymentViewModelFactory (
-    private val dataSource: FireBaseAPI,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -25,31 +28,32 @@ class PaymentViewModelFactory (
     ): T {
         if (modelClass.isAssignableFrom(OrderListViewModel::class.java)) {
             return OrderListViewModel(
-                paymentRepository = PaymentRepository(
-                    dataSource = dataSource
+                // LOOSE
+                paymentRepository = PaymentRepositoryImpl(
+                    dataSource = PaymentRemoteDataSourceImpl()
                 ),
-                materialRepository = MaterialRepository(
-                    dataSource
+                materialRepository = MaterialRepositoryImpl(
+                    dataSource = MaterialRemoteDataSourceImpl()
                 ),
-                categoryRepository = CategoryRepository(
-                    dataSource
+                categoryRepository = CategoryRepositoryImpl(
+                    dataSource = CategoryRemoteDatasourceImpl()
                 ),
-                orderRepository = OrderRepository(
-                    dataSource
+                orderRepository = OrderRepositoryImpl(
+                    dataSource = OrderRemoteDataSourceImpl()
                 ),
                 handle = handle
             ) as T
         } else
             if (modelClass.isAssignableFrom(PaymentListViewModel::class.java)) {
             return PaymentListViewModel(
-                paymentRepository = PaymentRepository(
-                    dataSource = dataSource
+                paymentRepository = PaymentRepositoryImpl(
+                    dataSource = PaymentRemoteDataSourceImpl()
                 ),
-                tableRepository = TableRepository(
-                    dataSource
+                tableRepository = TableRepositoryImpl(
+                    dataSource = TableRemoteDataSourceImpl()
                 ),
-                orderRepository = OrderRepository(
-                    dataSource
+                orderRepository = OrderRepositoryImpl(
+                    dataSource = OrderRemoteDataSourceImpl()
                 )
             ) as T
         }

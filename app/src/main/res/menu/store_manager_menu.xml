@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:showIn="navigation_view">
     <group
-        android:id="@+id/store_manager"
-        android:checkableBehavior="single">
+            android:id="@+id/store_manager"
+            android:checkableBehavior="single">
         <item
-            android:id="@+id/zoneListFragment"
-            android:title="@string/title_zone" />
+                android:id="@+id/zoneListFragment"
+                android:title="@string/title_zone" />
         <item
-            android:id="@+id/categoryListFragment"
-            android:title="@string/title_category" />
+                android:id="@+id/categoryListFragment"
+                android:title="@string/title_category" />
         <item
-            android:id="@+id/unitListFragment"
-            android:title="@string/title_unit" />
+                android:id="@+id/unitListFragment"
+                android:title="@string/title_unit" />
         <item
-            android:id="@+id/tableListFragment"
-            android:title="@string/title_table" />
+                android:id="@+id/tableListFragment"
+                android:title="@string/title_table" />
         <item
-            android:id="@+id/materialListFragment"
-            android:title="@string/title_material" />
+                android:id="@+id/materialListFragment"
+                android:title="@string/title_material" />
+        <item
+                android:id="@+id/dishListFragment"
+                android:title="@string/title_menu" />
     </group>
     <item
-        android:id="@+id/loginFragment"
-        android:icon="@drawable/ic_logout"
-        android:title="@string/menu_item_logout" />
+            android:id="@+id/loginFragment"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/menu_item_logout" />
 </menu>

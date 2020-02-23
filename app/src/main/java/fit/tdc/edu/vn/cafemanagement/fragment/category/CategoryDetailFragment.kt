@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.category.CategoryRemoteDatasourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
@@ -20,7 +20,13 @@ import kotlinx.android.synthetic.main.fragment_detail_category.*
 class CategoryDetailFragment : BaseDetailFragment<Category>(R.layout.fragment_detail_category) {
     override val args by navArgs<CategoryDetailFragmentArgs>()
     override val viewModel: BaseDetailViewModel<Category>
-        get() = ViewModelProvider(this, CategoryViewModelFactory(FireBaseDataSource(), this)).get<CategoryDetailViewModel>()
+        get() = ViewModelProvider(
+            this,
+            CategoryViewModelFactory(
+                CategoryRemoteDatasourceImpl(),
+                this
+            )
+        ).get<CategoryDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?

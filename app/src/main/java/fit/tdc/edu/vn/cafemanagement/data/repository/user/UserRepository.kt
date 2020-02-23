@@ -1,22 +1,15 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.user
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import com.google.firebase.firestore.DocumentReference
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 
-class UserRepository(val dataSource: FireBaseAPI) :
-    UserRepositoryAPI {
-
-    override fun getAllUsers() = dataSource.getUserList(DocumentType.ALL)
-
-    override fun getUser(id: String) = dataSource.getUser(id,DocumentType.SINGLE)
-
-    override fun insert(user: User) =
-        dataSource.createUser(user)
-
-    override fun update(oldUser: User, newUser: User): TaskLiveData<Void> =
-        dataSource.modifyUser(oldUser, newUser)
-
-    override fun delete(user: User) = dataSource.deleteUser(user)
+interface UserRepository {
+    fun getAllUsers(): CollectionLiveData<User>
+    fun getUser(id: String): DocumentLiveData<User>
+    fun insert(user: User): TaskLiveData<DocumentReference>
+    fun update(oldUser: User, newUser: User): TaskLiveData<Void>
+    fun delete(user: User): TaskLiveData<Void>
 }

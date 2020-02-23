@@ -6,14 +6,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.material.MaterialRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.material.MaterialViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.dish.DishDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailFragment
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import fit.tdc.edu.vn.cafemanagement.util.setupForEnum
 import fit.tdc.edu.vn.cafemanagement.util.setupForLiveList
@@ -23,8 +23,11 @@ class MaterialDetailFragment : BaseDetailFragment<Material>(R.layout.fragment_de
     override val viewModel: BaseDetailViewModel<Material>
         get() = ViewModelProvider(
             this,
-            MaterialViewModelFactory(FireBaseDataSource(), this)
-        ).get<MaterialDetailViewModel>()
+            MaterialViewModelFactory(
+                MaterialRemoteDataSourceImpl(),
+                this
+            )
+        ).get<DishDetailViewModel>()
     override val navController: NavController
         get() = findNavController()
     override val itemId: String?
@@ -126,7 +129,7 @@ class MaterialDetailFragment : BaseDetailFragment<Material>(R.layout.fragment_de
                 }
             )
         }
-        (viewModel as MaterialDetailViewModel).unitList.observe(
+        (viewModel as DishDetailViewModel).unitList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
                 material_unit.setupForLiveList(
@@ -146,7 +149,7 @@ class MaterialDetailFragment : BaseDetailFragment<Material>(R.layout.fragment_de
                 }
             }
         )
-        (viewModel as MaterialDetailViewModel).categoryList.observe(
+        (viewModel as DishDetailViewModel).categoryList.observe(
             viewLifecycleOwner,
             androidx.lifecycle.Observer {
                 material_category.setupForLiveList(

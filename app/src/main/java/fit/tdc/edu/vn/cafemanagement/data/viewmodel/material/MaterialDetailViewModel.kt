@@ -6,20 +6,20 @@ import androidx.lifecycle.map
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.util.isValidMaterialName
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.material.MaterialViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.unit.Unit
-import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isValidMaterialName
 
 class MaterialDetailViewModel(
     private val handle: SavedStateHandle,
-    private val materialRepository: MaterialRepositoryAPI,
-    unitRepository: UnitRepositoryAPI,
-    categoryRepository: CategoryRepositoryAPI
+    private val materialRepository: MaterialRepository,
+    unitRepository: UnitRepository,
+    categoryRepository: CategoryRepository
 ): BaseDetailViewModel<Material>() {
 
     override var saved: Material

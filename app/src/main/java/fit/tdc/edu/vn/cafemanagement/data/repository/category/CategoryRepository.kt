@@ -1,26 +1,15 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.category
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import com.google.firebase.firestore.DocumentReference
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 
-class CategoryRepository(
-    private val dataSource: FireBaseAPI
-) : CategoryRepositoryAPI {
-
-    override fun getAllCategories() =
-        dataSource.getCategoryList(UserInfor.getInstance().storeId!!, DocumentType.ALL)
-
-    override fun getCategory(id: String) =
-        dataSource.getCategory(UserInfor.getInstance().storeId!!, id, DocumentType.SINGLE)
-
-    override fun insert(category: Category) =
-        dataSource.createCategory(UserInfor.getInstance().storeId!!, category)
-
-    override fun update(category: Category) =
-        dataSource.modifyCategory(UserInfor.getInstance().storeId!!, category)
-
-    override fun delete(category: Category) =
-        dataSource.deleteCategory(UserInfor.getInstance().storeId!!, category.id)
+interface CategoryRepository {
+    fun getAllCategories(): CollectionLiveData<Category>
+    fun getCategory(id: String): DocumentLiveData<Category>
+    fun insert(category: Category): TaskLiveData<DocumentReference>
+    fun update(category: Category): TaskLiveData<Void>
+    fun delete(category: Category): TaskLiveData<Void>
 }

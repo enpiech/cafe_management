@@ -5,11 +5,12 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.material.MaterialRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.unit.UnitRemoteDataSource
+import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryImpl
 
 class UnitViewModelFactory(
-    private val dataSource: FireBaseAPI,
+    private val dataSource: UnitRemoteDataSource,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -21,15 +22,19 @@ class UnitViewModelFactory(
     ): T {
         if (modelClass.isAssignableFrom(UnitListViewModel::class.java)) {
             return UnitListViewModel(
-                unitRepository = UnitRepository(
-                    dataSource = dataSource
+                unitRepository = UnitRepositoryImpl(
+                    // LOOSE
+                    unitDataSource = dataSource,
+                    materialDataSource = MaterialRemoteDataSourceImpl()
                 )
             ) as T
         } else if (modelClass.isAssignableFrom(UnitDetailViewModel::class.java)) {
             return UnitDetailViewModel(
                 handle = handle,
-                unitRepository = UnitRepository(
-                    dataSource = dataSource
+                unitRepository = UnitRepositoryImpl(
+                    // LOOSE
+                    unitDataSource = dataSource,
+                    materialDataSource = MaterialRemoteDataSourceImpl()
                 )
             ) as T
         }

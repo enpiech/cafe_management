@@ -19,7 +19,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_empty.*
 
 
 class MainActivity :
@@ -38,6 +37,7 @@ class MainActivity :
                 R.id.tableListFragment,
                 R.id.storeListFragment,
                 R.id.materialListFragment,
+                R.id.dishListFragment,
                 R.id.chefListFragment,
                 R.id.tableListWaiterFragment
             ), drawer_layout

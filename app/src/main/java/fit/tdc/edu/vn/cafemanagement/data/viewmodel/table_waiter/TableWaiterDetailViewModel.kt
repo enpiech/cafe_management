@@ -4,13 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.util.isNameValid
 
 class TableWaiterDetailViewModel(
     private val handle: SavedStateHandle,
-    private val tableRepository: TableRepositoryAPI
+    private val tableRepository: TableRepository
 ) : BaseDetailViewModel<Table>() {
     override var saved: Table
         get() = Table(

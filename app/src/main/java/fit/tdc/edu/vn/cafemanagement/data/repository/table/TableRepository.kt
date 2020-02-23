@@ -1,23 +1,15 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.table
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import com.google.firebase.firestore.DocumentReference
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
-import fit.tdc.edu.vn.cafemanagement.data.model.user.UserInfor
 
-class TableRepository(val dataSource: FireBaseAPI):
-    TableRepositoryAPI {
-
-    override fun getAllTables() = dataSource.getTableList(UserInfor.getInstance().storeId!!,DocumentType.ALL)
-
-    override fun getTable(id: String) = dataSource.getTable(UserInfor.getInstance().storeId!!, id, DocumentType.ALL)
-
-    override fun insert(table: Table) =
-        dataSource.createTable(UserInfor.getInstance().storeId!!, table)
-
-    override fun update(table: Table) =
-        dataSource.modifyTable(UserInfor.getInstance().storeId!!, table)
-
-    override fun delete(table: Table) =
-        dataSource.deleteTable(UserInfor.getInstance().storeId!!, table.id)
+interface TableRepository {
+    fun getAllTables(): CollectionLiveData<Table>
+    fun getTable(id: String): DocumentLiveData<Table>
+    fun insert(table: Table): TaskLiveData<DocumentReference>
+    fun update(table: Table): TaskLiveData<Void>
+    fun delete(table: Table): TaskLiveData<Void>
 }

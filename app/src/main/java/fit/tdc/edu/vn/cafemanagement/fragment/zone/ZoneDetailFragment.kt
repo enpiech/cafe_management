@@ -6,7 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.zone.ZoneRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.Zone
 import fit.tdc.edu.vn.cafemanagement.data.model.zone.ZoneViewFormState
@@ -22,7 +22,7 @@ class ZoneDetailFragment : BaseDetailFragment<Zone>(R.layout.fragment_detail_zon
     override val viewModel: BaseDetailViewModel<Zone>
         get() = ViewModelProvider(
             this,
-            ZoneViewModelFactory(FireBaseDataSource(), this)
+            ZoneViewModelFactory(ZoneRemoteDataSourceImpl(), this)
         ).get<ZoneDetailViewModel>()
     override val navController: NavController
         get() = findNavController()

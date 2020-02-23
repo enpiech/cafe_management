@@ -6,17 +6,17 @@ import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
-import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.material.MaterialRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepository
 
 class OrderListViewModel(
     private val handle: SavedStateHandle,
-    categoryRepository: CategoryRepositoryAPI,
-    private val paymentRepository: PaymentRepositoryAPI,
-    private val orderRepository: OrderRepositoryAPI,
-    materialRepository: MaterialRepositoryAPI
+    categoryRepository: CategoryRepository,
+    private val paymentRepository: PaymentRepository,
+    private val orderRepository: OrderRepository,
+    materialRepository: MaterialRepository
 ) : ViewModel() {
     var saved: Map<String, Order>
         get() {

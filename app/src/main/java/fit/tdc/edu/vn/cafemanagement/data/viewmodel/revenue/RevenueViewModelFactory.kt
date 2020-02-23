@@ -2,8 +2,8 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.revenue
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
-import fit.tdc.edu.vn.cafemanagement.data.repository.revenue.RevenueRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.revenue.RevenueRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.revenue.RevenueRepositoryImpl
 
 class RevenueViewModelFactory : ViewModelProvider.Factory {
 
@@ -11,8 +11,9 @@ class RevenueViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(RevenueViewModel::class.java)) {
             return RevenueViewModel(
-                 revenueRepository = RevenueRepository(
-                     dataSource = FireBaseDataSource()
+                revenueRepository = RevenueRepositoryImpl(
+                    // LOOSE
+                    dataSource = RevenueRemoteDataSourceImpl()
                  )
             ) as T
         }
