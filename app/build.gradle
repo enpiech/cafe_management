@@ -47,7 +47,7 @@ dependencies {
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
-    implementation 'com.google.firebase:firebase-firestore:21.4.0'
+    implementation 'com.google.firebase:firebase-firestore:21.4.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // For Kotlin use kapt instead of annotationProcessor
@@ -83,7 +83,7 @@ dependencies {
     implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     // DataBinding
-    implementation 'androidx.databinding:viewbinding:4.0.0-alpha09'
+    implementation 'androidx.databinding:viewbinding:4.1.0-alpha02'
 
     // Paging
     implementation 'androidx.paging:paging-runtime:2.1.1'
@@ -93,7 +93,7 @@ dependencies {
 
     // Fragment
     implementation 'androidx.fragment:fragment-ktx:1.2.2'
-    implementation 'androidx.fragment:fragment-testing:1.2.2'
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.2'
 
     // Palette
     implementation "androidx.palette:palette-ktx:1.0.0"
@@ -143,7 +143,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-storage:$firebaseui_version"
 //    implementation "com.google.firebase:firebase-firestore:21.1.1"
     implementation 'com.google.firebase:firebase-auth:19.2.0'
-    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.1'
     implementation 'com.google.firebase:firebase-common-ktx:19.3.0'
 
     // SectionRecyclerViewAdapter
