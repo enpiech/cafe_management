@@ -173,6 +173,7 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="fit.tdc.edu.vn.cafemanagement.fragment.order.OrderDetailFragment"
@@ -207,5 +208,25 @@
         <action
             android:id="@+id/actionViewUnit"
             app:destination="@id/unitDetailFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/dishListFragment"
+            android:name="fit.tdc.edu.vn.cafemanagement.fragment.dish.DishListFragment"
+            android:label="DishListFragment">
+        <action
+                android:id="@+id/actionViewMaterial"
+                app:destination="@id/dishDetailFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/dishDetailFragment"
+            android:name="fit.tdc.edu.vn.cafemanagement.fragment.dish.DishDetailFragment"
+            android:label="{title}">
+        <argument
+                android:name="materialId"
+                app:argType="string"
+                app:nullable="true" />
+        <argument
+                android:name="title"
+                app:argType="string" />
     </fragment>
 </navigation>

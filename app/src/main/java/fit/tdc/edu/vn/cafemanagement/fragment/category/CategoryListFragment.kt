@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.category.CategoryRemoteDatasourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.category.CategoryViewModelFactory
@@ -33,7 +33,10 @@ class CategoryListFragment : BaseListFragment<Category>(
     override val viewModel: BaseListViewModel<Category>
         get() = ViewModelProvider(
             this,
-            CategoryViewModelFactory(FireBaseDataSource(), this)
+            CategoryViewModelFactory(
+                dataSource = CategoryRemoteDatasourceImpl(),
+                owner = this
+            )
         ).get<CategoryListViewModel>()
     override val navController: NavController
         get() = findNavController()

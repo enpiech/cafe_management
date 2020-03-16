@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
 import fit.tdc.edu.vn.cafemanagement.data.extension.observeUntil
@@ -31,7 +30,7 @@ class OrderListFragment : Fragment(R.layout.fragment_add_order) {
     val viewModel: OrderListViewModel by lazy {
         ViewModelProvider(
             requireActivity(),
-            PaymentViewModelFactory(FireBaseDataSource(), this)
+            PaymentViewModelFactory(this)
         ).get<OrderListViewModel>()
     }
     val navController: NavController

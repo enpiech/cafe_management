@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "740697608052-5jr5fevtgst31jts1mmurm9bqale2hvg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fit.tdc.edu.vn.cafemanagement",
+            "certificate_hash": "20bdc92cb64e8f7f22d8c3cee60a5620b364d233"
+          }
+        },
+        {
           "client_id": "740697608052-g72tfnpv59esupdng8oe1lua2v2i88ja.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

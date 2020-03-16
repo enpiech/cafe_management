@@ -8,17 +8,18 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.material.MaterialRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.material.Material
-import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialListViewModel
+import fit.tdc.edu.vn.cafemanagement.data.viewmodel.dish.DishListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.material.MaterialViewModelFactory
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListFragment
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseListViewModel
+import fit.tdc.edu.vn.cafemanagement.fragment.dish.DishAdapter
 import kotlinx.android.synthetic.main.fragment_empty.*
 
 class MaterialListFragment : BaseListFragment<Material>(
     R.layout.fragment_list,
-    viewAdapter = MaterialAdapter()
+    viewAdapter = DishAdapter()
 ) {
     override val emptyWarning: Int?
         get() = R.string.empty_material
@@ -45,8 +46,11 @@ class MaterialListFragment : BaseListFragment<Material>(
     override val viewModel: BaseListViewModel<Material>
         get() = ViewModelProvider(
             this,
-            MaterialViewModelFactory(FireBaseDataSource(), this)
-        ).get<MaterialListViewModel>()
+            MaterialViewModelFactory(
+                MaterialRemoteDataSourceImpl(),
+                this
+            )
+        ).get<DishListViewModel>()
     override val navController: NavController
         get() = findNavController()
 

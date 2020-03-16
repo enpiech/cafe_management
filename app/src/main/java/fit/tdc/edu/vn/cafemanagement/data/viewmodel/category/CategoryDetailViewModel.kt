@@ -4,13 +4,13 @@ import androidx.lifecycle.SavedStateHandle
 import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.model.category.Category
 import fit.tdc.edu.vn.cafemanagement.data.model.category.CategoryViewFormState
-import fit.tdc.edu.vn.cafemanagement.util.isNameValid
-import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.category.CategoryRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isNameValid
 
 class CategoryDetailViewModel(
     private val handle: SavedStateHandle,
-    private val categoryRepository: CategoryRepositoryAPI
+    private val categoryRepository: CategoryRepository
 ) : BaseDetailViewModel<Category>() {
     override var saved: Category
         get() = Category(

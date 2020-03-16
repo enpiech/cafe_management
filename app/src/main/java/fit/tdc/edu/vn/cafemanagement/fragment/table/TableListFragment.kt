@@ -8,7 +8,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table.TableViewModelFactory
@@ -55,6 +55,6 @@ class TableListFragment : BaseListFragment<Table>(
     override val viewModel: BaseListViewModel<Table>
         get() = ViewModelProvider(
             this,
-            TableViewModelFactory(FireBaseDataSource(), this)
+            TableViewModelFactory(TableRemoteDataSourceImpl(), this)
         ).get<TableListViewModel>()
 }

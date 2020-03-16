@@ -7,7 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.model.table.TableViewFormState
@@ -23,7 +23,7 @@ class TableDetailFragment : BaseDetailFragment<Table>(R.layout.fragment_detail_t
     override val viewModel: BaseDetailViewModel<Table>
         get() = ViewModelProvider(
             this,
-            TableViewModelFactory(FireBaseDataSource(), this)
+            TableViewModelFactory(TableRemoteDataSourceImpl(), this)
         ).get<TableDetailViewModel>()
     override val navController: NavController
         get() = findNavController()

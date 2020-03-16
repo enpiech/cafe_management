@@ -3,17 +3,15 @@ package fit.tdc.edu.vn.cafemanagement.data.viewmodel.ware_house
 import androidx.lifecycle.SavedStateHandle
 import com.google.firebase.Timestamp
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.util.isValidPersonalName
 import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouse
 import fit.tdc.edu.vn.cafemanagement.data.model.ware_house.WareHouseViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.ware_house.WareHouseRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.ware_house.WareHouseRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isValidPersonalName
 
 class WareHouseDetailViewModel (
     private val handle: SavedStateHandle,
-    private val wareHouseRepository: WareHouseRepositoryAPI,
-    unitRepository: UnitRepositoryAPI
+    private val wareHouseRepository: WareHouseRepository
 ) : BaseDetailViewModel<WareHouse>() {
     override var saved: WareHouse
         get() = WareHouse(

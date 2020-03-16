@@ -10,7 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.order.OrderRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.chef.ChefListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.chef.ChefViewModelFactory
@@ -26,7 +26,10 @@ class ChefListFragment : BaseListFragment<Order>(
     override val viewModel: BaseListViewModel<Order>
         get() = ViewModelProvider(
             this,
-            ChefViewModelFactory(FireBaseDataSource(), this)
+            ChefViewModelFactory(
+                OrderRemoteDataSourceImpl(),
+                this
+            )
         ).get<ChefListViewModel>()
     override val navController: NavController
         get() = findNavController()

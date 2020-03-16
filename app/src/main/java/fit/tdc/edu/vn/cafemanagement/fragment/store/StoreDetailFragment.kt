@@ -6,14 +6,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.store.StoreRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.FormState
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.store.StoreViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.store.StoreViewModelFactory
-import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailFragment
+import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.util.asEditText
 import fit.tdc.edu.vn.cafemanagement.util.setupForLiveList
 import kotlinx.android.synthetic.main.fragment_detail_store.*
@@ -22,7 +22,7 @@ class StoreDetailFragment : BaseDetailFragment<Store>(R.layout.fragment_detail_s
     override val viewModel: BaseDetailViewModel<Store>
         get() = ViewModelProvider(
             this,
-            StoreViewModelFactory(FireBaseDataSource(), this)
+            StoreViewModelFactory(StoreRemoteDataSourceImpl(), this)
         ).get<StoreDetailViewModel>()
     override val navController: NavController
         get() = findNavController()

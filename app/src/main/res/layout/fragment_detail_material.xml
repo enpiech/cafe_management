@@ -9,16 +9,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         style="@style/BaseDetailFragment">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/material_name"
-            style="@style/BaseEditTextLayout"
-            android:hint="@string/txtMaterialName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <ImageView
+                android:id="@+id/imageView"
+                style="@style/DetailImage"
+                android:layout_width="@dimen/detail_image_size"
+                android:layout_height="@dimen/detail_image_size"
+                android:layout_marginTop="64dp"
+                android:src="@drawable/placeholder"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                style="@style/BaseEditText"/>
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/material_name"
+                style="@style/BaseEditTextLayout"
+                android:hint="@string/txtMaterialName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <com.google.android.material.textfield.TextInputEditText style="@style/BaseEditText" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

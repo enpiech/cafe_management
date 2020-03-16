@@ -5,12 +5,14 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.zone.ZoneRemoteDataSourceImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryImpl
+import fit.tdc.edu.vn.cafemanagement.data.repository.zone.ZoneRepositoryImpl
 
 class TableViewModelFactory(
-    private val dataSource: FireBaseAPI,
+    private val dataSource: TableRemoteDataSource,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -23,18 +25,16 @@ class TableViewModelFactory(
         if (modelClass.isAssignableFrom(TableDetailViewModel::class.java)) {
             return TableDetailViewModel(
                 handle = handle,
-                tableRepository = TableRepository(
-                    dataSource = dataSource
-                ),
-                zoneRepository = ZoneRepository(
-                    dataSource
+                tableRepository = TableRepositoryImpl(dataSource),
+                zoneRepository = ZoneRepositoryImpl(
+                    // LOOSE
+                    zoneDataSource = ZoneRemoteDataSourceImpl(),
+                    tableDataSource = TableRemoteDataSourceImpl()
                 )
             ) as T
         } else if (modelClass.isAssignableFrom(TableListViewModel::class.java)) {
             return TableListViewModel(
-                tableRepository = TableRepository(
-                    dataSource = dataSource
-                )
+                tableRepository = TableRepositoryImpl(dataSource)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

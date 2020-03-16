@@ -1,8 +1,8 @@
 package fit.tdc.edu.vn.cafemanagement.fragment
 
+import android.util.Log
 import androidx.lifecycle.*
 import com.google.firebase.firestore.DocumentReference
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
@@ -16,15 +16,13 @@ abstract class BaseDetailViewModel<T: FirestoreModel> : ViewModel() {
     protected var _formState = MutableLiveData<FormState>(null)
     val formState: LiveData<FormState> = _formState
 
-    private var _currentItemId = LiveEvent<String>()
-    val currentItem = MediatorLiveData<T>().apply {
-        addSource(
-            _currentItemId.switchMap { id ->
-                getItem(id)
-            }
-        ) { result ->
+    private var _currentItemId = MutableLiveData<String>()
+    val currentItem = _currentItemId.switchMap { id ->
+        getItem(id).map {result ->
             if (result.status == Status.SUCCESS) {
-                value = result.data
+                result.data
+            } else {
+                null
             }
         }
     }

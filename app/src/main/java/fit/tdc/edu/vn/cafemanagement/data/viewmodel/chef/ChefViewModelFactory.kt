@@ -5,11 +5,11 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.order.OrderRemoteDataSource
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepositoryImpl
 
 class ChefViewModelFactory(
-    private val dataSource: FireBaseAPI,
+    private val dataSource: OrderRemoteDataSource,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -21,9 +21,7 @@ class ChefViewModelFactory(
     ): T {
         if (modelClass.isAssignableFrom(ChefListViewModel::class.java)) {
             return ChefListViewModel(
-                orderRepository = OrderRepository(
-                    dataSource = dataSource
-                )
+                orderRepository = OrderRepositoryImpl(dataSource)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

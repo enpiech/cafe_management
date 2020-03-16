@@ -1,18 +1,19 @@
 package fit.tdc.edu.vn.cafemanagement.data.repository.store
 
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentType
+import com.google.firebase.firestore.DocumentReference
+import fit.tdc.edu.vn.cafemanagement.data.extension.CollectionLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.DocumentLiveData
+import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 
-class StoreRepository(val dataSource: FireBaseAPI) :
-    StoreRepositoryAPI {
-    override fun getStoreList() = dataSource.getStoreList(DocumentType.ALL)
+interface StoreRepository {
+    fun getStoreList(): CollectionLiveData<Store>
 
-    override fun getStore(storeID: String) = dataSource.getStore(storeID,DocumentType.SINGLE)
+    fun getStore(storeID: String): DocumentLiveData<Store>
 
-    override fun createStore(store: Store) = dataSource.createStore(store)
+    fun createStore(store: Store): TaskLiveData<DocumentReference>
 
-    override fun updateStore(oldStore: Store, newStore: Store) = dataSource.modifyStore(oldStore, newStore)
+    fun updateStore(oldStore: Store, newStore: Store): TaskLiveData<Void>
 
-    override fun deleteStore(storeID: String) = dataSource.deleteStore(storeID)
+    fun deleteStore(storeID: String): TaskLiveData<Void>
 }

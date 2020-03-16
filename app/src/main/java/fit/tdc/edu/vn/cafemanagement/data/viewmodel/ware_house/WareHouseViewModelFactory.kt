@@ -5,12 +5,11 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.unit.UnitRepository
-import fit.tdc.edu.vn.cafemanagement.data.repository.ware_house.WareHouseRepository
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.warehouse.WareHouseRemoteDataSource
+import fit.tdc.edu.vn.cafemanagement.data.repository.ware_house.WareHouseRepositoryImpl
 
 class WareHouseViewModelFactory(
-    private val dataSource: FireBaseAPI,
+    private val dataSource: WareHouseRemoteDataSource,
     owner: SavedStateRegistryOwner,
     defaultArgs: Bundle? = null
 ) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
@@ -23,18 +22,11 @@ class WareHouseViewModelFactory(
         if (modelClass.isAssignableFrom(WareHouseDetailViewModel::class.java)) {
             return WareHouseDetailViewModel(
                 handle = handle,
-                wareHouseRepository = WareHouseRepository(
-                    dataSource = dataSource
-                ),
-                unitRepository = UnitRepository(
-                    dataSource = dataSource
-                )
+                wareHouseRepository = WareHouseRepositoryImpl(dataSource)
             ) as T
         } else if (modelClass.isAssignableFrom(WareHouseListViewModel::class.java)) {
             return WareHouseListViewModel(
-                wareHouseRepository = WareHouseRepository(
-                    dataSource = dataSource
-                )
+                wareHouseRepository = WareHouseRepositoryImpl(dataSource)
             ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

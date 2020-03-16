@@ -86,6 +86,26 @@
         <item name="android:inputType">none</item>
     </style>
 
+    <style name="BaseWarehouseFragment">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+
+    </style>
+
+    <style name="image_warehouse">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="warehouse_edittext_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:weightSum">2</item>
+    </style>
+
     <!--    <style name="UnsavedChangeDialog" parent="ThemeOverlay.MaterialComponents.Dialog">-->
 <!--        <item name="buttonBarPositiveButtonStyle">@style/Alert.Button.Positive</item>-->
 <!--        <item name="buttonBarNegativeButtonStyle">@style/Alert.Button.Neutral</item>-->

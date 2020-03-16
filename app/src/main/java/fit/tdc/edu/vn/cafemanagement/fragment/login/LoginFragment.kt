@@ -59,7 +59,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginFragment, Observer {
+        loginViewModel.loginResult.observe(viewLifecycleOwner, Observer {
             val loginResult = it ?: return@Observer
 
             when (loginResult.status) {
@@ -69,7 +69,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                     loginResult.errorMessage?.let { msg -> showLoginFailed(msg) }
                 }
                 Status.SUCCESS -> {
-                    loading.visibility = View.GONE
                     updateUiWithUser(
                         LoggedInUserView(
                             displayName = loginResult.data?.name ?: "Noname"
@@ -98,6 +97,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                                 findNavController().navigate(R.id.chefListFragment)
                             }
                         }
+
                     }
 
                 }
@@ -134,6 +134,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 false
             }
 
+            //TODO: Kiểm tra kết nối mạng trước khi login
+            //FIXME: Nếu không có mạng, tại sao lại trả về "User not found"?
             login.setOnClickListener {
                 val imm =
                     context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -150,7 +152,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         try {
-            val sharedPreferences = context!!.getSharedPreferences("savedUser", MODE_PRIVATE)
+            val sharedPreferences = requireContext().getSharedPreferences("savedUser", MODE_PRIVATE)
             val strUsername = sharedPreferences.getString("username", "aaa")
             val strPassword = sharedPreferences.getString("password", "aaa")
 
@@ -169,13 +171,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun rememberUserType(type: User.Role?) {
-        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", MODE_PRIVATE).edit()
         sharedPreferences.putInt("userType", type!!.ordinal)
         sharedPreferences.apply()
     }
 
     private fun rememberStoreId(storeId: String?) {
-        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE).edit()
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", MODE_PRIVATE).edit()
         sharedPreferences.putString("storeId", storeId)
         sharedPreferences.apply()
 
@@ -199,12 +201,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun getUserType(): Int {
 //        return requireActivity().getPreferences(MODE_PRIVATE)
 //            .getInt(getString(R.string.user_type_key), resources.getInteger(R.integer.no_user_type))
-        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", MODE_PRIVATE)
         return sharedPreferences.getInt("userType", -1)
     }
 
     private fun getStoreId(): String? {
-        val sharedPreferences = context!!.getSharedPreferences("userInfo", MODE_PRIVATE)
+        val sharedPreferences = requireContext().getSharedPreferences("userInfo", MODE_PRIVATE)
         return sharedPreferences.getString("storeId", "ko tim thay")
     }
 }

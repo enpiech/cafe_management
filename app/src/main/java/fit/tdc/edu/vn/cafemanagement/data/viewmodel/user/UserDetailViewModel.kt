@@ -10,15 +10,15 @@ import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
 import fit.tdc.edu.vn.cafemanagement.data.model.user.UserViewFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.user.UserRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.user.UserRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
 import fit.tdc.edu.vn.cafemanagement.util.*
 
 class UserDetailViewModel(
     private val handle: SavedStateHandle,
-    private val userRepository: UserRepositoryAPI,
-    storeRepository: StoreRepositoryAPI
+    private val userRepository: UserRepository,
+    storeRepository: StoreRepository
 ) : BaseDetailViewModel<User>() {
     override var saved: User
         get() = User(

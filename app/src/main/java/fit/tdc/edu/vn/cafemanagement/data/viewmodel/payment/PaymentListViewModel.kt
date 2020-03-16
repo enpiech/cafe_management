@@ -1,21 +1,20 @@
 package fit.tdc.edu.vn.cafemanagement.data.viewmodel.payment
 
 import androidx.lifecycle.*
-import com.hadilq.liveevent.LiveEvent
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskStatus
 import fit.tdc.edu.vn.cafemanagement.data.extension.observeUntil
 import fit.tdc.edu.vn.cafemanagement.data.model.kotlin.Payment
 import fit.tdc.edu.vn.cafemanagement.data.model.order.Order
-import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.order.OrderRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.payment.PaymentRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.table.TableRepository
 
 class PaymentListViewModel(
-    private val tableRepository: TableRepositoryAPI,
-    private val paymentRepository: PaymentRepositoryAPI,
-    private val orderRepository: OrderRepositoryAPI
+    private val tableRepository: TableRepository,
+    private val paymentRepository: PaymentRepository,
+    private val orderRepository: OrderRepository
 ) : ViewModel() {
 
     fun getCurrentTable(id: String?) {
@@ -24,7 +23,7 @@ class PaymentListViewModel(
         }
     }
 
-    private var _currentTableId = LiveEvent<String>()
+    private var _currentTableId = MediatorLiveData<String>()
     val currentTable = _currentTableId.switchMap {
         tableRepository.getTable(it)
     }
@@ -35,7 +34,7 @@ class PaymentListViewModel(
         }
     }
 
-    private var _currentPaymentId = LiveEvent<String?>()
+    private var _currentPaymentId = MediatorLiveData<String?>()
 
     val currentPayment = _currentPaymentId.switchMap {
         if (it.isNullOrBlank()) {

@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import fit.tdc.edu.vn.cafemanagement.R
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.FireBaseDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.table.TableRemoteDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.model.table.Table
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_waiter.TableWaiterListViewModel
 import fit.tdc.edu.vn.cafemanagement.data.viewmodel.table_waiter.TableWaiterViewModelFactory
@@ -51,7 +51,7 @@ class TableWaiterListFragment :
     val viewModel: TableWaiterListViewModel by lazy {
         ViewModelProvider(
             this,
-            TableWaiterViewModelFactory(FireBaseDataSource(), this)
+            TableWaiterViewModelFactory(TableRemoteDataSourceImpl(), this)
         ).get<TableWaiterListViewModel>()
     }
     private val viewAdapter =
@@ -59,6 +59,9 @@ class TableWaiterListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().loading.visibility = View.GONE
+
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
 
         }

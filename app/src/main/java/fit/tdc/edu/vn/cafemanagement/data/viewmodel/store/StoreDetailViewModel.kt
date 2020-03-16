@@ -7,19 +7,19 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.CombinedLiveData
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.extension.TaskLiveData
-import fit.tdc.edu.vn.cafemanagement.util.isValidAddress
-import fit.tdc.edu.vn.cafemanagement.util.isValidPersonalName
 import fit.tdc.edu.vn.cafemanagement.data.model.store.Store
 import fit.tdc.edu.vn.cafemanagement.data.model.store.StoreViewFormState
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
-import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepositoryAPI
-import fit.tdc.edu.vn.cafemanagement.data.repository.user.UserRepositoryAPI
+import fit.tdc.edu.vn.cafemanagement.data.repository.store.StoreRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.user.UserRepository
 import fit.tdc.edu.vn.cafemanagement.fragment.BaseDetailViewModel
+import fit.tdc.edu.vn.cafemanagement.util.isValidAddress
+import fit.tdc.edu.vn.cafemanagement.util.isValidPersonalName
 
 class StoreDetailViewModel(
     private val handle: SavedStateHandle,
-    private val storeRepository: StoreRepositoryAPI,
-    userRepository: UserRepositoryAPI
+    private val storeRepository: StoreRepository,
+    userRepository: UserRepository
 ) : BaseDetailViewModel<Store>() {
 
     override var saved: Store
@@ -43,7 +43,7 @@ class StoreDetailViewModel(
             listOf()
         }
     }
-    private val _userList = CombinedLiveData<Store, List<User>, List<User>>(
+    private val _userList = CombinedLiveData(
         currentItem,
         _userResponseList
     ) { store, userList ->
@@ -63,7 +63,7 @@ class StoreDetailViewModel(
 
     val currentStoreManager =
         CombinedLiveData(
-            currentItem.map { it.managerId },
+            currentItem.map { it?.managerId },
             _userResponseList
         ) { store, userList ->
             getCurrentStoreManager(store, userList)
