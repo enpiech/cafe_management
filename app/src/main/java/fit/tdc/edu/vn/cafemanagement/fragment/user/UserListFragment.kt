@@ -63,7 +63,7 @@ class UserListFragment : BaseListFragment<User>(
         if (item.storeId.isNullOrBlank()) {
             super.onDeleteItem(item, view)
         } else {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.dialog_title_delete)
                 .setMessage("${getString(R.string.warning_message_delete)}. ${getString(R.string.warning_message_delete_user_in_store)}")
                 .setPositiveButton(R.string.btnOK) { _, _ ->

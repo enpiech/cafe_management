@@ -176,7 +176,7 @@ abstract class BaseDetailFragment<T : FirestoreModel>(
         }
 
         if (viewModel.formState.value?.isChanged == true) {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.dialog_title_warning)
                 .setMessage(R.string.warning_message_unsaved_changed)
                 .setPositiveButton(R.string.btnOK) { _, _ ->

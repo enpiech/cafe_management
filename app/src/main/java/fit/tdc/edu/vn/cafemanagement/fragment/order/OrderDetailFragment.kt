@@ -88,7 +88,7 @@ class OrderDetailFragment : Fragment(R.layout.fragment_detail_order) {
             btn_checkout.isEnabled = payment.data != null
             if (payment.data != null) {
                 btn_checkout.setOnClickListener {
-                    MaterialAlertDialogBuilder(context)
+                    MaterialAlertDialogBuilder(requireContext())
                         .setTitle(R.string.dialog_title_delete)
                         .setMessage(R.string.warning_message_delete)
                         .setPositiveButton(R.string.btnOK) { _, _ ->

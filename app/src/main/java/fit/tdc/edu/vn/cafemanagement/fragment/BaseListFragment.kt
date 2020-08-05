@@ -104,7 +104,7 @@ abstract class BaseListFragment<T : FirestoreModel>(
     }
 
     open fun onDeleteItem(item: T, view: View) {
-        MaterialAlertDialogBuilder(context)
+        MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.dialog_title_delete)
             .setMessage(R.string.warning_message_delete)
             .setPositiveButton(R.string.btnOK) { _, _ ->

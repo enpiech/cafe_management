@@ -104,7 +104,7 @@ class OrderListFragment : Fragment(R.layout.fragment_add_order) {
         }
 
         fab.setOnClickListener {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.dialog_title_confirm)
                 .setPositiveButton(R.string.btnOK) { _, _ ->
                     viewModel.createOrders(tableId, paymentId)

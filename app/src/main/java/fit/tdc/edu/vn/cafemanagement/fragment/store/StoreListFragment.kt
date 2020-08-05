@@ -63,7 +63,7 @@ class StoreListFragment : BaseListFragment<Store>(
         if (item.managerId == null) {
             super.onDeleteItem(item, view)
         } else {
-            MaterialAlertDialogBuilder(context)
+            MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.dialog_title_delete)
                 .setMessage("${getString(R.string.warning_message_delete)}. ${getString(R.string.warning_message_delete_store_has_manager)}")
                 .setPositiveButton(R.string.btnOK) { _, _ ->
