@@ -10,34 +10,34 @@ import fit.tdc.edu.vn.cafemanagement.R
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.login.LoginFormState
-import fit.tdc.edu.vn.cafemanagement.data.repository.login.LoginRepository
+import fit.tdc.edu.vn.cafemanagement.data.repository.auth.AuthRepositoryImpl
 import fit.tdc.edu.vn.cafemanagement.util.isPasswordValid
 import fit.tdc.edu.vn.cafemanagement.util.isUserNameValid
 
 class LoginViewModel(
-    private val loginRepository: LoginRepository,
+    private val authRepository: AuthRepositoryImpl,
     application: Application
 ) : AndroidViewModel(application) {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = loginRepository.loginResult
+    private val _loginResult = authRepository.loginResult
     val loginResult = _loginResult
 
     fun login(username: String, password: String, context: Context) {
         if (_loginResult.value?.status == Status.LOADING) {
             return
         }
-        if (loginRepository.isLoggedIn) {
+        if (authRepository.isLoggedIn) {
             _loginResult.value = FirestoreResource.error(Exception("Already employeeLogin"))
             return
         }
 
         if (Patterns.EMAIL_ADDRESS.matcher(username).matches()) {
-            loginRepository.managerLogin(username, password, context)
+            authRepository.managerLogin(username, password, context)
         } else {
-            loginRepository.employeeLogin(username, password, context)
+            authRepository.employeeLogin(username, password, context)
         }
     }
 
@@ -72,5 +72,5 @@ class LoginViewModel(
         }
     }
 
-    fun logout() = loginRepository.logout()
+    fun logout() = authRepository.logout()
 }

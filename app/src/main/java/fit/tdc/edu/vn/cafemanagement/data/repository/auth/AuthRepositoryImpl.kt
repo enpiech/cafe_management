@@ -1,12 +1,12 @@
-package fit.tdc.edu.vn.cafemanagement.data.repository.login
+package fit.tdc.edu.vn.cafemanagement.data.repository.auth
 
 import android.content.Context
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.LoginDataSource
+import fit.tdc.edu.vn.cafemanagement.data.data_source.firebase.AuthDataSourceImpl
 import fit.tdc.edu.vn.cafemanagement.data.extension.FirestoreResource
 import fit.tdc.edu.vn.cafemanagement.data.extension.Status
 import fit.tdc.edu.vn.cafemanagement.data.model.user.User
+import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -15,7 +15,9 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class LoginRepository(val dataSource: LoginDataSource) {
+class AuthRepositoryImpl @Inject constructor(
+    private val dataSourceImpl: AuthDataSourceImpl
+) {
 
     private var context: Context? = null
 
@@ -34,7 +36,7 @@ class LoginRepository(val dataSource: LoginDataSource) {
         // @see https://developer.android.com/training/articles/keystore
         loggedInUser = null
         _loginResult.value = null
-        _loginResult.addSource(dataSource.result) {
+        _loginResult.addSource(dataSourceImpl.result) {
             if (it == null) {
                 return@addSource
             }
@@ -51,19 +53,19 @@ class LoginRepository(val dataSource: LoginDataSource) {
 
     fun logout() {
         loggedInUser = null
-        dataSource.logout()
+        dataSourceImpl.logout()
     }
 
     fun employeeLogin(username: String, password: String, context: Context) {
         this.context = context
         _loginResult.value = FirestoreResource.loading()
-        dataSource.employeeLogin(username, password, context)
+        dataSourceImpl.employeeLogin(username, password, context)
     }
 
     fun managerLogin(username: String, password: String, context: Context) {
         this.context = context
         _loginResult.value = FirestoreResource.loading()
-        dataSource.managerLogin(username, password, context)
+        dataSourceImpl.managerLogin(username, password, context)
     }
 
     private fun setLoggedInUser(loggedInUser: User) {

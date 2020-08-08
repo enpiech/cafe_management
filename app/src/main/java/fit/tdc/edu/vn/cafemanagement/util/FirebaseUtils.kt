@@ -58,8 +58,8 @@ fun DocumentSnapshot.getUserIfUserNameMatchPassword(context: Context, password: 
     val user = userDocument.toObject(User::class.java)?.apply {
         id = userDocument.id
     }
-
-    user?.saveInfoToLocal(context, user.role ?: User.Role.WAITER) ?: return FirestoreResource.error(Exception("Cannot parse user document to object"))
+//
+//    user?.saveInfoToLocal(context, user.role ?: User.Role.WAITER) ?: return FirestoreResource.error(Exception("Cannot parse user document to object"))
 
     return FirestoreResource.success(user)
 }
